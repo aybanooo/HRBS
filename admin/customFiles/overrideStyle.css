@@ -1,0 +1,9 @@
+:root {
+    --primary-color: #007bff;
+    --color-reservationLargeCardsHeader: #007bff;
+    --color-reservationLargeCardsHeaderText: black;
+}
+
+.reservationLargeCards .card-header {
+    background-color: var(--color-reservationLargeCardsHeader) !important;
+}

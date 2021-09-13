@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hotel Reservation System Admin</title>
+  <script>document.write(`<base href="${window.location.origin}/admin/">`);</script>
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <!-- Ion Icons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="dist/css/adminlte.min.css">
+  <!-- jsGrid -->
+  <link rel="stylesheet" href="plugins/jsgrid/jsgrid.min.css">
+  <link rel="stylesheet" href="plugins/jsgrid/jsgrid-theme.min.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- Special Style-->
+  <link rel="stylesheet" href="customFiles/specialStyle.css">
+  
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="./" class="brand-link text-center">
+      <span class="brand-text font-weight-light">Hotel Reservation System</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <!-- Dashboard -->
+          <li class="nav-item menu-close">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="./" class="nav-link">
+                  <i class="fas fa-receipt nav-icon"></i>
+                  <p>Reservations</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="analytics" class="nav-link">
+                  <i class="fas fa-chart-pie nav-icon"></i>
+                  <p>Web Analytics</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Pages -->
+          <li class="nav-item menu-close">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-file"></i>
+              <p>
+                Pages
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="rooms" class="nav-link">
+                  <i class="fas fa-door-closed nav-icon"></i>
+                  <p>Rooms</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="amenities" class="nav-link">
+                  <i class="fas fa-car nav-icon"></i>
+                  <p>Amenities</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Accounts -->
+          <li class="nav-item">
+            <a href="accounts" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Accounts
+              </p>
+            </a>
+          </li>
+
+          <!-- Billing -->
+          <li class="nav-item">
+            <a href="billing" class="nav-link">
+              <i class="nav-icon fas fa-money-bill"></i>
+              <p>
+                Billing
+              </p>
+            </a>
+          </li>
+
+          <!-- Vouchers -->
+          <li class="nav-item">
+            <a href="vouchers" class="nav-link">
+              <i class="nav-icon fas fa-tags"></i>
+              <p>
+                Vouchers
+              </p>
+            </a>
+          </li>
+
+          <!-- Settings -->
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-cogs"></i>
+              <p>
+                Settings
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="appearance" class="nav-link">
+                  <i class="fas fa-image nav-icon"></i>
+                  <p>Appearance</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="webpage" class="nav-link active">
+                  <i class="fas fa-file nav-icon"></i>
+                  <p>Webpage</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="profile" class="nav-link">
+                  <i class="fas fa-user nav-icon"></i>
+                  <p>My Account</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- Logout -->
+          <li class="nav-item">
+            <a href="login" class="nav-link">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p>
+                Logout
+              </p>
+            </a>
+          </li>
+          
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Settings</h1>
+          </div>
+          <div class="col-sm-6">
+            <div class="row mt-3 mt-sm-0 ">
+              <div class="col-6"></div>
+              <div class="col-6">
+                <a href="javascript: void(0)" onclick="saveData()"><button class="btn btn-success btn-block">Save</button></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <!-- Company Name card-->
+          <div class="col-12 ">
+            <div class="card">
+              <div class="card-header">
+                <h3  class="card-title">Company Name</h3>
+              </div>
+              <div class="card-body">
+                <div class="container-fluid p-0 m-0">
+                  <div class="row mb-3">
+                    <div class="col">
+                      <div class="container-fluid p-0 m-0 ce-noenter ce-noblank">
+                        <h3 id="companyName" contenteditable="True" class="text-center"></h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Company Name card end-->
+          <!-- Cover card-->
+          <div class="col-12 ">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Page Cover</h3>
+              </div>
+              <div class="card-body">
+                <div class="container-fluid p-0 m-0">
+                  <div class="row mb-3">
+                    <div class="col">
+                      <div class="container-fluid coverContainer p-0 m-0">
+                        <img src="assets/images/defaults/default-image-landscape.png" class="img w-100" alt="Responsive image">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-3 text-center">
+                      <button type="button" class="btn btn-block btn-default">Change</button>
+                    </div>
+                    <div class="col-3 text-center">
+                      <button type="button" class="btn btn-block btn-default">Remove</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Cover card end-->
+        </div>
+        <div class="row">
+          <!-- Company logo col -->
+          <div class="col-12 col-sm-6">
+            <div class="row">
+              <div class="container-fluid">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Logo</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="container-fluid p-0 m-0">
+                      <div class="row mb-3">
+                        <div class="col">
+                          <div class="container-fluid">
+                            <img id="adminCompLogo" src="assets/images/defaults/default-150x150.png" class="img mx-auto d-block" alt="Responsive image">
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col text-center">
+                          <button type="button" class="btn btn-block btn-default">Change</button>
+                        </div>
+                        <div class="col text-center">
+                          <button type="button" class="btn btn-block btn-default">Remove</button>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col">
+                          <div class="custom-control custom-switch">
+                            <input type="checkbox" class="custom-control-input" id="showLogoInAdmin">
+                            <label class="custom-control-label" for="showLogoInAdmin">Show in admin's navigation</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="container-fluid">
+                <div class="card">
+                  <div class="card-header">
+                    <h3>Social Media Links</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label for="socmed1">Instagram</label>
+                      <input type="url" class="form-control form-control-border border-width-2" id="socmed1" placeholder="www.instagram.com/yourcompanypage">
+                    </div>
+                    <div class="form-group">
+                      <label for="socmed2">Facebook</label>
+                      <input type="url" class="form-control form-control-border border-width-2" id="socmed2" placeholder="www.facebook.com/yourcompanypage">
+                    </div>
+                    <div class="form-group">
+                      <label for="socmed3">Twitter</label>
+                      <input type="url" class="form-control form-control-border border-width-2" id="socmed3" placeholder="www.twitter.com/yourcompanypage">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Company logo card end-->
+
+          <!-- Company contact Info card -->
+          <div class="col-12 col-sm-6">
+            <div class="row">
+              <div class="container-fluid">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">Contact Info</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label for="contactNum">Phone/Telephone #</label>
+                      <input type="tel" class="form-control form-control-border border-width-2" id="contactNum" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
+                    </div>
+                    <div class="form-group">
+                      <label for="emailAd">Email Address</label>
+                      <input type="email" class="form-control form-control-border border-width-2" id="emailAd">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="container-fluid">
+                <div class="card">
+                  <div class="card-header">
+                    <h3>Display</h3>
+                  </div>
+                  <div class="card-body">
+                    <div class="form-group">
+                      <label>Currency</label>
+                      <select class="custom-select">
+                        <option value="USD" selected="selected">United States Dollars</option>
+                        <option value="EUR">Euro</option>
+                        <option value="GBP">United Kingdom Pounds</option>
+                        <option value="DZD">Algeria Dinars</option>
+                        <option value="ARP">Argentina Pesos</option>
+                        <option value="AUD">Australia Dollars</option>
+                        <option value="ATS">Austria Schillings</option>
+                        <option value="BSD">Bahamas Dollars</option>
+                        <option value="BBD">Barbados Dollars</option>
+                        <option value="BEF">Belgium Francs</option>
+                        <option value="BMD">Bermuda Dollars</option>
+                        <option value="BRR">Brazil Real</option>
+                        <option value="BGL">Bulgaria Lev</option>
+                        <option value="CAD">Canada Dollars</option>
+                        <option value="CLP">Chile Pesos</option>
+                        <option value="CNY">China Yuan Renmimbi</option>
+                        <option value="CYP">Cyprus Pounds</option>
+                        <option value="CSK">Czech Republic Koruna</option>
+                        <option value="DKK">Denmark Kroner</option>
+                        <option value="NLG">Dutch Guilders</option>
+                        <option value="XCD">Eastern Caribbean Dollars</option>
+                        <option value="EGP">Egypt Pounds</option>
+                        <option value="FJD">Fiji Dollars</option>
+                        <option value="FIM">Finland Markka</option>
+                        <option value="FRF">France Francs</option>
+                        <option value="DEM">Germany Deutsche Marks</option>
+                        <option value="XAU">Gold Ounces</option>
+                        <option value="GRD">Greece Drachmas</option>
+                        <option value="HKD">Hong Kong Dollars</option>
+                        <option value="HUF">Hungary Forint</option>
+                        <option value="ISK">Iceland Krona</option>
+                        <option value="INR">India Rupees</option>
+                        <option value="IDR">Indonesia Rupiah</option>
+                        <option value="IEP">Ireland Punt</option>
+                        <option value="ILS">Israel New Shekels</option>
+                        <option value="ITL">Italy Lira</option>
+                        <option value="JMD">Jamaica Dollars</option>
+                        <option value="JPY">Japan Yen</option>
+                        <option value="JOD">Jordan Dinar</option>
+                        <option value="KRW">Korea (South) Won</option>
+                        <option value="LBP">Lebanon Pounds</option>
+                        <option value="LUF">Luxembourg Francs</option>
+                        <option value="MYR">Malaysia Ringgit</option>
+                        <option value="MXP">Mexico Pesos</option>
+                        <option value="NLG">Netherlands Guilders</option>
+                        <option value="NZD">New Zealand Dollars</option>
+                        <option value="NOK">Norway Kroner</option>
+                        <option value="PKR">Pakistan Rupees</option>
+                        <option value="XPD">Palladium Ounces</option>
+                        <option value="PHP">Philippines Pesos</option>
+                        <option value="XPT">Platinum Ounces</option>
+                        <option value="PLZ">Poland Zloty</option>
+                        <option value="PTE">Portugal Escudo</option>
+                        <option value="ROL">Romania Leu</option>
+                        <option value="RUR">Russia Rubles</option>
+                        <option value="SAR">Saudi Arabia Riyal</option>
+                        <option value="XAG">Silver Ounces</option>
+                        <option value="SGD">Singapore Dollars</option>
+                        <option value="SKK">Slovakia Koruna</option>
+                        <option value="ZAR">South Africa Rand</option>
+                        <option value="KRW">South Korea Won</option>
+                        <option value="ESP">Spain Pesetas</option>
+                        <option value="XDR">Special Drawing Right (IMF)</option>
+                        <option value="SDD">Sudan Dinar</option>
+                        <option value="SEK">Sweden Krona</option>
+                        <option value="CHF">Switzerland Francs</option>
+                        <option value="TWD">Taiwan Dollars</option>
+                        <option value="THB">Thailand Baht</option>
+                        <option value="TTD">Trinidad and Tobago Dollars</option>
+                        <option value="TRL">Turkey Lira</option>
+                        <option value="VEB">Venezuela Bolivar</option>
+                        <option value="ZMK">Zambia Kwacha</option>
+                        <option value="EUR">Euro</option>
+                        <option value="XCD">Eastern Caribbean Dollars</option>
+                        <option value="XDR">Special Drawing Right (IMF)</option>
+                        <option value="XAG">Silver Ounces</option>
+                        <option value="XAU">Gold Ounces</option>
+                        <option value="XPD">Palladium Ounces</option>
+                        <option value="XPT">Platinum Ounces</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="rFooter">Footer Right Text</label>
+                      <input type="text" class="form-control form-control-border border-width-2" id="socmed3" placeholder="Enter any text here e.g Copyright">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="container-fluid">
+                <div class="card">
+                  <div class="card-header">
+                    <div class="form-group">
+                      <label for="loc">Address</label>
+                      <input type="text" class="form-control form-control-border border-width-2" id="address" placeholder="Hotel address">
+                    </div>
+                    <div class="form-group">
+                      <label for="loc">Latitude, Longitude</label>
+                      <input type="text" class="form-control form-control-border border-width-2" id="loc" placeholder="14.581860858430435, 120.977005522402">
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="embed-responsive embed-responsive-1by1">
+                      <iframe id="map" class="embed-responsive-item" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyANA3u1iWaTsQ1tbJsEyzhKhZ8JZXb3XMg
+                      &q=14.581860858430435, 120.977005522402"></iframe>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Company contact Info card end-->
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <!-- To the right -->
+    <div class="float-right d-none d-sm-inline">
+      Anything you want
+    </div>
+    <!-- Default to the left -->
+    <strong>Copyright &copy; 2020-2021 <a href="#">Link Here</a>.</strong> All rights reserved.
+  </footer>
+</div>
+<!-- ./wrapper -->
+
+<!-- REQUIRED SCRIPTS -->
+
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- DataTables  & Plugins -->
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
+<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
+<script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
+<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
+<script src="plugins/jszip/jszip.min.js"></script>
+<script src="plugins/pdfmake/pdfmake.min.js"></script>
+<script src="plugins/pdfmake/vfs_fonts.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
+<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="plugins/toastr/toastr.min.js"></script>
+<!-- jquery-validation -->
+<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="plugins/jquery-validation/additional-methods.min.js"></script>
+<!-- Special Script-->
+<script src="customFiles/initialize Toastr.js"></script>
+<script src="customFiles/customScript.js"></script>
+<script>
+
+var origText = "";
+
+$(".ce-noblank").on("focus","*[contentEditable=\"True\"]", function(){
+  origText = $(this).text();
+});
+
+$(".ce-noblank").on("focusout","*[contentEditable=\"True\"]", function(){
+  if($(this).text()==""){
+    $(this).text(origText);
+  } 
+});
+
+$(".ce-blankremove").on("focusout","*[contentEditable=\"True\"]", function(){
+  if($(this).text()==""){
+    $(this).closest('li').remove();
+  } 
+});
+
+settings = {
+      maxLen: 25,
+    }
+
+    keys = {
+      'backspace': 8,
+      'shift': 16,
+      'ctrl': 17,
+      'alt': 18,
+      'delete': 46,
+      // 'cmd':
+      'leftArrow': 37,
+      'upArrow': 38,
+      'rightArrow': 39,
+      'downArrow': 40,
+    }
+
+    utils = {
+      special: {},
+      navigational: {},
+      isSpecial(e) {
+        return typeof this.special[e.keyCode] !== 'undefined';
+      },
+      isNavigational(e) {
+        return typeof this.navigational[e.keyCode] !== 'undefined';
+      }
+    }
+
+    utils.special[keys['backspace']] = true;
+    utils.special[keys['shift']] = true;
+    utils.special[keys['ctrl']] = true;
+    utils.special[keys['alt']] = true;
+    utils.special[keys['delete']] = true;
+
+    utils.navigational[keys['upArrow']] = true;
+    utils.navigational[keys['downArrow']] = true;
+    utils.navigational[keys['leftArrow']] = true;
+    utils.navigational[keys['rightArrow']] = true;
+
+    $(".ce-noenter").on("keydown","*[contentEditable=\"True\"]", function(event){
+      if (event.which == 13)
+        document.activeElement.blur()
+    });
+
+    $("#loc").keydown(function() {
+      if (event.which == 13)
+        document.activeElement.blur()
+    });
+
+    $(".ce-shiftenter").on("keydown","*[contentEditable=\"True\"]", function(event){
+      if (event.which === 13 && event.shiftKey === false)
+        return false;
+    });
+
+    $(".ce-limit").on("keydown","*[contentEditable=\"True\"]", function(event){
+      let len = event.target.innerText.trim().length;
+      hasSelection = false;
+      selection = window.getSelection();
+      isSpecial = utils.isSpecial(event);
+      isNavigational = utils.isNavigational(event);
+      
+      if (selection) {
+        hasSelection = !!selection.toString();
+      }
+      
+      if (isSpecial || isNavigational) {
+        return true;
+      }
+      
+      if (len >= settings.maxLen && !hasSelection) {
+        event.preventDefault();
+        return false;
+      }
+      
+  });
+
+$("#loc").focusout(function() {
+  if($(this).val()==""){
+    $(this).val(origText);
+    var location = $("#map").attr('src');
+    location = location.substring(0,location.indexOf('&q=')+3) + $(this).val();
+    $("#map").attr('src', location);
+  }
+});
+
+$('#loc').on('input', function() {
+  var location = $("#map").attr('src');
+  location = location.substring(0,location.indexOf('&q=')+3) + $(this).val();
+  $("#map").attr('src', location);
+});
+
+$("#loc").focus(function(){
+  origText = $(this).val();
+});
+
+function saveData() {
+  $.ajax({
+    type: "get",
+    url: "customFiles/php/database/webPageControls/saveWebPageSettings.php",
+    data: {
+      hotelName: $("#companyName").text(),
+      hotelContact: $("#contactNum").val(),
+      hotelEmailAd: $("#emailAd").val(),
+      hotelAddress: $("#address").val(),
+      hotelLatLong: $("#loc").val()
+    },
+    success: function (response) {
+      //console.log(response);
+      if(parseInt(response)) {
+        Toast.fire({
+          icon: 'success',
+          title: 'Changes have been saved.'
+        });
+      }
+      else {
+        Toast.fire({
+          icon: 'error',
+          title: 'Failed to save changes.'
+        });
+      }
+    }
+  });
+}
+
+function loadData() {
+  $.ajax({
+    type: "post",
+    url: "customFiles/php/database/webPageControls/loadWebPageSettings.php",
+    success: function (response) {
+      data = JSON.parse(response);
+      console.log(data);
+      $("#companyName").text(data["companyName"]);
+      $("#contactNum").val(data["contact"]);
+      $("#emailAd").val(data["email"]);
+      $("#address").val(data["address"]);
+      $("#loc").val(`${data["latitude"]}${( (/\S/.test(data["longitude"])) ? "," : "")}${data["longitude"]}`);
+      $("#map").attr('src', `https://www.google.com/maps/embed/v1/place?key=AIzaSyANA3u1iWaTsQ1tbJsEyzhKhZ8JZXb3XMg
+                      &q=${data["latitude"]}${( (/\S/.test(data["longitude"])) ? "," : "")}${data["longitude"]}`)
+
+
+      console.log( data["companyName"] );
+    }
+  });
+}
+
+document.addEventListener("keydown", function(e) {
+  if ((window.navigator.platform.match("Mac") ? e.metaKey : e.ctrlKey)  && e.keyCode == 83) {
+    e.preventDefault();
+    saveData();
+  }
+}, false);  
+
+loadData()
+
+</script>
+
+</body>
+</html>
