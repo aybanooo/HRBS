@@ -4,4 +4,5 @@
 
  Allowed characters when naming branches
     
-    , _ /
+    , _ (tawagin natin tong branch file)
+    / (pang branch directory) 
