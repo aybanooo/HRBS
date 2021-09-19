@@ -33,8 +33,10 @@ function delRoomInList(evt, roomID) {
         icon: response.isSuccessful ? "success" : "error",
         title: response.isSuccessful ? "Room has been sucessfuly deleted." : "Failed to delete room. "+response.error.desc
       });
+      refreshManageRoomNumSelectElements();
     }
   });
+  
 }
 
 function addRoomSection() {
@@ -254,7 +256,7 @@ function addRoomEntry(roomID , roomName, roomDescription = "Description of the r
 
   var td = document.createElement('td');
   td.style = 'word-break:break-all;';
-
+  
   var mainDiv = document.createElement('div');
   mainDiv.className = 'container-fluid bg-white rounded p-3 room-container';
   mainDiv.style = 'background: url(\'/public_assets/rooms/'+roomID+'/'+roomID+'-cover.jpg\') no-repeat left center /cover';
