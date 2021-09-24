@@ -1,0 +1,49 @@
+.a-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: brown;
+    z-index: 1;
+}
+.card--skeleton {
+    overflow: hidden !important;
+}
+
+.nav--skeleton {
+    height: 31px !important;
+}
+
+.card--skeleton :is(.nav--skeleton, .image--skeleton) {
+  background: #eee;
+}
+
+.card--skeleton::before {
+content: '';
+position: absolute;
+background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.9),
+    transparent
+);
+width: 50%;
+height: 100%;
+top: 0;
+left: 0;
+}
+
+@keyframes loading {
+    0% {
+      transform: skewX(-10deg) translateX(-100%);
+    }
+    100% {
+      transform: skewX(-10deg) translateX(200%);
+    }
+  }
+
+  .card--skeleton::before {
+    /* Refer the Keyframe inside the Animation */
+    animation: loading 0.6s infinite;
+  }
