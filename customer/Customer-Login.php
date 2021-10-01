@@ -132,9 +132,8 @@
 		width:80%;
 		margin-bottom:25px;
  	}
-	 .error {color: #FF0000;}
 	</style>
-	<title>Login</title> 
+	<title>Login</title>
 </head>
 <body>
 		<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -158,25 +157,11 @@
 		<div class="loginForm">
 			<div class="row">
                 <div class="col-lg-12 mx-auto">
-<<<<<<< Updated upstream:customer/Customer-Login.html
 			    	<h1><b>Login</b></h1>
-=======
-					<?php
-						if(isset($_GET['msg'])){
-							echo "<center><h4>" . $_GET['msg'] . "</h4></center>";
-						}
-					?>
-			    	<h1><b>Verification</b></h1>
->>>>>>> Stashed changes:customer/Customer-Login.php
 			    	<hr class="new1">
-			    		<form action="Customer-Email_Verification.php" method="POST" >
+			    		<form method="POST" action="">
 							<tr>
-<<<<<<< Updated upstream:customer/Customer-Login.html
 								<td><input type = "text" name = "email" required placeholder = "Email Address/Phone Number"></td>	
-=======
-								<td><input type = "text" name = "email" required placeholder = "email / phone number"></td>	
-								
->>>>>>> Stashed changes:customer/Customer-Login.php
 							</tr>					
 							
 							<tr>
