@@ -22,6 +22,12 @@ $queryRoom="SELECT roomName, roomDesc FROM roomtype";
 $result3=mysqli_query($conn, $queryInfo);
 $queryInfo="SELECT info FROM roominfo";
 
+$result4=mysqli_query($conn, $queryHome);
+$queryHome="SELECT * FROM companyinfo";
+
+$result5=mysqli_query($conn, $queryAmenities);
+$queryAmenities="SELECT amenityName, amenityDesc FROM amenities";
+
 
 ?>
 
@@ -39,19 +45,7 @@ $queryInfo="SELECT info FROM roominfo";
         <link href="css/styles.css" rel="stylesheet"/>
         <link rel="stylesheet" href="dist/simplepicker.css">
 
-        <script>
-            function initMap() { 
-                const uluru = { lat: 59.9407, lng: 30.3254 };
-                const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 15,
-                center: uluru,
-            });
-                const marker = new google.maps.Marker({
-                position: uluru,
-                map: map,
-                });
-            }
-        </script>
+
         
 		<style type="text/css">
         map {
@@ -167,7 +161,13 @@ $queryInfo="SELECT info FROM roominfo";
     <body id="page-top">
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top">The Grand Budapest</a>
+                <a class="navbar-brand js-scroll-trigger" href="#page-top">
+                    <?php             
+                        if (mysqli_num_rows($result4)>0) {
+                            echo $row["companyName"];
+                        } 
+                    ?>
+                </a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
@@ -186,7 +186,13 @@ $queryInfo="SELECT info FROM roominfo";
         <header class="masthead">
             <div class="container d-flex h-100 align-items-center">
                 <div class="mx-auto text-center">
-                    <h1 class="mx-auto my-0 text-uppercase">THE GRAND BUDAPEST</h1>
+                    <h1 class="mx-auto my-0 text-uppercase">
+                    <?php             
+                        if (mysqli_num_rows($result4)>0) {
+                            echo $row["companyName"];
+                        } 
+                    ?>
+                    </h1>
                     <h2 class="text-white-50 mx-auto mt-2 mb-5">THE GRAND BUDAPEST is located in the heart of the historic center of Florence in an extremely characteristic, quite and lively area within short walk distance to all sites and is surrounded by the extraordinary beauty of churches, buildings, shops and monuments. Cellai Hotel is part of a lovingly restored 1800 palace. </h2>
                     <a class="btn btn-primary js-scroll-trigger" href="#about">Check Available Dates</a>
                 </div>
@@ -219,7 +225,6 @@ $queryInfo="SELECT info FROM roominfo";
         <!-- Projects-->
         <?php
             while($row=mysqli_fetch_assoc($result2)){
-            }
         ?>
         <section class="projects-section bg-light" id="rooms">
             <div class="container">
@@ -228,8 +233,8 @@ $queryInfo="SELECT info FROM roominfo";
                     <div class="col-xl-8 col-lg-7"><a href="B.0-Customer-Rooms-Room-Details-Modified.html"><img class="img-fluid mb-3 mb-lg-0" src="https://806d2bf04cf5fa54997a-e7c5344b3b84eec5da7b51276407b19c.ssl.cf1.rackcdn.com/responsive/1536/806d2bf04cf5fa54997a-e7c5344b3b84eec5da7b51276407b19c.ssl.cf1.rackcdn.com/u/conservatorium/rooms/penthouse/Penthouse-Suite---900--1-.jpg" alt="" /></a></div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
-                            <?php echo "<h4>" .$row["roomName"]. "</h4>"; ?>
-                            <?php echo "<p class='text-black-50 mb-0'>".$row["roomDesc"]."</p>";?>
+                            <h4><?php echo $row["roomName"] ?></h4>
+                            <p class='text-black-50 mb-0'><?php echo $row["roomDesc"]; ?></p>
                         </div>
                     </div>
                 </div>
@@ -237,8 +242,8 @@ $queryInfo="SELECT info FROM roominfo";
                     <div class="col-xl-8 col-lg-7"><a href="B.0-Customer-Rooms-Room-Details-Modified-2.html"><img class="img-fluid mb-3 mb-lg-0" src="https://imagesvc.meredithcorp.io/v3/mm/image?q=85&c=sc&poi=face&w=2000&h=1333&url=https%3A%2F%2Fstatic.onecms.io%2Fwp-content%2Fuploads%2Fsites%2F28%2F2016%2F03%2FPenthouse-Suite-press-hotel-PENT0316.jpg" alt="" /></a></div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
-                            <h4>Peninsula Suite</h4>
-                            <p class="text-black-50 mb-0">Experience a relaxing stay in this modern guest room with a king-sized signature Peninsula Vibe. Unwind while watching your favorite show on the 55-inch smart LED television or luxuriate in the beautiful bathroom that comes with a separate bathtub and rain shower.</p>
+                            <h4><?php echo $row["roomName"] ?></h4>
+                            <p class='text-black-50 mb-0'><?php echo $row["roomDesc"]; ?></p>
                         </div>
                     </div>
                 </div>
@@ -246,11 +251,17 @@ $queryInfo="SELECT info FROM roominfo";
                     <div class="col-xl-8 col-lg-7"><a href="B.0-Customer-Rooms-Room-Details-Modified-3.html"><img class="img-fluid mb-3 mb-lg-0" src="https://markhotel-production.s3.amazonaws.com/app/uploads/2018/05/SFrances_180105_2531_B-2000x1399.jpg" alt="" /></a></div>
                     <div class="col-xl-4 col-lg-5">
                         <div class="featured-text text-center text-lg-left">
-                            <h4>Royal Penthouse</h4>
-                            <p class="text-black-50 mb-0">Experience a relaxing stay in this modern guest room with a king-sized signature Royal Penthouse. Unwind while watching your favorite show on the 55-inch smart LED television or luxuriate in the beautiful bathroom that comes with a separate bathtub and rain shower.</p>
+                            <h4><?php echo $row["roomName"] ?></h4>
+                            <p class='text-black-50 mb-0'><?php echo $row["roomDesc"]; ?></p>
                         </div>
                     </div>
                 </div>
+        <?php
+            }
+        ?>
+        <?php
+            while($row=mysqli_fetch_assoc($result5)){
+        ?>
                 <!-- Project One Row-->
                 <div class="row justify-content-center no-gutters mb-5 mb-lg-0"  id="amenities">
                     <div class="col-lg-6"><img class="img-fluid" src="https://cf.bstatic.com/data/xphoto/1182x887/217/21775845.jpg?size=S" alt="" /></div>
@@ -258,9 +269,8 @@ $queryInfo="SELECT info FROM roominfo";
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
-                                    <div class="roomright"><h4 class="text-white">Infinity Pool</h4>
-                                    <p class="mb-0 text-white-50">In a 6,000 sqm old orange grove next to the hotel, we have created our Relax Garden Swimming-pool. This is an adults-only (16+) area and an area of relaxation - no music, no animation. The entrance for children is forbidden.
-This pool is open from mid-May to mid-October, 10:00 18:00, times and dates are subject to change according to weather conditions. </p>
+                                    <div class="roomright"><h4 class="text-white"><?php echo $row["amenityName"]; ?></h4>
+                                    <p class="mb-0 text-white-50"><?php echo $row["amenityDesc"]; ?></p>
                                     <hr class="d-none d-lg-block mb-0 ml-0" />
 									</div>
                                 </div>
@@ -275,8 +285,8 @@ This pool is open from mid-May to mid-October, 10:00 18:00, times and dates are 
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <div class="roomleft"><h4 class="text-white">Bar</h4>
-                                    <p class="mb-0 text-white-50">Enjoy a drink in our spacious lounge bar, is a truly enjoyable experience – the views of the natural harbour. There is a full range of bar drinks including a wide selection of spirits, Whisky, Brandy and Liqueurs, soft drinks and  beer including and Falkland Islands only real ale. </p>
+                                    <div class="roomleft"><h4 class="text-white"><?php echo $row["amenityName"]; ?><?php echo $row["amenityName"]; ?></h4>
+                                    <p class="mb-0 text-white-50"><?php echo $row["amenityDesc"]; ?></p>
                                     <hr class="d-none d-lg-block mb-0 ml-0" />
 									</div>
                                 </div>
@@ -291,8 +301,8 @@ This pool is open from mid-May to mid-October, 10:00 18:00, times and dates are 
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
-                                    <div class="roomright"><h4 class="text-white">Gym</h4>
-                                    <p class="mb-0 text-white-50">Paired with an outdoor activity space, our 24-hour indoor gym opens more options for a variety of exercises and provides an encouraging set-up designed for all fitness levels.</p>
+                                    <div class="roomright"><h4 class="text-white"><?php echo $row["amenityName"]; ?></h4>
+                                    <p class="mb-0 text-white-50"><?php echo $row["amenityDesc"]; ?></p>
                                     <hr class="d-none d-lg-block mb-0 ml-0" />
 									</div>
                                 </div>
@@ -301,6 +311,9 @@ This pool is open from mid-May to mid-October, 10:00 18:00, times and dates are 
                     </div>
                 </div>
             </div>
+        <?php
+            }
+        ?>
         </section>
         <!-- Map-->
         <section class="map-section bg-light" id="map">
@@ -386,6 +399,19 @@ This pool is open from mid-May to mid-October, 10:00 18:00, times and dates are 
             var input = document.querySelector('#test2');
             input.value = readableDate;
         });
+    </script>
+    <script>
+        function initMap() { 
+            const uluru = { lat: 59.9407, lng: 30.3254 };
+            const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 15,
+            center: uluru,
+        });
+            const marker = new google.maps.Marker({
+            position: uluru,
+            map: map,
+            });
+        }
     </script>
 
 
