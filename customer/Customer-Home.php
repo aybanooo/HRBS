@@ -45,7 +45,6 @@ $queryAmenities="SELECT amenityName, amenityDesc FROM amenities";
         <link href="css/styles.css" rel="stylesheet"/>
         <link rel="stylesheet" href="dist/simplepicker.css">
 
-
         
 		<style type="text/css">
         map {
