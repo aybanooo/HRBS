@@ -737,10 +737,6 @@ $('#changeAccRoleForm').validate({
       $(element).removeClass('is-invalid');
     },
     submitHandler: function () {
-      Toast.fire({
-              icon: 'success',
-              title: 'The role have been changed.'
-      });
       newRole = $('#inputChangeAccRole option:selected').text();
       findThis = $('#empIDChangeRole').val();
       $('#accountTable').find(`td:contains('${findThis}')`).parent(0).find('.changeAccRole').text(newRole);
@@ -757,7 +753,6 @@ $('#changeAccRoleForm').validate({
           empID: findThis,
           newAccessID: $('#inputChangeAccRole option:selected').val()
         },
-        async: false,
         success: function (response){
           if(parseInt(response)){
             Toast.fire({
@@ -768,7 +763,7 @@ $('#changeAccRoleForm').validate({
           else {
             Toast.fire({
               icon: 'error',
-              title: 'Role update failed.'
+              title: 'Role update failed. '+response
            });
           }
         },
@@ -954,7 +949,7 @@ $('#newAccForm').validate({
                         <input type="checkbox" class="form-check-input accountCheckbox" value="${entry.empID}">
                       </div>`;
           editButtonWithID = String.raw`<a data-toggle="modal" data-target="#resetPassModal" href="javascript: void(0)" class="hoverable-primary" data-value="${entry.empID}">Reset</a>`;
-                      nodedRole = `<a data-toggle="modal" data-target="#changeAccRoleModal" href="javascript: void(0)" class="hoverable-primary changeAccRole">${entry.accessname}</a>`;
+                      nodedRole = `<a data-toggle="modal" data-target="#changeAccRoleModal" href="javascript: void(0)" class="hoverable-primary changeAccRole" data-value="${entry.empID}">${entry.accessname}</a>`;
           table.row.add( [
             checkboxWithID,
             entry.empID,

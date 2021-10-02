@@ -1,8 +1,13 @@
 <?php
-require_once("../../directories/directories.php");
+
+
+$phpDIR = dirname(__FILE__,2);
+
+require_once("$phpDIR/directories/directories.php");
 
 //type = 0 if value needs to be true or false
 // type = 1 if value needs to be a digit
+// type = null no removal will be made
 function prepareForSQL(&$conn, &$val, $type = null) {
     if (!is_null($type)) {
         if($type == 0)  {
@@ -14,6 +19,18 @@ function prepareForSQL(&$conn, &$val, $type = null) {
         $val = trim($val);
     }
     $val = mysqli_real_escape_string($conn, $val);
+}
+
+function convertToServerTime(&$datetime) {
+    $datetime =  date('Y-m-d H:i:s', strtotime($datetime));
+}
+
+function setEmptyVarsToZero(&$var) {
+    $var = empty($var) ? 0 : $var;
+}
+
+function limitChars(&$var, $length = 0) {
+    $var = substr($var, 0, $length);
 }
 
 ?>
