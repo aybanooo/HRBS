@@ -204,8 +204,9 @@ getCheckableRoomList();
                 type: "post",
                 url: "/admin/customFiles/php/database/voucherControls/createVoucher.php",
                 data: $(form).serializeArray(),
-                dataType: 'json',
+                dataType: "json",
                 success: function (response) {
+                    //console.log(response);
                     toggleButtonDisabled("#newVoucher button[type='submit']", "#newVoucher");
                     Toast.fire({
                         icon: response.status,
