@@ -478,7 +478,7 @@ function removeNewAccImg() {
 
 $('#accountTable').on('click', '.changeAccRole', function() {
   ActiveRole = $(this).text();
-  empID = $(this).parents().eq(1).find('td').eq(1).text();
+  empID = $(this).attr('data-value');
   $('#empIDChangeRole').val(empID);
   selects = $('#inputRole').clone();
   target = $('#inputChangeRole');
