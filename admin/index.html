@@ -16,6 +16,10 @@
   <!-- jsGrid -->
   <link rel="stylesheet" href="plugins/jsgrid/jsgrid.min.css">
   <link rel="stylesheet" href="plugins/jsgrid/jsgrid-theme.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="plugins/toastr/toastr.min.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
@@ -403,8 +407,9 @@
   </div>
   <!-- /.content-wrapper -->
 
+  <!-- Reservation view modal -->
   <div class="modal fade" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="reservationModalTitle"><strong id="reservationID">#</strong> Reservation</h5>
@@ -467,73 +472,7 @@
               </div>
               <div class="row">
                 <div class="col">
-                  <table class="table borderless mb-0">
-                    <thead>
-                      <tr>
-                        <th class="th-sm" colspan="2"><input id="incidentalTableSearch" class="form-control" type="text" placeholder="Search incidentals">
-                        </th>
-                        <th class="align-middle text-center" style="width: 105px;">
-                          Qty
-                        </th>
-                      </tr>
-                    </thead>
-                  </table>
-                  <div id="incidentalTableWrapper">
-                  <table id="incidentalTable" class="table table-bordered table-sm m-0" cellspacing="0" width="100%">
-                    <tbody>
-                      <tr>
-                        <td class="align-middle">
-                          <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                            <label class="form-check-label d-block" for="exampleCheck1">Paid Movie</label>
-                          </div>
-                        </td>
-                        <td class="align-middle text-center">
-                          Php 500
-                        </td>
-                        <td>
-                          <input type="number" class="form-control">
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="align-middle">
-                          <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                            <label class="form-check-label d-block" for="exampleCheck2">Spa</label>
-                          </div>
-                        </td>
-                        <td class="align-middle text-center">
-                          Php 500
-                        </td>
-                        <td>
-                          <input type="number" class="form-control">
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="align-middle">
-                          <div class="form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck3">
-                            <label class="form-check-label d-block" for="exampleCheck3">Billiard Pool</label>
-                          </div>
-                        </td>
-                        <td class="align-middle text-center">
-                          Php 500
-                        </td>
-                        <td>
-                          <input type="number" class="form-control">
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  </div>
-                  <table class="table table-bordered  ">
-                    <tfoot>
-                      <tr>
-                        <td colspan="3" class="text-center">
-                          <a href="billing">Manage Incidental Charges</a>
-                        </td>
-                      </tr>
-                    </tfoot>
+                  <table id="incidentalTable" class="table table-bordered table-sm m-0">
                   </table>
                 </div>
               </div>
@@ -547,6 +486,7 @@
       </div>
     </div>
   </div>
+  <!-- Reservation view modal END-->
 
   <!-- Main Footer -->
   <footer class="main-footer">
@@ -576,6 +516,10 @@
 <script src="dist/js/demo.js"></script>
 <!-- jsGrid -->
 <script src="plugins/jsgrid/jsgrid.min.js"></script>
+<!-- SweetAlert2 -->
+<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
+<!-- Toastr -->
+<script src="plugins/toastr/toastr.min.js"></script>
 <!-- DataTables  & Plugins -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -590,6 +534,8 @@
 <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- Special Script-->
+<script src="customFiles/initialize Toastr.js"></script>
+<script src="customFiles/reservation_incidentals.js"></script>
 <script src="customFiles/customScript.js"></script>
 
 <script>
@@ -714,6 +660,8 @@ $('#rsvTable').on('click', 'tbody tr', function() {
     });
   });
 });
+
+$("#reservationModal").modal('toggle');
 
 </script>
 </body>
