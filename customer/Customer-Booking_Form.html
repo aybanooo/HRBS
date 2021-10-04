@@ -245,7 +245,7 @@
 			</div>
 		</div>
 	</nav>
-	<!-- Modal -->
+	<!-- Modal Verify -->
 	<section id="modal">
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
 			<div class="modal-dialog" role="document">
@@ -265,9 +265,6 @@
 										<tr>
 											<td><input type = "text" name = "email" required placeholder = "Email Address/Phone Number" id="emaillogin"></td>	
 										</tr>					
-										<tr>
-											<td class="sign" align = "center" align = "right"><input type = "submit" value = "Verify" name = "login" id="emailsubmit"></td>
-										</tr>
 									</form>
 							</div>
 						</div>
@@ -286,9 +283,7 @@
 										<tr>
 											<td><input type = "text" name = "authentication" required placeholder = "Authentication Code" id="emaillogin"></td>	
 										</tr>					
-										<tr>
-											<td class="sign" align = "center" align = "right"><a href="confirmed"><input type="submit" formaction="Customer-Email_Confirmed.html" value = "Submit" id="emailsubmit"></a></td>
-										</tr>
+										
 									</form>
 							</div>
 						</div>
@@ -637,7 +632,7 @@ function prep_modal()
                 n_button.setAttribute("type","button");
           			n_button.setAttribute("class","btn btn-primary");
 					n_button.setAttribute("id","nextbutton");
-          			n_button.innerHTML = "Next";
+          			n_button.innerHTML = "Verify";
 
     	$(this).find('.modal-footer').append(b_button).append(n_button);
 
@@ -683,7 +678,7 @@ function prep_modal()
 
     		if(page_track == pages.length-1)
     		{
-    			$(n_button).text("Next");
+    			$(n_button).text("Verify");
     		}
 
     		if(page_track > 0)
