@@ -1,0 +1,51 @@
+{
+  "data": [{
+      "roomNumber": "110111",
+      "floorNumber": "1",
+      "roomTypeID": "30",
+      "roomName": "Suite Suite",
+      "roomStatusID": "1",
+      "roomStatusLabel": "Available"
+    },
+    {
+      "roomNumber": "2066",
+      "floorNumber": "2",
+      "roomTypeID": "31",
+      "roomName": "Suiter Suite",
+      "roomStatusID": "0",
+      "roomStatusLabel": "Not Available"
+    },
+    {
+      "roomNumber": "203",
+      "floorNumber": "2",
+      "roomName": "Davinci's Suite",
+      "roomTypeID": "29",
+      "roomStatusID": "0",
+      "roomStatusLabel": "Not Available"
+    }
+  ]
+}
+
+{
+  "data": [{
+    "roomNo": "101",
+    "floorLevel": "1",
+    "roomtypeName": "Dicaprio's Suite",
+    "roomStatusLabel": "Available"
+  }, {
+    "roomNo": "102",
+    "floorLevel": "1",
+    "roomtypeName": "Dicaprio's Suite",
+    "roomStatusLabel": "Not Available"
+  }, {
+    "roomNo": "203",
+    "floorLevel": "2",
+    "roomtypeName": "Sweet Suite",
+    "roomStatusLabel": "Available"
+  }, {
+    "roomNo": "205",
+    "floorLevel": "2",
+    "roomtypeName": "Sweet Suiter",
+    "roomStatusLabel": "Available"
+  }]
+}

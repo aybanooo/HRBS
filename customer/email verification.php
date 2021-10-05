@@ -14,7 +14,8 @@ if(isset($_POST['submit'])){
 		$mysqli = NEW MySQLi('localhost','root','','test');
 
 		//sanitize form data
-		$email = mysqli->real_escape_string($email);
+		$email = $mysqli->real_escape_string($email);
+
 
 		//generate verification key
 		$verification = md5(time().$email);

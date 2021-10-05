@@ -1,33 +1,59 @@
 <?php
-	if (isset($GET['verification'])) {
-		//process verification
-		$verification = $_GET['verification'];
+<<<<<<< Updated upstream
 
-		//connect to database
-		$mysqli = NEW MySQLi('localhost','root','','test');
+require_once("../../directories/directories.php");
+require_once(__dbCreds__);
+require_once(__outputHandler__);
 
-		//result
-		$resultSet = $mysqli->query("SELECT verified, verification FROM accounts WHERE verified = 0 AND verification = '$verification' LIMIT 1");
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+  $output->setFailed("Cannot connect to database.".$conn->connect_error);
+  echo $output->getOutput(true);
+  die();
+}
 
-		if ($resultSet-> num_rows == 1) {
-			//validate the email
-			$update = $mysqli->query("UPDATE ACCOUNTS SET verified = 1 WHERE verification = '$verification' LIMIT 1");
+$result=mysqli_query($conn, $queryCustomer);
+
+$queryCustomer="SELECT email FROM customer";
 
 
-			if ($update) {
-				echo "Your account has been validated";
-			} else {
-				echo $mysqli->error;
-			}
-		} else {
-			echo "This account is invalid or already verified.";
-
-		}
-
-	} else {
-		die("Something went wrong");
-	}
 ?>
+
+
+=======
+    include "connect.php";
+    if (isset($_POST['verify'])){
+        $_email = $_POST['email'];
+
+        $verification = bin2hex(random_bytes(19));
+
+        $res = mysqli_query($conn,"INSERT INTO `customer`(`email`,`verification`) VALUES ('$email','verification')");
+         
+            if($res){
+                $sub = "Email Verification Link";
+                $body = "Welcome $email, Please verify your email address.";
+                $sender = "From: Thanosthesis@gmail.com";
+
+                    if(mail($email, $sub, $body, $sender)){
+                        header("Location: Customer-Login.php?msg= Email verification send successfully to $email.");
+                    }
+                    else{
+                        mysqli_query($conn, "DELETE FROM `customer` WHERE `verification` = '$verification'");
+                        header("Location: Customer-Login.php?msg= Unable to send the verification link.");
+                    }
+            }
+            else{
+                header("Location: Customer-Login.php?msg= Unable to connect with database");
+            }
+
+
+
+    }
+
+?>
+>>>>>>> Stashed changes
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -177,17 +203,17 @@
 <body>
 		<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="home.html">The Grand Budapest</a>
+                <a class="navbar-brand js-scroll-trigger" href="Customer-Home.html">The Grand Budapest</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="compare.html">Compare</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="A.0-Customer-Rooms.html">Rooms</a></li>
-                       	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="A.1 Customer - Amenities.html">Amenities</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger active" href="A.2.1 Customer - Register.html">Sign Up</a></li>
+                      	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare_Rooms.html">Compare</a></li>
+                    	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Rooms.html">Rooms</a></li>
+                    	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Amenities.html">Amenities</a></li>
+                    	<li class="nav-item"><a class="nav-link js-scroll-trigger active" href="Customer-Login.html">Login</a></li>
                     </ul>
                 </div>
             </div>
@@ -201,14 +227,29 @@
 						<hr class="new1">
 			    		<form>
 							<tr>
-								<div class="form-span" align="center"><span>Please enter the confirmation code that has been sent to thegrandbudapest@gmail.com to verify your email and to continue the registration process.</span></div>
+<<<<<<< Updated upstream
+								<div class="form-span" align="center">
+                                    <span>Please enter the confirmation code that has been sent to    
+                                        <?php 
+                                        if (mysqli_num_rows($result)>0) {
+                                            echo $row["email"];           
+                                        } else {
+                                            echo "There are 0 results.";
+                                        }
+                                        ?>
+                                        thegrandbudapest@gmail.com to verify your email and to continue the registration process.
+                                    </span>
+                                </div>
+=======
+								<div class="form-span" align="center"><span>Please enter the confirmation code that has been sent to your email to continue the verification process.</span></div>
+>>>>>>> Stashed changes
 							</tr>
 							<br>
 							<tr>
-								<td><input type = "text" name = "verification" required placeholder = "Authentication Code"></td>	
+								<td><input type = "text" name = "authentication" required placeholder = "Authentication Code"></td>	
 							</tr>					
 							<tr>
-								<td class="sign" align = "center" align = "right"><a href="confirmed"><input type="submit" formaction="confirmed.html" value = "Submit"></a></td>
+								<td class="sign" align = "center" align = "right"><a href="confirmed"><input type="submit" formaction="Customer-Email_Confirmed.html" value = "Submit"></a></td>
 							</tr>
 						</form>
 					</div>

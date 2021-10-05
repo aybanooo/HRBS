@@ -1,33 +1,3 @@
-<?php
-	if (isset($GET['verification'])) {
-		//process verification
-		$verification = $_GET['verification'];
-
-		//connect to database
-		$mysqli = NEW MySQLi('localhost','root','','test');
-
-		//result
-		$resultSet = $mysqli->query("SELECT verified, verification FROM accounts WHERE verified = 0 AND verification = '$verification' LIMIT 1");
-
-		if ($resultSet-> num_rows == 1) {
-			//validate the email
-			$update = $mysqli->query("UPDATE ACCOUNTS SET verified = 1 WHERE verification = '$verification' LIMIT 1");
-
-
-			if ($update) {
-				echo "Your account has been validated";
-			} else {
-				echo $mysqli->error;
-			}
-		} else {
-			echo "This account is invalid or already verified.";
-
-		}
-
-	} else {
-		die("Something went wrong");
-	}
-?>
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -57,11 +27,11 @@
 	    position: fixed;
 	    
 	}
-	.loginForm h1{
+	h1{
+		
 		text-align: center;
 		padding-top: 2%;
 		padding-bottom: 2%;
-		font-size: 2em;
 	}
 	.loginForm{
 		background-color: white;
@@ -69,15 +39,15 @@
 		padding: 2%;
 		text-align: center;
 		margin: 5% auto;		
-		width: 50%;
-		box-shadow:0 0 5px 0 rgba(0,0,0,0.4);
+		width: 40%;
+   		box-shadow: 0 0 5px 0 rgb(0 0 0 / 40%);
 		border-radius: 5px;
 	}
 	input[type=text],input[type=password] {
-			border:1px solid #c1c1c1;
+			border:none;
 			background-color:#eee;
 			color:#000;
-			width:35%;
+			width:75%;
 			margin:auto;
 			display:block;
 			margin-bottom:4%;
@@ -86,11 +56,7 @@
 			outline:0;
 			padding-left:15px;
 			font-size:1em;
-			transition:.3s;
-			text-align:center;
-	}
-	input[type=text]:focus ,input[type=password]:focus {
-		border:1px solid #000;
+			text-align: center;
 	}
 	input[type=submit] {
 			border:none;
@@ -118,6 +84,7 @@
         color: rgba(255, 255, 255, .8);
         padding: 1%;
         position: absolute;
+        bottom: 0;
         width: 100%;
         text-align: center;
     }
@@ -146,7 +113,7 @@
  	}
  	.btn-instagram {
     	background: #dc4a38;
-    	color: #ffffff
+    	color: #ffffff;
  	}
  	.btn-facebook:hover, .btn-facebook:focus {
     	background: #2d4278;
@@ -159,35 +126,28 @@
  	.btn-instagram:hover, .btn-instagram:focus {
      	background: #bf3322;
      	color: #ffffff
-	}
-	.new1 {
+ 	}
+ 	.new1 {
 		border-top: 1px solid #999;
 		width:80%;
 		margin-bottom:25px;
  	}
-	.form-span {
-		width:75%;
-		box-sizing:border-box;
-		padding:1em;
-		margin:auto;
-	}
 	</style>
 	<title>Login</title>
 </head>
 <body>
 		<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="home.html">The Grand Budapest</a>
+                <a class="navbar-brand js-scroll-trigger" href="Customer-Home.html">The Grand Budapest</a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="compare.html">Compare</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="A.0-Customer-Rooms.html">Rooms</a></li>
-                       	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="A.1 Customer - Amenities.html">Amenities</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger active" href="A.2.1 Customer - Register.html">Sign Up</a></li>
+                     	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare_Rooms.html">Compare</a></li>
+                    	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Rooms.html">Rooms</a></li>
+                    	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Amenities.html">Amenities</a></li>
                     </ul>
                 </div>
             </div>
@@ -197,18 +157,15 @@
 		<div class="loginForm">
 			<div class="row">
                 <div class="col-lg-12 mx-auto">
-			    	<h1><b>A verification code has been sent to your email account.</b></h1>
-						<hr class="new1">
-			    		<form>
+			    	<h1><b>Login</b></h1>
+			    	<hr class="new1">
+			    		<form method="POST" action="">
 							<tr>
-								<div class="form-span" align="center"><span>Please enter the confirmation code that has been sent to thegrandbudapest@gmail.com to verify your email and to continue the registration process.</span></div>
-							</tr>
-							<br>
-							<tr>
-								<td><input type = "text" name = "verification" required placeholder = "Authentication Code"></td>	
+								<td><input type = "text" name = "email" required placeholder = "Email Address/Phone Number"></td>	
 							</tr>					
+							
 							<tr>
-								<td class="sign" align = "center" align = "right"><a href="confirmed"><input type="submit" formaction="confirmed.html" value = "Submit"></a></td>
+								<td class="sign" align = "center" align = "right"><input type = "submit" value = "Verify" name = "login"></td>
 							</tr>
 						</form>
 					</div>

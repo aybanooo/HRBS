@@ -15,7 +15,7 @@ class outputHandler {
         if ($message)
             $this->output["message"] .= $message;
     }
-    
+
     function setFailed($message = null, $errorDesc = null, $errorCode = null) {
         $this->output["isSuccessful"] = false;
         if ($message)
