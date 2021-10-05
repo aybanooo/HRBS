@@ -20,8 +20,11 @@ define('__format__', __ROOT__.'/customFiles/php/format/format.php');
 define('__validations__', __ROOT__.'/customFiles/php/database/validations/validations.php');
 
 //----- UI constants --------
-define('__UI__', __ROOT__.'/customFiles/php/UI/');
-define('__navigation__', __UI__.'navigation.php');
+define('__dirUI__', __ROOT__.'/customFiles/php/UI/');
+define('__navigation__', __dirUI__.'navigation.php');
+
+//----- Gens ------
+define('__gen__', __ROOT__.'/customFiles/php/generate/generate.php');
 
 define('__base__', "<base href='".$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."/admin/'>");
 
