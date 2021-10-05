@@ -45,4 +45,5 @@
     "typescript": "^3.4.5",
     "phpmailer/phpmailer": "^6.5"
   }   
+
 }

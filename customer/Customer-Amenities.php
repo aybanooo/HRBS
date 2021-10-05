@@ -17,6 +17,31 @@ $result=mysqli_query($conn, $query);
 
 $query="SELECT amenityName, amenityDesc FROM amenities";
 
+    function getAmenitiesItem(&$id, &$conn, &$output) {
+        $sql = "SELECT amenityID, amenityName, amenityDesc FROM amenities";
+        $result = mysqli_query($conn, $sql);
+        $items = [];
+        $itemsContainer = [];
+            if(mysqli_num_rows($result) > 0) {
+                $rowID = null;
+                //echo mysqli_fetch_array($result)[0]."<br/>";
+                while($rows = mysqli_fetch_assoc($result)) {
+                    if (is_null($rowID))
+                        $rowID= $rows["amenityID"];
+                    if ($rows["info"] != null)
+                        $items += array($rows["amenityName"]=>$rows["info"]);
+                }
+                $itemsContainer = array("amenityName"=>$rowID);
+                $itemsContainer += array("amenityDesc"=>$items);
+            } else {
+                $output->setFailed("Amenitynot Available");
+                echo $output->getOutputAsHTML();
+                die();
+            }
+            
+        }
+        print_r($itemsContainer);
+        die();
 ?> 
 
 <!DOCTYPE HTML>
@@ -164,6 +189,7 @@ if (mysqli_num_rows($result)>0) {
 	echo "There are 0 results.";
 }
 ?>
+
     <section id="amenities">
 		<div class="amenities">
 			<div class="row">
@@ -179,6 +205,46 @@ if (mysqli_num_rows($result)>0) {
 					          	<p>In a 6,000 sqm old orange grove next to the hotel, we have created our Relax Garden Swimming-pool. This is an adults-only (16+) area and an area of relaxation - no music, no animation. The entrance for children is forbidden. This pool is open from mid-May to mid-October, 10:00 18:00, times and dates are subject to change according to weather conditions.
 
 .</p>
+					        	</div>
+				    		</div>
+				  		</div>
+					</div>
+				</div>
+			</div>  
+		</div>
+		<div class="amenities">
+			<div class="row">
+                <div class="col-lg-12 mx-auto">
+			    	<h1><b>Bar</b></h1>
+					<div id="carouselExampleIndicators" class="carousel slide pointer-event" data-ride="carousel">
+				  		<div class="carousel-inner" role="listbox">
+				    		<div class="carousel-item active">
+				      			<img class="d-block w-100" src="https://specials-images.forbesimg.com/imageserve/5da4ab0bcd594c0006210379/0x0.jpg?cropX1=561&cropX2=3456&cropY1=157&cropY2=2298" alt="900x400" data-holder-rendered="true">
+				      			<div class="carousel-caption d-none d-md-block">
+					          		<h3>Bar</h3>
+					          		<p>Enjoy a drink in our spacious lounge bar, is a truly enjoyable experience – the views of the natural harbour, no ships just a variety of birds and may be even spot a stray seal or penguin and then across the water with the opposite side comprising of natural terrain, with the names of ships picked out by natural stones will help to ensure that you will have a “relaxing drink” There is a full range of bar drinks including a wide selection of spirits, Whisky, Brandy and Liqueurs, soft drinks and beer including and Falkland Islands only real ale. The wine list includes a variety and styles of wine including the famous Montes premium wine produced in Chile, with wines by the bottle and glass.
+
+</p>
+					        	</div>
+				    		</div>
+				  		</div>
+					</div>
+				</div>
+			</div>  
+		</div>
+		<div class="amenities">
+			<div class="row">
+                <div class="col-lg-12 mx-auto">
+			    	<h1><b>Gym</b></h1>
+					<div id="carouselExampleIndicators" class="carousel slide pointer-event" data-ride="carousel">
+				  		<div class="carousel-inner" role="listbox">
+				    		<div class="carousel-item active">
+				      			<img class="d-block w-100" src="https://i.pinimg.com/originals/d1/ff/be/d1ffbe8558767422e65f539f959a0e7e.jpg" alt="900x400" data-holder-rendered="true">
+				      			<div class="carousel-caption d-none d-md-block">
+					          		<h3>Gym</h3>
+					          		<p>Paired with an outdoor activity space, our 24-hour indoor gym opens more options for a variety of exercises and provides an encouraging set-up designed for all fitness levels.
+
+</p>
 					        	</div>
 				    		</div>
 				  		</div>

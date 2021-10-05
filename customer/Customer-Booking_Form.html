@@ -13,6 +13,7 @@
 	
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">	
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 	<style type="text/css">
 	body{ 
     	padding-top: 65px; 
@@ -104,6 +105,7 @@
 		transition:0.3s;
 		transform:scale(1.005);
 	}
+
 	select#rate {
 		width:100%;
 		font-size:1.25rem;
@@ -124,9 +126,11 @@
 		border-radius:15px;
 		padding: 1%;
 	}
-	body.modal-open { 
+
+  body.modal-open { 
 		overflow: scroll; 
 	}
+
 
 	input#date {
     	text-align: right;
@@ -299,6 +303,7 @@
 			</div>
 		</div>
 	</section>
+
 	<section id="bookForm">
 		<div class="bookForm">
 			<div class="row">
@@ -327,7 +332,7 @@
 									<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 									<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 									<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-								
+
 								</td>
 						</tr>
 						<tr>
@@ -533,6 +538,7 @@
 						</tr>
 						<tr align="right">
 							<td colspan="2"><a href="Customer-Booking_Details.html"><button type="button" class="btn btn-success">Finalize Booking</button></a></td>
+
 						</tr>
 					</table>
             	</div>
@@ -561,6 +567,7 @@
 			</div>
 		</div>
 	</div>
+
 </body>
 
 <!-- Scripts -->
@@ -569,6 +576,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
+
 	$(`input[type="radio"][name="card"]`).on('click', function() {
 		if($(this).val()==1) {
 			$('#mastercardDiv').removeClass('d-none');
@@ -697,4 +705,5 @@ function prep_modal()
   });
 }
 </script>
+
 </html>
