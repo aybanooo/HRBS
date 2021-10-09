@@ -1,22 +1,16 @@
 <?php
 
-require_once("../../directories/directories.php");
-require_once(__dbCreds__);
-require_once(__outputHandler__);
+$conn = new mysqli("localhost", "root", "", "test");
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
 if ($conn->connect_error) {
   $output->setFailed("Cannot connect to database.".$conn->connect_error);
   echo $output->getOutput(true);
   die();
 }
 
-$result=mysqli_query($conn, $query);
-
-$query="SELECT amenityName, amenityDesc FROM amenities";
-
+$query="SELECT companyName, contact, email, footerRight, socialFB, socialTwitter, socialInstagram FROM companyInfo, socialMedias";
+$result=mysqli_query($conn, $query) or die(mysqli_error($conn));
+$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 ?> 
 
 <!DOCTYPE HTML>
@@ -26,7 +20,7 @@ $query="SELECT amenityName, amenityDesc FROM amenities";
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>The Grand Budapest | Login</title>
+    <title><?php echo $followingdata['companyName']; ?> | Amenities</title>
     <link rel="icon" type="image/x-icon" href="" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -120,7 +114,7 @@ $query="SELECT amenityName, amenityDesc FROM amenities";
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="home.html">The Grand Budapest</a>
+            <a class="navbar-brand js-scroll-trigger" href="Customer-Home.php"><?php echo $followingdata["companyName"]; ?></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                 <i class="fas fa-bars"></i>
@@ -136,77 +130,59 @@ $query="SELECT amenityName, amenityDesc FROM amenities";
         </div>
     </nav>
     
-<?php
-if (mysqli_num_rows($result)>0) {
-	while($row=mysqli_fetch_assoc($result)){
-		echo "<section id='amenities'>";
-		echo "    <div class='amenities'>";
-		echo "	      <div class='row'>";
-        echo "            <div class='col-lg-12 mx-auto'>";
-		echo "	    	      <h1><b>".$row["amenityName"]."</b></h1>";
-		echo "			          <div id='carouselExampleIndicators' class='carousel slide pointer-event' data-ride='carousel'>";
-		echo "		  		          <div class='carousel-inner' role='listbox'>";
-		echo "		    		          <div class='carousel-item active'>";
-		echo "		      				      <img class='d-block w-100' src='https://cf.bstatic.com/data/xphoto/1182x887/217/21775845.jpg?size=S' data-src='holder.js/900x400?theme=social' alt='900x400' data-holder-rendered='true'>";
-		echo "		      				      <div class='carousel-caption d-none d-md-block'>";
-		echo "                                    <h3>".$row["amenityName"]."</h3>";
-		echo "			          	              <p>".$row["amenityDesc"]."</p>";
-		echo "			        	       </div>";
-		echo "		    		      </div>";
-		echo "		  		      </div>";
-		echo "			      </div>";
-		echo "		      </div>";
-		echo "        </div>";
-		echo "    </div>";
-		echo "</section>";
-	}
-} else {
-	echo "There are 0 results.";
-}
-?>
-    <section id="amenities">
-		<div class="amenities">
-			<div class="row">
-                <div class="col-lg-12 mx-auto">
-			    	<h1><b>Infinity Pool</b></h1>
-					<div id="carouselExampleIndicators" class="carousel slide pointer-event" data-ride="carousel">
-				  		<div class="carousel-inner" role="listbox">
-				    		<div class="carousel-item active">
-				      			<img class="d-block w-100" src="https://cf.bstatic.com/data/xphoto/1182x887/217/21775845.jpg?size=S" data-src="holder.js/900x400?theme=social" alt="900x400" data-holder-rendered="true">
-				      			<div class="carousel-caption d-none d-md-block">
- 
-                                <h3>Infinity Pool</h3>
-					          	<p>In a 6,000 sqm old orange grove next to the hotel, we have created our Relax Garden Swimming-pool. This is an adults-only (16+) area and an area of relaxation - no music, no animation. The entrance for children is forbidden. This pool is open from mid-May to mid-October, 10:00 18:00, times and dates are subject to change according to weather conditions.
 
-.</p>
-					        	</div>
-				    		</div>
-				  		</div>
+    <section id="amenities">
+		<?php
+			$query="SELECT amenityName, amenityDesc FROM amenities;";
+			$result=mysqli_query($conn, $query) or die(mysqli_error($conn));
+			if (mysqli_num_rows($result)>0) {
+				while($row=mysqli_fetch_assoc($result)){
+		?>
+			<div class="amenities">
+				<div class="row">
+					<div class="col-lg-12 mx-auto">
+						<h1><b><?php echo $row["amenityName"]; ?></b></h1>
+						<div id="carouselExampleIndicators" class="carousel slide pointer-event" data-ride="carousel">
+							<div class="carousel-inner" role="listbox">
+								<div class="carousel-item active">
+									<img class="d-block w-100" src="https://cf.bstatic.com/data/xphoto/1182x887/217/21775845.jpg?size=S" data-src="holder.js/900x400?theme=social" alt="900x400" data-holder-rendered="true">
+									<div class="carousel-caption d-none d-md-block">
+									<h3><?php echo $row["amenityName"]; ?></h3>
+									<p><?php echo $row["amenityDesc"]; ?></p>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>  
-		</div>
+				</div>  
+			</div>
+		<?php
+			}
+		}
+		else{
+			echo "No Amenities Found";
+		}
+		?>	
 	</section>
-			
+		
 	<div class="footer">
-		<div class="row">
-			<div class="col-lg-4 mx-auto">
-			    <p><b>Contact us</b></p>
-				<p>09051234564</p>
-				<p>thegrandbudepest@gmail.com</p>
-			</div>
-			<div class="col-lg-4 mx-auto">
-				<p>Connect with us at</p>
-				<button type="button" class="btn btn-social-icon btn-facebook btn-rounded"><i class="fa fa-facebook"></i></button> 
-				<button type="button" class="btn btn-social-icon btn-instagram btn-rounded"><i class="fa fa-instagram"></i></button>
-				<button type="button" class="btn btn-social-icon btn-twitter btn-rounded"><i class="fa fa-twitter"></i></button>
-			</div>
-			<div class="col-lg-4 mx-auto">
-				<p>	®2014-2018 The Grand Budapest </p>
-				<p>All Rights Reserved</p>
-			</div>
-		</div>
-    </div>
+            <div class="row">
+                <div class="col-lg-4 mx-auto">
+                    <p><b>Contact us</b></p>
+                    <p><?php echo $followingdata["contact"]; ?></p>
+                    <p><?php echo $followingdata["email"]; ?></p>               
+                </div>
+                <div class="col-lg-4 mx-auto">
+                    <p>Connect with us at</p>
+					<button type="button" class="btn btn-social-icon btn-facebook btn-rounded" href="<?php echo $followingdata["socialFB"]; ?>"><i class="fa fa-facebook"></i></button>
+					<button type="button" class="btn btn-social-icon btn-instagram btn-rounded" href="<?php echo $followingdata["socialInstagram"]; ?>"><i class="fa fa-instagram"></i></button>
+					<button type="button" class="btn btn-social-icon btn-twitter btn-rounded" href="<?php echo $followingdata["socialTwitter"]; ?>"><i class="fa fa-twitter"></i></button>          
+                </div>
+                <div class="col-lg-4 mx-auto">
+                    <p><?php echo $followingdata["footerRight"]; ?></p>
+                </div>
+            </div>
+        </div>
 
 </body>
 </html>

@@ -293,20 +293,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="modal-split">
-						<div class="loginform">
-							<div class="col-lg-12 mx-auto">
-								<h2 style="text-align: center;"><b>Account Verified</b></h2>
-									<hr class="new1">
-									<form>
-										<tr>
-											<div class="form-span" align="center"><span>You may now book your preferred room.</span></div>
-										</tr>
 
-									</form>
-							</div>
-						</div>
-					</div>
 			
 					</div>
 		  
