@@ -6,7 +6,6 @@ require_once("$phpDIR/directories/directories.php");
 require_once(__initDB__);
 require_once(__outputHandler__);
 require_once(__format__);
-require_once(__format__);
 
 
 function getCurrentDateAsUTCtimestamp() {
@@ -70,7 +69,6 @@ function voucherEnabled() {
   }
   return $condition;
 }
-
 
 //-------------------SETTINGS VALIDATION END-------------------
 

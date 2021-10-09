@@ -417,85 +417,6 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
-        <div class="modal-body">
-          <ul class="nav nav-pills" id="reservationModalTab" role="tablist">
-            <li class="nav-item">
-              <a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="home" aria-selected="true">Info</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="billing-reservation-tab" data-toggle="tab" href="#billing-reservation" role="tab" aria-controls="billing-reservation" aria-selected="false">Reservation Billing</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" id="billing-incidentals-tab" data-toggle="tab" href="#billing-incidentals" role="tab" aria-controls="billing-incidentals" aria-selected="false">Incidentals Billing</a>
-            </li>
-          </ul>
-          <div class="tab-content" id="reservationModalTabContent">
-            <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
-              <div class="row">
-                <div class="col-6">
-                  <div class="row">
-                    <h5 class="text-secondary">Details</h5>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col">
-                      <span class="lbl mr-3">Reserved for:</span><span id="reservedFor">name here</span>
-                    </div>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col">
-                      <span class="lbl mr-3">Date Reserved:</span><span id="dateReserved">Date</span>
-                    </div>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col">
-                      <span class="lbl mr-3">Room:</span><span id="roomType">Room type</span>
-                    </div>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col">
-                      <span class="lbl mr-3">Room #:</span><span id="roomNum">#</span>
-                    </div>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col">
-                      <span class="lbl mr-3">Check-In Date:</span><span id="checkInDate">Check in date</span>
-                    </div>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col">
-                      <span class="lbl mr-3">Check-Out Date:</span><span id="checkOutDate">Check out date</span>
-                    </div>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col">
-                      <span class="lbl mr-3">Check-In Time:</span><span id="checkInTime">Check in time</span>
-                    </div>
-                  </div>
-                  <div class="row mb-2">
-                    <div class="col">
-                      <span class="lbl mr-3">Check-Out Time:</span><span id="checkOutTime">Check out time</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-6">
-                  <div class="row">
-                    <div class="col">
-                      <h5 class="text-secondary">Incidental Charges</h5>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col">
-                      <table id="incidentalTable" class="table table-bordered table-sm m-0">
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="tab-pane fade" id="billing-reservation" role="tabpanel" aria-labelledby="billing-reservation-tab">...</div>
-            <div class="tab-pane fade" id="billing-incidentals" role="tabpanel" aria-labelledby="billing-incidentals-tab">...</div>
-          </div>
-        </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
@@ -645,28 +566,6 @@
   $('.dataTables_length').addClass('bs-select');
 });
 
-$('#rsvTable').on('click', 'tbody tr', function() {
-  $('#reservationModal').modal("show");
-  id = $(this).find('td:eq(0)').text();
-  reserveName = $(this).find('td:eq(1)').text();
-  date = $(this).find('td:eq(2)').text();
-  roomType = $(this).find('td:eq(3)').text();
-  roomNum = $(this).find('td:eq(4)').text();
-  checkInDate = $(this).find('td:eq(5)').text();
-  checkOutDate = $(this).find('td:eq(6)').text();
-  checkInTime = $(this).find('td:eq(7)').text();
-  checkOutTime = $(this).find('td:eq(8)').text();
-
-  $('#reservationID').text(id);
-  $('#reservedFor').text(reserveName);
-  $('#dateReserved').text(date);
-  $('#roomType').text(roomType);
-  $('#roomNum').text(roomNum);
-  $('#checkInDate').text(checkInDate);
-  $('#checkOutDate').text(checkOutDate);
-  $('#checkInTime').text(checkInTime);
-  $('#checkOutTime').text(checkOutTime);
-  });
 
   $(document).ready(function(){
   $("#incidentalTableSearch").on("keyup", function() {
@@ -677,7 +576,6 @@ $('#rsvTable').on('click', 'tbody tr', function() {
   });
 });
 
-$("#reservationModal").modal('toggle');
 
 </script>
 </body>

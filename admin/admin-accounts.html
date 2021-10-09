@@ -69,7 +69,7 @@
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
           <!-- Dashboard -->
-          <li class="nav-item menu-close">
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -94,7 +94,7 @@
           </li>
 
           <!-- Pages -->
-          <li class="nav-item menu-close">
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-file"></i>
               <p>
@@ -120,7 +120,7 @@
 
           <!-- Accounts -->
           <li class="nav-item">
-            <a href="accounts" class="nav-link active">
+            <a href="accounts" class="nav-link">
               <i class="nav-icon fas fa-users"></i>
               <p>
                 Accounts
@@ -149,7 +149,7 @@
           </li>
 
           <!-- Settings -->
-          <li class="nav-item menu-close">
+          <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-cogs"></i>
               <p>
@@ -158,6 +158,12 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="settings-system" class="nav-link">
+                  <i class="fas fa-image nav-icon"></i>
+                  <p>System</p>
+                </a>
+              </li>
               <li class="nav-item">
                 <a href="appearance" class="nav-link">
                   <i class="fas fa-image nav-icon"></i>
@@ -847,32 +853,11 @@ $('#changeRoleForm').validate({
   }
 });
 
-jQuery.validator.addMethod("isUnique", function(value, element) {
-  //console.log(value);
-  $.ajax({
-      type: 'get',
-      url: 'customFiles/php/database/userControls/checkEmpIdExistence.php',
-      data: {
-        empID: value
-      },
-      async: false,
-      success: function (response) {
-        //console.log(Boolean(parseInt(response)));
-        output = Boolean(parseInt(response));
-        //console.log(output);
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) {
-        console.log(errorThrown);
-      }
-    });
-    return output;
-}, "ID is already taken.");
-
 $('#newAccForm').validate({
     rules: {
       empID : {
         required: true,
-        isUnique: true
+        remote: "customFiles/php/database/userControls/checkEmpIdExistence.php"
       },
       contact: {
         required: true
@@ -1048,11 +1033,9 @@ $('#newAccForm').validate({
 
   function deleteAccounts() {
     var n=0;
-    accs = [];
+    var accs = [];
     document.getElementById('accountTable').querySelectorAll('input[type="checkbox"]:checked').forEach(function(el) {
       accs.push(parseInt(el.value));
-      table.row(el.parentElement.parentElement.parentElement)
-      .remove().draw();
       n++;
     });
 
@@ -1065,10 +1048,15 @@ $('#newAccForm').validate({
           accountList: JSON.stringify(accs).replace("[","(").replace("]",")"),
           rawAccList: JSON.stringify(accs)
         },
-        async: false,
         success: function (response){
           console.log(response ? response+"gegege" : response+"pols");
           if(parseInt(response)){
+            
+            document.getElementById('accountTable').querySelectorAll('input[type="checkbox"]:checked').forEach(function(el) {
+              table.row(el.parentElement.parentElement.parentElement)
+              .remove().draw();
+            });
+
             Toast.fire({
               icon: 'success',
               title: 'Account\'s have been successfuly deleted.'
@@ -1220,5 +1208,16 @@ function addPictureToDB(empID) {
   generateAccountTableEntries();
 </script>
 <link rel="stylesheet" href="customFiles/overrideStyle.css">
+
+<!-- Script to toggle navigation buttons -->
+<script>
+  let activeNav = document.querySelector(".sidebar > nav > ul > li:nth-child(3)");
+  if (activeNav.querySelector('ul') != null){
+    activeNav.classList.toggle('menu-open');
+    activeNav.querySelector('.menu-open > ul > li:nth-child(1) > a').classList.toggle('active');
+  }
+  activeNav.querySelector('a:nth-child(1)').classList.toggle('active');
+</script>
+
 </body>
 </html>

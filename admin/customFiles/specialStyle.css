@@ -70,9 +70,6 @@
     border: none;
 }
 
-.table-bg {
-}
-
 .reservationTable {
     text-align: center; 
 }
@@ -817,4 +814,14 @@ textarea#roomDescription {
 
 .text-transparent {
     color: transparent !important;
+}
+
+.iti__flag {background-image: url("/admin/plugins/int-tel-input/img/flags.png");}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .iti__flag {background-image: url("/admin/plugins/int-tel-input/img/flags@2x.png");}
+}
+
+.iti {
+    width: 100% !important;
 }

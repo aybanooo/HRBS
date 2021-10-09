@@ -3,9 +3,11 @@
 $phpDIR = dirname(__FILE__, 2);
 require_once "$phpDIR/directories/directories.php";
 
-# Wala pang conditions 'to 
-
 /*
+# Wala pang conditions 'to 
+# Initialize this on main file and change string values to
+# active before including
+
 DASHBOARD
   L Reservations
   L Analytics
@@ -15,6 +17,7 @@ PAGES
 ACCOUNTS
 BILLING
 SETTINGS
+  L System
   L Appearance
   L Webpage
   L My Account
@@ -42,7 +45,7 @@ LOGOUT
                with font-awesome or any other icon font library -->
         <!-- Dashboard -->
         <li class="nav-item menu-close">
-          <a href="#" class="nav-link">
+          <a href="#" class="nav-link <?php echo $navs ?>">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Dashboard
@@ -122,7 +125,7 @@ LOGOUT
 
         <!-- Settings -->
         <li class="nav-item">
-          <a href="#" class="nav-link active">
+          <a href="#" class="nav-link">
             <i class="nav-icon fas fa-cogs"></i>
             <p>
               Settings
@@ -133,11 +136,17 @@ LOGOUT
             <li class="nav-item">
               <a href="appearance" class="nav-link">
                 <i class="fas fa-image nav-icon"></i>
+                <p>System</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="appearance" class="nav-link">
+                <i class="fas fa-image nav-icon"></i>
                 <p>Appearance</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="webpage" class="nav-link active">
+              <a href="webpage" class="nav-link">
                 <i class="fas fa-file nav-icon"></i>
                 <p>Webpage</p>
               </a>

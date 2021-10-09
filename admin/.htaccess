@@ -48,10 +48,12 @@
     RewriteRule ^accounts$ admin-accounts.html [NC,L]
     RewriteRule ^vouchers$ admin-vouchers.php [NC,L]
     RewriteRule ^billing$ admin-billing.html [NC,L]
+    RewriteRule ^settings-system$ admin-settings-system.php [NC,L]
     RewriteRule ^appearance$ admin-settings-appearance.html [NC,L]
     RewriteRule ^webpage$ admin-settings-webpage.html [NC,L]
     RewriteRule ^profile$ admin-settings-myAccount.html [NC,L]
 
     RewriteRule ^rooms/(.*)$ customFiles/php/database/roomControls/displayRoom.php?roomTypeID=$1 [NC,L]
+    RewriteRule ^reservation/(.*)$ admin-reservation-view.php?reservationID=$1 [NC,L]
 </IfModule>
 
