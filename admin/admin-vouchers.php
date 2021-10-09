@@ -330,8 +330,9 @@ $(function () {
 <script>
   let activeNav = document.querySelector(".sidebar > nav > ul > li:nth-child(5)");
   if (activeNav.querySelector('ul') != null){
-    activeNav.classList.toggle('menu-open');
+    activeNav.className += " menu-is-opening menu-open";
     activeNav.querySelector('.menu-open > ul > li:nth-child(1) > a').classList.toggle('active');
+    activeNav.querySelector('ul').style.display = "block";
   }
   activeNav.querySelector('a:nth-child(1)').classList.toggle('active');
 </script>

@@ -23,6 +23,21 @@ SETTINGS
   L My Account
 LOGOUT
 
+# USAGE
+# put this at the end of the page body (so it's organize) or anywhere after the including of __navigation__.
+# change the :nth-child(n) value to change active navigation. 
+<!-- Script to toggle navigation buttons -->
+<script>
+  let activeNav = document.querySelector(".sidebar > nav > ul > li:nth-child(1)"); //change :nth(n) value
+  if (activeNav.querySelector('ul') != null){
+    activeNav.className += " menu-is-opening menu-open";
+    activeNav.querySelector('.menu-open > ul > li:nth-child(1) > a').classList.toggle('active'); //change :nth(n) value
+    activeNav.querySelector('ul').style.display = "block";
+  }
+  activeNav.querySelector('a:nth-child(1)').classList.toggle('active'); //do not change this
+</script>
+
+
 */
 ?>
 
@@ -44,8 +59,8 @@ LOGOUT
         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
         <!-- Dashboard -->
-        <li class="nav-item menu-close">
-          <a href="#" class="nav-link <?php echo $navs ?>">
+        <li class="nav-item">
+          <a href="#" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Dashboard
@@ -69,7 +84,7 @@ LOGOUT
         </li>
 
         <!-- Pages -->
-        <li class="nav-item menu-close">
+        <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-file"></i>
             <p>
@@ -134,7 +149,7 @@ LOGOUT
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="appearance" class="nav-link">
+              <a href="settings-system" class="nav-link">
                 <i class="fas fa-image nav-icon"></i>
                 <p>System</p>
               </a>
