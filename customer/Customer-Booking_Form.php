@@ -265,7 +265,7 @@
 							<div class="col-lg-12 mx-auto">
 								<h2><b>Verify</b></h2>
 								<hr class="new1">
-									<form method="POST" action="">
+									<form method="POST" action="verification.php">
 										<tr>
 											<td><input type = "text" name = "email" required placeholder = "Email Address" id="emaillogin"></td>	
 										</tr>					
@@ -639,7 +639,7 @@ function prep_modal()
     	var n_button = document.createElement("button");
                 n_button.setAttribute("type","button");
           			n_button.setAttribute("class","btn btn-primary");
-					n_button.setAttribute("id","nextbutton");
+					n_button.setAttribute("id","verifyBtn");
           			n_button.innerHTML = "Verify";
 
     	$(this).find('.modal-footer').append(b_button).append(n_button);

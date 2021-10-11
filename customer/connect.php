@@ -1,5 +1,8 @@
 <?php
+include_once "dbCreds.php";
+$conn = new mysqli("$servername","$username","$password","$dbname",) or die("Could not connect to database");
+    if($conn){
+        echo "Connected successfully";
 
-$conn = mysqli_connect('localhost','root','','id16411350_hotelrnd',) or die("Could not connect to database".mysqli_error($conn));
-echo "Succesfull";
+    }
 ?>

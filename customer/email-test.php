@@ -8,4 +8,6 @@ if(mail($receiver, $subject, $body, $sender)){
 }else{
     echo "Sorry, failed while sending mail!";
 }
+//mail('benjbenito10@gmail.com','Test Subject','Hello There!','From: Thanosthesis@gmail.com')
+
 ?>
