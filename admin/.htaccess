@@ -42,16 +42,16 @@
     #RewriteRule ^sad$ admin-webAnalytics.html [R=302]
 
     #custom Urls
-    RewriteRule ^analytics$ admin-webAnalytics.html [NC,L]
-    RewriteRule ^rooms$ admin-page-room.html [NC,L]
+    RewriteRule ^analytics$ admin-webAnalytics.php [NC,L]
+    RewriteRule ^rooms$ admin-page-room.php [NC,L]
     RewriteRule ^amenities$ admin-page-amenities.php [NC,L]
     RewriteRule ^accounts$ admin-accounts.php [NC,L]
     RewriteRule ^vouchers$ admin-vouchers.php [NC,L]
     RewriteRule ^billing$ admin-billing.php [NC,L]
     RewriteRule ^settings-system$ admin-settings-system.php [NC,L]
     RewriteRule ^appearance$ admin-settings-appearance.php [NC,L]
-    RewriteRule ^webpage$ admin-settings-webpage.html [NC,L]
-    RewriteRule ^profile$ admin-settings-myAccount.html [NC,L]
+    RewriteRule ^webpage$ admin-settings-webpage.php [NC,L]
+    RewriteRule ^profile$ admin-settings-myAccount.php [NC,L]
 
     RewriteRule ^rooms/(.*)$ customFiles/php/database/roomControls/displayRoom.php?roomTypeID=$1 [NC,L]
     RewriteRule ^reservation/(.*)$ admin-reservation-view.php?reservationID=$1 [NC,L]
