@@ -7,8 +7,8 @@ if ($conn->connect_error) {
   die();
 }
 
-$query="SELECT companyName, companyDesc, address, contact, longitude, latitude, email, footerRight, socialFB, socialTwitter, socialInstagram 
-FROM companyInfo, amenities, socialMedias;";
+$query="SELECT companyName, companyDesc, address, longitude, latitude  
+FROM companyInfo";
 $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
@@ -242,7 +242,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                 }
                             }
                             else{
-                                echo "No Rooms Found";
+                                echo "No amenities";
                             }
                         ?>
                     </div>
@@ -264,6 +264,12 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             </div>
         </section>
         <!-- Footer-->
+        <?php
+        $query="SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
+        FROM socialMedias, companyInfo";
+        $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
+        $followingdata = $result->fetch_array(MYSQLI_ASSOC);
+        ?>
         <div class="footer">
             <div class="row">
                 <div class="col-lg-4 mx-auto">

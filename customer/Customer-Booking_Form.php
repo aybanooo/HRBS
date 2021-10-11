@@ -260,65 +260,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			</div>
 		</div>
 	</nav>
-	<!-- Modal -->
-	<!--<section id="modal">
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
-			<div class="modal-dialog" role="document">
-			  	<div class="modal-content">
-					<div class="modal-header">
-				  	<h4 class="modal-title" id="myModalLabel">Verify your Account</h4>
-				
-					</div>
-				
-					<div class="modal-body">
-					<div class="modal-split">
-						<div class="loginForm">
-							<div class="col-lg-12 mx-auto">
-								<h2><b>Login</b></h2>
-								<hr class="new1">
-									<form method="POST" action="">
-										<tr>
-											<td><input type = "text" name = "email" required placeholder = "Email Address/Phone Number" id="emaillogin"></td>	
-										</tr>					
-										<tr>
-											<td class="sign" align = "center" align = "right"><input type = "submit" value = "Verify" name = "login" id="emailsubmit"></td>
-										</tr>
-									</form>
-							</div>
-						</div>
-					</div>
-					
-					<div class="modal-split">
-						<div class="loginform">
-							<div class="col-lg-12 mx-auto">
-								<h2 style="text-align: center;"><b>Verification Sent</b></h2>
-									<hr class="new1">
-									<form>
-										<tr>
-											<div class="form-span" align="center"><span>The verification code is sent to y our email.</span></div>
-										</tr>
-										<br>
-										<tr>
-											<td><input type = "text" name = "authentication" required placeholder = "Authentication Code" id="emaillogin"></td>	
-										</tr>					
-										<tr>
-											<td class="sign" align = "center" align = "right"><a href="confirmed"><input type="submit" formaction="Customer-Email_Confirmed.html" value = "Submit" id="emailsubmit"></a></td>
-										</tr>
-									</form>
-							</div>
-						</div>
-					</div>
 
-			
-					</div>
-		  
-					<div class="modal-footer">
-			
-					</div>
-				</div>
-			</div>
-		</div>
-	</section> -->
 	<section id="bookForm">
 		<div class="bookForm">
 			<div class="row">
@@ -335,6 +277,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             </div>
             <div class="row">
             	<div class="col-lg-10 mx-auto">
+				<form action="Customer-Booking_Form_Info.php" method="POST"> 
             		<table class="tableOne">
 	            		<tr>
 							<td colspan="2"><h4><b>Check in & out date</b></h4></td>
@@ -353,10 +296,10 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 						<tr>
 							<td colspan="2"><hr></td>
 						</tr>
-
 	            		<tr>
 							<td colspan="2"><h4><b>Reservation Details</b></h4></td>
 						</tr>
+					
 						<tr align="right" class="roomEntry">
 							<th>Room:</th>
 							<td><select id="nameRoom" onchange="selectRate()">
@@ -407,8 +350,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 											</div>
 										</div>
 									</ul>
-								  </div>
-
+								</div>
 							</td>
 						</tr>
 						<tr>
@@ -417,24 +359,24 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 						<tr>
 							<td colspan="2"><h4><b>Guest Information</b></h4></td>	
 						</tr>
-						<form action="" method=""> 
+						
 						<tr align="right">
 							<th><label for="fname">First Name:</label></th>
-							<td><input id="fname" type="text" placeholder="First Name"></td>
+							<td><input id="fname" type="text" name="fname" placeholder="First Name" required></td>
 						</tr>
 						<tr align="right">
 							<th><label for="lname">Last Name:</label></th>
-							<td><input id="lname" type="text" placeholder="Last Name"></td>
+							<td><input id="lname" type="text" name="lname" placeholder="Last Name" required></td>
 						</tr>
 						<tr align="right">
 							<th><label for="cNumber">Contact Number:</label></th>
-							<td><input id="cnumber" type="text" placeholder="Contact Number"></td>
+							<td><input id="cnumber" type="text" name="cnumber" placeholder="Contact Number" required></td>
 						</tr>
 						<tr align="right">
 							<th><label for="email">Email:</label></th>
-							<td><input id="email" type="text" placeholder="Email Address"></td>
+							<td><input id="email" type="text" name="email" placeholder="Email Address" required></td>
 						</tr>
-									</section>
+					
 						<!--<tr>
 							<td colspan="2"><hr></td>
 						</tr>
@@ -452,7 +394,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							<td><h4><b>Payment</b></h4></td>	
 						</tr>
 						<tr>
-							<form>
+							
 								<td colspan="2">
 									<input type="radio" name="card" id="masterCard" value="1" checked>
 							    	<label for="masterCard">Mastercard</label>
@@ -525,7 +467,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 						               	 	<p>Make your payment directly into our bank account. <br/> Please use your <b>Booking/Reservation ID </b> as the payment Reference. You can send us the payment receipt for faster transaction.<br/> <b>BDO Account no: 0000 0000 0000 0000</b></p>
 							    </div>
 								</td>	
-							</form>
+							
 						</tr>
 						<tr>
 							<td colspan="2"><hr></td>
@@ -555,11 +497,14 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 						<tr align="right">
 							<td><h2><b>TOTAL</b></h2></td>
 							<td><h2><b>P7, 283.00</b></h2></td>
+						</tr>-->
+						<tr>
+							<td colspan="2"><hr></td>
 						</tr>
 						<tr align="right">
-							<td colspan="2"><a href="Customer-Booking_Details.html"><button type="button" class="btn btn-success">Finalize Booking</button></a></td>
-						</tr>-->
-
+							<td colspan="2"><button type="submit" name="submit "class="btn btn-success">Proceed to Payment</button></td>
+						</tr>
+						</form>
 					</table>
             	</div>
 			</div>
@@ -613,11 +558,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		}
 	})
 </script>
-
 <script>
-function selectRate(){
+	function selectRate(){
 		var roomName = document.getElementById("nameRoom").value;
-
 		$.ajax({
 			url:"showETC.php",
 			method: "POST",
@@ -628,10 +571,8 @@ function selectRate(){
 				$("#ans").html(data);
 			}
 		})
-
 	}
 </script>
-<!--
 <script>
 	$(function() {
 		$('input[name="datetimes"]').daterangepicker({
@@ -644,104 +585,4 @@ function selectRate(){
 		});
 	});
 </script>
-
-<script>
-	$(document).ready(function() {
-  prep_modal();
-});
-</script>
-<script>    
-    $(window).on('load', function() {
-        $('#myModal').modal('show');
-    });
-</script>
-<script>
-function prep_modal()
-{
-  $(".modal").each(function() {
-
-  var element = this;
-	var pages = $(this).find('.modal-split');
-
-  if (pages.length != 0)
-  {
-    	pages.hide();
-    	pages.eq(0).show();
-
-    	var b_button = document.createElement("button");
-                b_button.setAttribute("type","button");
-          			b_button.setAttribute("class","btn btn-primary");
-          			b_button.setAttribute("style","display: none;");
-          			b_button.innerHTML = "Back";
-
-    	var n_button = document.createElement("button");
-                n_button.setAttribute("type","button");
-          			n_button.setAttribute("class","btn btn-primary");
-					n_button.setAttribute("id","nextbutton");
-          			n_button.innerHTML = "Next";
-
-    	$(this).find('.modal-footer').append(b_button).append(n_button);
-
-
-    	var page_track = 0;
-
-    	$(n_button).click(function() {
-        
-        this.blur();
-
-    		if(page_track == 0)
-    		{
-    			$(b_button).show();
-    		}
-
-    		if(page_track == pages.length-2)
-    		{
-    			$(n_button).text("Submit");
-    		}
-
-        if(page_track == pages.length-1)
-        {
-          $(element).find("form").submit();
-        }
-
-    		if(page_track < pages.length-1)
-    		{
-    			page_track++;
-
-    			pages.hide();
-    			pages.eq(page_track).show();
-    		}
-
-
-    	});
-
-    	$(b_button).click(function() {
-
-    		if(page_track == 1)
-    		{
-    			$(b_button).hide();
-    		}
-
-    		if(page_track == pages.length-1)
-    		{
-    			$(n_button).text("Next");
-    		}
-
-    		if(page_track > 0)
-    		{
-    			page_track--;
-
-    			pages.hide();
-    			pages.eq(page_track).show();
-    		}
-
-
-    	});
-
-  }
-
-  });
-}
-</script>
--->
 </html>
