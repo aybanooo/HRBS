@@ -133,7 +133,7 @@ require_once __initDB__;
               <div class="card-body" id="rolesBody">
                 <div class="row mb-3">
                   <div class="col">
-                    <button onclick="newRole()"type="button" class="btn btn-default">Create new role</button>
+                    <button onclick="newRole(this)"type="button" class="btn btn-default"><span>Create a new role</span></button>
                   </div>
                 </div>
               </div>
@@ -407,6 +407,7 @@ require_once __initDB__;
 <!-- Special Script-->
 <script src="customFiles/croppie/croppie.js"></script>
 <script src="customFiles/customScript.js"></script>
+<script src="customFiles/buttonDisabler.js"></script>
 <script src="customFiles/rolse.js"></script>
 <script>
   var Toast = Swal.mixin({

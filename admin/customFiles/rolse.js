@@ -150,23 +150,23 @@ function deleteRole(event) {
    
     key = $(event).parents().eq(3).find('#roleID').val();
     delete roles[target];
-    $(event).parents().eq(5).remove();
-    $('#inputRole').find(`:contains('${target}')`).remove();
-    FixAccTableRoles(target);
-
+    
     $.ajax({
         type: 'post',
         url: 'customFiles/php/database/roleControls/deleteRole.php',
         data: {
             roleID:key,
         },
-        async: false,
         success: function (response) {
             if(response) {
                 Toast.fire({
                     icon: 'success',
                     title: 'Role has been deleted.'
                     });
+                $(event).parents().eq(5).remove();
+                $('#inputRole').find(`:contains('${target}')`).remove();
+                FixAccTableRoles(target);
+                getRoleSelectNodes()
             }
             else {
                 Toast.fire({
@@ -179,7 +179,7 @@ function deleteRole(event) {
            console.log(errorThrown);
         }
     });
-    getRoleSelectNodes()
+    
 }
 
 function updateAccTableRoles(oldRoleName, newRoleName) {
@@ -190,70 +190,54 @@ function FixAccTableRoles(deletedRole) {
     $('#accountTable tbody').find(`a:contains('${deletedRole}')`).text('No Role');
 }
 
-function newRole() {
-    key = 1;
-    while( checkRoleExistence(key) ){
+async function newRole(e) {
+    console.log(e);
+    toggleButtonDisabled(e, "#roles");
+    var key = 1;
+    //Get list of existing role names in db
+    var response = await $.ajax({
+        type: 'post',
+        url: 'customFiles/php/database/roleControls/checkIfNewRoleExist.php',
+        dataType: "json",
+        data: {
+            roleName:name,
+        },
+        success: function (response) {
+            return(response);
+        },
+        error: function(XMLHttpRequest, textStatus, errorThrown) {
+            throw (errorThrown);
+        }
+    });
+
+    if(!response.isSuccessful) {
+        throw "Failed to check role name";
+    }
+    
+    while(response.data.includes("Role "+key)){
         key++;
     }
-    key = "Role " + key;
+    var roleName = "Role " + key;
     console.log("key is " + key);
-    addRoleToDatabase(key);
-    /*roles[key] = {
-        access : [
-            true, true, true, true, true, true, true,
-            true, true, true, true, true, true, true, 
-            true, true, true, true],
-        userCount : 0    
-    };*/
-    appendToRolesList(key);
+    await addRoleToDatabase(roleName);
+    toggleButtonDisabled(e, "#roles");
 }
 
-function checkRoleExistence(roleName) {
-    var name = "Role " + roleName;
-    output = false;
-    if(name) {
-        $.ajax({
-            type: 'post',
-            url: 'customFiles/php/database/roleControls/checkIfNewRoleExist.php',
-            data: {
-                roleName:name,
-            },
-            async: false,
-            success: function (response) {
-                output = (response==1);
-            },
-            error: function(XMLHttpRequest, textStatus, errorThrown) {
-               console.log(errorThrown);
-            }
-        });
-        return output;
-    }
-    else
-    {
-        console.log("No Input pre");
-        return frue;
-    }
-}
-
-function addRoleToDatabase(roleName) {
-    var name=roleName;
-
-    if(name) {
-        $.ajax({
+async function addRoleToDatabase(roleName = null) {
+    if(roleName) {
+        await $.ajax({
             type: 'post',
             url: 'customFiles/php/database/roleControls/createNewRole.php',
             data: {
-                roleName:name,
+                roleName:roleName,
             },
-            async: false,
             success: function (response) {
-                // We get the element having id of display_info and put the response inside it\
             console.log("naAdd na sa DB");
+            appendToRolesList(roleName);
+            console.log("naAdd na sa page");
             }
         });
-    }
-    else
-    {
+    } else {
         console.log("No Input pre");
     }
 }
@@ -265,7 +249,6 @@ function appendToRolesList(name) {
         data: {
             roleName:name,
         },
-        async: false,
         success: function (response) {
             $('#rolesBody').append(response);
         },
