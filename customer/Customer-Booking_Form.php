@@ -1,3 +1,19 @@
+<?php
+$conn = new mysqli("localhost", "root", "", "test");
+
+if ($conn->connect_error) {
+  $output->setFailed("Cannot connect to database.".$conn->connect_error);
+  echo $output->getOutput(true);
+  die();
+}
+
+$query="SELECT companyName, contact, email, footerRight, socialFB, socialTwitter, socialInstagram 
+FROM companyInfo, amenities, socialMedias;";
+$result=mysqli_query($conn, $query) or die(mysqli_error($conn));
+$followingdata = $result->fetch_array(MYSQLI_ASSOC);
+
+?>
+
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -5,12 +21,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>The Grand Budapest | Booking Form</title>
+    <title><?php echo $followingdata['companyName']; ?> | Booking Form</title>
     <link rel="icon" type="image/x-icon" href="" />
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link href="css/styles.css" rel="stylesheet"/>
-	
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">	
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	<style type="text/css">
@@ -230,7 +245,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 		<div class="container">
-			<a class="navbar-brand js-scroll-trigger" href="Customer-Home.html">The Grand Budapest</a>
+			<a class="navbar-brand js-scroll-trigger" href="Customer-Home.html"><?php echo $followingdata['companyName']; ?></a>
 			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 				Menu
 				<i class="fas fa-bars"></i>
@@ -246,7 +261,7 @@
 		</div>
 	</nav>
 	<!-- Modal -->
-	<section id="modal">
+	<!--<section id="modal">
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
 			<div class="modal-dialog" role="document">
 			  	<div class="modal-content">
@@ -303,7 +318,7 @@
 				</div>
 			</div>
 		</div>
-	</section>
+	</section> -->
 	<section id="bookForm">
 		<div class="bookForm">
 			<div class="row">
@@ -344,18 +359,21 @@
 						</tr>
 						<tr align="right" class="roomEntry">
 							<th>Room:</th>
-							<td>Imperial Suite</td>
-						</tr>
-						<tr align="right" class="roomEntryRate">
-							<th><label for="rate">Rate:</label></th>
-							<td>
-								<select name="rate" id="rate">
-									<option value="rate1">Rate #1</option>
-									<option value="rate2">Rate #2</option>
-									<option value="rate3">Rate #3</option>
-								</select>
+							<td><select id="nameRoom" onchange="selectRate()">
+								<?php
+									$query="SELECT * FROM rate;";
+									$result=mysqli_query($conn, $query) or die(mysqli_error($conn));
+										while($row=mysqli_fetch_assoc($result)){
+								?>
+									<option value="<?php echo $row["roomName"]; ?>"><?php echo $row["roomName"]; ?></option>
+								<?php
+										}
+								?>
 							</td>
 						</tr>
+						<tr align="right" class="roomEntryRate">
+        					<th><label>Rate:</label></th>
+							<td id="ans"></td>				
 						<tr align="right" >	
 							<th></th>
 							<td class="d-flex justify-content-center">
@@ -399,23 +417,25 @@
 						<tr>
 							<td colspan="2"><h4><b>Guest Information</b></h4></td>	
 						</tr>
+						<form action="" method=""> 
 						<tr align="right">
 							<th><label for="fname">First Name:</label></th>
-							<td><input id="name" type="text" placeholder="First Name"></td>
+							<td><input id="fname" type="text" placeholder="First Name"></td>
 						</tr>
 						<tr align="right">
 							<th><label for="lname">Last Name:</label></th>
-							<td><input id="name" type="text" placeholder="Last Name"></td>
+							<td><input id="lname" type="text" placeholder="Last Name"></td>
 						</tr>
 						<tr align="right">
 							<th><label for="cNumber">Contact Number:</label></th>
-							<td><input id="name" type="text" placeholder="Contact Number"></td>
+							<td><input id="cnumber" type="text" placeholder="Contact Number"></td>
 						</tr>
 						<tr align="right">
 							<th><label for="email">Email:</label></th>
-							<td>juandelacruz@yahoo.com</td>
+							<td><input id="email" type="text" placeholder="Email Address"></td>
 						</tr>
-						<tr>
+									</section>
+						<!--<tr>
 							<td colspan="2"><hr></td>
 						</tr>
             			<tr>
@@ -538,31 +558,30 @@
 						</tr>
 						<tr align="right">
 							<td colspan="2"><a href="Customer-Booking_Details.html"><button type="button" class="btn btn-success">Finalize Booking</button></a></td>
-						</tr>
+						</tr>-->
+
 					</table>
             	</div>
 			</div>
 		</div>
-	</section>
+	 
+	 </section>
 	
 	<div class="footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-sm">
-					<p><b>Contact us</b></p>
-					<p>09051234564</p>
-					<p>thegrandbudepest@gmail.com</p>
-				</div>
-				<div class="col-sm">
-					<p>Connect with us at</p>
-					<button type="button" class="btn btn-social-icon btn-facebook btn-rounded"><i class="fa fa-facebook"></i></button> 
-					<button type="button" class="btn btn-social-icon btn-instagram btn-rounded"><i class="fa fa-instagram"></i></button>
-					<button type="button" class="btn btn-social-icon btn-twitter btn-rounded"><i class="fa fa-twitter"></i></button>
-				</div>
-				<div class="col-sm">
-					<p>	®2014-2018 The Grand Budapest </p>
-					<p>All Rights Reserved</p>
-				</div>
+		<div class="row">
+			<div class="col-lg-4 mx-auto">
+				<p><b>Contact us</b></p>
+				<p><?php echo $followingdata["contact"]; ?></p>
+				<p><?php echo $followingdata["email"]; ?></p>               
+			</div>
+			<div class="col-lg-4 mx-auto">
+				<p>Connect with us at</p>
+				<button type="button" class="btn btn-social-icon btn-facebook btn-rounded" href="<?php echo $followingdata["socialFB"]; ?>"><i class="fa fa-facebook"></i></button>
+				<button type="button" class="btn btn-social-icon btn-instagram btn-rounded" href="<?php echo $followingdata["socialInstagram"]; ?>"><i class="fa fa-instagram"></i></button>
+				<button type="button" class="btn btn-social-icon btn-twitter btn-rounded" href="<?php echo $followingdata["socialTwitter"]; ?>"><i class="fa fa-twitter"></i></button>          
+			</div>
+			<div class="col-lg-4 mx-auto">
+				<p><?php echo $followingdata["footerRight"]; ?></p>
 			</div>
 		</div>
 	</div>
@@ -573,6 +592,7 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script>
 	$(`input[type="radio"][name="card"]`).on('click', function() {
 		if($(this).val()==1) {
@@ -593,11 +613,25 @@
 		}
 	})
 </script>
-<script>    
-    $(window).on('load', function() {
-        $('#myModal').modal('show');
-    });
+
+<script>
+function selectRate(){
+		var roomName = document.getElementById("nameRoom").value;
+
+		$.ajax({
+			url:"showETC.php",
+			method: "POST",
+			data:{
+				id : roomName
+			},
+			success:function(data){
+				$("#ans").html(data);
+			}
+		})
+
+	}
 </script>
+<!--
 <script>
 	$(function() {
 		$('input[name="datetimes"]').daterangepicker({
@@ -610,11 +644,18 @@
 		});
 	});
 </script>
+
 <script>
 	$(document).ready(function() {
   prep_modal();
 });
-
+</script>
+<script>    
+    $(window).on('load', function() {
+        $('#myModal').modal('show');
+    });
+</script>
+<script>
 function prep_modal()
 {
   $(".modal").each(function() {
@@ -702,4 +743,5 @@ function prep_modal()
   });
 }
 </script>
+-->
 </html>
