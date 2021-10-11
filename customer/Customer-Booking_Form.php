@@ -28,6 +28,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	<link href="css/styles.css" rel="stylesheet"/>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">	
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+	<link rel="stylesheet" type="text/css" href="/public_assets/modules/libraries/daterangepicker/daterangepicker.css" />
 	<style type="text/css">
 	body{ 
     	padding-top: 65px; 
@@ -285,12 +286,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	            		<tr align="right">
 							<th><label for="date">Date:</label></th>
 								<td>
-									<span><input type="text" name="datetimes" id="date"></span>
-									<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-									<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
-									<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-									<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-								
+									<div class="form-group">
+										<input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+									</div>
 								</td>
 						</tr>
 						<tr>
@@ -532,12 +530,22 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	</div>
 </body>
 
+
 <!-- Scripts -->
 <script src="js/addAnotherRoomToReserve.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<!-- moment -->
+<script src="/public_assets/modules/libraries/moment/moment.min.js"></script>
+<script src="/public_assets/modules/libraries/moment/locales.js"></script>
+<script src="/public_assets/modules/libraries/moment/moment-timezone.js"></script>
+
+<!-- daterange -->
+<script src="/public_assets/modules/libraries/daterangepicker/daterangepicker.js"></script>
+
 <script>
 	$(`input[type="radio"][name="card"]`).on('click', function() {
 		if($(this).val()==1) {
@@ -584,5 +592,14 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		}
 		});
 	});
+</script>
+<script>
+$(function() {
+  $('input[name="daterange"]').daterangepicker({
+    opens: 'left'
+  }, function(start, end, label) {
+    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
+  });
+});
 </script>
 </html>
