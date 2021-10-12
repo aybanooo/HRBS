@@ -492,7 +492,7 @@ $(document).ready(function(){
      $("#inputResetPasswordID").val( $(this).data("value") );
   });
 
-  $uploadCrop = $('.upload-div-container').croppie({
+  uploadCrop = $('.upload-div-container').croppie({
     enableExif: true,
     viewport: {
       height: 190,
@@ -822,7 +822,7 @@ $('#newAccForm').validate({
 
   function createAccount(){
 
-    $('#addAccountModal').click();
+    //$('#addAccountModal').click();
     var empID = document.getElementById('inputEmpID').value;
     var fname = document.getElementById('inputFname').value;
     var lname = document.getElementById('inputLname').value;
@@ -948,15 +948,13 @@ function readURL(input) {
   }
 }
 
-var $uploadCrop;
-
 function readFile(input) {
    if (input.files && input.files[0]) {
           var reader = new FileReader();
           
           reader.onload = function (e) {
-      $('.upload-div').addClass('ready');
-            $uploadCrop.croppie('bind', {
+            $('.upload-div').addClass('ready');
+            uploadCrop.croppie('bind', {
               url: e.target.result
             }).then(function(){
               console.log('jQuery bind complete');
@@ -986,16 +984,17 @@ $('#profilePicture').on('change', function () { console.log( this.files[0] );rea
 
 function addPictureToDB(empID) {
 
-  //console.log($('#profilePicture')[0].files.length);
-
-  $uploadCrop.croppie('result', {
+  console.log($('#profilePicture')[0].files.length);
+  //console.log("---", uploadCrop);
+  uploadCrop.croppie('result', {
     type: 'blob',
-    size: 'viewport',
+    size: "viewport",
     format: 'jpg',
     circle: false
-  }).then(function (resp) {
-    
-    var fd = new FormData();
+  }).then(function(resp) {
+    console.log(resp);
+    console.log(">>>",resp);
+    var fd = new FormData();  
     var files = $('#profilePicture')[0].files;
     console.log((files.length > 0) + " < this");
     if(files.length > 0 ){
@@ -1007,9 +1006,7 @@ function addPictureToDB(empID) {
         contentType: false,
         processData: false,
         success: function(response){
-
           console.log(response);
-
             if(response != 0){
               console.log("File uploaded");
               $("#newAccForm").trigger("reset");
@@ -1018,7 +1015,8 @@ function addPictureToDB(empID) {
             }else{
               console.log("File not uploaded");
             }
-            
+            $('.upload-div').removeClass('ready');
+            $('#addAccountModal').click();
         }
       });
 
@@ -1040,6 +1038,7 @@ function addPictureToDB(empID) {
             }else{
               console.log("File not uploadedss\n"+response);
             }
+            $('.upload-div').removeClass('ready');
         },
       });
       //alert("Please select a file.");
@@ -1047,8 +1046,6 @@ function addPictureToDB(empID) {
 
     //logResult( {src: resp} );
   });
-  
-  $('.upload-div').removeClass('ready');
 }
 
 //$('.upload-result').click();
