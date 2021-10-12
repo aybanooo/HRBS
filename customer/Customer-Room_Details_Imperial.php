@@ -182,7 +182,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             <div class="row mt-4">
                 <div class="col">
                 <label>Description</label>
-                <p rows="3 style="resize: none; margin-top: 0px; margin-bottom: 0px; height: 100px;"><?php echo $followingdata['roomName']; ?></p>
+                <p rows="3 style="resize: none; margin-top: 0px; margin-bottom: 0px; height: 100px;"><?php echo $followingdata['roomDesc']; ?></p>
                 </div>
             </div>
             <!-- Row 2 end-->
