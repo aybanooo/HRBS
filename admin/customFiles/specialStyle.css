@@ -71,7 +71,6 @@
 }
 
 .table-bg {
-    background-color: #eaeaea !important;
 }
 
 .reservationTable {
@@ -265,7 +264,7 @@ table#rsvTable.dataTable tbody tr:hover {
     border-bottom: 1px solid gray;
 }
 
-li>* {
+li>*:not(.datepicker) {
     word-break: break-all;
 }
 
@@ -814,4 +813,8 @@ textarea:focus, input:focus{
 textarea#roomDescription {
     resize: vertical;
     height: 15em;
+}
+
+.text-transparent {
+    color: transparent !important;
 }

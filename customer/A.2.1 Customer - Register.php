@@ -15,7 +15,7 @@ if(isset($_POST['submit'])){
 		$mysqli = NEW MySQLi('localhost','root','','test');
 
 		//sanitize form data
-		$email = mysqli->real_escape_string($email);
+		$email = $mysqli->real_escape_string($email);
 
 		//generate verification key
 		$verification = md5(time().$email);
@@ -45,6 +45,9 @@ if(isset($_POST['submit'])){
 
 	}
 }
+$result=mysqli_query($conn, $queryFooter);
+$queryFooter="SELECT * FROM socialMedias";
+
 ?>
 
 <!DOCTYPE HTML>
@@ -228,23 +231,25 @@ if(isset($_POST['submit'])){
 	</section>
 
 	<div class="footer">
-		<div class="row">
-			<div class="col-lg-4 mx-auto">
-			    <p><b>Contact us</b></p>
-				<p>09051234564</p>
-				<p>thegrandbudepest@gmail.com</p>
-			</div>
-			<div class="col-lg-4 mx-auto">
-				<p>Connect with us at</p>
-				<button type="button" class="btn btn-social-icon btn-facebook btn-rounded"><i class="fa fa-facebook"></i></button> 
-				<button type="button" class="btn btn-social-icon btn-instagram btn-rounded"><i class="fa fa-instagram"></i></button>
-				<button type="button" class="btn btn-social-icon btn-twitter btn-rounded"><i class="fa fa-twitter"></i></button>
-			</div>
-			<div class="col-lg-4 mx-auto">
-				<p>	®2014-2018 The Grand Budapest </p>
-				<p>All Rights Reserved</p>
-			</div>
-		</div>
-    </div>
+            <div class="row">
+                <div class="col-lg-4 mx-auto">
+                    <p><b>Contact us</b></p>
+                    <?php
+                        echo "<p>".$row["contactNum"]."</p><br/>";
+                        "<p>".$row["emailAddress"]."</p>";                
+                    ?>
+                </div>
+                <div class="col-lg-4 mx-auto">
+                    <p>Connect with us at</p>
+                        <button type='button' class='btn btn-social-icon btn-facebook btn-rounded'><i class='fa fa-facebook'>"<?php echo $row["socialFB"] ?>"</i></button>";
+                        <button type='button' class='btn btn-social-icon btn-facebook btn-rounded'><i class='fa fa-instagram'>"<?php echo $row["socialTwitter"] ?>"</i></button>";
+                        <button type='button' class='btn btn-social-icon btn-facebook btn-rounded'><i class='fa fa-twitter'>"<?php echo $row["socialInstagram"] ?>"</i></button>";            
+                </div>
+                <div class="col-lg-4 mx-auto">
+                    <p> ®2014-2018 The Grand Budapest </p>
+                    <p>All Rights Reserved</p>
+                </div>
+            </div>
+        </div>
 </body>
 </html>

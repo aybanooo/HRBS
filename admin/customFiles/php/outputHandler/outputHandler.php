@@ -4,6 +4,7 @@ class outputHandler {
         "isSuccessful" => null,
         "message" => null,
         "data" => null,
+        "status" => "error",
         "error" => array(
             "code" => null,
             "desc" => null,
@@ -14,8 +15,10 @@ class outputHandler {
         $this->output["isSuccessful"] = true;
         if ($message)
             $this->output["message"] .= $message;
+        $this->output["status"] = "success";
+        return json_encode($this->output);
     }
-
+    
     function setFailed($message = null, $errorDesc = null, $errorCode = null) {
         $this->output["isSuccessful"] = false;
         if ($message)
@@ -23,6 +26,8 @@ class outputHandler {
         $this->output["error"]["code"] = $errorCode;
         if ($errorDesc)
             $this->output["error"]["desc"] .=  $errorDesc;
+        $this->output["status"] = "error";
+        return json_encode($this->output);
     }
 
     function getOutput($encode = false) {
