@@ -8,14 +8,11 @@ const toggleButtonDisabled = (selector = null, disableBtnScopeSelector = "*", di
     if(typeof $(disableBtnScopeSelector+" .btn").prop('disabled')==="undefined" || $(disableBtnScopeSelector+" .btn").prop('disabled') == false) {
       $(disableBtnScopeSelector +" .btn").prop('disabled', true);
       //$(selector + " > span").addClass('d-none');
-      if(typeof selector == 'string') {
-        selector.find("*").addClass('d-none');
-        if(disabledText)
-        selector.append('<span class="disabledText ml-2">'+disabledText+'</span>');
-        selector.prepend(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`);
-      } else {
-
-      }
+      console.log("pasok");
+      selector.find("*").addClass('d-none');
+      if(disabledText)
+      selector.append('<span class="disabledText ml-2">'+disabledText+'</span>');
+      selector.prepend(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`);
     } else {
       $("#btn-changeSelection").attr('disabled', '');
       selector.find(".spinner-border").remove();

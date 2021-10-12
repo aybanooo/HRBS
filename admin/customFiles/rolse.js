@@ -123,9 +123,13 @@ function updateRoleName(oldN, newN, pass) {
             newRoleName:newN,
             pass:pass
         },
-        async: false,
         success: function (response) {
             if(response) {
+                getRoleSelectNodes();
+                changeRoleName(oldN, newN);
+                toggleButtonDisabled("#changeRoleNameModal button[type='submit']", "#changeRoleNameModal", "Saving...");
+                $('#changeRoleNameModal').click();
+                $('#changeRoleNameForm').trigger("reset");
                 Toast.fire({
                     icon: 'success',
                     title: 'Role name has been changed.'
@@ -142,15 +146,13 @@ function updateRoleName(oldN, newN, pass) {
            console.log(errorThrown);
         }
     });
-    getRoleSelectNodes();
 }
 
 function deleteRole(event) {
+    toggleButtonDisabled(event, "#rolesBody", "");
     target = $(event).parents().eq(3).find('.roleName').text();
-   
     key = $(event).parents().eq(3).find('#roleID').val();
     delete roles[target];
-    
     $.ajax({
         type: 'post',
         url: 'customFiles/php/database/roleControls/deleteRole.php',
@@ -166,7 +168,8 @@ function deleteRole(event) {
                 $(event).parents().eq(5).remove();
                 $('#inputRole').find(`:contains('${target}')`).remove();
                 FixAccTableRoles(target);
-                getRoleSelectNodes()
+                getRoleSelectNodes();
+                toggleButtonDisabled(event, "#rolesBody", "");
             }
             else {
                 Toast.fire({
@@ -179,7 +182,6 @@ function deleteRole(event) {
            console.log(errorThrown);
         }
     });
-    
 }
 
 function updateAccTableRoles(oldRoleName, newRoleName) {

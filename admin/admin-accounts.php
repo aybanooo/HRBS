@@ -286,7 +286,7 @@ require_once __initDB__;
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
-            <form id="changeRoleNameForm" method="POST" action="./customFiles/php/database/roleControls/updateRoleName.php">
+            <form id="changeRoleNameForm">
             <div class="modal-body">
               <div class="row">
                 <div class="col-12">
@@ -304,7 +304,7 @@ require_once __initDB__;
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-primary">Save</button>
+              <button type="submit" class="btn btn-primary"><span>Save</span></button>
             </div>
           </form>
           </div>
@@ -343,7 +343,7 @@ require_once __initDB__;
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-              <button type="submit" class="btn btn-primary" onsubmit="return false">Save</button>
+              <button type="submit" class="btn btn-primary" onsubmit="return false"><span>Save</span></button>
             </div>
           </form>
           </div>
@@ -605,15 +605,9 @@ $('#changeAccRoleForm').validate({
       $(element).removeClass('is-invalid');
     },
     submitHandler: function () {
+      toggleButtonDisabled("#changeAccRoleForm button[type='submit']", "#changeAccRoleForm", "Saving...");
       newRole = $('#inputChangeAccRole option:selected').text();
       findThis = $('#empIDChangeRole').val();
-      $('#accountTable').find(`td:contains('${findThis}')`).parent(0).find('.changeAccRole').text(newRole);
-      $('#changeAccRoleModal').click();
-      countRoles();
-      refreshRoleCount();//changeAccArole
-
-      console.log("bagong role "+$('#inputChangeAccRole option:selected').val());
-      console.log("id " + findThis);
       $.ajax({
         type: 'post',
         url: 'customFiles/php/database/userControls/changeAccArole.php',
@@ -626,7 +620,14 @@ $('#changeAccRoleForm').validate({
             Toast.fire({
               icon: 'success',
               title: 'Role have been successfully updated.'
-           });
+            });
+            $('#accountTable').find(`td:contains('${findThis}')`).parent(0).find('.changeAccRole').text(newRole);
+            $('#changeAccRoleModal').click();
+            countRoles();
+            refreshRoleCount();//changeAccArole
+            console.log("bagong role "+$('#inputChangeAccRole option:selected').val());
+            console.log("id " + findThis);
+            toggleButtonDisabled("#changeAccRoleForm button[type='submit']", "#changeAccRoleForm", "Saving...");
           }
           else {
             Toast.fire({
@@ -672,13 +673,12 @@ $('#changeRoleNameForm').submit(function(e) {
     $(element).removeClass('is-invalid');
   },
   submitHandler: function() {
+    toggleButtonDisabled("#changeRoleNameModal button[type='submit']", "#changeRoleNameModal", "Saving...");
     oldRoleName = $('#oldRoleName').val();
     newRoleName = $('#newRoleName').val();
     password = $('#password').val();
     updateRoleName(oldRoleName, newRoleName, password);
-    changeRoleName(oldRoleName, newRoleName);
-    $('#changeRoleNameModal').click();
-    $('#changeRoleNameForm').trigger("reset");
+
     return false;
   }
 });
