@@ -159,7 +159,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare_Rooms.html">Compare</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare_Rooms.php">Compare</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#rooms">Rooms</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Amenities.php">Amenities</a></li>
                     </ul>
