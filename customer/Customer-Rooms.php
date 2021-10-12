@@ -11,16 +11,16 @@ if ($conn->connect_error) {
 $query="SELECT companyName FROM companyInfo";
 $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
-?> 
+?>
 
 <!DOCTYPE HTML>
 <html lang="en">
-<head>	
-	<meta charset="utf-8" />
+<head>
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title><?php echo $followingdata['companyName']; ?> | Amenities</title>
+    <title><?php echo $followingdata['companyName']; ?> Login</title>
     <link rel="icon" type="image/x-icon" href="" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -39,27 +39,64 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	}
 	nav#mainNav {
 	    background-color: black;
-	    position: fixed;	    
+	    position: fixed;
+	    
 	}
-	h1{
-		text-align: center;
-		padding-top: 2%;
-		padding-bottom: 2%;
-	}
-	.amenities{
-		background-color: white;
-		color: black;
-		text-align: center;
-		margin: 5% auto;		
-		width: 60%;
-	box-shadow:0 0 5px 0 rgba(0,0,0,0.4);
+	.boxinfo1{
+		background-image:linear-gradient(to right, rgba(255, 255, 255, 0), rgba(0, 0, 0, 0.8));
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
+		width: 70%;
+		height: auto;
+		margin:auto;
+		margin-top: 5%;
+		margin-bottom: 1%;
+		box-shadow:0 0 5px 0 rgba(0,0,0,0.4);
 		border-radius: 5px;
+		padding-bottom:25px;
+		overflow: auto;
+		padding: 1%;
 	}
-	.carousel{
-		height: 100%;
-		width: 95%;
-		margin: auto;
-		margin-bottom: 4%;
+	.roomright{
+		display:block;
+		width: 70%;
+		float:right;
+		padding:2%;
+		text-align: justify;
+		color: white;
+	}
+	.roomright h1{
+		font-size: 1.5em;
+	}
+	.roomright p{
+		display:block;
+		font-size:1em;
+		margin-top:15px;
+	}
+	.roomright button{
+		float: right;
+	}
+	.roomleft{
+		display:block;
+		width: 70%;
+		float:left;
+		padding:2%;
+		text-align: justify;
+		color: white;
+	}
+	.roomleft h1{
+		font-size: 1.5em;
+		float: right;
+	}
+	.roomleft p{
+		display:block;
+		font-size:1em;
+		margin-top:15px;
+		text-align:justify;
+	}
+	.roomleft button{
+		float: left;
 	}
 	.footer{
         background-color: black;
@@ -68,7 +105,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         position: absolute;
         width: 100%;
         text-align: center;
-		bottom:0;
+        bottom: 0;
     }
 	.template-demo>.btn {
      	margin-right: 0.5rem;
@@ -80,10 +117,10 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
  	.btn.btn-social-icon {
      	width: 50px;
      	height: 50px;
-    	padding: 0
+    	padding: 0;
  	}
  	.btn.btn-rounded {
-    	border-radius: 50px
+    	border-radius: 50px;
  	}
 	.btn-facebook {
     	background: #3b579d;
@@ -109,61 +146,60 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
      	background: #bf3322;
      	color: #ffffff
  	}
-	</style>
-	<title>Amenities</title>
+		</style>
+<title>Home</title>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="Customer-Home.php"><?php echo $followingdata["companyName"]; ?></a>
-            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+		<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+            <div class="container">
+                <a class="navbar-brand js-scroll-trigger" href="Customer-Home.html"><?php echo $followingdata['companyName']; ?></a>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare.html">Compare</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Rooms.php">Rooms</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#amenities">Amenities</a></li>
-                </ul>
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare_Rooms.html">Compare</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#rooms">Rooms</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Amenities.html">Amenities</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-    
+        </nav>
 
-    <section id="amenities">
-		<?php
-			$query="SELECT amenityName, amenityDesc FROM amenities;";
-			$result=mysqli_query($conn, $query) or die(mysqli_error($conn));
-			if (mysqli_num_rows($result)>0) {
-				while($row=mysqli_fetch_assoc($result)){
-		?>
-			<div class="amenities">
-				<div class="row">
-					<div class="col-lg-12 mx-auto">
-						<h1><b><?php echo $row["amenityName"]; ?></b></h1>
-						<div id="carouselExampleIndicators" class="carousel slide pointer-event" data-ride="carousel">
-							<div class="carousel-inner" role="listbox">
-								<div class="carousel-item active">
-									<img class="d-block w-100" src="https://cf.bstatic.com/data/xphoto/1182x887/217/21775845.jpg?size=S" data-src="holder.js/900x400?theme=social" alt="900x400" data-holder-rendered="true">
-									<div class="carousel-caption d-none d-md-block">
-									<h3><?php echo $row["amenityName"]; ?></h3>
-									<p><?php echo $row["amenityDesc"]; ?></p>
-									</div>
+        <section id="rooms">
+            <?php
+                $query="SELECT roomName, roomDesc FROM roomtype;";
+                $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
+                if (mysqli_num_rows($result)>0) {
+                    while($row=mysqli_fetch_assoc($result)){
+            ?>
+				<div class="boxinfo1">
+					<div class="roomright">
+						<div class="container" id="titleContainer">
+							<div class="row">
+								<div class="col-sm-8">
+									<h1><b><?php echo $row["roomName"]; ?></b></h1>
 								</div>
-							</div>
+								<div class="col-sm-4">
+									<a href="Customer-Room_Details_Imperial.html"><button type="button" class="btn btn-primary" >Book a Room</button></a>
+								</div>
+							</div>	
+								<p><?php echo $row["roomDesc"]; ?></p>
 						</div>
 					</div>
-				</div>  
-			</div>
-		<?php
-			}
-		}
-		else{
-			echo "<h1>No Amenities Found</h1>";
-		}
-		?>	
-	</section>	
+				</div>
+            <?php
+                    }
+                }
+                else{
+                    echo "<h1>No Rooms Found</h1>";
+                }
+            ?>	
+
+		</div>
+		</section>
+		
 	<?php
         $query="SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
         FROM socialMedias, companyInfo";
