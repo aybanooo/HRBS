@@ -264,7 +264,6 @@ function generateRoles() {
     $.ajax({
         type: 'post',
         url: 'customFiles/php/database/roleControls/generateRolesList.php',
-        async: false,
         success: function (response) {
             $('#rolesBody').append(response);
             getRoleSelectNodes();

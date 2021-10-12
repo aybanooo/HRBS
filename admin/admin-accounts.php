@@ -449,6 +449,7 @@ require_once __initDB__;
             $("#refreshAccList").prop('disabled', true);
             $("#refreshAccList > span").text('');
             $("#refreshAccList > span").toggleClass('fas fa-circle-notch fa-spin');
+            table.clear().draw();
             generateAccountTableEntries();
             setTimeout(function() {
               $("#refreshAccList").prop('disabled', false);
