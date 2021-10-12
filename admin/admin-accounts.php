@@ -541,14 +541,12 @@ $('#resetPassForm').validate({
       $(element).removeClass('is-invalid');
     },
     submitHandler: function () {
-      
       $.ajax({
         type: 'post',
         url: 'customFiles/php/database/userControls/resetPassword.php',
         data: {
           empID: $("#inputResetPasswordID").val()
         },
-        async: false,
         success: function (response){
           if(parseInt(response)){
             Toast.fire({
@@ -560,8 +558,11 @@ $('#resetPassForm').validate({
             Toast.fire({
               icon: 'error',
               title: 'Failed to reset password'
-           });
+            });
           }
+          $('#resetPassModal').click();
+          $('#inputResetPassword').val('');
+          $('#inputResetPasswordRepeat').val('');
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
           Toast.fire({
@@ -571,14 +572,6 @@ $('#resetPassForm').validate({
           console.log(errorThrown);
         }
       });
-
-        Toast.fire({
-                icon: 'success',
-                title: 'The password have been reset.'
-                });
-        $('#resetPassModal').click();
-        $('#inputResetPassword').val('');
-        $('#inputResetPasswordRepeat').val('');
     }
 });
 
@@ -782,11 +775,9 @@ $('#newAccForm').validate({
   });
 
   function generateAccountTableEntries() {
-    table.clear().draw();
     $.ajax({
       type: 'post',
       url: 'customFiles/php/database/userControls/generateAccountTableEntries.php',
-      async: false,
       success: function (response) {
         parsedResponse = JSON.parse(response);
         console.log(parsedResponse);
@@ -827,7 +818,7 @@ $('#newAccForm').validate({
             editButton
         ] ).draw( false );
         */
-  }
+}
 
   function createAccount(){
 
