@@ -321,30 +321,22 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 									<button class="btn btn-default d-block m-2" style="padding: 5px;" data-toggle="dropdown">Add another room</button>
 									<ul class="dropdown-menu dropdown-menu-center" style="width: max-content;">
 										<div class="container" id="addRoomDiv">
+										<?php
+											$query="SELECT * FROM rate;";
+											$result=mysqli_query($conn, $query) or die(mysqli_error($conn));
+												while($row=mysqli_fetch_assoc($result)){
+										?>
 											<div class="row">
 												<div class="col">
 													<div class="d-flex justify-content-between">
-														<a class="d-inline-block mr-2" href="javascript: void(0)"><h5 class="m-0" style="line-height: 29.2px;">Imperial Suite</h5></a>
+														<a class="d-inline-block mr-2" href="javascript: void(0)"><h5 class="m-0" style="line-height: 29.2px;"><?php echo $row["roomName"]; ?></h5></a>
 														<button class="btn btn-default" style="padding: 5px; box-shadow: none !important; border: 1px solid gray;">View</button>
 													</div>
 												</div>
 											</div>
-											<div class="row mt-2">
-												<div class="col">
-													<div class="d-flex justify-content-between">
-														<a class="d-inline-block mr-2" href="javascript: void(0)"><h5 class="m-0" style="line-height: 29.2px;">Peninsula Suite</h5></a>
-														<button class="btn btn-default" style="padding: 5px; box-shadow: none !important; border: 1px solid gray;">View</button>
-													</div>
-												</div>
-											</div>
-											<div class="row mt-2">
-												<div class="col">
-													<div class="d-flex justify-content-between">
-														<a class="d-inline-block mr-2" href="javascript: void(0)"><h5 class="m-0" style="line-height: 29.2px;">Royal Penthouse</h5></a>
-														<button class="btn btn-default" style="padding: 5px; box-shadow: none !important; border: 1px solid gray;">View</button>
-													</div>
-												</div>
-											</div>
+										<?php
+											}
+										?>
 										</div>
 									</ul>
 								</div>
@@ -403,9 +395,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			</div>
 			<div class="col-lg-4 mx-auto">
 				<p>Connect with us at</p>
-							<button type="button" class="btn btn-social-icon btn-facebook btn-rounded" href="<?php echo $followingdata["socialFB"]; ?>"><i class="fa fa-facebook"></i></button>
-							<button type="button" class="btn btn-social-icon btn-instagram btn-rounded" href="<?php echo $followingdata["socialInstagram"]; ?>"><i class="fa fa-instagram"></i></button>
-							<button type="button" class="btn btn-social-icon btn-twitter btn-rounded" href="<?php echo $followingdata["socialTwitter"]; ?>"><i class="fa fa-twitter"></i></button>          
+					<button type="button" class="btn btn-social-icon btn-facebook btn-rounded" href="<?php echo $followingdata["socialFB"]; ?>"><i class="fa fa-facebook"></i></button>
+					<button type="button" class="btn btn-social-icon btn-instagram btn-rounded" href="<?php echo $followingdata["socialInstagram"]; ?>"><i class="fa fa-instagram"></i></button>
+					<button type="button" class="btn btn-social-icon btn-twitter btn-rounded" href="<?php echo $followingdata["socialTwitter"]; ?>"><i class="fa fa-twitter"></i></button>          
 			</div>
 			<div class="col-lg-4 mx-auto">
 				<p><?php echo $followingdata["footerRight"]; ?></p>
@@ -465,18 +457,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		})
 	}
 </script>
-<script>
-	$(function() {
-		$('input[name="datetimes"]').daterangepicker({
-		timePicker: true,
-		startDate: moment().startOf('hour'),
-		endDate: moment().startOf('hour').add(32, 'hour'),
-		locale: {
-			format: 'M/DD A'
-		}
-		});
-	});
-</script>
+
 <script>
 $(function() {
   $('input[name="daterange"]').daterangepicker({
