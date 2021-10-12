@@ -14,7 +14,7 @@ function boolToCheck($value) {
 }
 
 
-$sql = "SELECT empID, fName, lName, contact, access.accessID, access.accessname FROM `employee` INNER JOIN access ON employee.accessID = access.accessID";
+$sql = "SELECT empID, fName, lName, contact, access.accessID, access.accessname FROM `employee` LEFT JOIN access ON employee.accessID = access.accessID";
 
 $accounts = [];
 

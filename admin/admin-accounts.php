@@ -777,7 +777,7 @@ $('#newAccForm').validate({
   function generateAccountTableEntries() {
     $.ajax({
       type: 'post',
-      url: 'customFiles/php/database/userControls/generateAccountTableEntries.php',
+      url: 'customFiles/php/database/userControls/generateAccountTableEntries.php', 
       success: function (response) {
         parsedResponse = JSON.parse(response);
         console.log(parsedResponse);
@@ -842,7 +842,6 @@ $('#newAccForm').validate({
         accessID:role,
         role:role
       },
-      async: false,
       success: function (response) {
         addPictureToDB(empID)
         console.log("user is added? "+response);
@@ -857,20 +856,22 @@ $('#newAccForm').validate({
               title: 'Account have been successfuly created.'
           });
           table.row.add( [
-          checkboxWithID,
-            empID,
-            fname,
-            lname,
-            contact,
-            roleA,
-            editButtonWithID
-        ] ).draw( false );
+            checkboxWithID,
+              empID,
+              fname,
+              lname,
+              contact,
+              roleA,
+              editButtonWithID
+          ] ).draw( false );
         }
         else
           Toast.fire({
               icon: 'error',
               title: 'Failed to add user.'
           });
+        countRoles();
+        refreshRoleCount();
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
         Toast.fire({
@@ -880,8 +881,6 @@ $('#newAccForm').validate({
         console.log(errorThrown);
       }
     });
-    countRoles();
-    refreshRoleCount();
   }
 
   function deleteAccounts() {
