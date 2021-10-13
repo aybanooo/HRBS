@@ -298,7 +298,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 					
 						<tr align="right" class="roomEntry">
 							<th>Room:</th>
-							<td><select id="nameRoom" onchange="selectRate()">
+							<td><select id="nameRoom" name="pickRoom" onchange="selectRate()" >
 								<?php
 									$query="SELECT * FROM rate;";
 									$result=mysqli_query($conn, $query) or die(mysqli_error($conn));
@@ -329,7 +329,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 												<div class="col">
 													<div class="d-flex justify-content-between">
 														<a class="d-inline-block mr-2" href="javascript: void(0)"><h5 class="m-0" style="line-height: 29.2px;"><?php echo $row["roomName"]; ?></h5></a>
-														<button class="btn btn-default" style="padding: 5px; box-shadow: none !important; border: 1px solid gray;">View</button>
 													</div>
 												</div>
 											</div>

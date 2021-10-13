@@ -11,11 +11,9 @@ $valueFromBooking = $_POST['id'];
 
 $query="SELECT price FROM rate WHERE roomName='{$valueFromBooking}'";
 $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
-
 while($row=mysqli_fetch_array($result)){
 ?>
-        <td><?php echo $row["price"]; ?></td>
+        <td ><?php echo $row["price"]; ?></td>
 <?php
-}  
-echo $query;
+  }  
 ?>

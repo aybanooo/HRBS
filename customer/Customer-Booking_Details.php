@@ -11,7 +11,6 @@ $query="SELECT companyName FROM companyInfo";
 $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
-
 $firstName = $_POST['fname'];
 $lastName = $_POST['lname'];
 $contact = $_POST['cnumber'];

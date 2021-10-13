@@ -11,16 +11,20 @@ $firstName = $_POST['fname'];
 $lastName = $_POST['lname'];
 $contact = $_POST['cnumber'];
 $email = $_POST['email'];
-$roomName = $_POST['roomName'];
+$pickRoom = $_POST['pickRoom'];
 
-
-$sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName', '$lastName', '$contact', '$email');";
+echo $firstName;
+echo $lastName;
+echo $contact;
+echo $email;
+echo $pickRoom;
+/*$sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName', '$lastName', '$contact', '$email');";
 
 if (mysqli_query($conn, $sql)) {
 	echo "New record has been added.";
 }
 else{
 	echo "ERROR: ".mysqli_error($conn);
-}
+}*/
 
 ?>
