@@ -269,11 +269,11 @@
 					<div class="modal-split">
 						<div class="loginForm">
 							<div class="col-lg-12 mx-auto">
-								<h2><b>Verify</b></h2>
+								<h2><b>Verify </b></h2>
 								<hr class="new1">
 									<form method="POST" action="verification.php">
 										<tr>
-											<td><input type = "text" name = "email" required placeholder = "Email Address" id="emaillogin" required></td>	
+											<td><input type = "text" name = "email" required placeholder = "Email Address" id="emaillogin"></td>	
 										</tr>					
 									</form>
 							</div>
@@ -283,17 +283,16 @@
 					<div class="modal-split">
 						<div class="loginform">
 							<div class="col-lg-12 mx-auto">
-								<h2 style="text-align: center;"><b>Verification code Sent</b></h2>
+								<h2 style="text-align: center;"><b>Verification Code Sent</b></h2>
 									<hr class="new1">
-									<form>
 										<tr>
 											<div class="form-span" align="center"><span>The verification code has been sent to your email.</span></div>
 										</tr>
 										<br>
+									<form>
 										<tr>
 											<td><input type = "text" name = "authentication" required placeholder = "Authentication Code" id="code"></td>	
 										</tr>					
-										
 									</form>
 							</div>
 						</div>
@@ -650,7 +649,6 @@ function prep_modal()
 
     	$(this).find('.modal-footer').append(b_button).append(n_button);
 
-
     	var page_track = 0;
 
     	$(n_button).click(function() {
@@ -702,18 +700,14 @@ function prep_modal()
     			pages.hide();
     			pages.eq(page_track).show();
     		}
-
-
     	});
-
   }
-
   });
 }
 </script>
 <script>
 function verifyEmail() {
-  document.getElementById("verify").innerHTML = "Hello World";
+	document.getElementById("verify").innerHTML = "Hello World";
 }
 </script>
 
