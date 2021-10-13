@@ -276,7 +276,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             </div>
             <div class="row">
             	<div class="col-lg-10 mx-auto">
-				<form action="Customer-Booking_Form_Info.php" method="POST"> 
+				<form action="Customer-Booking_Details.php" method="POST"> 
             		<table class="tableOne">
 	            		<tr>
 							<td colspan="2"><h4><b>Check in & out date</b></h4></td>
@@ -466,10 +466,12 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		$('input[name="daterange"]').daterangepicker({
 			minDate: new Date(currentYear, currentMonth, currentDate),
 			opens: 'left',
-			startDate: moment(date).add(3,'days'),
-			endDate: moment(date).add(5,'days')
+			startDate: moment(date).add(5,'days'),
+			endDate: moment(date).add(7,'days')
 		}, function(start, end, label) {
 			console.log("A new date selection was made: " + start.format('MM-DD-YYYY') + ' to ' + end.format('MM-DD-YYYY'));
+			startDate = start;
+         	endDate = end;  
 		});
 	});
 </script>

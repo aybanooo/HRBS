@@ -152,7 +152,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             <div class="container-fluid ce-noblank ce-noenter">
                 <div class="row">
                     <div class="col-lg-4 mx-auto">
-                        <a class="roomBack" href = "Customer-Rooms.html">< Back to Rooms</a>
+                        <a class="roomBack" href = "Customer-Rooms.php">< Back to Rooms</a>
                     </div>
                     <div class="col-lg-4 mx-auto">
                         
