@@ -10,16 +10,16 @@ require 'vendor/autoload.php';
 
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
-$apiKey = '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';
+$apiKeyPass = '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';
 
 try {
     //Server settings
-    $mail->SMTPDebug = $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    //$mail->SMTPDebug = $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
     $mail->isSMTP();                                            //Send using SMTP
     $mail->Host       = 'smtp.sendgrid.net';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
     $mail->Username   = 'apikey';                     //SMTP username
-    $mail->Password   = $apiKey;                               //SMTP password
+    $mail->Password   = $apiKeyPass;                               //SMTP password
     $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
     $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
@@ -42,3 +42,4 @@ try {
 } catch (Exception $e) {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
+?>

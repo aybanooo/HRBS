@@ -249,6 +249,12 @@
 			</div>
 		</div>
 	</nav>
+	<?php
+		include_once "connect.php";
+	
+ 
+
+	?>
 	<!-- Modal Verify -->
 	<section id="modal">
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
@@ -277,11 +283,11 @@
 					<div class="modal-split">
 						<div class="loginform">
 							<div class="col-lg-12 mx-auto">
-								<h2 style="text-align: center;"><b>Verification Sent</b></h2>
+								<h2 style="text-align: center;"><b>Verification code Sent</b></h2>
 									<hr class="new1">
 									<form>
 										<tr>
-											<div class="form-span" align="center"><span>The verification code is sent to your email.</span></div>
+											<div class="form-span" align="center"><span>The verification code has been sent to your email.</span></div>
 										</tr>
 										<br>
 										<tr>
@@ -703,6 +709,11 @@ function prep_modal()
   }
 
   });
+}
+</script>
+<script>
+function verifyEmail() {
+  document.getElementById("verify").innerHTML = "Hello World";
 }
 </script>
 
