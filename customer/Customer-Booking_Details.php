@@ -11,6 +11,22 @@ $query="SELECT companyName FROM companyInfo";
 $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
+
+$firstName = $_POST['fname'];
+$lastName = $_POST['lname'];
+$contact = $_POST['cnumber'];
+$email = $_POST['email'];
+$roomName = $_POST['roomName'];
+
+$sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName', '$lastName', '$contact', '$email');";
+
+if (mysqli_query($conn, $sql)) {
+	echo "New record has been added.";
+}
+else{
+	echo "ERROR: ".mysqli_error($conn);
+}
+
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
