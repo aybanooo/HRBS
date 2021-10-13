@@ -140,7 +140,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
     <section class="content m-5">
     <?php
-        $query="SELECT roomName, roomDesc FROM roomtype WHERE roomtypeID='1';";
+        $query="SELECT roomName, roomDesc FROM roomtype WHERE roomtypeID='28';";
         $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
         $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     ?>
@@ -159,7 +159,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                         <h3 id="roomName" class="p-3"><?php echo $followingdata['roomName']; ?></h3> 
                     </div>
                     <div class="col-lg-4 mx-auto">
-                        <a href="Customer-Booking_Form.html"><button type="button" class="btn btn-success">Book Now</button></a>
+                        <a href="Customer-Booking_Form.php"><button type="button" class="btn btn-success">Book Now</button></a>
                     </div>
                 </div>
             </div>  
@@ -319,7 +319,8 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
             </div>
             <!-- Row 3 end-->
-            </div>	
+            </div>
+
 
                 <!-- Review Card -->
                         <div class="card elevation-0">

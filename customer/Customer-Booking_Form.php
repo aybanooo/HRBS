@@ -245,7 +245,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 		<div class="container">
-			<a class="navbar-brand js-scroll-trigger" href="Customer-Home.html"><?php echo $followingdata['companyName']; ?></a>
+			<a class="navbar-brand js-scroll-trigger" href="Customer-Home.php"><?php echo $followingdata['companyName']; ?></a>
 			<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
 				Menu
 				<i class="fas fa-bars"></i>
@@ -285,7 +285,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							<th><label for="date">Date:</label></th>
 								<td>
 									<div class="form-group">
-										<input type="text" name="daterange" value="01/01/2018 - 01/15/2018" />
+										<input class="dateForm" type="text" name="daterange"/>
 									</div>
 								</td>
 						</tr>
@@ -455,12 +455,22 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	}
 </script>
 <script>
-$(function() {
-  $('input[name="daterange"]').daterangepicker({
-    opens: 'left'
-  }, function(start, end, label) {
-    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-  });
-});
+	var date = new Date();
+	var currentMonth = date.getMonth();
+	var currentDate = date.getDate();
+	var currentYear = date.getFullYear();
+	var startDate;
+	var endDate;
+
+	$(function() {
+		$('input[name="daterange"]').daterangepicker({
+			minDate: new Date(currentYear, currentMonth, currentDate),
+			opens: 'left',
+			startDate: moment(date).add(3,'days'),
+			endDate: moment(date).add(5,'days')
+		}, function(start, end, label) {
+			console.log("A new date selection was made: " + start.format('MM-DD-YYYY') + ' to ' + end.format('MM-DD-YYYY'));
+		});
+	});
 </script>
 </html>

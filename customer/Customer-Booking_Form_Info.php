@@ -13,18 +13,13 @@ $contact = $_POST['cnumber'];
 $email = $_POST['email'];
 $pickRoom = $_POST['pickRoom'];
 
-echo $firstName;
-echo $lastName;
-echo $contact;
-echo $email;
-echo $pickRoom;
-/*$sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName', '$lastName', '$contact', '$email');";
+$sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName', '$lastName', '$contact', '$email');";
 
 if (mysqli_query($conn, $sql)) {
 	echo "New record has been added.";
 }
 else{
 	echo "ERROR: ".mysqli_error($conn);
-}*/
+}
 
 ?>

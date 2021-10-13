@@ -182,7 +182,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 									<h1><b><?php echo $row["roomName"]; ?></b></h1>
 								</div>
 								<div class="col-sm-4">
-									<a href="Customer-Room_Details_Imperial.html"><button type="button" class="btn btn-primary" >Book a Room</button></a>
+									<a href="Customer-Room_Details_Imperial.php"><button type="button" class="btn btn-primary" >Book a Room</button></a>
 								</div>
 							</div>	
 								<p><?php echo $row["roomDesc"]; ?></p>
