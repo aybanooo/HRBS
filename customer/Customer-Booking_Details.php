@@ -206,6 +206,34 @@ $sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName',
 						<form action="" method="POST">
 								<th><label for="code">Code:</label></th>
 								<td><input type="text" name="voucher" id="code" placeholder="Voucher Code" required></input></td>
+								<td class="d-flex justify-content-center">
+								<div class="btn-group">
+									<button class="btn btn-rounded" style="padding: 5px;" >Apply Voucher</button>
+									<?php
+											require_once 'conn.php'; //diko pa alam to pre pero gumawa ako coupon na table dun sa db
+											$coupon_code = $_POST['coupon']; // di ko rin macheck e potangina hahaha diko mabuksan kasi php file
+											$price = $_POST['price'];
+										
+											$query = mysqli_query($conn, "SELECT * FROM `coupon` WHERE `coupon_code` = '$coupon_code' && `status` = 'Valid'") or die(mysqli_error());
+											$count = mysqli_num_rows($query);
+											$fetch = mysqli_fetch_array($query);
+											$array = array();
+											if($count > 0){
+												$discount = $fetch['discount'] / 100;
+												$total = $discount * $price; // percentage yung discount
+												$array['discount'] = $fetch['discount'];
+												$array['price'] = $price - $total;
+										
+												echo json_encode($array);
+										
+											}else{
+												echo "error";
+											}
+										?>
+								</div>
+							</td>
+
+
 							</tr>
 							<tr>
 								<td colspan="2"><hr></td>
