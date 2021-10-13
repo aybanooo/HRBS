@@ -264,7 +264,7 @@
 				  	<h4 class="modal-title" id="myModalLabel">Verify your Account</h4>
 				
 					</div>
-				
+					<!-- page 1 -->
 					<div class="modal-body">
 					<div class="modal-split">
 						<div class="loginForm">
@@ -273,13 +273,13 @@
 								<hr class="new1">
 									<form method="POST" action="verification.php">
 										<tr>
-											<td><input type = "text" name = "email" required placeholder = "Email Address" id="emaillogin"></td>	
+											<td><input type = "text" name = "email" required placeholder = "Email Address" id="emaillogin" required></td>	
 										</tr>					
 									</form>
 							</div>
 						</div>
 					</div>
-					
+					<!-- page 2 -->
 					<div class="modal-split">
 						<div class="loginform">
 							<div class="col-lg-12 mx-auto">
@@ -656,7 +656,7 @@ function prep_modal()
     	$(n_button).click(function() {
         
         this.blur();
-
+		/*<!-- page 1 -->*/
     		if(page_track == 0)
     		{
     			$(b_button).show();
@@ -682,7 +682,7 @@ function prep_modal()
 
 
     	});
-
+		/*<!-- page 2 -->*/
     	$(b_button).click(function() {
 
     		if(page_track == 1)
