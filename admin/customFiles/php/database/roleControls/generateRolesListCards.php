@@ -89,7 +89,7 @@ if(mysqli_num_rows($result = mysqli_query($conn, "SELECT A.*, B.category AS cate
                 <button type="button" class="btn btn-outline-secondary" onclick="discardChanges(this)">Discard</button>
             </div>
         </div>
-        <div class="row">
+        <form class="row">
             <div class="col-12 col-md-6 col-lg-4 mb-3">
             <?php
               $currCol = 0;
@@ -145,7 +145,7 @@ if(mysqli_num_rows($result = mysqli_query($conn, "SELECT A.*, B.category AS cate
             ?>
             </div>
         
-        </div>
+        </form>
       </div>
     </div>
   </div>
