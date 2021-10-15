@@ -95,12 +95,12 @@ if(mysqli_num_rows($result = mysqli_query($conn, "SELECT A.*, B.category AS cate
               $currCol = 0;
               $t = json_encode(count($val['permissionCategories']));
               #print "<script>console.log($t)</script>";
-              print "<script>console.groupCollapsed('1st column');</script>";
+              #print "<script>console.groupCollapsed('1st column');</script>";
               foreach(range(0, count($val['permissionCategories'])-1) as $i):
                 if($i%2 != 0) {
                   continue;
                 }
-                print "<script>console.log($i);</script>";
+               #print "<script>console.log($i);</script>";
               ?>
               <div class="row mt-2">
                 <div class="col-12">
@@ -114,7 +114,7 @@ if(mysqli_num_rows($result = mysqli_query($conn, "SELECT A.*, B.category AS cate
               </div>
               <?php  
               endforeach;
-              print "<script>console.groupEnd('1st column');</script>";
+             #print "<script>console.groupEnd('1st column');</script>";
             ?>
             </div>
             <div class="col-12 col-md-6 col-lg-4 mb-3">
@@ -122,12 +122,12 @@ if(mysqli_num_rows($result = mysqli_query($conn, "SELECT A.*, B.category AS cate
               $currCol = 0;
               #$t = json_encode(count($val['permissionCategories']));
               #print "<script>console.log($t)</script>";
-              print "<script>console.groupCollapsed('2nd column');</script>";
+              #print "<script>console.groupCollapsed('2nd column');</script>";
               foreach(range(0, count($val['permissionCategories'])-1) as $i):
                 if($i%2 == 0) {
                   continue;
                 }
-                print "<script>console.log($i);</script>";
+               #print "<script>console.log($i);</script>";
               ?>
               <div class="row mt-2">
                 <div class="col-12">
@@ -141,7 +141,7 @@ if(mysqli_num_rows($result = mysqli_query($conn, "SELECT A.*, B.category AS cate
               </div>
               <?php  
               endforeach;
-              print "<script>console.groupEnd('2nd column');</script>";
+              #print "<script>console.groupEnd('2nd column');</script>";
             ?>
             </div>
         
