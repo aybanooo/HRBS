@@ -82,36 +82,31 @@ function deleteRole(event) {
     });
 }
 
-function updateRoleName(oldN, newN, pass) {
+function updateRoleName(form) {
+    var acid = $(form).find("#oldRoleName").attr('data-acid');
+    var form = $(form).serializeArray();
+    toggleButtonDisabled($("#changeRoleNameForm button[type='submit']"), "#changeRoleNameForm", "");
     $.ajax({
         type: 'post',
         url: 'customFiles/php/database/roleControls/updateRoleName.php',
         data: {
-            oldRoleName:oldN,
-            newRoleName:newN,
-            pass:pass
+            acid: acid,
+            newRoleName: form[1].value,
+            pass: form[2].value
         },
+        dataType: 'json',
         success: function (response) {
-            if(response) {
-                getRoleSelectNodes();
-                changeRoleName(oldN, newN);
-                toggleButtonDisabled("#changeRoleNameModal button[type='submit']", "#changeRoleNameModal", "Saving...");
-                $('#changeRoleNameModal').click();
-                $('#changeRoleNameForm').trigger("reset");
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Role name has been changed.'
-                    });
+            Toast.fire({
+                icon: response.status,
+                title: response.message
+            });
+            if(response.isSuccessful) {
+                toggleButtonDisabled($("#changeRoleNameForm button[type='submit']"), "#changeRoleNameForm", "");
+                var target = $(`#rolesBody .card .card-header input[value='${acid}']`).siblings('h3.card-title').children('.roleName');
+                target.text(form[1].value);
+                $('#changeRoleNameForm').trigger('reset');
+                $('#changeRoleNameModal').modal('toggle');
             }
-            else {
-                Toast.fire({
-                    icon: 'danger',
-                    title: 'Failed to change role name.'
-                    });
-            }
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-           console.log(errorThrown);
         }
     });
 }
@@ -163,3 +158,11 @@ function generateRoles() {
 }
 
 generateRoles();
+
+$("#rolesBody").on('click', "button.changeRoleName", function(e) {
+    var oldRoleName = $(this).closest('div.card').children('div.card-header').find('span.roleName').text();
+    var acid = $(this).closest('div.card').children('div.card-header').children("input[name='roleID']").val();
+    console.log(acid);
+    $("#oldRoleName").val(oldRoleName);
+    $("#oldRoleName").attr('data-acid', acid);
+});

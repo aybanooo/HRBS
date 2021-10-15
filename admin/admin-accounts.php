@@ -642,11 +642,12 @@ $('#changeAccRoleForm').validate({
     }
   });
 
-$('#changeRoleNameForm').submit(function(e) {
-    e.preventDefault();
-}).validate({
+$('#changeRoleNameForm').validate({
   rules: {
     newRoleName: {
+      required: true
+    },
+    password: {
       required: true
     }
   },
@@ -666,14 +667,11 @@ $('#changeRoleNameForm').submit(function(e) {
   unhighlight: function (element, errorClass, validClass) {
     $(element).removeClass('is-invalid');
   },
-  submitHandler: function() {
-    toggleButtonDisabled("#changeRoleNameModal button[type='submit']", "#changeRoleNameModal", "Saving...");
-    oldRoleName = $('#oldRoleName').val();
-    newRoleName = $('#newRoleName').val();
-    password = $('#password').val();
-    updateRoleName(oldRoleName, newRoleName, password);
-
-    return false;
+  submitHandler: function(form, event) {
+    event.preventDefault();
+    console.log("Submited");
+    //toggleButtonDisabled("#changeRoleNameModal button[type='submit']", "#changeRoleNameModal", "Saving...");
+    updateRoleName(form);
   }
 });
 
