@@ -38,7 +38,7 @@ foreach($formatedPerms as $permID => &$val) {
 
 if(mysqli_multi_query($conn, $sql)) {
     #echo "AF rows: ".mysqli_affected_rows($conn);
-    echo $output->setFailed("Changes have been sucessfuly saved.");
+    echo $output->setSuccessful("Changes have been sucessfuly saved.");
 } else {
     echo $output->setFailed("Something went wrong while saving.");
 }
