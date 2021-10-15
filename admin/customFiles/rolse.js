@@ -17,7 +17,7 @@ function checkToNum(val) {
 }
 
 function saveRole(event) {
-    toggleButtonDisabled(event, "#roles", "");
+    toggleButtonDisabled(event, "#roles", "Saving...");
     var form = $(event).closest('div.card-body').children("form.row");
     var acid = $(event).closest("div.card").children('div.card-header').children("input[name='roleID']").val();
     //console.log(form.html());
@@ -40,9 +40,14 @@ function saveRole(event) {
             acid: acid,
             perms: perms
         },
+        dataType: 'json',
         success: function (response) {
             toggleButtonDisabled(event, "#roles", "");
-            console.log(response);
+            //console.log(response);
+            Toast.fire({
+                icon: response.status,
+                title: response.message
+            });
         }
     });
 }
