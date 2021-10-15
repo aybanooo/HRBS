@@ -17,7 +17,32 @@ function checkToNum(val) {
 }
 
 function saveRole(event) {
-   
+    var form = $(event).closest('div.card-body').children("form.row");
+    var acid = $(event).closest("div.card").children('div.card-header').children("input[name='roleID']").val();
+    //console.log(form.html());
+    var fd = new FormData();
+    var perms = {};
+    form.find("input[type='checkbox']").each(function() {
+        //console.log($(this).attr('data-perm'), $(this).prop('checked'));
+        perms[$(this).attr('data-perm')] = $(this).prop('checked');
+    });
+
+    console.groupCollapsed('Form Data');
+    for (var p of fd.entries()) {
+        console.log(p);
+    }
+    console.groupEnd('Form Data');
+    $.ajax({
+        type: "post",
+        url: "/admin/customFiles/php/database/roleControls/saveRole.php",
+        data: {
+            acid: acid,
+            perms: perms
+        },
+        success: function (response) {
+            console.log(response);
+        }
+    });
 }
 
 function discardChanges(event) {
