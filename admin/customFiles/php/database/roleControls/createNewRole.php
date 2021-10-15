@@ -1,73 +1,40 @@
 <?php
-require_once("../../directories/directories.php");
-require_once(__dbCreds__);
+require_once(dirname(__FILE__,3)."/directories/directories.php");
+require_once(__initDB__);
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+function getNewUniqueName() {
+  //$sql = "SELECT * FROM access";
+  $list = [];
 
-$sql = "INSERT INTO access (accessname)
-VALUES ('".$_POST["roleName"]."');";
-
-
-//$allSQL = $sql + $sqlTwo;
-
-//insert new role name to access table
-if ($conn->query($sql) === TRUE) {
-  echo "New record created successfully in access table";
-} else {
-  echo "Error in sql: " . $sql . "<br>" . $conn->error;
-  $conn->close();
-}
-
-//get new role ID
-$sqlGetRoleID = "SELECT accessID FROM access WHERE accessname LIKE '".$_POST["roleName"]."'";
-$result = mysqli_query($conn, $sqlGetRoleID);
-$roleID = "";
-
-if (mysqli_num_rows($result) > 0) {
+  if (mysqli_num_rows($result = mysqli_query($GLOBALS['conn'], "SELECT accessname FROM access")) > 0) {
     // output data of each row
     while($row = mysqli_fetch_assoc($result)) {
-      $roleID = $row["accessID"];    
+      array_push($list, $row['accessname']);
+    }
   }
+  $newRoleNum = 1;
+  while(in_array("Role $newRoleNum", $list)) {
+    $newRoleNum++;
+  }
+  return "Role $newRoleNum";
+}
+
+$roleName = getNewUniqueName();
+#$sql = "INSERT INTO access (accessname) VALUES ('$roleName');";
+//insert new role name to access table
+if (mysqli_query($conn, "INSERT INTO access (accessname) VALUES ('$roleName');") === TRUE) {
+  $insertID = mysqli_insert_id($conn);
+  $output->setSuccessful("New role have been successfuly created.");
 } else {
-    echo "NoID";
+  #echo "Error in sql: " . $sql . "<br>" . $conn->error;
+  #$conn->close();
 }
 
 
-$sqlTwo = "INSERT INTO accesspermission (accessId, permId)
-VALUES 
-($roleID, '1'), 
-($roleID, '2'), 
-($roleID, '3'), 
-($roleID, '4'), 
-($roleID, '5'), 
-($roleID, '6'), 
-($roleID, '7'), 
-($roleID, '8'), 
-($roleID, '9'), 
-($roleID, '10'), 
-($roleID, '11'), 
-($roleID, '12'), 
-($roleID, '13'), 
-($roleID, '14'), 
-($roleID, '15'), 
-($roleID, '16'), 
-($roleID, '17'), 
-($roleID, '18'), 
-($roleID, '19');";
-
-//insert new role data to accesspermission table
-if ($conn->query($sqlTwo) === TRUE) {
-  echo "New record created successfully in accesspermission table";
-} else {
-  echo "Error in sqlTwo: " . $sql . "<br>" . $conn->error;
-}
-
-$conn->close();
+include "./checkaccesspermrelation.php";
+$fakeWhere = "WHERE accessID=$insertID";
+#$fakeWhere = "WHERE accessID=6";#
+include "./getNewRoleCard.php";
 
 //header('Location: /Thesis/Proto/scratch.php');
 ?>
