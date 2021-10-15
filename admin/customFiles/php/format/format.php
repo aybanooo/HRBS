@@ -28,6 +28,7 @@ function prepareForSQL(&$conn, &$val, $type = null) {
         $val = trim($val);
     }
     $val = mysqli_real_escape_string($conn, $val);
+    return $val;
 }
 
 function toPhpBool(&$val) {
