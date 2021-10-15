@@ -25,6 +25,29 @@ function discardChanges(event) {
 }
 
 function deleteRole(event) {
+    toggleButtonDisabled(event, "#roles", "");
+    var card = $(event).closest("div.card");
+    var delid = card.children('div.card-header').children("input[name='roleID']").val();
+    $.ajax({
+        type: "post",
+        url: "/admin/customFiles/php/database/roleControls/deleteRole.php",
+        data: {
+            delid: delid
+        },
+        dataType: "json",
+        success: function (response) {
+            toggleButtonDisabled(event, "#roles", "");
+            //console.log(response);
+            Toast.fire({
+                icon: response.status,
+                title: response.message
+            });
+            if(response.isSuccessful) {
+                //console.log(card);
+                card.remove();
+            }
+        }
+    });
 }
 
 function updateRoleName(oldN, newN, pass) {
@@ -64,7 +87,7 @@ function updateRoleName(oldN, newN, pass) {
 //keep
 async function newRole(e) {
     console.log(e);
-    toggleButtonDisabled(e, "#roles");
+    toggleButtonDisabled(e, "#roles", "Creating...");
     //Get list of existing role names in db
     await $.ajax({
             type: 'post',
