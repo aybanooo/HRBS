@@ -16,12 +16,13 @@ $lastName = $_POST['lname'];
 $contact = $_POST['cnumber'];
 $email = $_POST['email'];
 $roomName = $_POST['roomName'];
-$nightStay = $_POST['numberOfNightStay'];
 $checkInDate = $_POST['checkIn'];
 $checkOutDate = $_POST['checkOut'];
+$rateRoom = $_POST['roomRate'];
+$lengthStay = $checkOutDate - $checkOutDate;
 
 
-$sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName', '$lastName', '$contact', '$email');";
+
 
 
 ?>
@@ -179,6 +180,9 @@ $sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName',
             </div>
 				<div class="row">
 					<div class="col-lg-6 mx-auto">
+						<?php 
+							$sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName', '$lastName', '$contact', '$email');";
+						?>
 						<h3><b>Guest Information</b></h3>
 						<p><b>First Name:</b><?php echo $firstName; ?><br/>
 						<b>Last Name:</b><?php echo $lastName; ?><br/>
@@ -188,12 +192,12 @@ $sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName',
 						<h3><b>Reservation Details</b></h3>
 						<p><b>Reservation No.:</b> 201648451<br/> <!-- kukunin sa database -->
 						<b>Room:</b><?php echo $roomName; ?><br/> <!-- kukunin sa form -->
-						<b>Rate:</b> P 5,000.00/day - Regular Rate<br/> <!-- kukunin sa form -->
-						<b>Check-in Date:</b> September 20 <br/> <!-- kukunin sa form -->
-						<b>Check-out Date:</b> September 24 <br/> <!-- kukunin sa form -->
-						<b>Check-in Time:</b> 7:00 AM <br/> <!-- kukunin sa form -->
-						<b>Check-out Time:</b> 7:00 AM <br/> <!-- kukunin sa form -->
-						<b>Length of Stay:</b> 4 Days </p> <!-- kukunin sa form -->
+						<b>Rate:</b><?php echo $rateRoom; ?><br/> <!-- kukunin sa form -->
+						<b>Check-in Date:</b> <?php echo $checkInDate; ?><br/> <!-- kukunin sa form -->
+						<b>Check-out Date:</b><?php echo $checkOutDate; ?><br/> <!-- kukunin sa form -->
+						<b>Check-in Time:</b> 7:00 AM <br/> <!-- kukunin sa database -->
+						<b>Check-out Time:</b> 7:00 AM <br/> <!-- kukunin sa database -->
+						<b>Length of Stay:</b><?php echo $lengthStay; ?></p> <!-- kukunin sa form -->
 						
                         <table>
                         <tr>
@@ -204,41 +208,20 @@ $sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName',
 						</tr>
 						<tr align="right">
 						<form action="" method="POST">
+						
 								<th><label for="code">Code:</label></th>
-								<td><input type="text" name="voucher" id="code" placeholder="Voucher Code" required></input></td>
+								<td><input type="text" name="voucher" id="coupon_code" name="coupon_code" placeholder="Voucher Code"></input></td>
 								<td class="d-flex justify-content-center">
-								<div class="btn-group">
-									<button class="btn btn-rounded" style="padding: 5px;" >Apply Voucher</button>
-									<?php
-											require_once 'conn.php'; //diko pa alam to pre pero gumawa ako coupon na table dun sa db
-											$coupon_code = $_POST['coupon']; // di ko rin macheck e potangina hahaha diko mabuksan kasi php file
-											$price = $_POST['price'];
-										
-											$query = mysqli_query($conn, "SELECT * FROM `coupon` WHERE `coupon_code` = '$coupon_code' && `status` = 'Valid'") or die(mysqli_error());
-											$count = mysqli_num_rows($query);
-											$fetch = mysqli_fetch_array($query);
-											$array = array();
-											if($count > 0){
-												$discount = $fetch['discount'] / 100;
-												$total = $discount * $price; // percentage yung discount
-												$array['discount'] = $fetch['discount'];
-												$array['price'] = $price - $total;
-										
-												echo json_encode($array);
-										
-											}else{
-												echo "error";
-											}
-										?>
+								<div class="btn-group" id="result">
+								<button class="btn btn-rounded" style="padding: 5px;" id="apply">Apply Voucher</button>		
 								</div>
 							</td>
-
-
 							</tr>
 							<tr>
 								<td colspan="2"><hr></td>
 							</tr>
 							<tr>
+								<!--
 								<td><h4><b>Payment</b></h4></td>	
 							</tr>
 							<tr>
@@ -320,7 +303,7 @@ $sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName',
 							<tr>
 								<td colspan="2"><hr></td>
 							</tr>
-							<!--<tr>
+							<tr>
 								<td><h4><b>Billing</b></h4></td>	
 							</tr>
 							<tr align="right">
@@ -354,7 +337,7 @@ $sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName',
 						</div>
 						<div class="col-lg-6 mx-auto">
 							<h1><b>Total</b></h1>
-								<h1><b>P 7, 283.00</b></h1>
+								<h1 id="total_price" name="total_price"><b>P 7, 283.00</b></h1>
 								<p><input type="checkbox" class="form-check-input" id="exampleCheck1">
 								<label class="form-check-label" for="exampleCheck1">I Understand the <a href="#">Terms and Agreement.</a></label></p>
 								<a href="Customer-Booking_Done.html"><button type="button" class="btn btn-success">Book Now</button></a>
@@ -390,3 +373,39 @@ $sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName',
 	</div>
 </body>
 </html>
+<script>
+	$("#apply").click(function(){
+		if($('#promo_code').val()!=''){
+			$.ajax({
+				type: "POST",
+				url: "showETC.php",
+				data:{
+					coupon_code: $('#coupon_code').val()
+				},
+				success: function(dataResult){
+					var dataResult = JSON.parse(dataResult);
+					if(dataResult.statusCode==200){
+						var after_apply=$('#total_price').val()-dataResult.value;
+						$('#total_price').val(after_apply);
+						$('#apply').hide();
+						$('#edit').show();
+						$('#message').html("Promocode applied successfully !");
+						
+					}
+					else if(dataResult.statusCode==201){
+						$('#message').html("Invalid promocode!");
+					}
+				}
+			});
+		}
+		else{
+			$('#message').html("Promocode can not be blank .Enter a Valid Promocode !");
+		}
+	});
+	$("#edit").click(function(){
+		$('#coupon_code').val("");
+		$('#apply').show();
+		$('#edit').hide();
+		location.reload();
+	});
+</script>
