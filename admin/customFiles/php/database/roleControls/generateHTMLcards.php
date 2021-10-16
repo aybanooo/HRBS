@@ -70,7 +70,7 @@
                 $currCol = 0;
                 #$t = json_encode(count($val['permissionCategories']));
                 #print "<script>console.log($t)</script>";
-                print "<script>console.groupCollapsed('2nd column');</script>";
+                #print "<script>console.groupCollapsed('2nd column');</script>";
                 foreach(range(0, count($val['permissionCategories'])-1) as $i):
                     if($i%2 == 0) {
                         continue;
