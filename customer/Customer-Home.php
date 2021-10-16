@@ -242,7 +242,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                 }
                             }
                             else{
-                                echo "No amenities";
+                                echo "No amenities Found";
                             }
                         ?>
                     </div>

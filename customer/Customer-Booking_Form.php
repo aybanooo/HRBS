@@ -71,11 +71,13 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	table input[type=text] {
 		width:100%;
 		font-size:1.25rem;
-		vertical-align:top;
 		outline-color:#999;
 		border:#999;
 		background-color:#E5E8E8;
 		border-radius:15px;
+		text-align: center;
+		margin: 0 auto;
+		display: block;
 	}
 	.loginForm{
 		color: black;
@@ -298,21 +300,22 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 					
 						<tr align="right" class="roomEntry">
 							<th>Room:</th>
-							<td><select id="nameRoom" name="pickRoom" onchange="selectRate()" >
+							<td><select id="nameRoom"  name="roomName" name="pickRoom"  onchange="selectRate()" >
 								<?php
 									$query="SELECT * FROM rate;";
 									$result=mysqli_query($conn, $query) or die(mysqli_error($conn));
 										while($row=mysqli_fetch_assoc($result)){
 								?>
-									<option value="<?php echo $row["roomName"]; ?>"><?php echo $row["roomName"]; ?></option>
+									<option value="<?php echo $row["roomName"]; ?>"  ><?php echo $row["roomName"]; ?></option>
 								<?php
 										}
 								?>
 							</td>
 						</tr>
 						<tr align="right" class="roomEntryRate">
-        					<th><label>Rate:</label></th>
-							<td id="ans"></td>				
+        					<th><label>Price:</label></th>
+							<td id="ans"></td>	
+						</tr>			
 						<tr align="right" >	
 							<th></th>
 							<td class="d-flex justify-content-center">

@@ -16,13 +16,18 @@ $lastName = $_POST['lname'];
 $contact = $_POST['cnumber'];
 $email = $_POST['email'];
 $roomName = $_POST['roomName'];
-$checkInDate = $_POST['checkIn'];
-$checkOutDate = $_POST['checkOut'];
-$rateRoom = $_POST['roomRate'];
-$lengthStay = $checkOutDate - $checkOutDate;
+$daterange = $_POST['daterange'];
 
 
+$split = explode('-', $daterange);
 
+$count = count($split);
+if($count <> 2){
+  #invalid data
+}
+
+$start = $split[0];
+$end = $split[1];
 
 
 ?>
@@ -54,15 +59,26 @@ $lengthStay = $checkOutDate - $checkOutDate;
 	    background-color: black;
 	    position: fixed;
 	    
-	}
+	}	
 	.finalForm{
 		background-color: white;
 		color: black;
 		padding: 2%;
 		margin: 5% auto;		
 		width: 70%;
-	box-shadow:0 0 5px 0 rgba(0,0,0,0.4);
+		box-shadow:0 0 5px 0 rgba(0,0,0,0.4);
 		border-radius: 5px;
+	}
+	table input[type=text] {
+		width:100%;
+		font-size:1.25rem;
+		outline-color:#999;
+		border:#999;
+		background-color:#E5E8E8;
+		border-radius:15px;
+		text-align: center;
+		margin: 0 auto;
+		display: block;
 	}
 	p{
 		margin-left: 5%;
@@ -72,6 +88,10 @@ $lengthStay = $checkOutDate - $checkOutDate;
 	}
 	h2.title{
 		text-align:center;
+	}
+	table{
+		table-layout: fixed;
+		width: 70%;
 	}
 	h3{
 	    text-align: left;
@@ -99,13 +119,27 @@ $lengthStay = $checkOutDate - $checkOutDate;
      	margin-top: 0.5rem;
  	}
  	.btn.btn-social-icon {
-     	width: 50px;
+     	width: 50px; 
      	height: 50px;
-    	padding: 0
+    	padding: 0;
  	}
- 	.btn.btn-rounded {
-    	border-radius: 50px
+ 	.btn.btn-info {
+    	border-radius: 10px;
+		background-color: #45b6fe;
+		color: #ffffff;
+		padding: 12px;
+		box-shadow: 0 0.1875rem 0.1875rem;
+		font-size: 80%;
  	}
+	.btn.btn-success{
+		border-radius: 10px;
+		box-shadow: 0 0.1875rem 0.1875rem;
+		font-size: 80%;
+		text-transform: uppercase;
+		letter-spacing: 0.15rem;
+		border: 0;
+		padding: 15px;
+	}
 	.btn-facebook {
     	background: #3b579d;
     	color: #ffffff
@@ -168,7 +202,7 @@ $lengthStay = $checkOutDate - $checkOutDate;
 		<div class="finalForm">
 			<div class="row">
                 <div class="col-lg-3 mx-auto">
-                	<a class="return" href = "Customer-Booking_Form.html">< Back to Booking Details</a>
+                	<a class="return" href = "Customer-Booking_Form.php">< Back to Booking Details</a>
                 </div>
                 <div class="col-lg-6 mx-auto">
                 	<h2 class="title"><b>Booking Details</b></h2>
@@ -179,168 +213,211 @@ $lengthStay = $checkOutDate - $checkOutDate;
                 </div>
             </div>
 				<div class="row">
-					<div class="col-lg-6 mx-auto">
+					<div class="col-lg-12 mx-auto">
 						<?php 
 							$sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName', '$lastName', '$contact', '$email');";
+							$sql = "INSERT INTO reservation (checkInDate, checkOutDate) VALUE('$start', '$end');";
+							
 						?>
-						<h3><b>Guest Information</b></h3>
-						<p><b>First Name:</b><?php echo $firstName; ?><br/>
-						<b>Last Name:</b><?php echo $lastName; ?><br/>
-						<b>Contact Number:</b><?php echo $contact; ?><br/>
-						<b>Email:</b><?php echo $email; ?>m</p>	    
-						<hr/>
-						<h3><b>Reservation Details</b></h3>
-						<p><b>Reservation No.:</b> 201648451<br/> <!-- kukunin sa database -->
-						<b>Room:</b><?php echo $roomName; ?><br/> <!-- kukunin sa form -->
-						<b>Rate:</b><?php echo $rateRoom; ?><br/> <!-- kukunin sa form -->
-						<b>Check-in Date:</b> <?php echo $checkInDate; ?><br/> <!-- kukunin sa form -->
-						<b>Check-out Date:</b><?php echo $checkOutDate; ?><br/> <!-- kukunin sa form -->
-						<b>Check-in Time:</b> 7:00 AM <br/> <!-- kukunin sa database -->
-						<b>Check-out Time:</b> 7:00 AM <br/> <!-- kukunin sa database -->
-						<b>Length of Stay:</b><?php echo $lengthStay; ?></p> <!-- kukunin sa form -->
-						
-                        <table>
-                        <tr>
-							<td colspan="2"><hr/></td>
-						</tr>
-            			<tr>
-							<td colspan="2"><h3><b>Voucher</b></h3></td>	
-						</tr>
-						<tr align="right">
-						<form action="" method="POST">
-						
+						<table align="center">
+							<tr>
+								<td><h3><b>Guest Information</b></h3><td>
+							</tr>
+							<tr align="right">
+								<th>First Name:</th>
+								<td><?php echo $firstName; ?></td>
+							</tr>
+							<tr align="right">
+								<th>Last Name:</th>
+								<td><?php echo $lastName; ?></td>
+							</tr>
+							<tr align="right">
+								<th>Contact:</th>
+								<td><?php echo $contact; ?></td>
+							</tr>
+							<tr align="right">
+								<th>Email Address:</th>
+								<td><?php echo $email; ?></td>
+							</tr>
+							<tr>
+								<td><hr/></td>
+							</tr>
+
+							<tr> 
+								<td><h3><b>Reservation Details</b></h3></td>
+							</tr>
+							<tr align="right">
+								<th>Reservation No.:</th>
+								<td>201648451</td><!-- kukunin sa database -->
+							</tr>
+							<tr align="right">
+								<th>Room:</th>
+								<td><?php echo $roomName; ?></td>
+							</tr>
+							<tr align="right">
+								<?php
+									$query = "SELECT price FROM rate WHERE roomName='$roomName'";
+									$result=mysqli_query($conn, $query) or die(mysqli_error($conn));
+									$followingdata = $result->fetch_array(MYSQLI_ASSOC);
+								?>
+								<th>Rate:</th>
+								<td><?php echo $followingdata['price']; ?></td>
+							</tr>
+							<tr align="right">
+								<th>Check-in Date:</th>
+								<td><?php echo $start; ?></td>
+							</tr>
+							<tr align="right">
+								<th>Check-out Date:</th>
+								<td><?php echo $end; ?></td>
+							</tr>
+							<tr align="right">
+								<th>Check-in Time:</th><!-- kukunin sa database -->
+								<td>7:00 AM</td><!-- kukunin sa database -->
+							</tr>
+							<tr align="right">
+								<th>Check-out Time:</th>
+								<td>7:00 AM</td>
+							</tr>                   
+							<tr align="right">
+								<td ><hr/></td>
+							</tr>
+							<tr align="right">
+								<td ><h3><b>Voucher</b></h3></td>	
+							</tr>
+							<tr align="right">
+							<form action="" method="POST">
 								<th><label for="code">Code:</label></th>
 								<td><input type="text" name="voucher" id="coupon_code" name="coupon_code" placeholder="Voucher Code"></input></td>
-								<td class="d-flex justify-content-center">
-								<div class="btn-group" id="result">
-								<button class="btn btn-rounded" style="padding: 5px;" id="apply">Apply Voucher</button>		
-								</div>
-							</td>
+							</tr >
+							<tr align="right">
+								<td colspan="2"><button class="btn btn-info" id="apply">Apply Voucher</button></td>
 							</tr>
-							<tr>
-								<td colspan="2"><hr></td>
-							</tr>
-							<tr>
-								<!--
-								<td><h4><b>Payment</b></h4></td>	
-							</tr>
-							<tr>
-								
-									<td colspan="2">
-										<input type="radio" name="card" id="masterCard" value="1" checked>
-										<label for="masterCard">Mastercard</label>
 
-										<input type="radio" name="card" id="paypal" value="2">
-										<label for="paypal">Paypal</label>
+								<!--<tr>
+									<td colspan="2"><hr></td>
+								</tr>
+								<tr>
+									
+									<td><h4><b>Payment</b></h4></td>	
+								</tr>
+								<tr>
+									
+										<td colspan="2">
+											<input type="radio" name="card" id="masterCard" value="1" checked>
+											<label for="masterCard">Mastercard</label>
 
-										<input type="radio" name="card" id="bank" value="3">
-										<label for="bank">Bank Transfer</label>
+											<input type="radio" name="card" id="paypal" value="2">
+											<label for="paypal">Paypal</label>
 
-										<div id="mastercardDiv">
-											<div class="form-group">
-												<label for="name">Name</label>
-												<input id="name" type="text" placeholder="Enter your name">
-											</div>
-											<div class="form-group">
-												<label for="ccnumber">Credit Card Number</label>
-												<div class="input-group">
-													<input  type="text" placeholder="0000 0000 0000 0000" autocomplete="email">
-													<div class="input-group-append">
-												
+											<input type="radio" name="card" id="bank" value="3">
+											<label for="bank">Bank Transfer</label>
+
+											<div id="mastercardDiv">
+												<div class="form-group">
+													<label for="name">Name</label>
+													<input id="name" type="text" placeholder="Enter your name">
+												</div>
+												<div class="form-group">
+													<label for="ccnumber">Credit Card Number</label>
+													<div class="input-group">
+														<input  type="text" placeholder="0000 0000 0000 0000" autocomplete="email">
+														<div class="input-group-append">
+													
+														</div>
+													</div>
+												</div>
+												<div class="row">
+												<div class="form-group col-sm-4">
+													<label for="ccmonth">Month</label>
+													<select id="ccmonth">
+														<option>1</option>
+														<option>2</option>
+														<option>3</option>
+														<option>4</option>
+														<option>5</option>
+														<option>6</option>
+														<option>7</option>
+														<option>8</option>
+														<option>9</option>
+														<option>10</option>
+														<option>11</option>
+														<option>12</option>
+													</select>
+												</div>
+												<div class="form-group col-sm-4">
+													<label for="ccyear">Year</label>
+													<select id="ccyear">
+														<option>2021</option>
+														<option>2022</option>
+														<option>2023</option>
+														<option>2024</option>
+														<option>2025</option>
+														<option>2026</option>
+														<option>2027</option>
+														<option>2028</option>
+														<option>2029</option>
+													</select>
+												</div>
+												<div class="col-sm-4">
+													<div class="form-group">
+														<label for="cvv" data-toggle="tooltip" title="Three digit CV code on the back of your card">CVV/CVC <i class="fa fa-question-circle d-inline"></i></label>
+														<input type="text" required  placeholder="123" id="cvv">
 													</div>
 												</div>
 											</div>
-											<div class="row">
-											<div class="form-group col-sm-4">
-												<label for="ccmonth">Month</label>
-												<select id="ccmonth">
-													<option>1</option>
-													<option>2</option>
-													<option>3</option>
-													<option>4</option>
-													<option>5</option>
-													<option>6</option>
-													<option>7</option>
-													<option>8</option>
-													<option>9</option>
-													<option>10</option>
-													<option>11</option>
-													<option>12</option>
-												</select>
-											</div>
-											<div class="form-group col-sm-4">
-												<label for="ccyear">Year</label>
-												<select id="ccyear">
-													<option>2021</option>
-													<option>2022</option>
-													<option>2023</option>
-													<option>2024</option>
-													<option>2025</option>
-													<option>2026</option>
-													<option>2027</option>
-													<option>2028</option>
-													<option>2029</option>
-												</select>
-											</div>
-											<div class="col-sm-4">
-												<div class="form-group">
-													<label for="cvv" data-toggle="tooltip" title="Three digit CV code on the back of your card">CVV/CVC <i class="fa fa-question-circle d-inline"></i></label>
-													<input type="text" required  placeholder="123" id="cvv">
-												</div>
-											</div>
 										</div>
-									</div>
-									<div class="d-none" id="paypalDiv">
-												<p><button type="button" class="btn btn-primary "><i class="fab fa-paypal mr-2"></i> Log into my PayPal</button></p>
-												<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
-									</div>
-									<div class="d-none" id="bankDiv">
-												<p>Make your payment directly into our bank account. <br/> Please use your <b>Booking/Reservation ID </b> as the payment Reference. You can send us the payment receipt for faster transaction.<br/> <b>BDO Account no: 0000 0000 0000 0000</b></p>
-									</div>
-									</td>	
-								
-							</tr>
-							<tr>
-								<td colspan="2"><hr></td>
-							</tr>
-							<tr>
-								<td><h4><b>Billing</b></h4></td>	
-							</tr>
-							<tr align="right">
-								<td><b>Price Breakdown</b></td>
-							</tr>
-							<tr align="right">
-								<td>Room Rate</td>
-								<td>5, 000.00</td>
-							</tr>
-							<tr align="right">
-								<td>VAT (12%)</td>
-								<td>600.00</td>
-							</tr>
-							<tr align="right">
-								<td>Service Charge</td>
-								<td>452.00</td>
-							</tr>
-							<tr align="right">
-								<td>Incidental Charges</td>
-								<td>1, 231.00</td>
-							</tr>
-							<tr align="right">
-								<td><h2><b>TOTAL</b></h2></td>
-								<td><h2><b>P7, 283.00</b></h2></td>
-							</tr>-->
-
-
-
-
-							</table>
-						</div>
-						<div class="col-lg-6 mx-auto">
-							<h1><b>Total</b></h1>
-								<h1 id="total_price" name="total_price"><b>P 7, 283.00</b></h1>
-								<p><input type="checkbox" class="form-check-input" id="exampleCheck1">
-								<label class="form-check-label" for="exampleCheck1">I Understand the <a href="#">Terms and Agreement.</a></label></p>
-								<a href="Customer-Booking_Done.html"><button type="button" class="btn btn-success">Book Now</button></a>
+										<div class="d-none" id="paypalDiv">
+													<p><button type="button" class="btn btn-primary "><i class="fab fa-paypal mr-2"></i> Log into my PayPal</button></p>
+													<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
+										</div>
+										<div class="d-none" id="bankDiv">
+													<p>Make your payment directly into our bank account. <br/> Please use your <b>Booking/Reservation ID </b> as the payment Reference. You can send us the payment receipt for faster transaction.<br/> <b>BDO Account no: 0000 0000 0000 0000</b></p>
+										</div>
+										</td>	-->
+									
+								</tr>
+								<tr>
+									<td colspan="2"><hr></td>
+								</tr>
+								<tr>
+									<td><h4><b>Billing</b></h4></td>	
+								</tr>
+								<tr align="right">
+									<td><b>Price Breakdown</b></td>
+								</tr>
+								<tr align="right">
+									<td>Room Rate</td>
+									<td><?php echo $followingdata['price']; ?></td>
+								</tr>
+								<tr align="right">
+									<td>VAT (12%)</td>
+									<td>600.00</td>
+								</tr>
+								<tr align="right">
+									<td>Service Charge</td>
+									<td>452.00</td>
+								</tr>
+								<tr align="right">
+									<td>Incidental Charges</td>
+									<td>1, 231.00</td>
+								</tr>
+							
+						
+						
+								<tr>
+									<td><h1><b>Total</b></h1></td>
+								</tr>
+								<tr align="right">
+									<td colspan="2"><h1 id="total_price" name="total_price"><b>P 7, 283.00</b></h1></td>
+								</tr>
+								<tr align="right">
+									<td colspan="2"><input type="checkbox" class="form-check-input" id="exampleCheck1"><label class="form-check-label" for="exampleCheck1">I Understand the <a href="#">Terms and Agreement.</a></label></p></td>
+								</tr>
+								<tr align="right">
+									<td colspan="2"><a href="Customer-Booking_Done.html"><button type="button" class="btn btn-success">Book Now</button></a></td>
+								</tr>
+								</table>
 						</div>
 					</form>
 				</div>
