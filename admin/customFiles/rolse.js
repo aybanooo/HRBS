@@ -56,7 +56,26 @@ function saveRole(event) {
 }
 
 function discardChanges(event) {
-
+    toggleButtonDisabled(event, "#roles", "");
+    $.ajax({
+        type: "get",
+        url: "/admin/customFiles/php/database/roleControls/discardChanges.php",
+        data: {
+            acid: $(event).closest('div.card').children('div.card-header').children("input[name='roleID']").val()
+        },
+        dataType: 'json',
+        success: function (response) {
+            //console.log(response);
+            if(response.isSuccessful) {
+                var target = $(event).closest('div.card').children('div.card-body');
+                for(const [key, val] of  Object.entries(response.data.perms)) {
+                    target.find(`input[type='checkbox'][data-accs='${response.data.id}'][data-perm='${key}']`).prop('checked', val);
+                }
+                $(event).closest('.card').children('.card-header').find('span[name="changesWarning"]').addClass('d-none');
+            }
+            toggleButtonDisabled(event, "#roles", "");
+        }
+    });
 }
 
 function deleteRole(event) {
