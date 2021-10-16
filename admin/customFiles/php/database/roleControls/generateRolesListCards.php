@@ -86,7 +86,7 @@ if(mysqli_num_rows($result = mysqli_query($conn, "SELECT A.*, B.category AS cate
             </div>
             <div class="col-6 text-right">
                 <button type="button" class="btn btn-success ml-2" onclick="saveRole(this)" name="saveButton"><span>Save</span></button>
-                <button type="button" class="btn btn-outline-secondary" onclick="discardChanges(this)">Discard</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="discardChanges(this)"><span>Discard</span></button>
             </div>
         </div>
         <form class="row">
