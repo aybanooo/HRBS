@@ -40,5 +40,9 @@ function emptyToZero(&$var) {
     return $var;
 }
 
+function zeroToEmpty(&$var) {
+    $var = $var == "0" ? "" : $var;
+    return $var;
+}
 
 ?>
