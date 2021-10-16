@@ -48,6 +48,9 @@ function saveRole(event) {
                 icon: response.status,
                 title: response.message
             });
+            if(response.isSuccessful) {
+                $(event).closest('.card').children('.card-header').find('span[name="changesWarning"]').addClass('d-none');
+            }
         }
     });
 }
@@ -159,6 +162,8 @@ function generateRoles() {
 
 generateRoles();
 
+//Event Listeners
+
 $("#rolesBody").on('click', "button.changeRoleName", function(e) {
     var oldRoleName = $(this).closest('div.card').children('div.card-header').find('span.roleName').text();
     var acid = $(this).closest('div.card').children('div.card-header').children("input[name='roleID']").val();
@@ -166,3 +171,11 @@ $("#rolesBody").on('click', "button.changeRoleName", function(e) {
     $("#oldRoleName").val(oldRoleName);
     $("#oldRoleName").attr('data-acid', acid);
 });
+
+$("#rolesBody").on('change', "input[type='checkbox']", function() {
+    //var x = $(this).prop('checked');
+    //console.log(x);
+    $(this).closest('.card').children('.card-header').find('span[name="changesWarning"]').removeClass('d-none');
+});
+
+//Event Listeners End
