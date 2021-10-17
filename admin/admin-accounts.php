@@ -86,18 +86,18 @@ require_once __initDB__;
                 <table id="accountTable" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th class="no-sort sorting_disabled">
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="selectAll">
-                        <label class="form-check-label" for="selectAll">Select All</label>
-                      </div>
-                    </th>
                     <th>Employee ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Contact</th>
                     <th>Role(s)</th>
                     <th class="no-sort text-center">Password</th>
+                    <th class="no-sort sorting_disabled text-center">
+                      <div class="form-check p-0 m-0">
+                        <input hidden type="checkbox" class="form-check-input" id="selectAll">
+                        <label class="form-check-label btn btn-link" for="selectAll">Select All</label>
+                      </div>
+                    </th>
                   </tr>
                   </thead>
                   <tbody>
@@ -225,7 +225,7 @@ require_once __initDB__;
                       <input type="text" name="contact" class="form-control" id="inputContact" placeholder="Enter contact #">
                   </div>
                   <div class="form-group mb-0">
-                    <select class="custom-select" id="inputRole">
+                    <select class="form-control" name="select-roles">
                     </select>
                   </div>
                 </div>
@@ -332,7 +332,7 @@ require_once __initDB__;
                       <input type="text" name="empIDChangeRole" class="form-control" id="empIDChangeRole" placeholder="Employee ID" disabled>
                   </div>
                   <div class="form-group">
-                    <select class="custom-select" id="inputChangeAccRole">
+                    <select class="form-control" name="select-roles">
                     </select>
                   </div>
                   <div class="form-group">
@@ -418,12 +418,15 @@ require_once __initDB__;
     });
 
     var table = $("#accountTable").DataTable({
+      ajax: "customFiles/php/database/userControls/generateAccountTableEntries.php",
+      dataSrc: '',
       "responsive": true, 
       "lengthChange": true, 
       "autoWidth": false,
       "searching": true,
       "lengthMenu": [5, 10, 15, 25],
       "pageLength": 10,
+      dom: "<'row'<'col'l><'col'fr>>Bt<'row'<'col'i><'col'p>>",
       "buttons": [
         {
           attr: {
@@ -436,7 +439,18 @@ require_once __initDB__;
         {
           text: 'Delete',
           className: 'btn btn-danger',
-          action: function() {
+          action: function ( e, dt, node, config ) {
+            console.groupCollapsed("IDs");
+            var x = $('#accountTable tbody input[type="checkbox"]:checked').parent('tr');
+            console.log(x);
+            return;
+            var ids = $.map(dt.rows( x ).data().pluck("empID"), function (item) {
+              console.log(item);
+              return item;
+            });
+            console.groupEnd("IDs");
+            console.log("IDs", ids);
+              return;
             deleteAccounts();
           }
         },
@@ -445,23 +459,59 @@ require_once __initDB__;
             'id':'refreshAccList'
           },
           text: 'Refresh',
-          action: function() {
-            $("#refreshAccList").prop('disabled', true);
-            $("#refreshAccList > span").text('');
-            $("#refreshAccList > span").toggleClass('fas fa-circle-notch fa-spin');
-            table.clear().draw();
-            generateAccountTableEntries();
-            setTimeout(function() {
-              $("#refreshAccList").prop('disabled', false);
-              $("#refreshAccList > span").text('Refresh');
-              $("#refreshAccList > span").toggleClass('fas fa-circle-notch fa-spin');
-            }, 500);
+          action: function(e, dt, node) {
+            toggleButtonDisabled(node, ".dt-buttons", "");
+            dt.ajax.reload(() => {
+              toggleButtonDisabled(node, ".dt-buttons");
+            });
           }
         }
       ],
-      columnDefs: [ 
-        {orderable: false, "searchable": false, width: "100px", orderable: false, targets: 0 },
-        {orderable: false, "searchable": false, orderable: false, targets: 4 }
+      columns: [
+        {
+          data: "empID",
+          className: "text-center"
+        }, {
+          data: "fName"
+        }, {
+          data: "lName"
+        }, {
+          data: "contact"
+        }, {
+          data: "accessname",
+          render: function(data, type, row, meta) {
+            return `<button 
+              data-toggle="modal" 
+              data-target="#changeAccRoleModal" 
+              href="javascript: void(0)" 
+              class="btn btn-link changeAccRole" 
+              data-value="${row.empID}">${row.accessname}</button>`;
+          }
+        }, {
+          data: null,
+          defaultContent: "None",
+          render: function(data, type, row, meta) {
+            return `<button 
+              data-toggle="modal" 
+              data-target="#resetPassModal" 
+              href="javascript: void(0)" 
+              class="btn btn-link" 
+              data-value="${row.empID}">Reset</button>`;
+          }
+        }, {
+          data: null,
+          render: function( data, type, row, meta) {
+            return `<div class="form-check">
+                      <input type="checkbox" class="form-check-input accountCheckbox" value="${row.empID}">
+                    </div>`
+          }
+        }
+      ],
+      columnDefs: [
+        {
+          responsivePriority: 1,
+          targets: [6]
+        }
       ]
     });
     table.buttons().container().appendTo('#accountTable_wrapper .col-md-6:eq(0)');
@@ -484,7 +534,7 @@ $(document).ready(function(){
     $('#accountTable').find('input[type=checkbox]').prop("checked", !checkBox.prop("checked"));
   });
 
-  $("#accountTable").on("click","td:first-child", function(){
+  $("#accountTable").on("click","td:last-child", function(){
       var checkBox = $(this).find('input[type=checkbox]');
       checkBox.prop("checked", !checkBox.prop("checked"));
   });
@@ -1053,7 +1103,6 @@ function addPictureToDB(empID) {
   readFile(this);
 });*/
 
-  generateAccountTableEntries();
 </script>
 <link rel="stylesheet" href="customFiles/overrideStyle.css">
 

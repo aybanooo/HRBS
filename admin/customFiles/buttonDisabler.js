@@ -8,7 +8,7 @@ const toggleButtonDisabled = (selector = null, disableBtnScopeSelector = "*", di
     if(typeof $(disableBtnScopeSelector+" .btn").prop('disabled')==="undefined" || $(disableBtnScopeSelector+" .btn").prop('disabled') == false) {
       $(disableBtnScopeSelector +" .btn").prop('disabled', true);
       //$(selector + " > span").addClass('d-none');
-      console.log("pasok");
+      //console.log("pasok");
       selector.find("*").addClass('d-none');
       if(disabledText)
       selector.append('<span class="disabledText ml-2">'+disabledText+'</span>');

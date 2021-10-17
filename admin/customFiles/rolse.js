@@ -146,6 +146,7 @@ async function newRole(e) {
             //console.log(response);
             console.log("naAdd na sa DB");
             $("#rolesBody").append(response);
+            getRoleSelectNodes();
             console.log("naAdd na sa page");
             }
         });
@@ -157,13 +158,9 @@ function getRoleSelectNodes() {
     $.ajax({
         type: 'get',
         url: 'customFiles/php/database/roleControls/generateRoleSelectNode.php',
-        async: false,
         success: function (response) {
-            $('#inputRole').html(response);
-            $('#inputChangeAccRole').html(response);
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-           console.log(errorThrown);
+            //console.log(response);
+            $("select[name='select-roles']").replaceWith(response);
         }
     });
 }
@@ -174,6 +171,7 @@ function generateRoles() {
         url: "/admin/customFiles/php/database/roleControls/generateRolesListCards.php",
         dataType: "html",
         success: function (response) {
+            getRoleSelectNodes();
             $("#rolesBody").append(response);
         }
     });

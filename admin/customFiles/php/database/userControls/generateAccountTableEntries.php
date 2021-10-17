@@ -16,7 +16,9 @@ function boolToCheck($value) {
 
 $sql = "SELECT empID, fName, lName, contact, access.accessID, access.accessname FROM `employee` LEFT JOIN access ON employee.accessID = access.accessID";
 
-$accounts = [];
+$accounts = [
+    "data" => []
+];
 
 //$sql = "SELECT * FROM access";
 $result = mysqli_query($conn, $sql);
@@ -25,17 +27,20 @@ if (mysqli_num_rows($result) > 0) {
     // output data of each row
     while($row = mysqli_fetch_assoc($result)) {
         //echo $row["accessID"]."<br>";   
-        array_push($accounts, $row);
+        array_push($accounts['data'], $row);
     }
-    echo  json_encode($accounts);
 } else {
     echo "";
 }
 
-mysqli_close($conn);
 
+echo json_encode($accounts);
 //header('Location: /Thesis/Proto/scratch.php');
-
-
-
+die();
 ?>
+
+<pre>
+    <?php
+        echo json_encode($accounts);
+    ?>
+</pre>

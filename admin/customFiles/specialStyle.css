@@ -365,7 +365,7 @@ a {
 
 .no-sort {cursor: default!important;}
 
-#accountTable tr td:first-child, #accountTable tr:first-child .form-check-label {
+#accountTable tr td:last-child, #accountTable tr:last-child .form-check-label {
     cursor: pointer ;
     outline: none;
     text-align: center;
