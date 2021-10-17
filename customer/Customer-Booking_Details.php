@@ -18,9 +18,8 @@ $email = $_POST['email'];
 $roomName = $_POST['roomName'];
 $daterange = $_POST['daterange'];
 
-
+#date range 
 $split = explode('-', $daterange);
-
 $count = count($split);
 if($count <> 2){
   #invalid data
@@ -28,7 +27,6 @@ if($count <> 2){
 
 $start = $split[0];
 $end = $split[1];
-
 
 ?>
 <!DOCTYPE HTML>
@@ -216,8 +214,7 @@ $end = $split[1];
 					<div class="col-lg-12 mx-auto">
 						<?php 
 							$sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName', '$lastName', '$contact', '$email');";
-							$sql = "INSERT INTO reservation (checkInDate, checkOutDate) VALUE('$start', '$end');";
-							
+							$sql = "INSERT INTO reservation (checkInDate, checkOutDate) VALUE('$start', '$end');";	
 						?>
 						<table align="center">
 							<tr>
@@ -255,11 +252,11 @@ $end = $split[1];
 								<td><?php echo $roomName; ?></td>
 							</tr>
 							<tr align="right">
-								<?php
-									$query = "SELECT price FROM rate WHERE roomName='$roomName'";
-									$result=mysqli_query($conn, $query) or die(mysqli_error($conn));
-									$followingdata = $result->fetch_array(MYSQLI_ASSOC);
-								?>
+						<?php
+							$query = "SELECT price FROM rate WHERE roomName='$roomName'";
+							$result=mysqli_query($conn, $query) or die(mysqli_error($conn));
+							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
+						?>
 								<th>Rate:</th>
 								<td><?php echo $followingdata['price']; ?></td>
 							</tr>
@@ -276,7 +273,7 @@ $end = $split[1];
 								<td>7:00 AM</td><!-- kukunin sa database -->
 							</tr>
 							<tr align="right">
-								<th>Check-out Time:</th>
+								<th>Check-out Time:</th><!-- kukunin sa database -->
 								<td>7:00 AM</td>
 							</tr>                   
 							<tr align="right">
@@ -288,11 +285,19 @@ $end = $split[1];
 							<tr align="right">
 							<form action="" method="POST">
 								<th><label for="code">Code:</label></th>
-								<td><input type="text" name="voucher" id="coupon_code" name="coupon_code" placeholder="Voucher Code"></input></td>
+								<input type="hidden" value="<?php echo $followingdata['price']; ?>" id="price"/>
+								<td><input class="form-control" type="text" id="coupon" name="coupon" placeholder="Voucher Code"/></input></td>
 							</tr >
+
 							<tr align="right">
-								<td colspan="2"><button class="btn btn-info" id="apply">Apply Voucher</button></td>
+								<td colspan="2"><button class="btn btn-info" id="activate">Apply Voucher</button></td>
 							</tr>
+							<tr>
+								<td><div id="result"></div></td>
+								<br style="clear:both;"/>
+							</tr>
+							
+					<form>
 
 								<!--<tr>
 									<td colspan="2"><hr></td>
@@ -409,13 +414,15 @@ $end = $split[1];
 									<td><h1><b>Total</b></h1></td>
 								</tr>
 								<tr align="right">
-									<td colspan="2"><h1 id="total_price" name="total_price"><b>P 7, 283.00</b></h1></td>
+								<td><input class="form-control" type="number" value="<?php echo  $followingdata['price']?>" id="total" readonly="readonly" lang="en-150"/></td>
+								<td><h1 id="price" name="price"><b><?php echo $followingdata['price'] ?></b></h1></td>
+								
 								</tr>
 								<tr align="right">
 									<td colspan="2"><input type="checkbox" class="form-check-input" id="exampleCheck1"><label class="form-check-label" for="exampleCheck1">I Understand the <a href="#">Terms and Agreement.</a></label></p></td>
 								</tr>
 								<tr align="right">
-									<td colspan="2"><a href="Customer-Booking_Done.html"><button type="button" class="btn btn-success">Book Now</button></a></td>
+									<td colspan="2"><button type="button" class="btn btn-success">Book Now</button></td>
 								</tr>
 								</table>
 						</div>
@@ -449,40 +456,28 @@ $end = $split[1];
 		</div>
 	</div>
 </body>
-</html>
 <script>
-	$("#apply").click(function(){
-		if($('#promo_code').val()!=''){
-			$.ajax({
-				type: "POST",
-				url: "showETC.php",
-				data:{
-					coupon_code: $('#coupon_code').val()
-				},
-				success: function(dataResult){
-					var dataResult = JSON.parse(dataResult);
-					if(dataResult.statusCode==200){
-						var after_apply=$('#total_price').val()-dataResult.value;
-						$('#total_price').val(after_apply);
-						$('#apply').hide();
-						$('#edit').show();
-						$('#message').html("Promocode applied successfully !");
-						
+	$(document).ready(function(){
+		$('#activate').on('click', function(){
+			var coupon = $('#coupon').val();
+			var price = $('#price').val();
+			if(coupon == ""){
+				alert("Please enter a coupon code!");
+			}else{
+				$.post('voucher.php', {coupon: coupon, price: price}, function(data){
+					if(data == "error"){
+						alert("Invalid Coupon Code!");
+						$('#total').val(price);
+						$('#result').html('');
+					}else{
+						var json = JSON.parse(data);
+						$('#result').html("<h4 class='pull-right text-danger'>"+json.discount+"% Off</h4>");
+						$('#total').val(json.price);
 					}
-					else if(dataResult.statusCode==201){
-						$('#message').html("Invalid promocode!");
-					}
-				}
-			});
-		}
-		else{
-			$('#message').html("Promocode can not be blank .Enter a Valid Promocode !");
-		}
-	});
-	$("#edit").click(function(){
-		$('#coupon_code').val("");
-		$('#apply').show();
-		$('#edit').hide();
-		location.reload();
+				});
+			}
+		});
 	});
 </script>
+</html>
+

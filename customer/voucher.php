@@ -6,17 +6,22 @@ if ($conn->connect_error) {
   echo $output->getOutput(true);
   die();
 }
-$coupon_code=$_POST['coupon_code'];
-$query=mysqli_query($conn,"select * from promotion where promoCode='$coupon_code' and value=1");
-$row=mysqli_fetch_array($query);
-if (mysqli_num_rows($query)>0){
-	echo json_encode(array(
-        "statusCode"=>200,
-        "value"=>$row['value']
-    ));
-}
-else{
-	echo json_encode(array("statusCode"=>201));
-}
-
+	$coupon_code = $_POST['coupon'];
+	$price = $_POST['price'];
+ 
+	$query = mysqli_query($conn, "SELECT * FROM `promotion` WHERE `promoCode` = '$coupon_code' && `value` = '1'") or die(mysqli_error($conn));
+	$count = mysqli_num_rows($query);
+	$fetch = mysqli_fetch_array($query);
+	$array = array();
+	if($count > 0){
+		$discount = $fetch['discount'] / 100;
+		$total = $discount * $price;
+		$array['discount'] = $fetch['discount'];
+		$array['price'] = $price - $total;
+ 
+		echo json_encode($array);
+ 
+	}else{
+		echo "error";
+	}
 ?>
