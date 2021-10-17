@@ -1,19 +1,15 @@
 <?php
 require_once("../../directories/directories.php");
-require_once(__dbCreds__);
+require_once(__initDB__);
+require_once(__validations__);
 
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
-
-if(!( isset($_POST["accountList"]) && isset($_POST["rawAccList"]) )) {
+if(!( isset($_POST["accountList"]) )) {
   exit;
 }
 
-$accs = json_decode($_POST["rawAccList"]);
+checkRequiredPOSTval("accountList");
+
+$accs = $_POST["accountList"];
 
 foreach ($accs as $value) {
   $filename = $value.".jpg";
@@ -25,28 +21,22 @@ foreach ($accs as $value) {
   }
 }
 
-
 function boolToCheck($value) {
     return $value ? 'checked': '';
 }
 
 // sql to delete a record
-$sql = "DELETE from employee WHERE empID IN ".$_POST["accountList"].";";
+$sql = "DELETE from employee WHERE empID IN (".implode(",", $accs).");";
 
-$status = 1;
 
-if ($conn->query($sql) === TRUE) {
-  if($conn->affected_rows <= 0) 
-      $status = 0;
+if (mysqli_query($conn, $sql)) {
+  if(mysqli_affected_rows($conn) > 0) 
+    echo $output->setSuccessful("Records have been deleted");
+  else
+    echo $output->setSuccessful("Nothing to delete");
 } else {
-  $status = 0;
+  echo $output->setFailed("Failed to delete accounts");
 }
-echo $status;
-
-mysqli_close($conn);
 
 //header('Location: /Thesis/Proto/scratch.php');
-
-
-
 ?>

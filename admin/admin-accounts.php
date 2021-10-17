@@ -233,7 +233,7 @@ require_once __initDB__;
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary" onsubmit="return false">Create</button>
+              <button type="submit" class="btn btn-primary" onsubmit="return false"><span>Create</span></button>
             </div>
           </form>
           </div>
@@ -449,7 +449,23 @@ require_once __initDB__;
             });
             console.groupEnd("IDs");
             console.log("IDs", ids);
-            deleteAccounts(ids);
+            toggleButtonDisabled(node, ".dt-buttons", "");
+            $.ajax({
+              type: 'post',
+              url: 'customFiles/php/database/userControls/deleteAccounts.php',
+              data: {
+                accountList: ids
+              },
+              dataType: "json",
+              success: function (response){
+                Toast.fire({
+                  icon: response.status,
+                  title: response.message
+                });
+                toggleButtonDisabled(node, ".dt-buttons", "");
+                dt.ajax.reload();
+              }
+            });
           }
         },
         {
@@ -877,6 +893,7 @@ $('#newAccForm').validate({
     var contact = form[3].value;
     var role = form[4].value;
     //console.log(empID + " " + contact);
+    toggleButtonDisabled("#newAccForm button[type='submit']", "#newAccForm", "Creating...");
     $.ajax({
       type: 'post',
       url: 'customFiles/php/database/userControls/addUser.php',
@@ -899,30 +916,11 @@ $('#newAccForm').validate({
           addPictureToDB(empID);
           table.ajax.reload(null, false);
         }
+        toggleButtonDisabled("#newAccForm button[type='submit']", "#newAccForm", "Creating...");
+        $("#addAccountModal").modal('toggle');
         //countRoles();
         //refreshRoleCount();
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) {
-        Toast.fire({
-            icon: 'error',
-            title: 'Failed to add user.'
-        });
-        console.log(errorThrown);
       }
-    });
-  }
-
-  function deleteAccounts(ids) {
-    $.ajax({
-        type: 'post',
-        url: 'customFiles/php/database/userControls/deleteAccounts.php',
-        data: {
-          accountList: ids
-        },
-        dataType: 'json',
-        success: function (response){
-
-        }
     });
   }
 
