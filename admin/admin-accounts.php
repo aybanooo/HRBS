@@ -441,17 +441,15 @@ require_once __initDB__;
           className: 'btn btn-danger',
           action: function ( e, dt, node, config ) {
             console.groupCollapsed("IDs");
-            var x = $('#accountTable tbody input[type="checkbox"]:checked').parent('tr');
+            var x = $('#accountTable tbody input[type="checkbox"]:checked').parents('tr');
             console.log(x);
-            return;
             var ids = $.map(dt.rows( x ).data().pluck("empID"), function (item) {
               console.log(item);
               return item;
             });
             console.groupEnd("IDs");
             console.log("IDs", ids);
-              return;
-            deleteAccounts();
+            deleteAccounts(ids);
           }
         },
         {
@@ -818,8 +816,8 @@ $('#newAccForm').validate({
     unhighlight: function (element, errorClass, validClass) {
       $(element).removeClass('is-invalid');
     },
-    submitHandler: function () {
-      createAccount();
+    submitHandler: function (form) {
+      createAccount(form);
     }
   });
 
@@ -869,17 +867,16 @@ $('#newAccForm').validate({
         */
 }
 
-  function createAccount(){
-
+  function createAccount(form){
+    form = $(form).serializeArray();
+    console.log(form);
     //$('#addAccountModal').click();
-    var empID = document.getElementById('inputEmpID').value;
-    var fname = document.getElementById('inputFname').value;
-    var lname = document.getElementById('inputLname').value;
-    var contact = document.getElementById('inputContact').value;
-    var role = document.getElementById('inputRole').value;
-    roleA = `<a data-toggle="modal" data-target="#changeAccRoleModal" href="javascript: void(0)" class="hoverable-primary changeAccRole">${document.getElementById('inputRole').options[document.getElementById('inputRole').selectedIndex].text}</a>`;
+    var empID = form[0].value;
+    var fname = form[1].value;
+    var lname = form[2].value;
+    var contact = form[3].value;
+    var role = form[4].value;
     //console.log(empID + " " + contact);
-
     $.ajax({
       type: 'post',
       url: 'customFiles/php/database/userControls/addUser.php',
@@ -891,36 +888,19 @@ $('#newAccForm').validate({
         accessID:role,
         role:role
       },
+      dataType: 'json',
       success: function (response) {
-        addPictureToDB(empID)
-        console.log("user is added? "+response);
-        checkboxWithID = String.raw` <div class="form-check">
-                        <input type="checkbox" class="form-check-input accountCheckbox" value="${empID}">
-                      </div>`;
-        editButtonWithID = String.raw`<a data-toggle="modal" data-target="#resetPassModal" href="javascript: void(0)" class="hoverable-primary" data-value="${empID}">Reset</a>`;
-
-        if(parseInt(response)) {
-          Toast.fire({  
-              icon: 'success',
-              title: 'Account have been successfuly created.'
+        console.log(response)
+        Toast.fire({  
+              icon: response.status,
+              title: response.message
           });
-          table.row.add( [
-            checkboxWithID,
-              empID,
-              fname,
-              lname,
-              contact,
-              roleA,
-              editButtonWithID
-          ] ).draw( false );
+        if(response.isSuccessful) {
+          addPictureToDB(empID);
+          table.ajax.reload(null, false);
         }
-        else
-          Toast.fire({
-              icon: 'error',
-              title: 'Failed to add user.'
-          });
-        countRoles();
-        refreshRoleCount();
+        //countRoles();
+        //refreshRoleCount();
       },
       error: function(XMLHttpRequest, textStatus, errorThrown) {
         Toast.fire({
@@ -932,52 +912,18 @@ $('#newAccForm').validate({
     });
   }
 
-  function deleteAccounts() {
-    var n=0;
-    var accs = [];
-    document.getElementById('accountTable').querySelectorAll('input[type="checkbox"]:checked').forEach(function(el) {
-      accs.push(parseInt(el.value));
-      n++;
-    });
-
-
-    
+  function deleteAccounts(ids) {
     $.ajax({
         type: 'post',
         url: 'customFiles/php/database/userControls/deleteAccounts.php',
         data: {
-          accountList: JSON.stringify(accs).replace("[","(").replace("]",")"),
-          rawAccList: JSON.stringify(accs)
+          accountList: ids
         },
+        dataType: 'json',
         success: function (response){
-          console.log(response ? response+"gegege" : response+"pols");
-          if(parseInt(response)){
-            
-            document.getElementById('accountTable').querySelectorAll('input[type="checkbox"]:checked').forEach(function(el) {
-              table.row(el.parentElement.parentElement.parentElement)
-              .remove().draw();
-            });
 
-            Toast.fire({
-              icon: 'success',
-              title: 'Account\'s have been successfuly deleted.'
-           });
-          }
-          else {
-            Toast.fire({
-              icon: 'error',
-              title: 'Something went wronge while deleting accounts. Please refresh the page.'
-           });
-          }
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-          Toast.fire({
-              icon: 'error',
-              title: 'Failed to delete accounts. Something went wrong when reaching the server.'
-          });
-          console.log(errorThrown);
         }
-      });
+    });
   }
 
   $(function () {
