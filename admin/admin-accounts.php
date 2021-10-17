@@ -329,7 +329,7 @@ require_once __initDB__;
               <div class="row">
                 <div class="col-12">
                   <div class="form-group">
-                      <input type="text" name="empIDChangeRole" class="form-control" id="empIDChangeRole" placeholder="Employee ID" disabled>
+                      <input type="text" name="empIDChangeRole" class="form-control" id="empIDChangeRole" placeholder="Employee ID" readonly>
                   </div>
                   <div class="form-group">
                     <select class="form-control" name="select-roles">
@@ -662,47 +662,31 @@ $('#changeAccRoleForm').validate({
     unhighlight: function (element, errorClass, validClass) {
       $(element).removeClass('is-invalid');
     },
-    submitHandler: function () {
+    submitHandler: function (form) {
       toggleButtonDisabled("#changeAccRoleForm button[type='submit']", "#changeAccRoleForm", "Saving...");
       newRole = $('#inputChangeAccRole option:selected').text();
       findThis = $('#empIDChangeRole').val();
+      form = $(form).serializeArray();
       $.ajax({
         type: 'post',
         url: 'customFiles/php/database/userControls/changeAccArole.php',
         data: {
-          empID: findThis,
-          newAccessID: $('#inputChangeAccRole option:selected').val()
+          empID: form[0].value,
+          newAccessID: form[1].value,
+          password: form[2].value
         },
+        dataType: "json",
         success: function (response){
-          if(parseInt(response)){
-            Toast.fire({
-              icon: 'success',
-              title: 'Role have been successfully updated.'
-            });
-            $('#accountTable').find(`td:contains('${findThis}')`).parent(0).find('.changeAccRole').text(newRole);
-            $('#changeAccRoleModal').click();
-            countRoles();
-            refreshRoleCount();//changeAccArole
-            console.log("bagong role "+$('#inputChangeAccRole option:selected').val());
-            console.log("id " + findThis);
-            toggleButtonDisabled("#changeAccRoleForm button[type='submit']", "#changeAccRoleForm", "Saving...");
-          }
-          else {
-            Toast.fire({
-              icon: 'error',
-              title: 'Role update failed. '+response
-           });
-          }
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log(response);
+          table.ajax.reload();
           Toast.fire({
-              icon: 'error',
-              title: 'Failed to update role. Something went wrong when reaching the server.'
+            icon: response.status,
+            title: response.message
           });
-          console.log(errorThrown);
+          $("#changeAccRoleModal").modal('hide');
+          toggleButtonDisabled("#changeAccRoleForm button[type='submit']", "#changeAccRoleForm", "Saving...");
         }
       });
-
     }
   });
 
