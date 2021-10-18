@@ -38,6 +38,8 @@ if($count <> 2){
 $start = $split[0];
 $end = $split[1];
 
+
+
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -66,8 +68,19 @@ $end = $split[1];
 	nav#mainNav {
 	    background-color: black;
 	    position: fixed;
-	    
 	}	
+	input#total {
+		border: none;
+		background-color: transparent;
+		outline: none;
+		outline-width: 0;
+		text-align: center;
+		background-color: inherit;
+		font-size: 3em;
+		font-weight: bold;
+		width: 50%;
+		box-shadow: none;
+	}
 	.finalForm{
 		background-color: white;
 		color: black;
@@ -262,6 +275,13 @@ $end = $split[1];
 							$query = "SELECT price FROM rate WHERE roomName='$roomName'";
 							$result=mysqli_query($conn, $query) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
+							
+							$vat = $followingdata['price'] * 0.12;
+							$serviceCharge = $followingdata['price'] * 0.10; 
+							$totalPriceWServiceCharge = $vat + $serviceCharge + $followingdata['price'];
+							round($serviceCharge, 2);
+							round($totalPriceWServiceCharge,2 );
+							round($vat, 2);
 						?>
 								<th>Rate:</th>
 								<td><?php echo $followingdata['price']; ?></td>
@@ -293,7 +313,7 @@ $end = $split[1];
 								<td><input class="form-control" type="text" id="coupon" name="coupon" placeholder="Voucher Code"/></input></td>
 							</tr >
 							<tr align="right">
-								<td ><input type="hidden" value="<?php echo $followingdata['price']; ?>" id="price"/><td>
+								<td ><input type="hidden" value="<?php echo $totalPriceWServiceCharge; ?>" id="price"/><td>
 							</tr>
 							<tr align="right">
 								<td colspan="2"><button class="btn btn-info" id="activate">Apply Voucher</button></td>
@@ -303,18 +323,13 @@ $end = $split[1];
 									<td colspan="2"><hr></td>
 								</tr>
 								<tr>
-									<td><h4><b>Payment</b></h4></td>	
+									<td><h4><b>Payment</b></h4></td>
+									<td></td>	
 								</tr>
 								<tr>
-									<td colspan="2">
-										<input type="radio" name="card" id="paypal">
-										<label for="paypal">Paypal</label>
-										<div class="d-none" id="paypalDiv">
-											<p><button type="button" class="btn btn-primary "><i class="fab fa-paypal mr-2"></i> Log into my PayPal</button></p>
-											<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
-										</div>
+									<td colspan="2" align="right">
+										<div id="paypal-button"></div>
 									</td>
-									
 								</tr>
 								<tr>
 									<td colspan="2"><hr></td>
@@ -325,17 +340,18 @@ $end = $split[1];
 								<tr align="right">
 									<td><b>Price Breakdown</b></td>
 								</tr>
+								
 								<tr align="right">
 									<td>Room Rate</td>
 									<td><?php echo $followingdata['price']; ?></td>
 								</tr>
 								<tr align="right">
 									<td>VAT (12%)</td>
-									<td>600.00</td>
+									<td><?php echo round($vat, 2); ?></td>
 								</tr>
 								<tr align="right">
 									<td>Service Charge</td>
-									<td>452.00</td>
+									<td><?php echo round($serviceCharge, 2); ?></td>
 								</tr>
 								<tr align="right">
 									<td>Voucher Discount</td>
@@ -343,7 +359,7 @@ $end = $split[1];
 								</tr>
 								<tr align="right">
 									<td>Incidental Charges</td>
-									<td>1, 231.00</td>
+									<td></td>
 								</tr>
 							
 						
@@ -354,9 +370,8 @@ $end = $split[1];
 									<td><h1><b>Total</b></h1></td>
 								</tr>
 								<tr align="right">
-								<td><input class="form-control" type="number" value="<?php echo  $followingdata['price']?>" id="total" readonly="readonly" lang="en-150"/></td>
-								<td><h1 id="price" name="price"><b><?php echo $followingdata['price'] ?></b></h1></td>
-								
+									<td></td>
+									<td><input class="form-control" type="number" value="<?php echo $totalPriceWServiceCharge; ?>" id="total" readonly="readonly" lang="en-150"/></td>
 								</tr>
 								<tr align="right">
 									<td colspan="2"><input type="checkbox" class="form-check-input" id="exampleCheck1"><label class="form-check-label" for="exampleCheck1">I Understand the <a href="#">Terms and Agreement.</a></label></p></td>
@@ -411,13 +426,50 @@ $end = $split[1];
 						$('#result').html('');
 					}else{
 						var json = JSON.parse(data);
-						$('#result').html("<h4 class='pull-right text-danger'>"+json.discount+"% Off</h4>");
+						$('#result').html(+json.discount+"% Off");
 						$('#total').val(json.price);
 					}
 				});
 			}
 		});
 	});
+</script>
+<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script>
+paypal.Button.render({
+// Configure environment
+env: 'sandbox',
+client: {
+sandbox: 'demo_sandbox_client_id',
+production: 'demo_production_client_id'
+},
+// Customize button (optional)
+locale: 'en_US',
+style: {
+size: 'small',
+color: 'gold',
+shape: 'pill',
+},
+// Set up a payment
+payment: function (data, actions) {
+return actions.payment.create({
+transactions: [{
+amount: {
+total: '0.01',
+currency: 'USD'
+}
+}]
+});
+},
+// Execute the payment
+onAuthorize: function (data, actions) {
+return actions.payment.execute()
+.then(function () {
+// Show a confirmation message to the buyer
+window.alert('Thank you for your purchase!');
+});
+}
+}, '#paypal-button');
 </script>
 </html>
 
