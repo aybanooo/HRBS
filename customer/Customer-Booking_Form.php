@@ -462,8 +462,8 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	var currentMonth = date.getMonth();
 	var currentDate = date.getDate();
 	var currentYear = date.getFullYear();
-	var startDate;
-	var endDate;
+	var startDatePick;
+	var endDatePick;
 
 	$(function() {
 		$('input[name="daterange"]').daterangepicker({
@@ -473,8 +473,8 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			endDate: moment(date).add(7,'days')
 		}, function(start, end, label) {
 			console.log("A new date selection was made: " + start.format('MM-DD-YYYY') + ' to ' + end.format('MM-DD-YYYY'));
-			startDate = start;
-         	endDate = end;  
+			startDatePick = start;
+         	endDatePick = end;  
 		});
 	});
 </script>

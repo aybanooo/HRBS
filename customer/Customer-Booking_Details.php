@@ -237,7 +237,7 @@ $end = $split[1];
 								<td><?php echo $email; ?></td>
 							</tr>
 							<tr>
-								<td><hr/></td>
+								<td colspan="2"><hr/></td>
 							</tr>
 
 							<tr> 
@@ -277,27 +277,24 @@ $end = $split[1];
 								<td>7:00 AM</td>
 							</tr>                   
 							<tr align="right">
-								<td ><hr/></td>
+								<td colspan="2"><hr/></td>
 							</tr>
 							<tr align="right">
 								<td ><h3><b>Voucher</b></h3></td>	
 							</tr>
 							<tr align="right">
-							<form action="" method="POST">
 								<th><label for="code">Code:</label></th>
-								<input type="hidden" value="<?php echo $followingdata['price']; ?>" id="price"/>
 								<td><input class="form-control" type="text" id="coupon" name="coupon" placeholder="Voucher Code"/></input></td>
 							</tr >
-
+							<tr align="right">
+								<td ><input type="hidden" value="<?php echo $followingdata['price']; ?>" id="price"/><td>
+							</tr>
 							<tr align="right">
 								<td colspan="2"><button class="btn btn-info" id="activate">Apply Voucher</button></td>
 							</tr>
-							<tr>
-								<td><div id="result"></div></td>
-								<br style="clear:both;"/>
-							</tr>
 							
-					<form>
+							
+						<form action="" method="POST">
 
 								<!--<tr>
 									<td colspan="2"><hr></td>
@@ -404,12 +401,18 @@ $end = $split[1];
 									<td>452.00</td>
 								</tr>
 								<tr align="right">
+									<td>Voucher Discount</td>
+									<td><div id="result"></div></td>
+								</tr>
+								<tr align="right">
 									<td>Incidental Charges</td>
 									<td>1, 231.00</td>
 								</tr>
 							
 						
-						
+								<tr align="right">
+									<td colspan="2"><hr/></td>
+								</tr>
 								<tr>
 									<td><h1><b>Total</b></h1></td>
 								</tr>
