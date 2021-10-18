@@ -10,15 +10,25 @@ if ($conn->connect_error) {
 $query="SELECT companyName FROM companyInfo";
 $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
+if(isset($_POST['fname'])){ 
+	$firstName = $_POST['fname'];
+}
+if(isset($_POST['lname'])){ 
+	$lastName = $_POST['lname'];
+}
+if(isset($_POST['cnumber'])){ 
+	$contact = $_POST['cnumber'];
+}
+if(isset($_POST['email'])){ 
+	$email = $_POST['email'];
+}
+if(isset($_POST['roomName'])){ 
+	$roomName = $_POST['roomName'];
+}
+if(isset($_POST['daterange'])){ 
+	$daterange = $_POST['daterange'];
+}
 
-$firstName = $_POST['fname'];
-$lastName = $_POST['lname'];
-$contact = $_POST['cnumber'];
-$email = $_POST['email'];
-$roomName = $_POST['roomName'];
-$daterange = $_POST['daterange'];
-
-#date range 
 $split = explode('-', $daterange);
 $count = count($split);
 if($count <> 2){
@@ -212,10 +222,6 @@ $end = $split[1];
             </div>
 				<div class="row">
 					<div class="col-lg-12 mx-auto">
-						<?php 
-							$sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName', '$lastName', '$contact', '$email');";
-							$sql = "INSERT INTO reservation (checkInDate, checkOutDate) VALUE('$start', '$end');";	
-						?>
 						<table align="center">
 							<tr>
 								<td><h3><b>Guest Information</b></h3><td>
@@ -292,91 +298,22 @@ $end = $split[1];
 							<tr align="right">
 								<td colspan="2"><button class="btn btn-info" id="activate">Apply Voucher</button></td>
 							</tr>
-							
-							
-						<form action="" method="POST">
-
-								<!--<tr>
+							<form action="" method="POST">
+								<tr>
 									<td colspan="2"><hr></td>
 								</tr>
 								<tr>
-									
 									<td><h4><b>Payment</b></h4></td>	
 								</tr>
 								<tr>
-									
-										<td colspan="2">
-											<input type="radio" name="card" id="masterCard" value="1" checked>
-											<label for="masterCard">Mastercard</label>
-
-											<input type="radio" name="card" id="paypal" value="2">
-											<label for="paypal">Paypal</label>
-
-											<input type="radio" name="card" id="bank" value="3">
-											<label for="bank">Bank Transfer</label>
-
-											<div id="mastercardDiv">
-												<div class="form-group">
-													<label for="name">Name</label>
-													<input id="name" type="text" placeholder="Enter your name">
-												</div>
-												<div class="form-group">
-													<label for="ccnumber">Credit Card Number</label>
-													<div class="input-group">
-														<input  type="text" placeholder="0000 0000 0000 0000" autocomplete="email">
-														<div class="input-group-append">
-													
-														</div>
-													</div>
-												</div>
-												<div class="row">
-												<div class="form-group col-sm-4">
-													<label for="ccmonth">Month</label>
-													<select id="ccmonth">
-														<option>1</option>
-														<option>2</option>
-														<option>3</option>
-														<option>4</option>
-														<option>5</option>
-														<option>6</option>
-														<option>7</option>
-														<option>8</option>
-														<option>9</option>
-														<option>10</option>
-														<option>11</option>
-														<option>12</option>
-													</select>
-												</div>
-												<div class="form-group col-sm-4">
-													<label for="ccyear">Year</label>
-													<select id="ccyear">
-														<option>2021</option>
-														<option>2022</option>
-														<option>2023</option>
-														<option>2024</option>
-														<option>2025</option>
-														<option>2026</option>
-														<option>2027</option>
-														<option>2028</option>
-														<option>2029</option>
-													</select>
-												</div>
-												<div class="col-sm-4">
-													<div class="form-group">
-														<label for="cvv" data-toggle="tooltip" title="Three digit CV code on the back of your card">CVV/CVC <i class="fa fa-question-circle d-inline"></i></label>
-														<input type="text" required  placeholder="123" id="cvv">
-													</div>
-												</div>
-											</div>
-										</div>
+									<td colspan="2">
+										<input type="radio" name="card" id="paypal">
+										<label for="paypal">Paypal</label>
 										<div class="d-none" id="paypalDiv">
-													<p><button type="button" class="btn btn-primary "><i class="fab fa-paypal mr-2"></i> Log into my PayPal</button></p>
-													<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
+											<p><button type="button" class="btn btn-primary "><i class="fab fa-paypal mr-2"></i> Log into my PayPal</button></p>
+											<p class="text-muted"> Note: After clicking on the button, you will be directed to a secure gateway for payment. After completing the payment process, you will be redirected back to the website to view details of your order. </p>
 										</div>
-										<div class="d-none" id="bankDiv">
-													<p>Make your payment directly into our bank account. <br/> Please use your <b>Booking/Reservation ID </b> as the payment Reference. You can send us the payment receipt for faster transaction.<br/> <b>BDO Account no: 0000 0000 0000 0000</b></p>
-										</div>
-										</td>	-->
+									</td>
 									
 								</tr>
 								<tr>

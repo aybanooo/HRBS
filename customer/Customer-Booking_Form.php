@@ -68,7 +68,18 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	table{
 		width: 100%;
 	}
-	table input[type=text] {
+	table input[type=text], input[type=email] {
+		width:100%;
+		font-size:1.25rem;
+		outline-color:#999;
+		border:#999;
+		background-color:#E5E8E8;
+		border-radius:15px;
+		text-align: center;
+		margin: 0 auto;
+		display: block;
+	}
+	select#nameRoom{
 		width:100%;
 		font-size:1.25rem;
 		outline-color:#999;
@@ -349,22 +360,49 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 						<tr>
 							<td colspan="2"><h4><b>Guest Information</b></h4></td>	
 						</tr>
-						
 						<tr align="right">
 							<th><label for="fname">First Name:</label></th>
-							<td><input id="fname" type="text" name="fname" placeholder="First Name" required></td>
+							<?php
+								if(isset($_POST['fname'])){
+									$firstname = $_POST['fname'];
+									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" value="'.$firstname.'"></td>';
+								} else {
+									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" required></td>';
+								}
+							?>
 						</tr>
 						<tr align="right">
 							<th><label for="lname">Last Name:</label></th>
-							<td><input id="lname" type="text" name="lname" placeholder="Last Name" required></td>
+							<?php
+								if(isset($_POST['lname'])){
+									$lastname = $_POST['lname'];
+									echo '<td><input id="lname" type="text" name="lname" placeholder="Last Name" value="'.$lastname.'"></td>';
+								} else {
+									echo '<td><input id="lname" type="text" name="lname" placeholder="Last Name" required></td>';
+								}
+							?>
 						</tr>
 						<tr align="right">
 							<th><label for="cNumber">Contact Number:</label></th>
-							<td><input id="cnumber" type="text" name="cnumber" placeholder="Contact Number" required></td>
+							<?php
+								if(isset($_POST['cnumber'])){
+									$contact = $_POST['cnumber'];
+									echo '<td><input id="cnumber" type="text" name="cnumber" placeholder="Contact Number" value="'.$contact.'"></td>';
+								} else {
+									echo '<td><input id="cnumber" type="text" name="cnumber" placeholder="Contact Number" required></td>';
+								}
+							?>
 						</tr>
 						<tr align="right">
 							<th><label for="email">Email:</label></th>
-							<td><input id="email" type="text" name="email" placeholder="Email Address" required></td>
+							<?php
+								if(isset($_POST['email'])){
+									$email = $_POST['email'];
+									echo '<td><input id="email" type="email" name="email" placeholder="Email Address" value="'.$email.'"></td>';
+								} else {
+									echo '<td><input id="email" type="email" name="email" placeholder="Email Address" required></td>';
+								}
+							?>
 						</tr>
 						<tr>
 							<td colspan="2"><hr></td>
@@ -377,9 +415,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             	</div>
 			</div>
 		</div>
-	 
-	 </section>
-	
 	 </section>	
 	<?php
         $query="SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
