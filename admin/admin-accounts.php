@@ -86,18 +86,18 @@ require_once __initDB__;
                 <table id="accountTable" class="table table-bordered table-striped">
                   <thead>
                   <tr>
-                    <th class="no-sort sorting_disabled">
-                      <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="selectAll">
-                        <label class="form-check-label" for="selectAll">Select All</label>
-                      </div>
-                    </th>
                     <th>Employee ID</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Contact</th>
                     <th>Role(s)</th>
                     <th class="no-sort text-center">Password</th>
+                    <th class="no-sort sorting_disabled text-center">
+                      <div class="form-check p-0 m-0">
+                        <input hidden type="checkbox" class="form-check-input" id="selectAll">
+                        <label class="form-check-label btn btn-link" for="selectAll">Select All</label>
+                      </div>
+                    </th>
                   </tr>
                   </thead>
                   <tbody>
@@ -225,7 +225,7 @@ require_once __initDB__;
                       <input type="text" name="contact" class="form-control" id="inputContact" placeholder="Enter contact #">
                   </div>
                   <div class="form-group mb-0">
-                    <select class="custom-select" id="inputRole">
+                    <select class="form-control" name="select-roles">
                     </select>
                   </div>
                 </div>
@@ -233,7 +233,7 @@ require_once __initDB__;
             </div>
             <div class="modal-footer justify-content-between">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary" onsubmit="return false">Create</button>
+              <button type="submit" class="btn btn-primary" onsubmit="return false"><span>Create</span></button>
             </div>
           </form>
           </div>
@@ -329,10 +329,10 @@ require_once __initDB__;
               <div class="row">
                 <div class="col-12">
                   <div class="form-group">
-                      <input type="text" name="empIDChangeRole" class="form-control" id="empIDChangeRole" placeholder="Employee ID" disabled>
+                      <input type="text" name="empIDChangeRole" class="form-control" id="empIDChangeRole" placeholder="Employee ID" readonly>
                   </div>
                   <div class="form-group">
-                    <select class="custom-select" id="inputChangeAccRole">
+                    <select class="form-control" name="select-roles">
                     </select>
                   </div>
                   <div class="form-group">
@@ -418,12 +418,15 @@ require_once __initDB__;
     });
 
     var table = $("#accountTable").DataTable({
+      ajax: "customFiles/php/database/userControls/generateAccountTableEntries.php",
+      dataSrc: '',
       "responsive": true, 
       "lengthChange": true, 
       "autoWidth": false,
       "searching": true,
       "lengthMenu": [5, 10, 15, 25],
       "pageLength": 10,
+      dom: "<'row'<'col'l><'col'fr>>Bt<'row'<'col'i><'col'p>>",
       "buttons": [
         {
           attr: {
@@ -436,8 +439,33 @@ require_once __initDB__;
         {
           text: 'Delete',
           className: 'btn btn-danger',
-          action: function() {
-            deleteAccounts();
+          action: function ( e, dt, node, config ) {
+            console.groupCollapsed("IDs");
+            var x = $('#accountTable tbody input[type="checkbox"]:checked').parents('tr');
+            console.log(x);
+            var ids = $.map(dt.rows( x ).data().pluck("empID"), function (item) {
+              console.log(item);
+              return item;
+            });
+            console.groupEnd("IDs");
+            console.log("IDs", ids);
+            toggleButtonDisabled(node, ".dt-buttons", "");
+            $.ajax({
+              type: 'post',
+              url: 'customFiles/php/database/userControls/deleteAccounts.php',
+              data: {
+                accountList: ids
+              },
+              dataType: "json",
+              success: function (response){
+                Toast.fire({
+                  icon: response.status,
+                  title: response.message
+                });
+                toggleButtonDisabled(node, ".dt-buttons", "");
+                dt.ajax.reload();
+              }
+            });
           }
         },
         {
@@ -445,23 +473,59 @@ require_once __initDB__;
             'id':'refreshAccList'
           },
           text: 'Refresh',
-          action: function() {
-            $("#refreshAccList").prop('disabled', true);
-            $("#refreshAccList > span").text('');
-            $("#refreshAccList > span").toggleClass('fas fa-circle-notch fa-spin');
-            table.clear().draw();
-            generateAccountTableEntries();
-            setTimeout(function() {
-              $("#refreshAccList").prop('disabled', false);
-              $("#refreshAccList > span").text('Refresh');
-              $("#refreshAccList > span").toggleClass('fas fa-circle-notch fa-spin');
-            }, 500);
+          action: function(e, dt, node) {
+            toggleButtonDisabled(node, ".dt-buttons", "");
+            dt.ajax.reload(() => {
+              toggleButtonDisabled(node, ".dt-buttons");
+            });
           }
         }
       ],
-      columnDefs: [ 
-        {orderable: false, "searchable": false, width: "100px", orderable: false, targets: 0 },
-        {orderable: false, "searchable": false, orderable: false, targets: 4 }
+      columns: [
+        {
+          data: "empID",
+          className: "text-center"
+        }, {
+          data: "fName"
+        }, {
+          data: "lName"
+        }, {
+          data: "contact"
+        }, {
+          data: "accessname",
+          render: function(data, type, row, meta) {
+            return `<button 
+              data-toggle="modal" 
+              data-target="#changeAccRoleModal" 
+              href="javascript: void(0)" 
+              class="btn btn-link changeAccRole" 
+              data-value="${row.empID}">${row.accessname}</button>`;
+          }
+        }, {
+          data: null,
+          defaultContent: "None",
+          render: function(data, type, row, meta) {
+            return `<button 
+              data-toggle="modal" 
+              data-target="#resetPassModal" 
+              href="javascript: void(0)" 
+              class="btn btn-link" 
+              data-value="${row.empID}">Reset</button>`;
+          }
+        }, {
+          data: null,
+          render: function( data, type, row, meta) {
+            return `<div class="form-check">
+                      <input type="checkbox" class="form-check-input accountCheckbox" value="${row.empID}">
+                    </div>`
+          }
+        }
+      ],
+      columnDefs: [
+        {
+          responsivePriority: 1,
+          targets: [6]
+        }
       ]
     });
     table.buttons().container().appendTo('#accountTable_wrapper .col-md-6:eq(0)');
@@ -484,7 +548,7 @@ $(document).ready(function(){
     $('#accountTable').find('input[type=checkbox]').prop("checked", !checkBox.prop("checked"));
   });
 
-  $("#accountTable").on("click","td:first-child", function(){
+  $("#accountTable").on("click","td:last-child", function(){
       var checkBox = $(this).find('input[type=checkbox]');
       checkBox.prop("checked", !checkBox.prop("checked"));
   });
@@ -598,55 +662,40 @@ $('#changeAccRoleForm').validate({
     unhighlight: function (element, errorClass, validClass) {
       $(element).removeClass('is-invalid');
     },
-    submitHandler: function () {
+    submitHandler: function (form) {
       toggleButtonDisabled("#changeAccRoleForm button[type='submit']", "#changeAccRoleForm", "Saving...");
       newRole = $('#inputChangeAccRole option:selected').text();
       findThis = $('#empIDChangeRole').val();
+      form = $(form).serializeArray();
       $.ajax({
         type: 'post',
         url: 'customFiles/php/database/userControls/changeAccArole.php',
         data: {
-          empID: findThis,
-          newAccessID: $('#inputChangeAccRole option:selected').val()
+          empID: form[0].value,
+          newAccessID: form[1].value,
+          password: form[2].value
         },
+        dataType: "json",
         success: function (response){
-          if(parseInt(response)){
-            Toast.fire({
-              icon: 'success',
-              title: 'Role have been successfully updated.'
-            });
-            $('#accountTable').find(`td:contains('${findThis}')`).parent(0).find('.changeAccRole').text(newRole);
-            $('#changeAccRoleModal').click();
-            countRoles();
-            refreshRoleCount();//changeAccArole
-            console.log("bagong role "+$('#inputChangeAccRole option:selected').val());
-            console.log("id " + findThis);
-            toggleButtonDisabled("#changeAccRoleForm button[type='submit']", "#changeAccRoleForm", "Saving...");
-          }
-          else {
-            Toast.fire({
-              icon: 'error',
-              title: 'Role update failed. '+response
-           });
-          }
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
+          console.log(response);
+          table.ajax.reload();
           Toast.fire({
-              icon: 'error',
-              title: 'Failed to update role. Something went wrong when reaching the server.'
+            icon: response.status,
+            title: response.message
           });
-          console.log(errorThrown);
+          $("#changeAccRoleModal").modal('hide');
+          toggleButtonDisabled("#changeAccRoleForm button[type='submit']", "#changeAccRoleForm", "Saving...");
         }
       });
-
     }
   });
 
-$('#changeRoleNameForm').submit(function(e) {
-    e.preventDefault();
-}).validate({
+$('#changeRoleNameForm').validate({
   rules: {
     newRoleName: {
+      required: true
+    },
+    password: {
       required: true
     }
   },
@@ -666,14 +715,11 @@ $('#changeRoleNameForm').submit(function(e) {
   unhighlight: function (element, errorClass, validClass) {
     $(element).removeClass('is-invalid');
   },
-  submitHandler: function() {
-    toggleButtonDisabled("#changeRoleNameModal button[type='submit']", "#changeRoleNameModal", "Saving...");
-    oldRoleName = $('#oldRoleName').val();
-    newRoleName = $('#newRoleName').val();
-    password = $('#password').val();
-    updateRoleName(oldRoleName, newRoleName, password);
-
-    return false;
+  submitHandler: function(form, event) {
+    event.preventDefault();
+    console.log("Submited");
+    //toggleButtonDisabled("#changeRoleNameModal button[type='submit']", "#changeRoleNameModal", "Saving...");
+    updateRoleName(form);
   }
 });
 
@@ -770,8 +816,8 @@ $('#newAccForm').validate({
     unhighlight: function (element, errorClass, validClass) {
       $(element).removeClass('is-invalid');
     },
-    submitHandler: function () {
-      createAccount();
+    submitHandler: function (form) {
+      createAccount(form);
     }
   });
 
@@ -821,17 +867,17 @@ $('#newAccForm').validate({
         */
 }
 
-  function createAccount(){
-
+  function createAccount(form){
+    form = $(form).serializeArray();
+    console.log(form);
     //$('#addAccountModal').click();
-    var empID = document.getElementById('inputEmpID').value;
-    var fname = document.getElementById('inputFname').value;
-    var lname = document.getElementById('inputLname').value;
-    var contact = document.getElementById('inputContact').value;
-    var role = document.getElementById('inputRole').value;
-    roleA = `<a data-toggle="modal" data-target="#changeAccRoleModal" href="javascript: void(0)" class="hoverable-primary changeAccRole">${document.getElementById('inputRole').options[document.getElementById('inputRole').selectedIndex].text}</a>`;
+    var empID = form[0].value;
+    var fname = form[1].value;
+    var lname = form[2].value;
+    var contact = form[3].value;
+    var role = form[4].value;
     //console.log(empID + " " + contact);
-
+    toggleButtonDisabled("#newAccForm button[type='submit']", "#newAccForm", "Creating...");
     $.ajax({
       type: 'post',
       url: 'customFiles/php/database/userControls/addUser.php',
@@ -843,93 +889,23 @@ $('#newAccForm').validate({
         accessID:role,
         role:role
       },
+      dataType: 'json',
       success: function (response) {
-        addPictureToDB(empID)
-        console.log("user is added? "+response);
-        checkboxWithID = String.raw` <div class="form-check">
-                        <input type="checkbox" class="form-check-input accountCheckbox" value="${empID}">
-                      </div>`;
-        editButtonWithID = String.raw`<a data-toggle="modal" data-target="#resetPassModal" href="javascript: void(0)" class="hoverable-primary" data-value="${empID}">Reset</a>`;
-
-        if(parseInt(response)) {
-          Toast.fire({  
-              icon: 'success',
-              title: 'Account have been successfuly created.'
+        console.log(response)
+        Toast.fire({  
+              icon: response.status,
+              title: response.message
           });
-          table.row.add( [
-            checkboxWithID,
-              empID,
-              fname,
-              lname,
-              contact,
-              roleA,
-              editButtonWithID
-          ] ).draw( false );
+        if(response.isSuccessful) {
+          addPictureToDB(empID);
+          table.ajax.reload(null, false);
         }
-        else
-          Toast.fire({
-              icon: 'error',
-              title: 'Failed to add user.'
-          });
-        countRoles();
-        refreshRoleCount();
-      },
-      error: function(XMLHttpRequest, textStatus, errorThrown) {
-        Toast.fire({
-            icon: 'error',
-            title: 'Failed to add user.'
-        });
-        console.log(errorThrown);
+        toggleButtonDisabled("#newAccForm button[type='submit']", "#newAccForm", "Creating...");
+        $("#addAccountModal").modal('toggle');
+        //countRoles();
+        //refreshRoleCount();
       }
     });
-  }
-
-  function deleteAccounts() {
-    var n=0;
-    var accs = [];
-    document.getElementById('accountTable').querySelectorAll('input[type="checkbox"]:checked').forEach(function(el) {
-      accs.push(parseInt(el.value));
-      n++;
-    });
-
-
-    
-    $.ajax({
-        type: 'post',
-        url: 'customFiles/php/database/userControls/deleteAccounts.php',
-        data: {
-          accountList: JSON.stringify(accs).replace("[","(").replace("]",")"),
-          rawAccList: JSON.stringify(accs)
-        },
-        success: function (response){
-          console.log(response ? response+"gegege" : response+"pols");
-          if(parseInt(response)){
-            
-            document.getElementById('accountTable').querySelectorAll('input[type="checkbox"]:checked').forEach(function(el) {
-              table.row(el.parentElement.parentElement.parentElement)
-              .remove().draw();
-            });
-
-            Toast.fire({
-              icon: 'success',
-              title: 'Account\'s have been successfuly deleted.'
-           });
-          }
-          else {
-            Toast.fire({
-              icon: 'error',
-              title: 'Something went wronge while deleting accounts. Please refresh the page.'
-           });
-          }
-        },
-        error: function(XMLHttpRequest, textStatus, errorThrown) {
-          Toast.fire({
-              icon: 'error',
-              title: 'Failed to delete accounts. Something went wrong when reaching the server.'
-          });
-          console.log(errorThrown);
-        }
-      });
   }
 
   $(function () {
@@ -1055,7 +1031,6 @@ function addPictureToDB(empID) {
   readFile(this);
 });*/
 
-  generateAccountTableEntries();
 </script>
 <link rel="stylesheet" href="customFiles/overrideStyle.css">
 

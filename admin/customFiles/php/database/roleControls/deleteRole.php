@@ -1,26 +1,16 @@
 <?php
 require_once("../../directories/directories.php");
-require_once(__dbCreds__);
+require_once(__initDB__);
 
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
 
-$status = 1;
-
-$sql = "DELETE FROM access WHERE accessID=".$_POST["roleID"];
-
-if ($conn->query($sql) === TRUE) {
-    if($conn->affected_rows <= 0) 
-        $status = 0;
-
+if ($result = mysqli_query($conn, "DELETE FROM access WHERE accessID=".$_POST["delid"]." LIMIT 1;")) {
+    if(mysqli_affected_rows($conn) == 1) 
+        echo $output->setSuccessful('Role have been deleted sucessfuly');
+    else 
+      echo $output->setSuccessful('Nothing has been deleted');
 } else {
-    $status = 0;
+  echo $output->setFailed('Something went wrong while deleting roles');
 }
-echo $status;
 
 mysqli_close($conn);
 

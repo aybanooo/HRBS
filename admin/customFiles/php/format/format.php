@@ -28,6 +28,7 @@ function prepareForSQL(&$conn, &$val, $type = null) {
         $val = trim($val);
     }
     $val = mysqli_real_escape_string($conn, $val);
+    return $val;
 }
 
 function toPhpBool(&$val) {
@@ -39,5 +40,9 @@ function emptyToZero(&$var) {
     return $var;
 }
 
+function zeroToEmpty(&$var) {
+    $var = $var == "0" ? "" : $var;
+    return $var;
+}
 
 ?>

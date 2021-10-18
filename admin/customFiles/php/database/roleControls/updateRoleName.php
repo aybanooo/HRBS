@@ -1,32 +1,21 @@
 <?php
-require_once("../../directories/directories.php");
-require_once(__dbCreds__);
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
-
-$status = 1;
+require_once(dirname(__FILE__, 3)."/directories/directories.php");
+require_once(__initDB__);
+require_once(__format__);
+require_once(__validations__);
 
 
+checkRequiredPOSTval("acid, newRoleName");
 
-$sql = "UPDATE access SET accessname='".$_POST["newRoleName"]."' WHERE accessname='".$_POST["oldRoleName"]."'";
+$newRoleName = prepareForSQL($conn, $_POST["newRoleName"]);
+$acid = prepareForSQL($conn, $_POST['acid']);
 
-echo $sql;
+$sql = "UPDATE access SET accessname='$newRoleName' WHERE accessID='$acid'";
 
-if ($conn->query($sql) === TRUE) {
-    if($conn->affected_rows <= 0) 
-        $status = 0;
-
+if(mysqli_query($conn, $sql)) {
+  echo $output->setSuccessful("Role name has been successfuly changed");
 } else {
-    $status = 0;
+  echo $output->setFailed("Something went wrong while changing role name");
 }
-echo $status;
-
-mysqli_close($conn);
-
 
 ?>

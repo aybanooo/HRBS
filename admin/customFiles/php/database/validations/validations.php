@@ -34,17 +34,39 @@ function getCurrentDateOfServer() {
       }
 }
 
-function checkRequiredPOSTval($strList = null) {
+function checkRequiredPOSTval($strList = null, $notEmpty = false) {
     $temp = array_map('trim', explode(',', $strList));
     foreach($temp as $val) {
         if(!isset($_POST[$val])) {
             echo $GLOBALS['output']->setFailed("Something went wrong while processing the request.", $val." is missing."); 
             die();
         }
+        if($notEmpty) {
+          if(empty($_POST[$val])) {
+            echo $GLOBALS['output']->setFailed("Something went wrong while processing the request.", $val." is empty."); 
+            die();
+          }
+        }
     }
     //echo "no missing\n";
 }
 
+function checkRequiredGETval($strList = null, $notEmpty = false) {
+  $temp = array_map('trim', explode(',', $strList));
+  foreach($temp as $val) {
+      if(!isset($_GET[$val])) {
+          echo $GLOBALS['output']->setFailed("Something went wrong while processing the request.", $val." is missing."); 
+          die();
+      }
+      if($notEmpty) {
+        if(empty($_GET[$val])) {
+          echo $GLOBALS['output']->setFailed("Something went wrong while processing the request.", $val." is empty."); 
+          die();
+        }
+      }
+  }
+  //echo "no missing\n";
+}
 # voucher/promo validation
 
 function isCodeUnique($code) {
