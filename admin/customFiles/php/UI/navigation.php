@@ -45,13 +45,12 @@ LOGOUT
 ?>
 
 <!-- Main Sidebar Container -->
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar main-sidebar-custom sidebar-light-primary elevation-4">
 
   <!-- Brand Logo -->
   <a href="./" class="brand-link text-center">
     <span class="brand-text font-weight-light">
-      <?php print $companyInfo['companyName'] ?><br>
-      <small class="font-weight-light">Reservation and Billing System</small></span>
+      <?php print $companyInfo['companyName'] ?>
   </a>
 
   <!-- Sidebar -->
@@ -195,4 +194,15 @@ LOGOUT
     <!-- /.sidebar-menu -->
   </div>
   <!-- /.sidebar -->
+
+  <!-- Custom Area -->
+  <div class="sidebar-custom d-flex justify-content-center">
+    <div class="form-group">
+      <div class="custom-control custom-switch">
+        <input type="checkbox" class="custom-control-input" id="toggle-darkMode">
+        <label class="custom-control-label text-light" for="toggle-darkMode">Dark Mode</label>
+      </div>
+    </div>
+  </div>
+
 </aside>

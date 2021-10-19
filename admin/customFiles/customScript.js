@@ -499,3 +499,54 @@ var tbl = $('#accountTable tr:has(td)').map(function(i, v) {
 }).get();
 
 //console.log(tbl);
+
+// Cookie related functions
+
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+
+// Cookie related functions END
+
+$("#toggle-darkMode").click(function() {
+  var val = $(this).prop('checked');
+  document.cookie = `darkmode=${val}`;
+  updateDarkMode();
+});
+
+const updateDarkMode = () => {
+  var oppositeVal = getCookie('darkmode') !== 'true' ? 'dark' : 'light';
+  var val = getCookie('darkmode') === 'true' ? 'dark' : 'light';
+  $('#toggle-darkMode').prop('checked', getCookie('darkmode') === 'true');
+  //console.log(val);
+
+  var mainsidebarClass =  $('aside.main-sidebar').attr('class').replace(oppositeVal, val);
+  $('aside.main-sidebar').attr('class', mainsidebarClass);
+  
+  var mainsidebarClass =  $('body').attr('class').replace(oppositeVal, val);
+  $('body').attr('class', mainsidebarClass);
+
+  var mainsidebarClass =  $('nav.main-header').attr('class').replace(oppositeVal, val);
+  $('nav.main-header').attr('class', mainsidebarClass);
+}
+updateDarkMode();
