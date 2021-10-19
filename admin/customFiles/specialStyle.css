@@ -825,3 +825,15 @@ textarea#roomDescription {
 .iti {
     width: 100% !important;
 }
+
+.container-imageCropper .imageCropper {
+    display: none;
+  }
+
+  .container-imageCropper.ready .imageCropper {
+    display: block;
+  }
+
+  .container-imageCropper.ready .container-spinner {
+    display: none;
+  }
