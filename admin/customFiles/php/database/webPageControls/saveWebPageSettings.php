@@ -1,13 +1,28 @@
 <?php
 require_once("../../directories/directories.php");
-require_once(__dbCreds__);
+require_once(__initDB__);
+require_once(__validations__);
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
+print_r($_FILES);
+
+
+if(isset($_FILES['pageCover'])) {
+    if (check_file_type($_FILES['pageCover']['type'], 'image/jpeg')) {
+        echo$output->setFailed("Something went wrong while uploading the new page cover");
+        die();
+    }
+    move_uploaded_file($_FILES['pageCover']['tmp_name'], __public_images__."pageCover.jpeg");
 }
+
+if(isset($_FILES['logo'])) {
+    if (check_file_type($_FILES['logo']['type'], 'image/png')) {
+        echo$output->setFailed("Something went wrong while uploading the new page cover");
+        die();
+    }
+    move_uploaded_file($_FILES['logo']['tmp_name'], __public_images__."logo.jpeg");
+}
+
+die();
 
 function notSetToEmptyString(&$value) {
     if(isset($value))

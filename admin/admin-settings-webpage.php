@@ -30,6 +30,8 @@ require_once "customFiles/php/directories/directories.php";
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- Croppie -->
+  <link rel="stylesheet" href="customFiles/croppie/croppie.css">
   <!-- Special Style-->
   <link rel="stylesheet" href="customFiles/specialStyle.css">
   
@@ -115,13 +117,14 @@ require_once "customFiles/php/directories/directories.php";
                   <div class="row mb-3">
                     <div class="col">
                       <div class="container-fluid coverContainer p-0 m-0">
-                        <img src="assets/images/defaults/default-image-landscape.png" class="img w-100" alt="Responsive image">
+                        <img src="/public_assets/images/pageCover.jpeg?t=<?php print time();?>" id="img-pageCover" class="img w-100" alt="Responsive image">
                       </div>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-3 text-center">
-                      <button type="button" class="btn btn-block btn-default">Change</button>
+                      <input type="file" id="inp-image-pageCover" accept="image/*" hidden/>
+                      <label type="button" class="btn btn-block btn-default font-weight-normal" for="inp-image-pageCover">Change</label>
                     </div>
                     <div class="col-3 text-center">
                       <button type="button" class="btn btn-block btn-default">Remove</button>
@@ -147,13 +150,14 @@ require_once "customFiles/php/directories/directories.php";
                       <div class="row mb-3">
                         <div class="col">
                           <div class="container-fluid">
-                            <img id="adminCompLogo" src="assets/images/defaults/default-150x150.png" class="img mx-auto d-block" alt="Responsive image">
+                            <img id="img-logo" src="/public_assets/images/logo.jpeg?t=<?php print time();?>" class="img-fluid" alt="Responsive image">
                           </div>
                         </div>
                       </div>
                       <div class="row mb-3">
                         <div class="col text-center">
-                          <button type="button" class="btn btn-block btn-default">Change</button>
+                          <input type="file" id="inp-image-logo" accept="image/*" hidden="">
+                          <label type="button" class="btn btn-block btn-default font-weight-normal" for="inp-image-logo">Change</label>
                         </div>
                         <div class="col text-center">
                           <button type="button" class="btn btn-block btn-default">Remove</button>
@@ -362,6 +366,28 @@ require_once "customFiles/php/directories/directories.php";
 </div>
 <!-- ./wrapper -->
 
+<!-- TEMPLATE -->
+<template id="my-template">
+  <swal-title>
+    <div class="container-imageCropper">
+      <div class="container-spinner">
+        <span class="spinner-border fa-spin"></span>
+      </div>
+      <div class="imageCropper"></div>
+    </div>
+  </swal-title>
+  <swal-button type="confirm">
+    Select
+  </swal-button>
+  <swal-button type="cancel">
+    Cancel
+  </swal-button>
+  <swal-param name="allowEscapeKey" value="false" />
+  <swal-param
+    name="customClass"
+    value='{ "popup": "my-popup" }' />
+</template>
+
 <!-- REQUIRED SCRIPTS -->
 
 <!-- jQuery -->
@@ -394,6 +420,8 @@ require_once "customFiles/php/directories/directories.php";
 <!-- jquery-validation -->
 <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="plugins/jquery-validation/additional-methods.min.js"></script>
+<!-- Croppie -->
+<script src="customFiles/croppie/croppie.js"></script>
 <!-- Special Script-->
 <script src="customFiles/initialize Toastr.js"></script>
 <script src="customFiles/customScript.js"></script>
@@ -512,28 +540,145 @@ $("#loc").focus(function(){
   origText = $(this).val();
 });
 
+// page cover changer with crop
+$('#inp-image-pageCover').on('change', function() {
+    Swal.fire({
+      template: '#my-template'
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        pageCover.croppie('result', {
+          type: 'blob',
+          size: {
+            width: 1920,
+            height: 1080
+          },
+          format: 'jpeg',
+          circle: false
+        }).then(function(result) {
+          //console.log(result);
+          savedPageCover = result;
+          var urlCreator = window.URL || window.webkitURL;
+          var pageCoverUrl = urlCreator.createObjectURL(result);
+          $("#img-pageCover").attr('src', pageCoverUrl);
+          /*
+          Swal.fire({
+            imageUrl: result,
+          });
+          */
+        });
+      } else if (result.isDenied) {
+        Swal.fire('Unable to load image', '', 'info')
+      }
+    });
+    pageCover = $(".imageCropper").croppie({
+      enableExif: true,
+      viewport: {
+          width: 320,
+          height: 180,
+          type: 'square'
+      },
+      boundary: {
+          width: 350,
+          height: 200
+      },
+      showZoomer: true,
+      enforceBoundary:true
+    });
+    setTimeout(() => {
+      $('.container-imageCropper').addClass('ready');
+      var reader = new FileReader();
+      reader.onload = function (event) {
+        pageCover.croppie('bind', {
+          url: event.target.result,
+        });
+      }
+      reader.readAsDataURL(this.files[0]);
+      $(this).val(null);
+    },1000);
+
+});
+
+// logo changer with crop
+$('#inp-image-logo').on('change', function() {
+    Swal.fire({
+      template: '#my-template'
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        logo.croppie('result', {
+          type: 'blob',
+          size: {
+            width: 1000,
+            height: 1000
+          },
+          format: 'png',
+          circle: false
+        }).then(function(result) {
+          //console.log(result);
+          savedLogo = result;
+          var urlCreator = window.URL || window.webkitURL;
+          var logoUrl = urlCreator.createObjectURL(result);
+          $("#img-logo").attr('src', logoUrl);
+          /*
+          Swal.fire({
+            imageUrl: result,
+          });
+          */
+        });
+      } else if (result.isDenied) {
+        Swal.fire('Unable to load image', '', 'info')
+      }
+    });
+    logo = $(".imageCropper").croppie({
+      enableExif: true,
+      viewport: {
+          width: 320,
+          height: 320,
+          type: 'square'
+      },
+      boundary: {
+          width: 350,
+          height: 350
+      },
+      showZoomer: true,
+      enforceBoundary:true
+    });
+    setTimeout(() => {
+      $('.container-imageCropper').addClass('ready');
+      var reader = new FileReader();
+      reader.onload = function (event) {
+        logo.croppie('bind', {
+          url: event.target.result,
+        });
+      }
+      reader.readAsDataURL(this.files[0]);
+      $(this).val(null);
+    },1000);
+
+});
+
 function saveData() {
+  fd = new FormData();
+  if(typeof savedPageCover !== 'undefined')
+    fd.append('pageCover', savedPageCover, 'pageCover');
+  if(typeof logo !== 'undefined')
+    fd.append('logo', savedLogo, 'logo');
+  console.groupCollapsed('Form Data');
+  for (var pair of fd.entries()) {
+      console.log(pair[0]+ ', ' + pair[1]); 
+  }
+  console.groupEnd('Form Data');
   $.ajax({
-    type: "get",
+    type: "post",
     url: "customFiles/php/database/webPageControls/saveWebPageSettings.php",
-      hotelEmailAd: $("#emailAd").val(),
-      hotelAddress: $("#address").val(),
-      hotelLatLong: $("#loc").val()
-    },
+    data: fd,
+    contentType: false,
+    processData: false,
+    cache: false,
     success: function (response) {
       //console.log(response);
-      if(parseInt(response)) {
-        Toast.fire({
-          icon: 'success',
-          title: 'Changes have been saved.'
-        });
-      }
-      else {
-        Toast.fire({
-          icon: 'error',
-          title: 'Failed to save changes.'
-        });
-      }
+      console.log(response);
     }
   });
 }
