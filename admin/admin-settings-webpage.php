@@ -150,7 +150,7 @@ require_once "customFiles/php/directories/directories.php";
                       <div class="row mb-3">
                         <div class="col">
                           <div class="container-fluid">
-                            <img id="img-logo" src="/public_assets/images/logo.jpeg?t=<?php print time();?>" class="img-fluid" alt="Responsive image">
+                            <img id="img-logo" src="/public_assets/images/logo.png?t=<?php print time();?>" class="img-fluid" alt="Responsive image">
                           </div>
                         </div>
                       </div>
@@ -606,6 +606,8 @@ $('#inp-image-logo').on('change', function() {
     }).then((result) => {
       /* Read more about isConfirmed, isDenied below */
       if (result.isConfirmed) {
+
+        // Create logo url and blob
         logo.croppie('result', {
           type: 'blob',
           size: {
@@ -626,6 +628,21 @@ $('#inp-image-logo').on('change', function() {
           });
           */
         });
+
+        //create favicon blob
+        logo.croppie('result', {
+          type: 'blob',
+          size: {
+            width: 32,
+            height: 32
+          },
+          format: 'png',
+          circle: false
+        }).then(function(result) {
+          thumb = result;
+        });
+
+
       } else if (result.isDenied) {
         Swal.fire('Unable to load image', '', 'info')
       }
@@ -664,6 +681,8 @@ function saveData() {
     fd.append('pageCover', savedPageCover, 'pageCover');
   if(typeof logo !== 'undefined')
     fd.append('logo', savedLogo, 'logo');
+  if(typeof thumb !== 'undefined')
+    fd.append('thumb', thumb, 'thumb');
   console.groupCollapsed('Form Data');
   for (var pair of fd.entries()) {
       console.log(pair[0]+ ', ' + pair[1]); 

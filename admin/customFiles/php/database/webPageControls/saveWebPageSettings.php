@@ -3,7 +3,7 @@ require_once("../../directories/directories.php");
 require_once(__initDB__);
 require_once(__validations__);
 
-print_r($_FILES);
+//print_r($_FILES);
 
 
 if(isset($_FILES['pageCover'])) {
@@ -16,10 +16,18 @@ if(isset($_FILES['pageCover'])) {
 
 if(isset($_FILES['logo'])) {
     if (check_file_type($_FILES['logo']['type'], 'image/png')) {
-        echo$output->setFailed("Something went wrong while uploading the new page cover");
+        echo$output->setFailed("Something went wrong while uploading the logo");
         die();
     }
-    move_uploaded_file($_FILES['logo']['tmp_name'], __public_images__."logo.jpeg");
+    move_uploaded_file($_FILES['logo']['tmp_name'], __public_images__."logo.png");
+}
+
+if(isset($_FILES['thumb'])) {
+    if (check_file_type($_FILES['thumb']['type'], 'image/png')) {
+        echo$output->setFailed("Something went wrong while uploading the new thumbnail");
+        die();
+    }
+    move_uploaded_file($_FILES['thumb']['tmp_name'], __public_images__."favicon.png");
 }
 
 die();
