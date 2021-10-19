@@ -13,16 +13,20 @@ if ($conn->connect_error) {
 	$count = mysqli_num_rows($query);
 	$fetch = mysqli_fetch_array($query);
 	$array = array();
-	if($count > 0){
-		$discount = $fetch['discount'] / 100;
-		$total = $discount * $price;
-		$array['discount'] = $fetch['discount'];
-		$array['price'] = $price - $total;
+
+	if($query['min_spend'] > $price || $query['max_spend'] < $price){
+		echo "Does not meet minimum Requirements";
+	} else {
+	 	if($count > 0){
+			$discount = $fetch['discount'] / 100;
+			$total = $discount * $price;
+			$array['discount'] = $fetch['discount'];
+			$array['price'] = $price - $total;
 		
-		
-		echo json_encode($array);
+			echo json_encode($array);
  
-	}else{
-		echo "error";
+		}else{
+			echo "error";
+		}
 	}
 ?>

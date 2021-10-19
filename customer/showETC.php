@@ -9,11 +9,11 @@ if ($conn->connect_error) {
 
 $valueFromBooking = $_POST['id'];
 
-$query="SELECT price FROM rate WHERE roomName='{$valueFromBooking}'";
+$query="SELECT rate FROM roomType WHERE roomName='{$valueFromBooking}'";
 $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
 while($row=mysqli_fetch_array($result)){
 ?>
-        <td value="<?php echo $row['price']?>" name="roomRate"><?php echo $row["price"]; ?></td>
+        <td value="<?php echo $row['rate']?>" name="roomRate"><?php echo $row["rate"]; ?></td>
 <?php
   }  
 ?>

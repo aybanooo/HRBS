@@ -313,10 +313,10 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							<th>Room:</th>
 							<td><select id="nameRoom"  name="roomName" name="pickRoom"  onchange="selectRate()" >
 								<?php
-									$query="SELECT * FROM rate;";
+									$query="SELECT * FROM roomtype;";
 									$result=mysqli_query($conn, $query) or die(mysqli_error($conn));
 										while($row=mysqli_fetch_assoc($result)){
-								?>
+								?> <!-- sa room type kukunin -->
 									<option value="<?php echo $row["roomName"]; ?>"  ><?php echo $row["roomName"]; ?></option>
 								<?php
 										}
