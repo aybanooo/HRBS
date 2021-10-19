@@ -516,9 +516,6 @@ function saveData() {
   $.ajax({
     type: "get",
     url: "customFiles/php/database/webPageControls/saveWebPageSettings.php",
-    data: {
-      hotelName: $("#companyName").text(),
-      hotelContact: $("#contactNum").val(),
       hotelEmailAd: $("#emailAd").val(),
       hotelAddress: $("#address").val(),
       hotelLatLong: $("#loc").val()

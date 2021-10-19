@@ -12,6 +12,7 @@ define('__defaults__', __ROOT__."/assets/images/defaults/");
 
 define('__public_assets__', __ROOTER__.'/public_assets/');
 define('__rooms__', __public_assets__.'rooms/');
+define('__public_images__', __public_assets__.'images/');
 
 //----- I/O constants --------
 define('__outputHandler__', __ROOT__.'/customFiles/php/outputHandler/outputHandler.php');
