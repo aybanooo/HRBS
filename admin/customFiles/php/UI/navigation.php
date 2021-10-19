@@ -200,7 +200,7 @@ LOGOUT
     <div class="form-group">
       <div class="custom-control custom-switch">
         <input type="checkbox" class="custom-control-input" id="toggle-darkMode">
-        <label class="custom-control-label text-light" for="toggle-darkMode">Dark Mode</label>
+        <label class="custom-control-label" for="toggle-darkMode">Dark Mode</label>
       </div>
     </div>
   </div>
