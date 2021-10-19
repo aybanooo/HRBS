@@ -67,6 +67,23 @@ function checkRequiredGETval($strList = null, $notEmpty = false) {
   }
   //echo "no missing\n";
 }
+
+# File Uploads Validation
+
+function check_file_uploaded_name_length ($filename)
+{
+    return (bool) (!(mb_strlen($filename,"UTF-8") <= 225) );
+}
+
+function check_file_type($filetype, $supportedTypes = 'image/jpg, image/jpeg, image/png') {
+  $supportedTypes = array_map('trim', explode(',', $supportedTypes));
+  //print_r($supportedTypes);
+  //echo $filetype;
+  return !in_array($filetype, $supportedTypes);
+}
+
+# File Uploads Validation END
+
 # voucher/promo validation
 
 function isCodeUnique($code) {
@@ -93,6 +110,7 @@ function voucherEnabled() {
 }
 
 //-------------------SETTINGS VALIDATION END-------------------
+
 
 
 
