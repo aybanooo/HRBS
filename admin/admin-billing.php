@@ -60,7 +60,6 @@ require_once __initDB__;
 
  <!-- Main Sidebar Container -->
   <?php include __navigation__; ?>
-<form>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -87,11 +86,16 @@ require_once __initDB__;
         <div class="row">
           <div class="col-12 col-sm-6">
             <div class="card">
-              <div class="card-header">
-                <h3>Company Card Number</h3>
-              </div>
               <div class="card-body">
-                <input class="form-control" id="ccn" type="tel" inputmode="numeric" pattern="[0-9\s]{13,19}" autocomplete="cc-number" maxlength="19" placeholder="xxxx xxxx xxxx xxxx">
+                <div class="form-group">
+                  <label for="inp-tax">Tax <small class="text-muted">(in percentage)</small></label>
+                  <div class="input-group">
+                    <input type="number" min="0" class="form-control" id="inp-tax" placeholder="Tax rate">
+                    <div class="input-group-append">
+                      <span class="input-group-text">%</span>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -139,7 +143,6 @@ require_once __initDB__;
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-</form>
 
   <!-- Main Footer -->
   <footer class="main-footer">
