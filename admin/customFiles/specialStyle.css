@@ -212,9 +212,14 @@ table#rsvTable.dataTable tbody tr:hover {
     outline: none;
 }
 
-.editRoom-container *:not([class="priceTag"]):not(.modal *) {
+body.dark-mode .editRoom-container *:not([class="priceTag"]):not(.modal *) {
+    color: var(--light);
+}
+
+body.light-mode .editRoom-container *:not([class="priceTag"]):not(.modal *) {
     color: var(--dark);
 }
+
 
 #roomName + label  {
     display: block !important;

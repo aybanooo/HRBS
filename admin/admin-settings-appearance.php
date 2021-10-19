@@ -37,10 +37,10 @@
   <link rel="stylesheet" href="customFiles/codeMirror/addons/lint/lint.css">
   <link rel="stylesheet" href="assets/customCSS/overrideStyle.css">
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed light-mode">
 <div class="wrapper">
 
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
