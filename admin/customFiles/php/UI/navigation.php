@@ -2,6 +2,9 @@
 
 $phpDIR = dirname(__FILE__, 2);
 require_once "$phpDIR/directories/directories.php";
+require __initDB__;
+
+$companyInfo = mysqli_fetch_all(mysqli_query($conn, "SELECT * FROM `companyinfo` LIMIT 1;"), MYSQLI_ASSOC)[0];
 
 /*
 # Wala pang conditions 'to 
@@ -46,7 +49,9 @@ LOGOUT
 
   <!-- Brand Logo -->
   <a href="./" class="brand-link text-center">
-    <span class="brand-text font-weight-light">Hotel Reservation System</span>
+    <span class="brand-text font-weight-light">
+      <?php print $companyInfo['companyName'] ?><br>
+      <small class="font-weight-light">Reservation and Billing System</small></span>
   </a>
 
   <!-- Sidebar -->
