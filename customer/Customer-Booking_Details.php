@@ -272,19 +272,19 @@ $end = $split[1];
 							</tr>
 							<tr align="right">
 						<?php
-							$query = "SELECT price FROM rate WHERE roomName='$roomName'";
+							$query = "SELECT rate FROM roomtype WHERE `name`='$roomName'";
 							$result=mysqli_query($conn, $query) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							
-							$vat = $followingdata['price'] * 0.12;
-							$serviceCharge = $followingdata['price'] * 0.10; 
-							$totalPriceWServiceCharge = $vat + $serviceCharge + $followingdata['price'];
+							$vat = $followingdata['rate'] * 0.12;
+							$serviceCharge = $followingdata['rate'] * 0.10; 
+							$totalPriceWServiceCharge = $vat + $serviceCharge + $followingdata['rate'];
 							round($serviceCharge, 2);
 							round($totalPriceWServiceCharge,2 );
 							round($vat, 2);
 						?>
 								<th>Rate:</th>
-								<td><?php echo $followingdata['price']; ?></td>
+								<td><?php echo $followingdata['rate']; ?></td>
 							</tr>
 							<tr align="right">
 								<th>Check-in Date:</th>
@@ -343,7 +343,7 @@ $end = $split[1];
 								
 								<tr align="right">
 									<td>Room Rate</td>
-									<td><?php echo $followingdata['price']; ?></td>
+									<td><?php echo $followingdata['rate']; ?></td>
 								</tr>
 								<tr align="right">
 									<td>VAT (12%)</td>

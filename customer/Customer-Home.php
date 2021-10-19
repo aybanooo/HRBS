@@ -195,7 +195,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         <!-- Projects-->
         <section class="projects-section bg-light" id="rooms">
             <?php
-                $query="SELECT roomName, roomDesc FROM roomtype;";
+                $query="SELECT `name`, `desc` FROM roomtype;";
                 $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
                 if (mysqli_num_rows($result)>0) {
                     while($row=mysqli_fetch_assoc($result)){
@@ -206,8 +206,8 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                     <div class="col-xl-8 col-lg-7"><a href="B.0-Customer-Rooms-Room-Details-Modified.html"><img class="img-fluid mb-3 mb-lg-0" src="https://806d2bf04cf5fa54997a-e7c5344b3b84eec5da7b51276407b19c.ssl.cf1.rackcdn.com/responsive/1536/806d2bf04cf5fa54997a-e7c5344b3b84eec5da7b51276407b19c.ssl.cf1.rackcdn.com/u/conservatorium/rooms/penthouse/Penthouse-Suite---900--1-.jpg" alt="" /></a></div>
                         <div class="col-xl-4 col-lg-5">
                             <div class="featured-text text-center text-lg-left">
-                                <h4><?php echo $row["roomName"]; ?></h4>
-                                <p class="text-black-50 mb-0"><?php echo $row["roomDesc"]; ?></p>
+                                <h4><?php echo $row["name"]; ?></h4>
+                                <p class="text-black-50 mb-0"><?php echo $row["desc"]; ?></p>
                         </div>
                     </div>
                 </div>

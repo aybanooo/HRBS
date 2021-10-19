@@ -68,7 +68,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         position: absolute;
         width: 100%;
         text-align: center;
-		bottom:0;
     }
 	.template-demo>.btn {
      	margin-right: 0.5rem;

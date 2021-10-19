@@ -105,7 +105,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         position: absolute;
         width: 100%;
         text-align: center;
-        bottom: 0;
     }
 	.template-demo>.btn {
      	margin-right: 0.5rem;
@@ -169,7 +168,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
         <section id="rooms">
             <?php
-                $query="SELECT roomName, roomDesc FROM roomtype;";
+                $query="SELECT `name`, `desc` FROM roomtype;";
                 $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
                 if (mysqli_num_rows($result)>0) {
                     while($row=mysqli_fetch_assoc($result)){
@@ -179,13 +178,13 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 						<div class="container" id="titleContainer">
 							<div class="row">
 								<div class="col-sm-8">
-									<h1><b><?php echo $row["roomName"]; ?></b></h1>
+									<h1><b><?php echo $row["name"]; ?></b></h1>
 								</div>
 								<div class="col-sm-4">
 									<a href="Customer-Room_Details_Imperial.php"><button type="button" class="btn btn-primary" >Book a Room</button></a>
 								</div>
 							</div>	
-								<p><?php echo $row["roomDesc"]; ?></p>
+								<p><?php echo $row["desc"]; ?></p>
 						</div>
 					</div>
 				</div>

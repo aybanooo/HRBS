@@ -313,11 +313,11 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							<th>Room:</th>
 							<td><select id="nameRoom"  name="roomName" name="pickRoom"  onchange="selectRate()" >
 								<?php
-									$query="SELECT * FROM roomtype;";
+									$query="SELECT `name` FROM roomtype;";
 									$result=mysqli_query($conn, $query) or die(mysqli_error($conn));
 										while($row=mysqli_fetch_assoc($result)){
 								?> <!-- sa room type kukunin -->
-									<option value="<?php echo $row["roomName"]; ?>"  ><?php echo $row["roomName"]; ?></option>
+									<option value="<?php echo $row["name"]; ?>"  ><?php echo $row["name"]; ?></option>
 								<?php
 										}
 								?>
@@ -342,7 +342,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 											<div class="row">
 												<div class="col">
 													<div class="d-flex justify-content-between">
-														<a class="d-inline-block mr-2" href="javascript: void(0)"><h5 class="m-0" style="line-height: 29.2px;"><?php echo $row["roomName"]; ?></h5></a>
+														<a class="d-inline-block mr-2" href="javascript: void(0)"><h5 class="m-0" style="line-height: 29.2px;"><?php echo $row["name"]; ?></h5></a>
 													</div>
 												</div>
 											</div>
