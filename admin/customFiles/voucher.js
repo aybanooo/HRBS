@@ -352,7 +352,9 @@ tableVouchers = $('#table-vouchers').DataTable({
         {
             data: 'forRoomTypes',
             render: (data) => {
-                return $.map(data, (i) => { return `<span class="py-1 px-2 m-1 bg-secondary rounded d-inline-block">${i.split(" ").join("&nbsp;")}</span>`; }).join("<span class='position-absolute text-transparent'>,</span>");
+                console.log(data);
+                //return "debugging...";
+                return $.map(data, (i) => { return `<span class="py-1 px-2 m-1 bg-secondary rounded d-inline-block">${i.split(" ").join("&nbsp;")}</span>`}).join("<span class='position-absolute text-transparent'>,</span>");
             }
         },
         {

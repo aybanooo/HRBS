@@ -16,7 +16,7 @@ $sql = "SELECT A.*, C.name as `roomName`, C.roomTypeID as `id` FROM `promotion` 
 $result = mysqli_query($conn, $sql);
 
 while($r = mysqli_fetch_assoc($result)) {
-    if(!isset($data["data"][$r["promoCode"]]))
+    if(!isset($data["data"][$r["promoCode"]])) {
         $data["data"][$r["promoCode"]] = [
             "code" => $r["promoCode"],
             "value" => $r["value"],
@@ -24,11 +24,15 @@ while($r = mysqli_fetch_assoc($result)) {
             "maxSpend" => $r["maxSpend"],
             "validUntil" => gmdate("Y-m-d H:i:s", strtotime($r["expiry"]) ),
             "name" => $r["promoName"],
-            "description" => $r["promoDesc"],
-            "forRoomTypes" => [$r["id"] => $r["roomName"]]
+            "description" => $r["promoDesc"]
         ];
-    else
-        $data["data"][$r["promoCode"]]["forRoomTypes"][$r["id"]] = $r["roomName"];
+        if(!isset($data["data"][$r["promoCode"]]["forRoomTypes"]))
+            $data["data"][$r["promoCode"]]["forRoomTypes"]= [];
+        if(!empty($r["id"]))
+            $data["data"][$r["promoCode"]]["forRoomTypes"][$r["id"]] = $r["roomName"];
+    } else
+        if(!empty($r["id"]))
+            $data["data"][$r["promoCode"]]["forRoomTypes"][$r["id"]] = $r["roomName"];
 }
 
 $data = array_values($data["data"]);
