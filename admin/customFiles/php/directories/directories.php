@@ -23,6 +23,7 @@ define('__validations__', __ROOT__.'/customFiles/php/database/validations/valida
 //----- UI constants --------
 define('__dirUI__', __ROOT__.'/customFiles/php/UI/');
 define('__navigation__', __dirUI__.'navigation.php');
+define('__head_contents__', __dirUI__.'commonHeadContents.php');
 
 //----- Gens ------
 define('__gen__', __ROOT__.'/customFiles/php/generate/generate.php');
