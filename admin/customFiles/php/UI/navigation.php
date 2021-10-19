@@ -150,7 +150,7 @@ LOGOUT
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="settings-system" class="nav-link">
-                <i class="fas fa-image nav-icon"></i>
+                <i class="fas fa-cog nav-icon"></i>
                 <p>System</p>
               </a>
             </li>
