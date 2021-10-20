@@ -1,3 +1,26 @@
+<?php
+
+require_once("../../directories/directories.php");
+require_once(__dbCreds__);
+require_once(__outputHandler__);
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+  $output->setFailed("Cannot connect to database.".$conn->connect_error);
+  echo $output->getOutput(true);
+  die();
+}
+
+$result=mysqli_query($conn, $queryCustomer);
+
+$queryCustomer="SELECT email FROM customer";
+
+
+?>
+
+
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -25,11 +48,13 @@
 	nav#mainNav {
 	    background-color: black;
 	    position: fixed;
+	    
 	}
-	h1{
+	.loginForm h1{
 		text-align: center;
 		padding-top: 2%;
 		padding-bottom: 2%;
+		font-size: 2em;
 	}
 	.loginForm{
 		background-color: white;
@@ -86,7 +111,6 @@
         color: rgba(255, 255, 255, .8);
         padding: 1%;
         position: absolute;
-        bottom: 0;
         width: 100%;
         text-align: center;
     }
@@ -141,7 +165,7 @@
 		margin:auto;
 	}
 	</style>
-	<title>Forgot Password</title>
+	<title>Login</title>
 </head>
 <body>
 		<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
@@ -153,7 +177,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                    	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare_Rooms.html">Compare</a></li>
+                      	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare_Rooms.html">Compare</a></li>
                     	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Rooms.html">Rooms</a></li>
                     	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Amenities.html">Amenities</a></li>
                     	<li class="nav-item"><a class="nav-link js-scroll-trigger active" href="Customer-Login.html">Login</a></li>
@@ -166,19 +190,29 @@
 		<div class="loginForm">
 			<div class="row">
                 <div class="col-lg-12 mx-auto">
-			    	<h1><b>Password Recovery</b></h1>
+			    	<h1><b>A verification code has been sent to your email account.</b></h1>
 						<hr class="new1">
 			    		<form>
 							<tr>
-								<div class="form-span" align="center"><span>Enter you're email address and we'll send a link to change your password.</span></div>
+								<div class="form-span" align="center">
+                                    <span>Please enter the confirmation code that has been sent to    
+                                        <?php 
+                                        if (mysqli_num_rows($result)>0) {
+                                            echo $row["email"];           
+                                        } else {
+                                            echo "There are 0 results.";
+                                        }
+                                        ?>
+                                        thegrandbudapest@gmail.com to verify your email and to continue the registration process.
+                                    </span>
+                                </div>
 							</tr>
 							<br>
 							<tr>
-								<td><input type = "text" name = "email" required placeholder = "Email Address"></td>	
-							</tr>						
-							
+								<td><input type = "text" name = "authentication" required placeholder = "Authentication Code"></td>	
+							</tr>					
 							<tr>
-								<td class="sign" align = "center" align = "right"><input type = "submit" formaction="Customer-Password_Reset_Accept.html" value = "Submit"></td>
+								<td class="sign" align = "center" align = "right"><a href="confirmed"><input type="submit" formaction="Customer-Email_Confirmed.html" value = "Submit"></a></td>
 							</tr>
 						</form>
 					</div>

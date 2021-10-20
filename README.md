@@ -14,5 +14,3 @@
 
         new branch:
             dev/admin/rooms ()      Ekis 'to
-awdawda vinz
-pakyu ka ulet
