@@ -49,7 +49,15 @@
               </div> 
               <div class="row">
                 <div class="col-12">
-                    <?php 
+                    <?php
+                    # Select All Checkbox 
+                    # creates checkbox if permissions checkbox is greater than 1
+                    if(count($val['permissionCategories'][$i]['permissions']) > 1) {
+                      ?>
+                        <button type="button" class="btn btn-link p-0" name="select-all-perms">Select All</button>
+                      <?php
+                    }
+                    # Select All checkbox End
                     if(isset($fakeWhere))
                         if(!empty($fakeWhere))  
                             generateSoloCheckList($val['accessID'], $val['permissionCategories'][$i]); 
@@ -79,12 +87,22 @@
               ?>
               <div class="row mt-2">
                 <div class="col-12">
-                  <h5> <?php print  $val['permissionCategories'][$i]['name'];?> </h5>
+                  <h5 class="mb-0 mt-2"> <?php 
+                    print  $val['permissionCategories'][$i]['name'];
+                  ?> </h5>
                 </div>
               </div> 
               <div class="row">
                 <div class="col-12">
-                    <?php 
+                    <?php
+                    # Select All Checkbox 
+                    # creates checkbox if permissions checkbox is greater than 1
+                    if(count($val['permissionCategories'][$i]['permissions']) > 1) {
+                      ?>
+                        <button type="button" class="btn btn-link p-0" name="select-all-perms">Select All</button>
+                      <?php
+                    }
+                    # Select All checkbox End
                     if(isset($fakeWhere))
                         if(!empty($fakeWhere))  
                             generateSoloCheckList($val['accessID'], $val['permissionCategories'][$i]); 

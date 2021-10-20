@@ -556,6 +556,13 @@ $(document).ready(function(){
      $("#inputResetPasswordID").val( $(this).data("value") );
   });
 
+  $("#rolesBody").on('click', 'button[name="select-all-perms"]', function() {
+    const n = $(this).parent().find("input[type='checkbox']");
+    const nchecked = $(this).parent().find("input[type='checkbox']:checked").length;
+    n.prop('checked', (n.length > nchecked));
+    
+  });
+
   uploadCrop = $('.upload-div-container').croppie({
     enableExif: true,
     viewport: {

@@ -13,6 +13,7 @@ function generateCheckList($accessID, $permList) {
   #print "<script>console.groupCollapsed('Permissions');</script>";
   #print "<script>console.log(".json_encode($permList['permissions']).");</script>";
   #print "<script>console.groupEnd('Permissions');</script>";
+  #print "<script>console.log(".json_encode($permList['permissions']).");</script>";
   foreach($permList['permissions'] as $key => $val):
     ?>
     <div class="form-check">
