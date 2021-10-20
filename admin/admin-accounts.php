@@ -523,7 +523,7 @@ require_once __initDB__;
       columnDefs: [
         {
           responsivePriority: 1,
-          targets: [6]
+          targets: [5,6]
         }
       ]
     });

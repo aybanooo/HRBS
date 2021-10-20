@@ -373,7 +373,6 @@ a {
 #accountTable tr td:last-child, #accountTable tr:last-child .form-check-label {
     cursor: pointer ;
     outline: none;
-    text-align: center;
 }
 
 #accountTable input {
