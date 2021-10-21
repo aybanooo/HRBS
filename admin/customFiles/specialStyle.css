@@ -850,3 +850,15 @@ body.dark-mode .custom-select {
 #inp-companyName {
     font-size: 1.75rem !important; 
 }
+
+body.dark-mode .swal2-popup.swal2-toast {
+    background-color: var(--dark);
+}
+
+body.dark-mode .swal2-title {
+    color: var(--light) !important;
+}
+
+body.dark-mode .swal2-popup {
+    border-color: var(--gray) !important;
+}
