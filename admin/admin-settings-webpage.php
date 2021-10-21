@@ -74,7 +74,7 @@ require_once "customFiles/php/directories/directories.php";
             <div class="row mt-3 mt-sm-0 ">
               <div class="col-6"></div>
               <div class="col-6">
-                <a href="javascript: void(0)" onclick="saveData()"><button class="btn btn-success btn-block">Save</button></a>
+                <button class="btn btn-success btn-block" onclick="saveData(this)" ><span>Save</span></button>
               </div>
             </div>
           </div>
@@ -97,7 +97,7 @@ require_once "customFiles/php/directories/directories.php";
                   <div class="row mb-3">
                     <div class="col">
                       <div class="container-fluid p-0 m-0 ce-noenter ce-noblank">
-                        <h3 id="companyName" contenteditable="True" class="text-center"></h3>
+                        <h3 id="inp-companyName" contenteditable="True" class="text-center"></h3>
                       </div>
                     </div>
                   </div>
@@ -117,7 +117,7 @@ require_once "customFiles/php/directories/directories.php";
                   <div class="row mb-3">
                     <div class="col">
                       <div class="container-fluid coverContainer p-0 m-0">
-                        <img src="/public_assets/images/pageCover.jpeg?t=<?php print time();?>" id="img-pageCover" class="img w-100" alt="Responsive image">
+                        <img src="/public_assets/images/pageCover.jpeg?t=<?php print time();?>" id="img-pageCover" class="img w-100" alt="Company cover image">
                       </div>
                     </div>
                   </div>
@@ -150,7 +150,7 @@ require_once "customFiles/php/directories/directories.php";
                       <div class="row mb-3">
                         <div class="col">
                           <div class="container-fluid">
-                            <img id="img-logo" src="/public_assets/images/logo.png?t=<?php print time();?>" class="img-fluid" alt="Responsive image">
+                            <img id="img-logo" src="/public_assets/images/logo.png?t=<?php print time();?>" class="img-fluid" alt="Company logo image">
                           </div>
                         </div>
                       </div>
@@ -166,7 +166,7 @@ require_once "customFiles/php/directories/directories.php";
                       <div class="row">
                         <div class="col">
                           <div class="custom-control custom-switch">
-                            <input type="checkbox" class="custom-control-input" id="showLogoInAdmin">
+                            <input type="checkbox" class="custom-control-input" id="inp-logo-showLogoInAdmin" name="inp-logo-showLogoInAdmin">
                             <label class="custom-control-label" for="showLogoInAdmin">Show in admin's navigation</label>
                           </div>
                         </div>
@@ -185,16 +185,16 @@ require_once "customFiles/php/directories/directories.php";
                   </div>
                   <div class="card-body">
                     <div class="form-group">
-                      <label for="socmed1">Instagram</label>
-                      <input type="url" class="form-control form-control-border border-width-2" id="socmed1" placeholder="www.instagram.com/yourcompanypage">
+                      <label for="inp-socmed-1">Instagram</label>
+                      <input type="url" class="form-control form-control-border border-width-2" id="inp-socmed-1" name="inp-socmed-1" placeholder="www.instagram.com/yourcompanypage">
                     </div>
                     <div class="form-group">
-                      <label for="socmed2">Facebook</label>
-                      <input type="url" class="form-control form-control-border border-width-2" id="socmed2" placeholder="www.facebook.com/yourcompanypage">
+                      <label for="inp-socmed-2">Facebook</label>
+                      <input type="url" class="form-control form-control-border border-width-2" id="inp-socmed-2" name="inp-socmed-2" placeholder="www.facebook.com/yourcompanypage">
                     </div>
                     <div class="form-group">
-                      <label for="socmed3">Twitter</label>
-                      <input type="url" class="form-control form-control-border border-width-2" id="socmed3" placeholder="www.twitter.com/yourcompanypage">
+                      <label for="inp-socmed-3">Twitter</label>
+                      <input type="url" class="form-control form-control-border border-width-2" id="inp-socmed-3" name="inp-socmed-3" placeholder="www.twitter.com/yourcompanypage">
                     </div>
                   </div>
                 </div>
@@ -213,12 +213,12 @@ require_once "customFiles/php/directories/directories.php";
                   </div>
                   <div class="card-body">
                     <div class="form-group">
-                      <label for="contactNum">Phone/Telephone #</label>
-                      <input type="tel" class="form-control form-control-border border-width-2" id="contactNum" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
+                      <label for="inp-contactNum">Phone/Telephone #</label>
+                      <input type="tel" class="form-control form-control-border border-width-2" id="inp-contactNum" name="inp-contactNum" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}">
                     </div>
                     <div class="form-group">
-                      <label for="emailAd">Email Address</label>
-                      <input type="email" class="form-control form-control-border border-width-2" id="emailAd">
+                      <label for="inp-email">Email Address</label>
+                      <input type="email" class="form-control form-control-border border-width-2" id="inp-email" name="inp-email">
                     </div>
                   </div>
                 </div>
@@ -316,8 +316,8 @@ require_once "customFiles/php/directories/directories.php";
                       </select>
                     </div>
                     <div class="form-group">
-                      <label for="rFooter">Footer Right Text</label>
-                      <input type="text" class="form-control form-control-border border-width-2" id="socmed3" placeholder="Enter any text here e.g Copyright">
+                      <label for="inp-footer-r">Footer Right Text</label>
+                      <input type="text" class="form-control form-control-border border-width-2" id="inp-footer-r" name="inp-footer-r" placeholder="Enter any text here e.g Copyright">
                     </div>
                   </div>
                 </div>
@@ -328,12 +328,12 @@ require_once "customFiles/php/directories/directories.php";
                 <div class="card">
                   <div class="card-header">
                     <div class="form-group">
-                      <label for="loc">Address</label>
-                      <input type="text" class="form-control form-control-border border-width-2" id="address" placeholder="Hotel address">
+                      <label for="inp-address">Address</label>
+                      <input type="text" class="form-control form-control-border border-width-2" id="inp-address" placeholder="Hotel address">
                     </div>
                     <div class="form-group">
-                      <label for="loc">Latitude, Longitude</label>
-                      <input type="text" class="form-control form-control-border border-width-2" id="loc" placeholder="14.581860858430435, 120.977005522402">
+                      <label for="inp-loc">Latitude, Longitude</label>
+                      <input type="text" class="form-control form-control-border border-width-2" id="inp-loc" placeholder="14.581860858430435, 120.977005522402">
                     </div>
                   </div>
                   <div class="card-body">
@@ -424,6 +424,7 @@ require_once "customFiles/php/directories/directories.php";
 <script src="customFiles/croppie/croppie.js"></script>
 <!-- Special Script-->
 <script src="customFiles/initialize Toastr.js"></script>
+<script src="customFiles/buttonDisabler.js"></script>
 <script src="customFiles/customScript.js"></script>
 <script>
 
@@ -489,7 +490,7 @@ settings = {
         document.activeElement.blur()
     });
 
-    $("#loc").keydown(function() {
+    $("#inp-loc").keydown(function() {
       if (event.which == 13)
         document.activeElement.blur()
     });
@@ -521,7 +522,7 @@ settings = {
       
   });
 
-$("#loc").focusout(function() {
+$("#inp-loc").focusout(function() {
   if($(this).val()==""){
     $(this).val(origText);
     var location = $("#map").attr('src');
@@ -530,13 +531,15 @@ $("#loc").focusout(function() {
   }
 });
 
-$('#loc').on('input', function() {
+$('#inp-loc').on('input', function() {
+  if($(this).val()==="")
+    return;
   var location = $("#map").attr('src');
   location = location.substring(0,location.indexOf('&q=')+3) + $(this).val();
   $("#map").attr('src', location);
 });
 
-$("#loc").focus(function(){
+$("#inp-loc").focus(function(){
   origText = $(this).val();
 });
 
@@ -675,7 +678,9 @@ $('#inp-image-logo').on('change', function() {
 
 });
 
-function saveData() {
+function saveData(el) {
+  //Prepare form data
+  toggleButtonDisabled(el, ".content-header", "Saving...")
   fd = new FormData();
   if(typeof savedPageCover !== 'undefined')
     fd.append('pageCover', savedPageCover, 'pageCover');
@@ -683,11 +688,20 @@ function saveData() {
     fd.append('logo', savedLogo, 'logo');
   if(typeof thumb !== 'undefined')
     fd.append('thumb', thumb, 'thumb');
-  console.groupCollapsed('Form Data');
+
+  //fd.append("inp-companyName", $("#inp-companyName").text());
+  //fd.append("inp-companyName", $("#inp-companyName").text());
+
+  console.group('Form Data');
+  //*
   for (var pair of fd.entries()) {
       console.log(pair[0]+ ', ' + pair[1]); 
   }
   console.groupEnd('Form Data');
+  //*/
+  // enable button after 2s
+  setTimeout(() => toggleButtonDisabled(el, ".content-header", "Saving..."),2000);
+  return;
   $.ajax({
     type: "post",
     url: "customFiles/php/database/webPageControls/saveWebPageSettings.php",
@@ -708,17 +722,15 @@ function loadData() {
     url: "customFiles/php/database/webPageControls/loadWebPageSettings.php",
     success: function (response) {
       data = JSON.parse(response);
-      console.log(data);
-      $("#companyName").text(data["companyName"]);
-      $("#contactNum").val(data["contact"]);
-      $("#emailAd").val(data["email"]);
-      $("#address").val(data["address"]);
-      $("#loc").val(`${data["latitude"]}${( (/\S/.test(data["longitude"])) ? "," : "")}${data["longitude"]}`);
+      //console.log(data);
+      $("#inp-companyName").text(data["companyName"]);
+      $("#inp-contactNum").val(data["contact"]);
+      $("#inp-email").val(data["email"]);
+      $("#inp-address").val(data["address"]);
+      $("#inp-loc").val(`${data["latitude"]}${( (/\S/.test(data["longitude"])) ? "," : "")}${data["longitude"]}`);
       $("#map").attr('src', `https://www.google.com/maps/embed/v1/place?key=AIzaSyANA3u1iWaTsQ1tbJsEyzhKhZ8JZXb3XMg
                       &q=${data["latitude"]}${( (/\S/.test(data["longitude"])) ? "," : "")}${data["longitude"]}`)
-
-
-      console.log( data["companyName"] );
+      //console.log( data["companyName"] );
     }
   });
 }
