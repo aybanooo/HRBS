@@ -689,25 +689,13 @@ function saveData(el) {
     fd.append('logo', savedLogo, 'logo');
   if(typeof thumb !== 'undefined')
     fd.append('thumb', thumb, 'thumb');
-
   /*
-  fd.append("inp-companyName", $("#inp-companyName").val());
-  fd.append("inp-socmed-1", $("#inp-socmed-1").val());
-  fd.append("inp-socmed-2", $("#inp-socmed-2").val());
-  fd.append("inp-socmed-3", $("#inp-socmed-3").val());
-  fd.append("inp-contactNum", $("#inp-contactNum").val());
-  fd.append("inp-email", $("#inp-email").val());*/
-
-  console.group('Form Data');
-  //*
+  console.groupCollapsed('Form Data');
   for (var pair of fd.entries()) {
       console.log(pair[0]+ ', ' + pair[1]); 
   }
   console.groupEnd('Form Data');
-  //*/
-  // enable button after 2s
-  setTimeout(() => toggleButtonDisabled(el, ".content-header", "Saving..."),2000);
-  return;
+  */
   $.ajax({
     type: "post",
     url: "customFiles/php/database/webPageControls/saveWebPageSettings.php",
@@ -715,9 +703,16 @@ function saveData(el) {
     contentType: false,
     processData: false,
     cache: false,
+    dataType: 'json',
     success: function (response) {
-      //console.log(response);
+      //*
+      Toast.fire({
+        icon: response.status,
+        title: response.message
+      });
+      //*/
       console.log(response);
+      toggleButtonDisabled(el, ".content-header", "Saving...")
     }
   });
 }
