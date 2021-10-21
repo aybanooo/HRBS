@@ -81,7 +81,7 @@ require_once "customFiles/php/directories/directories.php";
         </div>
       </div><!-- /.container-fluid -->
     </section>
-
+    <form id="form-main">
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -97,7 +97,7 @@ require_once "customFiles/php/directories/directories.php";
                   <div class="row mb-3">
                     <div class="col">
                       <div class="container-fluid p-0 m-0 ce-noenter ce-noblank">
-                        <input id="inp-companyName" class="form-control form-control-border text-center" class="text-center"></input>
+                        <input id="inp-companyName" name="inp-companyName" class="form-control form-control-border text-center" class="text-center"></input>
                       </div>
                     </div>
                   </div>
@@ -329,11 +329,11 @@ require_once "customFiles/php/directories/directories.php";
                   <div class="card-header">
                     <div class="form-group">
                       <label for="inp-address">Address</label>
-                      <input type="text" class="form-control form-control-border border-width-2" id="inp-address" placeholder="Hotel address">
+                      <input type="text" class="form-control form-control-border border-width-2" id="inp-address" name="inp-address" placeholder="Hotel address">
                     </div>
                     <div class="form-group">
                       <label for="inp-loc">Latitude, Longitude</label>
-                      <input type="text" class="form-control form-control-border border-width-2" id="inp-loc" placeholder="14.581860858430435, 120.977005522402">
+                      <input type="text" class="form-control form-control-border border-width-2" id="inp-loc" name="inp-loc" placeholder="14.581860858430435, 120.977005522402">
                     </div>
                   </div>
                   <div class="card-body">
@@ -351,6 +351,7 @@ require_once "customFiles/php/directories/directories.php";
       </div>
     </section>
     <!-- /.content -->
+  </form>
   </div>
   <!-- /.content-wrapper -->
 
@@ -681,7 +682,7 @@ $('#inp-image-logo').on('change', function() {
 function saveData(el) {
   //Prepare form data
   toggleButtonDisabled(el, ".content-header", "Saving...")
-  fd = new FormData();
+  fd = new FormData($("#form-main")[0]);
   if(typeof savedPageCover !== 'undefined')
     fd.append('pageCover', savedPageCover, 'pageCover');
   if(typeof logo !== 'undefined')
@@ -689,8 +690,13 @@ function saveData(el) {
   if(typeof thumb !== 'undefined')
     fd.append('thumb', thumb, 'thumb');
 
-  //fd.append("inp-companyName", $("#inp-companyName").text());
-  //fd.append("inp-companyName", $("#inp-companyName").text());
+  /*
+  fd.append("inp-companyName", $("#inp-companyName").val());
+  fd.append("inp-socmed-1", $("#inp-socmed-1").val());
+  fd.append("inp-socmed-2", $("#inp-socmed-2").val());
+  fd.append("inp-socmed-3", $("#inp-socmed-3").val());
+  fd.append("inp-contactNum", $("#inp-contactNum").val());
+  fd.append("inp-email", $("#inp-email").val());*/
 
   console.group('Form Data');
   //*
