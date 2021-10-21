@@ -97,7 +97,7 @@ require_once "customFiles/php/directories/directories.php";
                   <div class="row mb-3">
                     <div class="col">
                       <div class="container-fluid p-0 m-0 ce-noenter ce-noblank">
-                        <h3 id="inp-companyName" contenteditable="True" class="text-center"></h3>
+                        <input id="inp-companyName" class="form-control form-control-border text-center" class="text-center"></input>
                       </div>
                     </div>
                   </div>
@@ -723,7 +723,7 @@ function loadData() {
     success: function (response) {
       data = JSON.parse(response);
       //console.log(data);
-      $("#inp-companyName").text(data["companyName"]);
+      $("#inp-companyName").val(data["companyName"]);
       $("#inp-contactNum").val(data["contact"]);
       $("#inp-email").val(data["email"]);
       $("#inp-address").val(data["address"]);
