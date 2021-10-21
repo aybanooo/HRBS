@@ -335,7 +335,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 									<ul class="dropdown-menu dropdown-menu-center" style="width: max-content;">
 										<div class="container" id="addRoomDiv">
 										<?php
-											$query="SELECT * FROM rate;";
+											$query="SELECT * FROM roomtype;";
 											$result=mysqli_query($conn, $query) or die(mysqli_error($conn));
 												while($row=mysqli_fetch_assoc($result)){
 										?>

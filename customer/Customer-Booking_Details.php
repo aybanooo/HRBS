@@ -74,11 +74,10 @@ $end = $split[1];
 		background-color: transparent;
 		outline: none;
 		outline-width: 0;
-		text-align: center;
+		text-align: right;
 		background-color: inherit;
 		font-size: 3em;
 		font-weight: bold;
-		width: 50%;
 		box-shadow: none;
 	}
 	.finalForm{
@@ -263,10 +262,6 @@ $end = $split[1];
 								<td><h3><b>Reservation Details</b></h3></td>
 							</tr>
 							<tr align="right">
-								<th>Reservation No.:</th>
-								<td>201648451</td><!-- kukunin sa database -->
-							</tr>
-							<tr align="right">
 								<th>Room:</th>
 								<td><?php echo $roomName; ?></td>
 							</tr>
@@ -279,9 +274,7 @@ $end = $split[1];
 							$vat = $followingdata['rate'] * 0.12;
 							$serviceCharge = $followingdata['rate'] * 0.10; 
 							$totalPriceWServiceCharge = $vat + $serviceCharge + $followingdata['rate'];
-							round($serviceCharge, 2);
-							round($totalPriceWServiceCharge,2 );
-							round($vat, 2);
+
 						?>
 								<th>Rate:</th>
 								<td><?php echo $followingdata['rate']; ?></td>
@@ -310,20 +303,20 @@ $end = $split[1];
 							</tr>
 							<tr align="right">
 								<th><label for="code">Code:</label></th>
-								<td><input class="form-control" type="text" id="coupon" name="coupon" placeholder="Voucher Code"/></input></td>
+								<td><input class="form-control" type="text" id="coupon" name="coupon" placeholder="Code (Optional)"/></input></td>
 							</tr >
 							<tr align="right">
-								<td ><input type="hidden" value="<?php echo $totalPriceWServiceCharge; ?>" id="price"/><td>
+								<td ><input type="hidden" value="<?php echo number_format($totalPriceWServiceCharge,2,  '.', '' ); ?>" id="price" name="price"/><td>
 							</tr>
 							<tr align="right">
-								<td colspan="2"><button class="btn btn-info" id="activate">Apply Voucher</button></td>
+								<td colspan="2"><button class="btn btn-info" id="activate" >Apply Voucher</button></td>
 							</tr>
 							<form action="" method="POST">
 								<tr>
 									<td colspan="2"><hr></td>
 								</tr>
 								<tr>
-									<td><h4><b>Payment</b></h4></td>
+									<td><h3><b>Payment</b></h3></td>
 									<td></td>	
 								</tr>
 								<tr>
@@ -335,7 +328,7 @@ $end = $split[1];
 									<td colspan="2"><hr></td>
 								</tr>
 								<tr>
-									<td><h4><b>Billing</b></h4></td>	
+									<td><h3><b>Billing</b></h3></td>	
 								</tr>
 								<tr align="right">
 									<td><b>Price Breakdown</b></td>
@@ -343,15 +336,15 @@ $end = $split[1];
 								
 								<tr align="right">
 									<td>Room Rate</td>
-									<td><?php echo $followingdata['rate']; ?></td>
+									<td><?php echo number_format($followingdata['rate'], 2,  '.', ','); ?></td>
 								</tr>
 								<tr align="right">
 									<td>VAT (12%)</td>
-									<td><?php echo round($vat, 2); ?></td>
+									<td><?php echo number_format($vat, 2,  '.', ','); ?></td>
 								</tr>
 								<tr align="right">
 									<td>Service Charge</td>
-									<td><?php echo round($serviceCharge, 2); ?></td>
+									<td><?php echo number_format($serviceCharge, 2,  '.', ','); ?></td>
 								</tr>
 								<tr align="right">
 									<td>Voucher Discount</td>
@@ -361,7 +354,7 @@ $end = $split[1];
 									<td>Incidental Charges</td>
 									<td></td>
 								</tr>
-							
+
 						
 								<tr align="right">
 									<td colspan="2"><hr/></td>
@@ -370,8 +363,7 @@ $end = $split[1];
 									<td><h1><b>Total</b></h1></td>
 								</tr>
 								<tr align="right">
-									<td></td>
-									<td><input class="form-control" type="number" value="<?php echo $totalPriceWServiceCharge; ?>" id="total" readonly="readonly" lang="en-150"/></td>
+									<td colspan="2"><input class="form-control-plaintext" type="number" value="<?php echo number_format($totalPriceWServiceCharge,2,  '.', '' );?>" id="total" name="result" readonly="readonly" lang="en-150"/></td>
 								</tr>
 								<tr align="right">
 									<td colspan="2"><input type="checkbox" class="form-check-input" id="exampleCheck1"><label class="form-check-label" for="exampleCheck1">I Understand the <a href="#">Terms and Agreement.</a></label></p></td>
@@ -422,18 +414,26 @@ $end = $split[1];
 				$.post('voucher.php', {coupon: coupon, price: price}, function(data){
 					if(data == "error"){
 						alert("Invalid Coupon Code!");
-						$('#total').val(price);
-						$('#result').html('');
-					}else{
+						$('#total').html(price);
+						$('#result').val('');
+					} else {
 						var json = JSON.parse(data);
 						$('#result').html(+json.discount+"% Off");
-						$('#total').val(json.price);
+						$('#total').val(json.price );
 					}
 				});
 			}
 		});
 	});
+	$('#btnClick').on('click',function(){
+    if($('#1').css('display')!='none'){
+    $('#2').html('Here is my dynamic content').show().siblings('div').hide();
+    }else if($('#2').css('display')!='none'){
+        $('#1').show().siblings('div').hide();
+    }
+});
 </script>
+
 <script src="https://www.paypalobjects.com/api/checkout.js"></script>
 <script>
 paypal.Button.render({
