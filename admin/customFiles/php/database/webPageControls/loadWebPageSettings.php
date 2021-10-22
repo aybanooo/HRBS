@@ -1,6 +1,7 @@
 <?php
-require_once("../../directories/directories.php");
-require_once(__dbCreds__);
+require_once(dirname(__FILE__, 3)."/directories/directories.php");
+require_once(__initDB__);
+require_once(__format__);
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -20,10 +21,8 @@ $deleteSql = "DELETE FROM companyinfo limit 1;";
 //echo mysqli_num_rows($result);
 
 $rowExistSQL = "select * from companyinfo;";
-$result = mysqli_query($conn, $rowExistSQL);
 
-
-if(mysqli_num_rows($result) == 0) {
+if(mysqli_num_rows($result = mysqli_query($conn, $rowExistSQL)) == 0) {
     $sql = "INSERT INTO companyinfo ()
     VALUES ('Reservation System', '','','','','');";
     if (mysqli_query($conn, $sql)) {
@@ -31,6 +30,7 @@ if(mysqli_num_rows($result) == 0) {
     } else {
         //echo "Error saving record: " . mysqli_error($conn);
     }
+    mysqli_fetch_all($result);
 }
 else {
     if(mysqli_num_rows($result) > 1){
@@ -42,14 +42,22 @@ else {
     if (mysqli_num_rows($result) > 0) {
         // output data of each row
         while($row = mysqli_fetch_assoc($result)) {
-            echo json_encode($row);
+            $output->output['data'] = $row;
         }
-    } else {
-        echo "";
-    }
-
+    } else
+        echo $output->setFailed("Something went wrong while retrieving the data");
+    mysqli_fetch_all($result);
 }
 
 
-$conn->close();
+if(mysqli_num_rows($result = mysqli_query($conn, "SELECT `value` from `settings` WHERE `name` like 'showLogoInNav' LIMIT 1;"))) {
+    while($r = mysqli_fetch_array($result))
+        $output->output['data']['showLogo'] = toPhpBool($r['value']);
+} else {
+    echo $output->setFailed("Something went wrong while retrieving the data");
+}
+
+echo $output->setSuccessful();
+
+
 ?>

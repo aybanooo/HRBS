@@ -706,14 +706,14 @@ function saveData(el) {
     contentType: false,
     processData: false,
     cache: false,
-    //dataType: 'json',
+    dataType: 'json',
     success: function (response) {
-      /*
+      //*
       Toast.fire({
         icon: response.status,
         title: response.message
       });
-      /*/
+      //*/
       console.log(response);
       toggleButtonDisabled(el, ".content-header", "Saving...")
     }
@@ -724,18 +724,17 @@ function loadData() {
   $.ajax({
     type: "post",
     url: "customFiles/php/database/webPageControls/loadWebPageSettings.php",
+    dataType: 'json',
     success: function (response) {
-      data = JSON.parse(response);
       //console.log(data);
-      $("#inp-companyName").val(data["companyName"]);
-      $("#inp-contactNum").val(data["contact"]);
-      $("#inp-email").val(data["email"]);
-      $("#inp-address").val(data["address"]);
-      $("#inp-address").val(data["address"]);
-      $("#inp-logo-showLogoInAdmin").prop('checked', false);
-      $("#inp-loc").val(`${data["latitude"]}${( (/\S/.test(data["longitude"])) ? "," : "")}${data["longitude"]}`);
+      $("#inp-companyName").val(response.data["companyName"]);
+      $("#inp-contactNum").val(response.data["contact"]);
+      $("#inp-email").val(response.data["email"]);
+      $("#inp-address").val(response.data["address"]);
+      $("#inp-logo-showLogoInAdmin").prop('checked', response.data['showLogo']);
+      $("#inp-loc").val(`${response.data["latitude"]}${( (/\S/.test(response.data["longitude"])) ? "," : "")}${response.data["longitude"]}`);
       $("#map").attr('src', `https://www.google.com/maps/embed/v1/place?key=AIzaSyANA3u1iWaTsQ1tbJsEyzhKhZ8JZXb3XMg
-                      &q=${data["latitude"]}${( (/\S/.test(data["longitude"])) ? "," : "")}${data["longitude"]}`)
+                      &q=${response.data["latitude"]}${( (/\S/.test(response.data["longitude"])) ? "," : "")}${response.data["longitude"]}`)
       //console.log( data["companyName"] );
     }
   });
