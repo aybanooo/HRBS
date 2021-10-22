@@ -167,7 +167,7 @@ require_once "customFiles/php/directories/directories.php";
                         <div class="col">
                           <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="inp-logo-showLogoInAdmin" name="inp-logo-showLogoInAdmin">
-                            <label class="custom-control-label" for="showLogoInAdmin">Show in admin's navigation</label>
+                            <label class="custom-control-label" for="inp-logo-showLogoInAdmin">Show in admin's navigation</label>
                           </div>
                         </div>
                       </div>
