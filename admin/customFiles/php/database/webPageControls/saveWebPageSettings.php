@@ -3,6 +3,7 @@ require_once("../../directories/directories.php");
 require_once(__initDB__);
 require_once(__validations__);
 require_once(__format__);
+require_once(__format_image__);
 
 //print_r($_FILES);
 
@@ -21,8 +22,11 @@ if(isset($_FILES['logo'])) {
         die();
     }
     move_uploaded_file($_FILES['logo']['tmp_name'], __public_images__."logo.png");
+    resizer(__public_images__."logo.png", __public_images__."logo_100x100.png", 128, 128);
+    resizer(__public_images__."logo.png", __public_images__."favicon.png", 32, 32);
 }
 
+/*
 if(isset($_FILES['thumb'])) {
     if (check_file_type($_FILES['thumb']['type'], 'image/png')) {
         echo$output->setFailed("Something went wrong while uploading the new thumbnail");
@@ -30,6 +34,7 @@ if(isset($_FILES['thumb'])) {
     }
     move_uploaded_file($_FILES['thumb']['tmp_name'], __public_images__."favicon.png");
 }
+*/
 
 $companyName = isset($_POST['inp-companyName']) ? prepareForSQL($conn, $_POST['inp-companyName']) : "";
 $address = isset($_POST['inp-address'])  ? prepareForSQL($conn, $_POST['inp-address']) : "";

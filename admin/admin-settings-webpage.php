@@ -703,14 +703,14 @@ function saveData(el) {
     contentType: false,
     processData: false,
     cache: false,
-    dataType: 'json',
+    //dataType: 'json',
     success: function (response) {
-      //*
+      /*
       Toast.fire({
         icon: response.status,
         title: response.message
       });
-      //*/
+      /*/
       console.log(response);
       toggleButtonDisabled(el, ".content-header", "Saving...")
     }

@@ -18,6 +18,7 @@ define('__public_images__', __public_assets__.'images/');
 define('__outputHandler__', __ROOT__.'/customFiles/php/outputHandler/outputHandler.php');
 define('__formatInput__', __ROOT__.'/customFiles/php/format/formatInput.php');
 define('__format__', __ROOT__.'/customFiles/php/format/format.php');
+define('__format_image__', __ROOT__.'/customFiles/php/format/formatImage.php');
 define('__validations__', __ROOT__.'/customFiles/php/database/validations/validations.php');
 
 //----- UI constants --------
