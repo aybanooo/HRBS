@@ -683,12 +683,15 @@ function saveData(el) {
   //Prepare form data
   toggleButtonDisabled(el, ".content-header", "Saving...")
   fd = new FormData($("#form-main")[0]);
+  //gather and append all images if changed
   if(typeof savedPageCover !== 'undefined')
     fd.append('pageCover', savedPageCover, 'pageCover');
   if(typeof logo !== 'undefined')
     fd.append('logo', savedLogo, 'logo');
   if(typeof thumb !== 'undefined')
     fd.append('thumb', thumb, 'thumb');
+  //Adds inp-log-showLogoInAdmin in form data
+  fd.append("inp-logo-showLogoInAdmin", $("#inp-logo-showLogoInAdmin").prop('checked'));
   /*
   console.groupCollapsed('Form Data');
   for (var pair of fd.entries()) {
@@ -728,6 +731,8 @@ function loadData() {
       $("#inp-contactNum").val(data["contact"]);
       $("#inp-email").val(data["email"]);
       $("#inp-address").val(data["address"]);
+      $("#inp-address").val(data["address"]);
+      $("#inp-logo-showLogoInAdmin").prop('checked', false);
       $("#inp-loc").val(`${data["latitude"]}${( (/\S/.test(data["longitude"])) ? "," : "")}${data["longitude"]}`);
       $("#map").attr('src', `https://www.google.com/maps/embed/v1/place?key=AIzaSyANA3u1iWaTsQ1tbJsEyzhKhZ8JZXb3XMg
                       &q=${data["latitude"]}${( (/\S/.test(data["longitude"])) ? "," : "")}${data["longitude"]}`)

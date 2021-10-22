@@ -44,6 +44,7 @@ $footer_r = isset($_POST['inp-footer-r']) ? prepareForSQL($conn, $_POST['inp-foo
 $socmed_1 = isset($_POST['inp-socmed-1']) ? prepareForSQL($conn, $_POST['inp-socmed-1']) : "";
 $socmed_2 = isset($_POST['inp-socmed-2']) ? prepareForSQL($conn, $_POST['inp-socmed-2']) : "";
 $socmed_3 = isset($_POST['inp-socmed-3']) ? prepareForSQL($conn, $_POST['inp-socmed-3']) : "";
+$showLogoInAdmin = isset($_POST['inp-logo-showLogoInAdmin']) ? prepareForSQL($conn, $_POST['inp-logo-showLogoInAdmin'], 0) : "0";
 
 if(isset($_POST['inp-loc'])) {
     $raw_loc = isset($_POST['inp-loc']) ? prepareForSQL($conn, $_POST['inp-loc']) : "";
@@ -93,6 +94,13 @@ $sqlUpdate = "UPDATE `companyinfo` SET
 `footerRight`='$footer_r' LIMIT 1;";
 
 if(mysqli_query($conn, $sqlUpdate)) {
+    #do nothing yet
+} else {
+    echo $output->setFailed("Something went wrong while updating the hotel information");
+    die();
+}
+
+if(mysqli_query($conn, "UPDATE `settings` SET `value`='$showLogoInAdmin' WHERE `name` like 'showLogoInNav'")){
     echo $output->setSuccessful("Successfuly updated");
 } else {
     echo $output->setFailed("Something went wrong while updating the information", mysqli_error($conn));
