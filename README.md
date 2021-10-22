@@ -14,3 +14,7 @@
 
         new branch:
             dev/admin/rooms ()      Ekis 'to
+
+## Required extension to be enabled in php.ini
+
+    - gd
