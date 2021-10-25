@@ -81,12 +81,24 @@ require_once __initDB__;
     <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-12">
+          <div class="col">
             <div class="card">
-              <div class="card-header">
-              </div>
               <div class="card-body">
-             
+                <form id="form-defPass">
+                  <div class="form-group">
+                    <label for="inp-defPass">Default Password</label>
+                    <input type="password" class="form-control" id="inp-defPass"  name="inp-defPass" placeholder="Default Password">
+                    <small class="form-text text-muted">Must contain</small>
+                  </div>
+                  <button class="btn btn-primary w-100" type="submit">Update</button>
+                </form>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                
               </div>
             </div>
           </div>
@@ -141,6 +153,7 @@ require_once __initDB__;
 <script src="plugins/jquery-validation/additional-methods.min.js"></script>
 <!-- Special Script-->
 <script src="customFiles/customScript.js"></script>
+<script src="customFiles/buttonDisabler.js"></script>
 <script src="customFiles/initialize Toastr.js"></script>
 <script>
 
@@ -148,6 +161,41 @@ require_once __initDB__;
 
 <!-- Script to toggle navigation buttons -->
 <script>
+
+  // Set new default password
+  $("#form-defPass").validate({
+    rules: {
+      'inp-defPass': {
+        required: true,
+        minlength: 8
+      }
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    },
+    submitHandler: function(form, e) {
+      toggleButtonDisabled($(form).find('button[type="submit"]'), "#form-defPass", "Updating...");
+      $.post("/admin/customFiles/php/settingsControls/setDefaultPassword.php", $(form).serializeArray(),
+        function (response, textStatus, jqXHR) {
+          Toast.fire({
+            icon: response.status,
+            title: response.message
+          });
+          toggleButtonDisabled($(form).find('button[type="submit"]'), "#form-defPass", "Updating...");
+        },
+        'json'
+      );
+    }
+  });
+
   let activeNav = document.querySelector(".sidebar > nav > ul > li:nth-child(6)"); //change :nth(n) value
   if (activeNav.querySelector('ul') != null){
     activeNav.className += " menu-is-opening menu-open";
