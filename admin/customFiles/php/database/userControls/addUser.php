@@ -17,7 +17,7 @@ $accessID,
 '$contact');";
 
 $credsSql = "INSERT INTO empaccountdetails(empID)
-VALUES ($empID);";
+VALUES ($empID) LIMIT 1;";
 
 //$deleteSql = "DELETE FROM employee WHERE empID=".$_POST["empID"];
 
@@ -27,7 +27,12 @@ VALUES ($empID);";
 
 //insert new role data to accesspermission table
 if (mysqli_query($conn, $sql)) {
-  echo $output->setSuccessful("Account have been successfuly created.");
+  if (mysqli_query($conn, "INSERT INTO `empaccountdetails`(`empID`) VALUES ($empID) LIMIT 1;"))
+    echo $output->setSuccessful("Account have been successfuly created.");
+  else {
+    mysqli_query($conn, "DELETE FROM `empaccountdetails` WHERE `empID`=$empID LIMIT 1;");
+    echo $output->setFailed("Failed to add user.");
+  }
 } else {
   //echo "<script>console.log(\"Error in sql: " . $sql . "<br>" . $conn->error."\");</script>";
   echo $output->setFailed("Failed to add user.");
