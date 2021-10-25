@@ -418,6 +418,28 @@ require_once __initDB__;
 
     var table = $("#accountTable").DataTable({
       ajax: "customFiles/php/database/userControls/generateAccountTableEntries.php",
+      "drawCallback": function( settings ) {
+        var api = this.api();
+        var roleCount = {};
+        api.rows().data().pluck('accessID').toArray().forEach(element => {
+          if (roleCount[element])
+            roleCount[element]++;
+          else
+            roleCount[element] = 1;
+        });
+        //console.log(roleCount);
+        //Updates the roles count in the roles card
+        for (const [key, value] of Object.entries(roleCount)) {
+          $("#rolesBody").find(`input[name="roleID"][value="${key}"]`).siblings('h3').find('.roleCount').text(value);
+        }
+        $("#rolesBody").find('input[name="roleID"]').each((i,e) => {
+          if(!($(e).attr('value') in roleCount)) {
+            //console.log($(e).attr('value'));
+            $(e).siblings('h3').find('.roleCount').text('0');
+          }
+        });
+        // update roles count END
+      },
       dataSrc: '',
       "responsive": true, 
       "lengthChange": true, 
