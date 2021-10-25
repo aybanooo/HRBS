@@ -1,16 +1,23 @@
 <?php
 require_once("../../directories/directories.php");
 require_once(__initDB__);
+require_once(__format__);
+
+$empID = prepareForSQL($conn, $_POST['empID']);
+$fName = prepareForSQL($conn, $_POST['fName']);
+$lName = prepareForSQL($conn, $_POST['lName']);
+$accessID = prepareForSQL($conn, $_POST['accessID']);
+$contact = prepareForSQL($conn, $_POST['contact']);
 
 $sql = "INSERT INTO employee
-VALUES ('".$_POST["empID"]."',
-'".$_POST["fName"]."',
-'".$_POST["lName"]."',
-'".$_POST["accessID"]."',
-'".$_POST["contact"]."');";
+VALUES ($empID,
+'$fName',
+'$lName',
+$accessID,
+'$contact');";
 
 $credsSql = "INSERT INTO empaccountdetails(empID)
-VALUES (\"".$_POST["empID"]."\");";
+VALUES ($empID);";
 
 //$deleteSql = "DELETE FROM employee WHERE empID=".$_POST["empID"];
 
