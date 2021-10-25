@@ -256,7 +256,7 @@ require_once __initDB__;
               <div class="row">
                 <div class="col-12">
                   <div class="form-group">
-                      <input type="text" name="resetPasswordID" class="form-control"  id="inputResetPasswordID" placeholder="Employee ID" disabled>
+                      <input type="text" name="resetPasswordID" class="form-control"  id="inputResetPasswordID" placeholder="Employee ID" readonly>
                   </div>
                   <div class="form-group">
                       <input type="password" name="password" class="form-control"  id="inputResetPassword" placeholder="Enter your password">
@@ -574,7 +574,7 @@ $(document).ready(function(){
       checkBox.prop("checked", !checkBox.prop("checked"));
   });
 
-  $("#accountTable").on("click", "a[data-target=\"#resetPassModal\"]",function () {
+  $("#accountTable").on("click", "button[data-target='#resetPassModal']",function () {
      $("#inputResetPasswordID").val( $(this).data("value") );
   });
 
@@ -633,29 +633,23 @@ $('#resetPassForm').validate({
     unhighlight: function (element, errorClass, validClass) {
       $(element).removeClass('is-invalid');
     },
-    submitHandler: function () {
+    submitHandler: function (form, e) {
+      toggleButtonDisabled($(form).find('button[type="submit"]'), "#resetPassForm", "");
       $.ajax({
         type: 'post',
         url: 'customFiles/php/database/userControls/resetPassword.php',
         data: {
           empID: $("#inputResetPasswordID").val()
         },
+        dataType: 'json',
         success: function (response){
-          if(parseInt(response)){
-            Toast.fire({
-              icon: 'success',
-              title: 'Password have been reset'
-           });
-          }
-          else {
-            Toast.fire({
-              icon: 'error',
-              title: 'Failed to reset password'
-            });
-          }
+          Toast.fire({
+            icon: response.status,
+            title: response.message
+          });
           $('#resetPassModal').click();
-          $('#inputResetPassword').val('');
-          $('#inputResetPasswordRepeat').val('');
+          $('#resetPassForm').trigger('reset');
+          toggleButtonDisabled($(form).find('button[type="submit"]'), "#resetPassForm", "");
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
           Toast.fire({
