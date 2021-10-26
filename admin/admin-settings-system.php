@@ -88,7 +88,14 @@ require_once __initDB__;
                   <div class="form-group">
                     <label for="inp-defPass">Default Password</label>
                     <input type="password" class="form-control" id="inp-defPass"  name="inp-defPass" placeholder="Default Password">
-                    <small class="form-text text-muted">Must contain</small>
+                    <small class="form-text text-muted">
+                      <ul>
+                        <li>must be between 8 and 20 characters long.</li>
+                        <li>must contain atleast one uppercase</li>
+                        <li>must contain atleast one lowercase</li>
+                        <li>Password must contain atleast one digit</li>
+                        <li>Password must contain special characters from !  @ # $ % ^ & * ? _ ~ .</li>
+                      </ul>
                   </div>
                   <button class="btn btn-primary w-100" type="submit">Update</button>
                 </form>
@@ -151,6 +158,8 @@ require_once __initDB__;
 <!-- jquery-validation -->
 <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="plugins/jquery-validation/additional-methods.min.js"></script>
+<!-- Password strength meter -->
+<script src="plugins/pwstrength-bootstrap/dist/pwstrength-bootstrap.js"></script>
 <!-- Special Script-->
 <script src="customFiles/customScript.js"></script>
 <script src="customFiles/buttonDisabler.js"></script>
@@ -162,12 +171,29 @@ require_once __initDB__;
 <!-- Script to toggle navigation buttons -->
 <script>
 
+  $(function () {
+    $('#inp-defPass').pwstrength({
+      common: {
+        minChar: 8,
+        maxChar: 20,
+      },
+      ui: {
+        showVerdictsInsideProgressBar: true,
+        progressBarMinPercentage: 10,
+        progressExtraCssClasses: "mt-2"
+      }
+    });
+  });
+
   // Set new default password
   $("#form-defPass").validate({
+    onkeyup: function(element) {
+      if ($("#inp-defPass").is(":focus")) 
+        $(element).valid();
+    },
     rules: {
       'inp-defPass': {
-        required: true,
-        minlength: 8
+        strong_password: true
       }
     },
     errorElement: 'span',
@@ -185,15 +211,58 @@ require_once __initDB__;
       toggleButtonDisabled($(form).find('button[type="submit"]'), "#form-defPass", "Updating...");
       $.post("/admin/customFiles/php/settingsControls/setDefaultPassword.php", $(form).serializeArray(),
         function (response, textStatus, jqXHR) {
+          console.log(response);
+          try {
+            response = JSON.parse(response);
+          } catch(exc) {
+            console.log(exc);
+          }
           Toast.fire({
             icon: response.status,
             title: response.message
           });
           toggleButtonDisabled($(form).find('button[type="submit"]'), "#form-defPass", "Updating...");
-        },
-        'json'
+        }//,
+        //'json'
       );
     }
+  });
+
+  $.validator.addMethod("strong_password", function (value, element) {
+    let password = value;
+    if (!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_~.])(.{8,20}$)/.test(password))) {
+        return false;
+    }
+    $(element).siblings('small').children('ul').children().attr('class', 'text-success');
+    return true;
+  }, function (value, element) {
+    let password = $(element).val();
+    if (!(/^(.{8,20}$)/.test(password))) {
+      $(element).siblings('small').children('ul').children().eq(0).attr('class', 'text-danger');
+    } else {
+      $(element).siblings('small').children('ul').children().eq(0).attr('class', 'text-success');
+    }
+    if (!(/^(?=.*[A-Z])/.test(password))) {
+      $(element).siblings('small').children('ul').children().eq(1).attr('class', 'text-danger');
+    } else {
+      $(element).siblings('small').children('ul').children().eq(1).attr('class', 'text-success');
+    }
+    if (!(/^(?=.*[a-z])/.test(password))) {
+      $(element).siblings('small').children('ul').children().eq(2).attr('class', 'text-danger');
+    } else {
+      $(element).siblings('small').children('ul').children().eq(2).attr('class', 'text-success');
+    }
+    if (!(/^(?=.*[0-9])/.test(password))) {
+      $(element).siblings('small').children('ul').children().eq(3).attr('class', 'text-danger');
+    } else {
+      $(element).siblings('small').children('ul').children().eq(3).attr('class', 'text-success');
+    }
+    if (!(/^(?=.*[!@#$%^&*?_~.])/.test(password))) {
+      $(element).siblings('small').children('ul').children().eq(4).attr('class', 'text-danger');
+    } else {
+      $(element).siblings('small').children('ul').children().eq(4).attr('class', 'text-success');
+    }
+    return false;
   });
 
   let activeNav = document.querySelector(".sidebar > nav > ul > li:nth-child(6)"); //change :nth(n) value

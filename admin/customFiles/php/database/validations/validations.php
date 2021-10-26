@@ -68,6 +68,31 @@ function checkRequiredGETval($strList = null, $notEmpty = false) {
   //echo "no missing\n";
 }
 
+function isPassFormat($str) {
+  return preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_~.])(.{8,20}$)/', $str);
+  //return (ctype_alnum($str) && !preg_match('/\s/',$str) && strlen($str) >= 8);
+}
+
+function testPass($str) {
+  if (!preg_match('/^(.{8,20}$)/', $str)) {
+    return 'Password must be between 8 and 20 characters long.';
+  }
+  else if (!preg_match('/^(?=.*[A-Z])/', $str)) {
+      return 'Password must contain atleast one uppercase.';
+  }
+  else if (!preg_match('/^(?=.*[a-z])/', $str)) {
+      return 'Password must contain atleast one lowercase.';
+  }
+  else if (!preg_match('/^(?=.*[0-9])/', $str)) {
+      return 'Password must contain atleast one digit.';
+  }
+  else if (!preg_match('/^(?=.*[@#$%&])/', $str)) {
+      return "Password must contain special characters from @#$%&.";
+  }
+  return "Valid";
+}
+
+
 # File Uploads Validation
 
 function check_file_uploaded_name_length ($filename)
