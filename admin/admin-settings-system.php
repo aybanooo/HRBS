@@ -96,6 +96,7 @@ require_once __initDB__;
                         <li>Password must contain atleast one digit</li>
                         <li>Password must contain special characters from !  @ # $ % ^ & * ? _ ~ .</li>
                       </ul>
+                      </small>
                   </div>
                   <button class="btn btn-primary w-100" type="submit">Update</button>
                 </form>
