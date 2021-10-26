@@ -547,7 +547,8 @@ require_once __initDB__;
           responsivePriority: 1,
           targets: [5,6]
         }
-      ]
+      ],
+      rowId: 'empID'
     });
     table.buttons().container().appendTo('#accountTable_wrapper .col-md-6:eq(0)');
 

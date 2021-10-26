@@ -123,12 +123,13 @@ function updateRoleName(form) {
                 title: response.message
             });
             if(response.isSuccessful) {
-                toggleButtonDisabled($("#changeRoleNameForm button[type='submit']"), "#changeRoleNameForm", "");
                 var target = $(`#rolesBody .card .card-header input[value='${acid}']`).siblings('h3.card-title').children('.roleName');
                 target.text(form[1].value);
                 $('#changeRoleNameForm').trigger('reset');
                 $('#changeRoleNameModal').modal('toggle');
             }
+            table.ajax.reload(null, false);
+            toggleButtonDisabled($("#changeRoleNameForm button[type='submit']"), "#changeRoleNameForm", "");
         }
     });
 }
