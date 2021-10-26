@@ -379,10 +379,6 @@ a {
     pointer-events: none;
 }
 
-.swal2-title {
-    margin-left: 20px !important;
-}
-
 #newAccImage{
     max-height: 200px !important;
     max-width: 200px !important;
