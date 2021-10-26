@@ -19,9 +19,9 @@ if ($conn->connect_error) {
 			$total = $discount * $price;
 			$array['discount'] = $fetch['discount'];
 			$array['price'] = $price - $total;
-
+			
 			echo json_encode($array);
- 
+			
 		}else{
 			echo "error";
 		}

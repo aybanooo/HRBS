@@ -10,6 +10,7 @@ if ($conn->connect_error) {
 $query = "SELECT companyName FROM companyInfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
+
 if (isset($_POST['fname'])) {
 	$firstName = $_POST['fname'];
 }
@@ -28,6 +29,14 @@ if (isset($_POST['roomName'])) {
 if (isset($_POST['daterange'])) {
 	$daterange = $_POST['daterange'];
 }
+if (isset($_POST['dateStart'])) {
+	$dateStart = $_POST['dateStart'];
+}
+if (isset($_POST['endDate'])) {
+	$dateEnd = $_POST['endDate'];
+}
+
+
 
 $split = explode('-', $daterange);
 $count = count($split);
@@ -220,14 +229,6 @@ $end = $split[1];
 	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-	<script>
-		$(document).ready(function() {
-			$("#myModal").on("show.bs.modal", function(event) {
-				// Place the returned HTML into the selected element
-				$(this).find(".modal-body").load("/examples/php/remote.php");
-			});
-		});
-	</script>
 
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 		<div class="container">
@@ -248,6 +249,25 @@ $end = $split[1];
 
 	<section id="finalForm">
 		<div class="finalForm">
+			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalCenterTitle">Payment</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<h6>Mode of Payment</h6>
+							<div id="paypal-button-container"></div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+						</div>
+					</div>
+				</div>
+			</div>
 			<div class="row">
 				<div class="col-lg-3 mx-auto">
 					<a class="return" href="Customer-Booking_Form.php">
@@ -316,11 +336,11 @@ $end = $split[1];
 						</tr>
 						<tr align="right">
 							<th>Check-in Date:</th>
-							<td><?php echo $start; ?></td>
+							<td><?php echo $dateStart; ?></td>
 						</tr>
 						<tr align="right">
 							<th>Check-out Date:</th>
-							<td><?php echo $end; ?></td>
+							<td><?php echo $dateEnd; ?></td>
 						</tr>
 						<tr align="right">
 							<th>Check-in Time:</th><!-- kukunin sa database -->
@@ -357,6 +377,7 @@ $end = $split[1];
 									<hr>
 								</td>
 							</tr>
+							<!--
 							<tr>
 								<td>
 									<h3><b>Payment</b></h3>
@@ -365,14 +386,16 @@ $end = $split[1];
 							</tr>
 							<tr>
 								<td colspan="2" align="right">
-									<div id="paypal-button"></div>
+									
 								</td>
 							</tr>
+							
 							<tr>
 								<td colspan="2">
 									<hr>
 								</td>
 							</tr>
+							-->
 							<tr>
 								<td>
 									<h3><b>Billing</b></h3>
@@ -415,14 +438,14 @@ $end = $split[1];
 								</td>
 							</tr>
 							<tr align="right">
-								<td colspan="2"><input class="form-control-plaintext" type="number" value="<?php echo number_format($totalPriceWServiceCharge, 2,  '.', ''); ?>" id="total" name="result" readonly="readonly" lang="en-150" /></td>
+								<td colspan="2"><input class="form-control-plaintext" type="number" value="<?php echo number_format($totalPriceWServiceCharge, 2,  '.', ''); ?>" id="total" readonly="readonly" lang="en-150" /></td>
 							</tr>
 							<tr align="right">
 								<td colspan="2"><input type="checkbox" class="form-check-input" id="exampleCheck1"><label class="form-check-label" for="exampleCheck1">I Understand the <a href="#">Terms and Agreement.</a></label></p>
 								</td>
 							</tr>
 							<tr align="right">
-								<td colspan="2"><button type="button" class="btn btn-success">Book Now</button></td>
+								<td colspan="2"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">Book Now</button></td>
 							</tr>
 					</table>
 				</div>
@@ -431,6 +454,7 @@ $end = $split[1];
 		</div>
 		</div>
 	</section>
+
 	<?php
 	$query = "SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
         FROM socialMedias, companyInfo";
@@ -489,43 +513,26 @@ $end = $split[1];
 		}
 	});
 </script>
-
-<script src="https://www.paypalobjects.com/api/checkout.js"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AVFvFuUKXMeSAJRgomChw5y-GVxtgyRGm2jAOBo5eVtGfd3mXa28RUQ7Niq6ae1mHhzI5LxvyP4zKH_e&currency=PHP"></script>
 <script>
-	paypal.Button.render({
-		// Configure environment
-		env: 'sandbox',
-		client: {
-			sandbox: 'demo_sandbox_client_id',
-			production: 'demo_production_client_id'
-		},
-		// Customize button (optional)
-		locale: 'en_US',
-		style: {
-			size: 'small',
-			color: 'gold',
-			shape: 'pill',
-		},
-		// Set up a payment
-		payment: function(data, actions) {
-			return actions.payment.create({
-				transactions: [{
+	paypal.Buttons({
+		createOrder: function(data, actions) {
+			return actions.order.create({
+				purchase_units: [{
 					amount: {
-						total: '0.01',
-						currency: 'USD'
-					}
+						value: document.getElementById('total').value
+					},
 				}]
 			});
 		},
-		// Execute the payment
-		onAuthorize: function(data, actions) {
-			return actions.payment.execute()
-				.then(function() {
-					// Show a confirmation message to the buyer
-					window.alert('Thank you for your purchase!');
-				});
+
+		// Finalize the transaction after payer approval
+		onApprove: function(data, actions) {
+			return actions.order.capture().then(function() {
+				window.location="paypalSuccess.php?&orderID="+data.orderID;
+			});
 		}
-	}, '#paypal-button');
+	}).render('#paypal-button-container');
 </script>
 
 </html>

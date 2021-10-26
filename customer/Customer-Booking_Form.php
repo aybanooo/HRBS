@@ -558,19 +558,18 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	var currentMonth = date.getMonth();
 	var currentDate = date.getDate();
 	var currentYear = date.getFullYear();
-	var startDatePick;
-	var endDatePick;
+	
+	var dateStart = $('input[name="daterange"]').data('daterangepicker').startDate;
+	var	dateEnd = $('input[name="daterange"]').data('daterangepicker').endDate;
 
 	$(function() {
 		$('input[name="daterange"]').daterangepicker({
 			minDate: new Date(currentYear, currentMonth, currentDate),
 			opens: 'left',
 			startDate: moment(date).add(5, 'days'),
-			endDate: moment(date).add(7, 'days')
+			endDate: moment(date).add(7, 'days'),
 		}, function(start, end, label) {
 			console.log("A new date selection was made: " + start.format('MM-DD-YYYY') + ' to ' + end.format('MM-DD-YYYY'));
-			startDatePick = start;
-			endDatePick = end;
 		});
 	});
 </script>
