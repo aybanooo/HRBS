@@ -86,7 +86,7 @@ require_once __initDB__;
               <div class="card-body">
                 <form id="form-defPass">
                   <div class="form-group">
-                    <label for="inp-defPass">Default Password</label>
+                    <label for="inp-defPass"><span class="mr-3">Default Password</span><button type="button" class="btn-link d-inline p-0 m-0 bg-transparent border-0" id="btn-viewDefPas">View default password</button></label>
                     <input type="password" class="form-control" id="inp-defPass"  name="inp-defPass" placeholder="Default Password">
                     <small class="form-text text-muted">
                       <ul>
@@ -212,19 +212,17 @@ require_once __initDB__;
       toggleButtonDisabled($(form).find('button[type="submit"]'), "#form-defPass", "Updating...");
       $.post("/admin/customFiles/php/settingsControls/setDefaultPassword.php", $(form).serializeArray(),
         function (response, textStatus, jqXHR) {
-          console.log(response);
-          try {
-            response = JSON.parse(response);
-          } catch(exc) {
-            console.log(exc);
-          }
+          //console.log(response);
           Toast.fire({
             icon: response.status,
             title: response.message
           });
+          $(form).trigger('reset');
+          $(form).find('ul > li').attr('class', 'text-normal');
+          $("#inp-defPass").pwstrength("forceUpdate");
           toggleButtonDisabled($(form).find('button[type="submit"]'), "#form-defPass", "Updating...");
-        }//,
-        //'json'
+        },
+        'json'
       );
     }
   });
@@ -264,6 +262,21 @@ require_once __initDB__;
       $(element).siblings('small').children('ul').children().eq(4).attr('class', 'text-success');
     }
     return false;
+  });
+
+  $("#btn-viewDefPas").click(() => {
+    $.get("customFiles/php/settingsControls/viewDefPass.php", null,
+      function (response, textStatus, jqXHR) {
+        Swal.fire({
+          icon: 'warning',
+          title: 'Default Password',
+          text: response.data,
+          showConfirmButton: false
+        });
+      },
+      'json'
+    );
+    
   });
 
   let activeNav = document.querySelector(".sidebar > nav > ul > li:nth-child(6)"); //change :nth(n) value
