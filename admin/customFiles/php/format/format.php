@@ -45,4 +45,29 @@ function zeroToEmpty(&$var) {
     return $var;
 }
 
+function towtf($str, $level = 1) {
+    if($level <= 0)
+      throw new Exception("level cannot be less than or equal to 0");
+    $str = str_split($str);
+    foreach($str as &$char) {
+        $char = dechex(ord($char)*($level+$level));
+    }
+    foreach($str as &$char) {
+        $char = $char.chr(random_int(103, 122));
+    }
+    $str = base64_encode(chr(random_int(103, 122)).implode("", $str));
+    return ($str);
+  }
+  
+  function tonotwtf($str, $level = 1) {
+    if($level <= 0)
+      throw new Exception("level cannot be less than or equal to 0");
+    $str = preg_split("/[g-z]/",  base64_decode($str));
+    array_pop($str);
+    array_shift($str);
+    foreach($str as &$char) {
+        $char = chr(hexdec($char)/($level+$level));
+    }
+    return implode("",$str);
+  }
 ?>
