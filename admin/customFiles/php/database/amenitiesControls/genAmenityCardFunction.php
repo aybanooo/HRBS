@@ -2,13 +2,12 @@
 
 function generateAmenityCard($amenityData) {
 ?>
-
 <div class="card card-outline ce-noblank overflow-hidden" data-amid="<?php print $amenityData['amenityID']; ?>">
     <div class="card-header">
         <h3 class="card-title amenity amenity-name" contenteditable="True"><?php print $amenityData['amenityName']; ?></h3>
         <div class="card-tools">
             <button type="button" class="btn btn-tool hover-success" onclick="saveAmenity(this)"><i class="fas fa-save fa-lg"></i></button>
-            <button type="button" class="btn btn-tool hover-danger" data-card-widget="remove"><i class="fas fa-times fa-lg"></i></button>
+            <button type="button" class="btn btn-tool hover-danger" onclick="removeAmenity(this)"><i class="fas fa-times fa-lg"></i></button>
         </div>  
         <!-- /.card-tools -->
     </div>

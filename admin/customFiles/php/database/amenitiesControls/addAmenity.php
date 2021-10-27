@@ -4,9 +4,10 @@ require_once(dirname(__FILE__, 3)."/directories/directories.php");
 require_once __initDB__;
 require_once __format__;
 require_once __validations__;
+require_once "genAmenityCardFunction.php";
 
 #print_r($_POST);
-#print_r($_FILES);
+#print_r($_FILES); 
 
 $amenityName = prepareForSQL($conn, $_POST['inp-amenityName']);
 $description = prepareForSQL($conn, $_POST['inp-desc']);
@@ -23,7 +24,7 @@ if(!file_exists($amenityEntryFolder))
     mkdir($amenityEntryFolder);
 
 if(isset($_FILES['file-image-amenityImage'])) {
-    if(!check_file_type($_FILES['file-image-amenityImage']['type'], 'image/jpeg, image/jpg')) {
+    if(check_file_type($_FILES['file-image-amenityImage']['type'], 'image/jpeg, image/jpg')) {
         echo $output->setFailed('Unsupported file type');
         rmdir($amenityEntryFolder);
         mysqli_query($conn, "DELETE FROM `amenities` WHERE `amenityID`=$id LIMIT 1;");
@@ -40,6 +41,16 @@ if(isset($_FILES['file-image-amenityImage'])) {
 } else {
     copy(__public_defaults__."default-image-landscape.jpg", $amenityEntryFolder."image.jpeg");
 }
+
+
+$result = mysqli_query($conn, "SELECT * FROM `amenities` WHERE `amenityID`=$id LIMIT 1;");
+$r = mysqli_fetch_all($result, MYSQLI_ASSOC);
+$r[0]['amenityID'] = towtf($r[0]['amenityID'], 3); 
+
+ob_start();
+generateAmenityCard($r[0]);
+$output->output['data'] = ob_get_contents();  
+ob_end_clean();
 
 echo $output->setSuccessful('New amenity created');
 
