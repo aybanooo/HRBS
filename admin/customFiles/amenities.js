@@ -47,7 +47,10 @@ function addAmenityEntry() {
                 url: "/admin/customFiles/php/database/amenitiesControls/addAmenity.php",
                 dataType: 'json',
                 success: function (response) {
-                    //console.log(response);                    
+                    console.log(response);
+                    if(response.isSuccessful) {
+                        $("#amenityList").append(response.data);
+                    }             
                     return(response);
                 }
             });
@@ -242,6 +245,25 @@ function readFileForCrop(input) {
    }
 }
 
-let query = {
-
+function removeAmenity(el) {
+    let target = $(el).closest('div.card');
+    let amid = target.attr('data-amid');
+    toggleButtonDisabled(el, `div.card[data-amid='${amid}']`, "");
+    $.ajax({
+        type: "post",
+        url: "customFiles/php/database/amenitiesControls/removeAmenity.php",
+        data: {amid: amid},
+        dataType: 'json',
+        success: function (response) {
+            //console.log(response);
+            Toast.fire({
+                icon: response.status,
+                title: response.message
+            });
+            toggleButtonDisabled(el, `div.card[data-amid='${amid}']`, "");
+            target.remove();
+        }
+    });
 }
+
+let query = {}
