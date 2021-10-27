@@ -274,8 +274,20 @@ li>*:not(.datepicker) {
     color: var(--blue);
 }
 
-.fa-times:hover {
-    color: var(--red);
+.hover-danger * {
+    transition-duration: 0.2s;
+}
+
+.hover-danger:hover * {
+    color: var(--danger);
+}
+
+.hover-success * {
+    transition-duration: 0.2s;
+}
+
+.hover-success:hover * {
+    color: var(--success);
 }
 
 .input-group-append:hover .fa-times {

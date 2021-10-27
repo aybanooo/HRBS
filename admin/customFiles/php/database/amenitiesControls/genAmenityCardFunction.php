@@ -7,15 +7,9 @@ function generateAmenityCard($amenityData) {
     <div class="card-header">
         <h3 class="card-title amenity amenity-name" contenteditable="True"><?php print $amenityData['amenityName']; ?></h3>
         <div class="card-tools">
-            <div class="btn-group">
-                <button type="button" class="btn btn-success" onclick="saveAmenity(this)">
-                    <i class="fas fa-save fa-lg"></i>
-                </button>
-                <button type="button" class="btn btn-danger">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-        </div>
+            <button type="button" class="btn btn-tool hover-success" onclick="saveAmenity(this)"><i class="fas fa-save fa-lg"></i></button>
+            <button type="button" class="btn btn-tool hover-danger" data-card-widget="remove"><i class="fas fa-times fa-lg"></i></button>
+        </div>  
         <!-- /.card-tools -->
     </div>
     <!-- /.card-header -->
