@@ -66,12 +66,11 @@ require_once __initDB__;
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1>Amenities</h1>
+            <input type='file' id="inp-image-change" accept=".jpg, .jpeg, .png" hidden>
           </div>
           <div class="col-sm-6">
             <div class="row mt-3 mt-sm-0 ">
-              <div class="col-6">
-                <a href="javascript: void(0)" onclick="alert('saved?')"><button class="btn btn-success btn-block">Save</button></a>
-              </div>
+              <div class="col-6"></div> 
               <div class="col-6">
                   <a href="javascript: void(0)" onclick="addAmenityEntry()"><button class="btn btn-primary btn-block">Add an amenity</button></a>
               </div>
@@ -151,6 +150,7 @@ require_once __initDB__;
 <script src="customFiles/initialize Toastr.js"></script>
 <script src="customFiles/customScript.js"></script>
 <script src="customFiles/amenities.js"></script>
+<script src="customFiles/buttonDisabler.js"></script>
 <!-- Page Special Script -->
 <script>
   

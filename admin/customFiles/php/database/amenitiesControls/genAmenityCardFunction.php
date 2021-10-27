@@ -5,11 +5,16 @@ function generateAmenityCard($amenityData) {
 
 <div class="card card-outline ce-noblank overflow-hidden" data-amid="<?php print $amenityData['amenityID']; ?>">
     <div class="card-header">
-        <h3 class="card-title amenity" contenteditable="True"><?php print $amenityData['amenityName']; ?></h3>
+        <h3 class="card-title amenity amenity-name" contenteditable="True"><?php print $amenityData['amenityName']; ?></h3>
         <div class="card-tools">
-            <button type="button" class="btn btn-tool" onclick="removeAmenityCard(event)">
-            <i class="fas fa-times"></i>
-            </button>
+            <div class="btn-group">
+                <button type="button" class="btn btn-success" onclick="saveAmenity(this)">
+                    <i class="fas fa-save fa-lg"></i>
+                </button>
+                <button type="button" class="btn btn-danger">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
         </div>
         <!-- /.card-tools -->
     </div>
@@ -19,12 +24,12 @@ function generateAmenityCard($amenityData) {
             <textarea class="form-control" rows="3" placeholder="Enter amenity description"><?php print $amenityData['amenityDesc']; ?></textarea>
         </div>
         <div class="card m-0 bg-gradient-dark">
-        <img class="card-img-top" src="/public_assets/amenities/<?php print tonotwtf($amenityData['amenityID'],3); ?>/image.jpeg" alt="Dist Photo 1">
+        <img class="card-img-top" src="/public_assets/amenities/<?php print tonotwtf($amenityData['amenityID'],3); ?>/image.jpeg?t=<?php print time(); ?>" alt="Dist Photo 1">
             <div class="card-img-overlay d-flex flex-column justify-content-start">
             <div class="container-fluid p-0">
-                <a class="btn btn-app mb-0 ml-0">
+                <button for="inp-image-change" class="btn btn-app mb-0 ml-0" onclick="changeImage(this)">
                 <i class="fas fa-edit"></i> Change
-                </a>
+                </button>
             </div>
             </div>
         </div>
