@@ -532,8 +532,7 @@ textarea:focus, input:focus{
     border: none;
 }
 
-#amenityTable textarea {
-    resize: none;
+#amenityList textarea {
     border: none;
     border-radius: 0px;
 }

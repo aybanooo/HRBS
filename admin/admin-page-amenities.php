@@ -22,10 +22,14 @@ require_once __initDB__;
   <!-- jsGrid -->
   <link rel="stylesheet" href="plugins/jsgrid/jsgrid.min.css">
   <link rel="stylesheet" href="plugins/jsgrid/jsgrid-theme.min.css">
+  <!-- SweetAlert2 -->
+  <link rel="stylesheet" href="plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css">
   <!-- DataTables -->
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- Croppie -->
+  <link rel="stylesheet" href="customFiles/croppie/croppie.css">
   <!-- Special Style-->
   <link rel="stylesheet" href="customFiles/specialStyle.css">
 
@@ -80,104 +84,16 @@ require_once __initDB__;
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-                <!-- Data Table -->
-                <div class="card card-info">
-                  <div class="card-body table-bg p-2">
-                    <div class="table-responsive">          
-                    <table id="amenityTable" class="table borderless ">
-                      <thead class="hidden">
-                        <tr>
-                          <th>Room</th>
-                        </tr>
-                      </thead>
-                      <tbody class="ce-noenter ce-limit">
-                        <tr>
-                          <td style ="word-break:break-all;">
-                            <div class="row">
-                              <!-- room content -->
-                              <div class="col-12">
-                                <div class="card card-outline ce-noblank overflow-hidden" >
-                                  <div class="card-header">
-                                    <h3 class="card-title amenity" contenteditable="True">Premium Movies</h3>
-                                    <div class="card-tools">
-                                      <button type="button" class="btn btn-tool" onclick="removeAmenityCard(event)">
-                                        <i class="fas fa-times"></i>
-                                      </button>
-                                    </div>
-                                    <!-- /.card-tools -->
-                                  </div>
-                                  <!-- /.card-header -->
-                                  <div class="card-body p-0">
-                                    <div class="form-group m-0">
-                                      <textarea class="form-control" rows="3" placeholder="Enter amenity description"></textarea>
-                                    </div>
-                                    <div class="card m-0 bg-gradient-dark">
-                                    <img class="card-img-top" src="dist/img/tv.jpg" alt="Dist Photo 1">
-                                      <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                        <div class="container-fluid p-0">
-                                          <a class="btn btn-app mb-0 ml-0">
-                                            <i class="fas fa-edit"></i> Change
-                                          </a>
-                                          <a class="btn btn-app mb-0" onclick="deleteAmenityImage(event)">
-                                            <i class="fas fa-trash"></i> Delete
-                                          </a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <!-- /.card-body -->
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td style ="word-break:break-all;">
-                            <div class="row">
-                              <!-- room content -->
-                              <div class="col-12">
-                                <div class="card card-outline ce-noblank overflow-hidden">
-                                  <div class="card-header">
-                                    <h3 class="card-title amenity" contenteditable="True">Swimming Pool</h3>
-                                    <div class="card-tools">
-                                      <button type="button" class="btn btn-tool" onclick="removeAmenityCard(event)">
-                                        <i class="fas fa-times"></i>
-                                      </button>
-                                    </div>
-                                    <!-- /.card-tools -->
-                                  </div>
-                                  <!-- /.card-header -->
-                                  <div class="card-body p-0">
-                                    <div class="form-group m-0">
-                                      <textarea class="form-control" rows="3" placeholder="Enter amenity description"></textarea>
-                                    </div>
-                                    <div class="card m-0 bg-gradient-dark">
-                                      <img class="card-img-top" src="dist/img/Pool1.jpg" alt="Image">
-                                      <div class="card-img-overlay d-flex flex-column justify-content-end">
-                                        <div class="container-fluid p-0">
-                                          <a class="btn btn-app mb-0 ml-0">
-                                            <i class="fas fa-edit"></i> Change
-                                          </a>
-                                          <a class="btn btn-app mb-0" onclick="deleteAmenityImage(event)">
-                                            <i class="fas fa-trash"></i> Delete
-                                          </a>
-                                        </div>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <!-- /.card-body -->
-                                </div>
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                    </div>
-                  </div>
-                </div>
-                <!-- Data Table End -->
-
+     
+        <div class="row">
+          <div class="col">
+            <div class="card">
+              <div class="card-body" id="amenityList">
+                
+              </div>
+            </div>
+          </div>
+        </div>
 
       </div><!-- /.container-fluid -->
     </section>
@@ -211,6 +127,9 @@ require_once __initDB__;
 <script src="dist/js/demo.js"></script>
 <!-- jsGrid -->
 <script src="plugins/jsgrid/jsgrid.min.js"></script>
+<!-- jquery-validation -->
+<script src="plugins/jquery-validation/jquery.validate.min.js"></script>
+<script src="plugins/jquery-validation/additional-methods.min.js"></script>
 <!-- DataTables  & Plugins -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -224,11 +143,21 @@ require_once __initDB__;
 <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- Croppie -->
+<script src="customFiles/croppie/croppie.js"></script>
+<!-- SweetAlert2 -->
+<script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Special Script-->
+<script src="customFiles/initialize Toastr.js"></script>
 <script src="customFiles/customScript.js"></script>
+<script src="customFiles/amenities.js"></script>
 <!-- Page Special Script -->
 <script>
   
+  $(function () {
+    loadAmenityCards();
+  });
+
   var origText = "";
 
 $(".ce-noblank").on("focus","*[contentEditable=\"True\"]", function(){
@@ -335,6 +264,8 @@ settings = {
       }
       
     });
+
+  
 
 </script>
 <!-- Table script -->
