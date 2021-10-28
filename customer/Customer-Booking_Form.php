@@ -370,7 +370,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 										$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 										while ($row = mysqli_fetch_assoc($result)) {
 										?>
-											<!-- sa room type kukunin -->
 											<option value="<?php echo $row["name"]; ?>"><?php echo $row["name"]; ?></option>
 										<?php
 										}
@@ -519,25 +518,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
 <!-- daterange -->
 <script src="/public_assets/modules/libraries/daterangepicker/daterangepicker.js"></script>
-
-<script>
-	$(`input[type="radio"][name="card"]`).on('click', function() {
-		if ($(this).val() == 1) {
-			$('#mastercardDiv').removeClass('d-none');
-			$('#paypalDiv').removeClass('d-none').addClass('d-none');
-			$('#bankDiv').removeClass('d-none').addClass('d-none');
-		} else if ($(this).val() == 2) {
-			$('#paypalDiv').removeClass('d-none');
-			$('#mastercardDiv').removeClass('d-none').addClass('d-none');
-			$('#bankDiv').removeClass('d-none').addClass('d-none');
-		} else {
-			$('#bankDiv').removeClass('d-none');
-			$('#mastercardDiv').removeClass('d-none').addClass('d-none');
-			$('#paypalDiv').removeClass('d-none').addClass('d-none');
-			eee
-		}
-	})
-</script>
 <script>
 	function selectRate() {
 		var roomName = document.getElementById("nameRoom").value;
@@ -558,9 +538,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	var currentMonth = date.getMonth();
 	var currentDate = date.getDate();
 	var currentYear = date.getFullYear();
-	
-	var dateStart = $('input[name="daterange"]').data('daterangepicker').startDate;
-	var	dateEnd = $('input[name="daterange"]').data('daterangepicker').endDate;
+
+	//var dateStart = $('input[name="daterange"]').data('daterangepicker').startDate;
+	//var dateEnd = $('input[name="daterange"]').data('daterangepicker').endDate;
 
 	$(function() {
 		$('input[name="daterange"]').daterangepicker({

@@ -365,8 +365,7 @@ $end = $split[1];
 							<td><input class="form-control" type="text" id="coupon" name="coupon" placeholder="Code (Optional)" /></input></td>
 						</tr>
 						<tr align="right">
-							<td><input type="hidden" value="<?php echo number_format($totalPriceWServiceCharge, 2,  '.', ''); ?>" id="price" name="price" />
-							<td>
+							<td><input type="hidden" value="<?php echo number_format($totalPriceWServiceCharge, 2,  '.', ''); ?>" id="price" name="price" /><td>
 						</tr>
 						<tr align="right">
 							<td colspan="2"><button class="btn btn-info" id="activate">Apply Voucher</button></td>
@@ -499,19 +498,19 @@ $end = $split[1];
 					} else {
 						var json = JSON.parse(data);
 						$('#result').html(+json.discount + "% Off");
-						$('#total').val(json.price);
+						$('#total').val(Math.round((parseFloat(json.price)) * 100) / 100);				
 					}
 				});
 			}
 		});
 	});
-	$('#btnClick').on('click', function() {
+	/*$('#btnClick').on('click', function() {
 		if ($('#1').css('display') != 'none') {
 			$('#2').html('Here is my dynamic content').show().siblings('div').hide();
 		} else if ($('#2').css('display') != 'none') {
 			$('#1').show().siblings('div').hide();
 		}
-	});
+	});*/
 </script>
 <script src="https://www.paypal.com/sdk/js?client-id=AVFvFuUKXMeSAJRgomChw5y-GVxtgyRGm2jAOBo5eVtGfd3mXa28RUQ7Niq6ae1mHhzI5LxvyP4zKH_e&currency=PHP"></script>
 <script>
