@@ -29,6 +29,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	<link rel="stylesheet" type="text/css" href="/public_assets/modules/libraries/daterangepicker/daterangepicker.css" />
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/cupertino/jquery-ui.css">
 	<style type="text/css">
 		body {
 			padding-top: 65px;
@@ -296,6 +297,16 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			-o-transform: translate(-50%, 0);
 			transform: translate(-50%, 0%) !important;
 		}
+
+		div#ui-datepicker-div {
+			color: #000000;
+		}
+
+		a.ui-state-default {
+			color: #000000;
+			background-color: #ffffff;
+			;
+		}
 	</style>
 
 	<title>Booking Details</title>
@@ -344,10 +355,18 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								</td>
 							</tr>
 							<tr align="right">
-								<th><label for="date">Date:</label></th>
+								<th><label for="date">Check In Date:</label></th>
 								<td>
 									<div class="form-group">
-										<input class="dateForm" type="text" name="daterange" />
+										<input type="text" name="date_picker1" id="date_picker1">
+									</div>
+								</td>
+							</tr>
+							<tr align="right">
+								<th><label for="date">Check Out Date:</label></th>
+								<td>
+									<div class="form-group">
+										<input type="text" name="date_picker2" id="date_picker2">
 									</div>
 								</td>
 							</tr>
@@ -469,7 +488,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								</td>
 							</tr>
 							<tr align="right">
-								<td colspan="2"><button type="submit" name="submit " class="btn btn-success">Proceed to Payment</button></td>
+								<td colspan="2"><button type="submit" name="submit" id="submit" class="btn btn-success">Proceed to Payment</button></td>
 							</tr>
 					</form>
 					</table>
@@ -510,6 +529,8 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 <!-- moment -->
 <script src="/public_assets/modules/libraries/moment/moment.min.js"></script>
@@ -533,14 +554,13 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		})
 	}
 </script>
-<script>
+<!--<script>
 	var date = new Date();
 	var currentMonth = date.getMonth();
 	var currentDate = date.getDate();
 	var currentYear = date.getFullYear();
-
-	//var dateStart = $('input[name="daterange"]').data('daterangepicker').startDate;
-	//var dateEnd = $('input[name="daterange"]').data('daterangepicker').endDate;
+	var startDate;
+	var endDate;
 
 	$(function() {
 		$('input[name="daterange"]').daterangepicker({
@@ -550,8 +570,44 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			endDate: moment(date).add(7, 'days'),
 		}, function(start, end, label) {
 			console.log("A new date selection was made: " + start.format('MM-DD-YYYY') + ' to ' + end.format('MM-DD-YYYY'));
+			startDate = start;
+			endDate = end;
 		});
 	});
+	$('#submit').click(function() {
+		$_POST 
+		console.log(startDate.format('MM-DD-YYYY') + ' - ' + endDate.format('MM-DD-YYYY'));
+	});
+</script>-->
+<script>
+	$(document).ready(function() {
+		var startDate;
+		var endDate;
+		$("#date_picker1").datepicker({
+			dateFormat: 'mm-dd-yy',
+			maxDate: '365',
+			minDate: '+5'
+		})
+
+		$("#date_picker2").datepicker({
+			dateFormat: 'mm-dd-yy',
+			maxDate: '365',
+			minDate: '+5'
+		});
+
+		$('#date_picker1').change(function() {
+			startDate = $(this).datepicker('getDate');
+			$("#date_picker2").datepicker("option", "minDate", startDate);
+		})
+
+
+		$('#date_picker2').change(function() {
+			endDate = $(this).datepicker('getDate');
+			$("#date_picker2").datepicker("option", "maxDate", endDate);
+		})
+
+	})
 </script>
+
 
 </html>

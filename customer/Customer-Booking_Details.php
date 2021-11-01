@@ -26,27 +26,27 @@ if (isset($_POST['email'])) {
 if (isset($_POST['roomName'])) {
 	$roomName = $_POST['roomName'];
 }
-if (isset($_POST['daterange'])) {
-	$daterange = $_POST['daterange'];
+if (isset($_POST['date_picker1'])) {
+	$dateStart = $_POST['date_picker1'];
 }
-if (isset($_POST['dateStart'])) {
-	$dateStart = $_POST['dateStart'];
+if (isset($_POST['date_picker2'])) {
+	$dateEnd = $_POST['date_picker2'];
 }
-if (isset($_POST['endDate'])) {
-	$dateEnd = $_POST['endDate'];
+$newDateStart = date("Y-m-d", strtotime($dateStart));  
+
+$NewDateEnd = strtr($dateEnd, '/', '-');
+echo date('Y-m-d', strtotime($date1));
+
+/*function dateDiff($newDateStart, $newDateEnd)
+{
+    $date1_ts = strtotime($newDateStart);
+    $date2_ts = strtotime($newDateEnd);
+    $diff = $date2_ts - $date1_ts;
+    return round($diff / 86400);
 }
 
-
-
-$split = explode('-', $daterange);
-$count = count($split);
-if ($count <> 2) {
-	#invalid data
-}
-
-$start = $split[0];
-$end = $split[1];
-
+$dateDiff = dateDiff($newDateStart, $newDateEnd);
+*/
 
 
 ?>
@@ -328,7 +328,9 @@ $end = $split[1];
 
 							$vat = $followingdata['rate'] * 0.12;
 							$serviceCharge = $followingdata['rate'] * 0.10;
-							$totalPriceWServiceCharge = $vat + $serviceCharge + $followingdata['rate'];
+							$totalRoomRate = $dateDiff * $followingdata['rate'];
+							$totalPriceWServiceCharge = $vat + $serviceCharge + $totalRoomRate;
+
 
 							?>
 							<th>Rate:</th>
@@ -340,7 +342,11 @@ $end = $split[1];
 						</tr>
 						<tr align="right">
 							<th>Check-out Date:</th>
-							<td><?php echo $dateEnd; ?></td>
+							<td><?php echo $newDateEnd; ?></td>
+						</tr>
+						<tr align="right">
+							<th>Length of Stay:</th>
+							<td><?php echo $dateDiff; ?></td>
 						</tr>
 						<tr align="right">
 							<th>Check-in Time:</th><!-- kukunin sa database -->
@@ -365,7 +371,8 @@ $end = $split[1];
 							<td><input class="form-control" type="text" id="coupon" name="coupon" placeholder="Code (Optional)" /></input></td>
 						</tr>
 						<tr align="right">
-							<td><input type="hidden" value="<?php echo number_format($totalPriceWServiceCharge, 2,  '.', ''); ?>" id="price" name="price" /><td>
+							<td><input type="hidden" value="<?php echo number_format($totalPriceWServiceCharge, 2,  '.', ''); ?>" id="price" name="price" />
+							<td>
 						</tr>
 						<tr align="right">
 							<td colspan="2"><button class="btn btn-info" id="activate">Apply Voucher</button></td>
@@ -376,25 +383,6 @@ $end = $split[1];
 									<hr>
 								</td>
 							</tr>
-							<!--
-							<tr>
-								<td>
-									<h3><b>Payment</b></h3>
-								</td>
-								<td></td>
-							</tr>
-							<tr>
-								<td colspan="2" align="right">
-									
-								</td>
-							</tr>
-							
-							<tr>
-								<td colspan="2">
-									<hr>
-								</td>
-							</tr>
-							-->
 							<tr>
 								<td>
 									<h3><b>Billing</b></h3>
@@ -406,7 +394,7 @@ $end = $split[1];
 
 							<tr align="right">
 								<td>Room Rate</td>
-								<td><?php echo number_format($followingdata['rate'], 2,  '.', ','); ?></td>
+								<td><?php echo number_format($totalRoomRate, 2,  '.', ','); ?></td>
 							</tr>
 							<tr align="right">
 								<td>VAT (12%)</td>
@@ -479,6 +467,7 @@ $end = $split[1];
 		</div>
 	</div>
 </body>
+
 <script>
 	$(document).ready(function() {
 		$('#activate').on('click', function() {
@@ -498,7 +487,7 @@ $end = $split[1];
 					} else {
 						var json = JSON.parse(data);
 						$('#result').html(+json.discount + "% Off");
-						$('#total').val(Math.round((parseFloat(json.price)) * 100) / 100);				
+						$('#total').val(Math.round((parseFloat(json.price)) * 100) / 100);
 					}
 				});
 			}
@@ -528,7 +517,7 @@ $end = $split[1];
 		// Finalize the transaction after payer approval
 		onApprove: function(data, actions) {
 			return actions.order.capture().then(function() {
-				window.location="paypalSuccess.php?&orderID="+data.orderID;
+				window.location = "paypalSuccess.php?&orderID=" + data.orderID;
 			});
 		}
 	}).render('#paypal-button-container');
