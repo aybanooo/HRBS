@@ -32,22 +32,16 @@ if (isset($_POST['date_picker1'])) {
 if (isset($_POST['date_picker2'])) {
 	$dateEnd = $_POST['date_picker2'];
 }
-$newDateStart = date("Y-m-d", strtotime($dateStart));  
+$var1 = strtr($dateStart, '/', '-');
+$dateStartFinal = date("Y-m-d", strtotime($var1));
 
-$NewDateEnd = strtr($dateEnd, '/', '-');
-echo date('Y-m-d', strtotime($date1));
+$var2 = strtr($dateEnd, '/', '-');
+$dateEndFinal = date("Y-m-d", strtotime($var2));
 
-/*function dateDiff($newDateStart, $newDateEnd)
-{
-    $date1_ts = strtotime($newDateStart);
-    $date2_ts = strtotime($newDateEnd);
-    $diff = $date2_ts - $date1_ts;
-    return round($diff / 86400);
-}
-
-$dateDiff = dateDiff($newDateStart, $newDateEnd);
-*/
-
+$date1 = date_create($dateStartFinal);
+$date2 = date_create($dateEndFinal);
+$diff = date_diff($date1, $date2);
+$days = $diff->format("%a");
 
 ?>
 <!DOCTYPE HTML>
@@ -328,13 +322,13 @@ $dateDiff = dateDiff($newDateStart, $newDateEnd);
 
 							$vat = $followingdata['rate'] * 0.12;
 							$serviceCharge = $followingdata['rate'] * 0.10;
-							$totalRoomRate = $dateDiff * $followingdata['rate'];
+							$totalRoomRate = $days * $followingdata['rate'];
 							$totalPriceWServiceCharge = $vat + $serviceCharge + $totalRoomRate;
 
 
 							?>
 							<th>Rate:</th>
-							<td><?php echo $followingdata['rate']; ?></td>
+							<td><?php echo number_format($followingdata['rate'], 2,  '.', ','); ?></td>
 						</tr>
 						<tr align="right">
 							<th>Check-in Date:</th>
@@ -342,11 +336,11 @@ $dateDiff = dateDiff($newDateStart, $newDateEnd);
 						</tr>
 						<tr align="right">
 							<th>Check-out Date:</th>
-							<td><?php echo $newDateEnd; ?></td>
+							<td><?php echo $dateEnd;  ?></td>
 						</tr>
 						<tr align="right">
 							<th>Length of Stay:</th>
-							<td><?php echo $dateDiff; ?></td>
+							<td><?php echo $days . " night/s"; ?></td>
 						</tr>
 						<tr align="right">
 							<th>Check-in Time:</th><!-- kukunin sa database -->
@@ -354,7 +348,7 @@ $dateDiff = dateDiff($newDateStart, $newDateEnd);
 						</tr>
 						<tr align="right">
 							<th>Check-out Time:</th><!-- kukunin sa database -->
-							<td>7:00 AM</td>
+							<td>7:00 AM</td><!-- kukunin sa database -->
 						</tr>
 						<tr align="right">
 							<td colspan="2">
@@ -425,7 +419,7 @@ $dateDiff = dateDiff($newDateStart, $newDateEnd);
 								</td>
 							</tr>
 							<tr align="right">
-								<td colspan="2"><input class="form-control-plaintext" type="number" value="<?php echo number_format($totalPriceWServiceCharge, 2,  '.', ''); ?>" id="total" readonly="readonly" lang="en-150" /></td>
+								<td colspan="2"><input class="form-control-plaintext" type="number" value="<?php echo number_format($totalPriceWServiceCharge, 2, '.', ''); ?>" id="total" readonly="readonly" lang="en-150" /></td>
 							</tr>
 							<tr align="right">
 								<td colspan="2"><input type="checkbox" class="form-check-input" id="exampleCheck1"><label class="form-check-label" for="exampleCheck1">I Understand the <a href="#">Terms and Agreement.</a></label></p>
@@ -487,19 +481,13 @@ $dateDiff = dateDiff($newDateStart, $newDateEnd);
 					} else {
 						var json = JSON.parse(data);
 						$('#result').html(+json.discount + "% Off");
-						$('#total').val(Math.round((parseFloat(json.price)) * 100) / 100);
+						var myVal = $('#total').val(json.price);
+						myVal = (Math.round(parseFloat(myVal) * 100) / 100).tofixed(2);
 					}
 				});
 			}
 		});
 	});
-	/*$('#btnClick').on('click', function() {
-		if ($('#1').css('display') != 'none') {
-			$('#2').html('Here is my dynamic content').show().siblings('div').hide();
-		} else if ($('#2').css('display') != 'none') {
-			$('#1').show().siblings('div').hide();
-		}
-	});*/
 </script>
 <script src="https://www.paypal.com/sdk/js?client-id=AVFvFuUKXMeSAJRgomChw5y-GVxtgyRGm2jAOBo5eVtGfd3mXa28RUQ7Niq6ae1mHhzI5LxvyP4zKH_e&currency=PHP"></script>
 <script>
@@ -513,7 +501,6 @@ $dateDiff = dateDiff($newDateStart, $newDateEnd);
 				}]
 			});
 		},
-
 		// Finalize the transaction after payer approval
 		onApprove: function(data, actions) {
 			return actions.order.capture().then(function() {

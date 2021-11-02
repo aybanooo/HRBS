@@ -554,42 +554,17 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		})
 	}
 </script>
-<!--<script>
-	var date = new Date();
-	var currentMonth = date.getMonth();
-	var currentDate = date.getDate();
-	var currentYear = date.getFullYear();
-	var startDate;
-	var endDate;
-
-	$(function() {
-		$('input[name="daterange"]').daterangepicker({
-			minDate: new Date(currentYear, currentMonth, currentDate),
-			opens: 'left',
-			startDate: moment(date).add(5, 'days'),
-			endDate: moment(date).add(7, 'days'),
-		}, function(start, end, label) {
-			console.log("A new date selection was made: " + start.format('MM-DD-YYYY') + ' to ' + end.format('MM-DD-YYYY'));
-			startDate = start;
-			endDate = end;
-		});
-	});
-	$('#submit').click(function() {
-		$_POST 
-		console.log(startDate.format('MM-DD-YYYY') + ' - ' + endDate.format('MM-DD-YYYY'));
-	});
-</script>-->
 <script>
 	$(document).ready(function() {
 		var startDate;
 		var endDate;
 		$("#date_picker1").datepicker({
-			dateFormat: 'mm-dd-yy',
+			dateFormat: 'dd-mm-yy',
 			maxDate: '365',
 			minDate: '+5'
 		})
 		$("#date_picker2").datepicker({
-			dateFormat: 'mm-dd-yy',
+			dateFormat: 'dd-mm-yy',
 			maxDate: '365',
 			minDate: '+5'
 		});
