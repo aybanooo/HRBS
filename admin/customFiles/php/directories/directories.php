@@ -34,6 +34,9 @@ define('__gen__', __ROOT__.'/customFiles/php/generate/generate.php');
 //----- Configs ------
 define('__CONF_DB__', __ROOTER__."/db.ini");
 
+//----- Autoload -----
+define('__AUTOLOAD_PUBLIC__', __public_assets__.'vendor/autoload.php'); 
+
 define('__base__', "<base href='".$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."/admin/'>");
 
 $writableDIRs = [
