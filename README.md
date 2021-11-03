@@ -69,4 +69,4 @@ Follow the commit convention defined by your team
 
 ## Required extension to be enabled in php.ini
 
-    - gd
+    - gd    #This makes changing logo and page cover works. Need 'to para magresize mga image.
