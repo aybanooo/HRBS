@@ -135,8 +135,8 @@ $output->output["data"] =  json_encode(getRoomAsAssoc($roomTypeID, $conn, $outpu
 //echo $output->getOutputAsHTML();
 
 //Etong part na to nagdidisplay ng HTML
-$editRoomHTML =  file_get_contents(__ROOT__."/admin-page-room-editRoom.html");
-echo $editRoomHTML;
+include(__ROOT__."/admin-page-room-editRoom.php");
+
 
 
 // eto yung nagpapasa ng variable na may laman ng room data para sa HTML
@@ -144,5 +144,5 @@ echo $editRoomHTML;
 // may special chars (ewan ko kung bakit) inalis ko na lang yung parse
 //echo "<script>xyzroominfocba = JSON.parse(`".json_encode(getRoomAsAssoc($roomTypeID, $conn, $output))."`);</script>";
 echo "<script>xyzroominfocba = ".json_encode(getRoomAsAssoc($roomTypeID, $conn, $output)).";</script>";
-
+    
 ?>

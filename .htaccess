@@ -48,3 +48,7 @@
     #RewriteRule ^rooms/(.*)$ customFiles/php/database/roomControls/displayRoom.php?q=$1 [NC,L]
 </IfModule>
 
+<FilesMatch "db\.ini">
+  Order allow,deny
+  Deny from all
+</FilesMatch>

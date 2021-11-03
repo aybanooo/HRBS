@@ -1,29 +1,26 @@
 <?php
 require_once("../../directories/directories.php");
-require_once(__dbCreds__);
+require_once(__initDB__);
 
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
+require_once(__validations__);
 
-$status = 1;
+checkRequiredPOSTval("newAccessID, empID");
 
-$sql = "UPDATE employee SET accessID=".$_POST["newAccessID"]." WHERE empID=".$_POST["empID"];
+$newAcid = prepareForSQL($conn, $_POST["newAccessID"], 1);
+$empID = prepareForSQL($conn, $_POST["empID"], 1);
+
+$sql = "UPDATE employee SET accessID=".$newAcid." WHERE empID=".$empID.";";
+
+$output->output['data'] =  $_POST;
+
 
 if (mysqli_query($conn, $sql)) {
     //echo "Record updated successfully";
-    echo "1";
+    echo $output->setSuccessful("Record updated successfully");
     //echo mysqli_affected_rows($conn);
 } else {
-    echo "0";
+    echo $output->setSuccessful("Something went wrong while changing the account role");
     //echo "Error updating record: " . mysqli_error($conn);
 }
 //echo $status;
-
-mysqli_close($conn);
-
-
 ?>

@@ -1,30 +1,32 @@
 <?php
 require_once("../../directories/directories.php");
-require_once(__dbCreds__);
+require_once(__initDB__);
+require_once(__validations__);
+require_once(__format__);
 
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
+checkRequiredGETval("acid", true);
+
+$acid = $_GET['acid'];
+
+prepareForSQL($conn, $acid, 1);
+
+$tempData = [];
+
+if($result = mysqli_query($conn, "SELECT * FROM accesspermission WHERE accessId=$acid") ) {
+  if(mysqli_num_rows($result) > 0) {
+    #$tempData = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    while($r = mysqli_fetch_assoc($result)) {
+      if(isset($tempData['id'])) {
+        $tempData['perms'][$r['permId']] = filter_var(zeroToEmpty($r['val']), FILTER_VALIDATE_BOOLEAN);
+      } else {
+        $tempData['id'] = $r['accessId'];
+        $tempData['perms'][$r['permId']] =  filter_var(zeroToEmpty($r['val']), FILTER_VALIDATE_BOOLEAN);
+      }
+    }
+  }
 }
 
-$sql = "SELECT * FROM accesspermission WHERE accessId=".$_GET["roleID"];
-//$sql = "SELECT * FROM access";
-$result = mysqli_query($conn, $sql);
+$output->output['data'] = $tempData;
 
-$data = [];
-
-if (mysqli_num_rows($result) > 0) {
-    // output data of each row
-    while($row = mysqli_fetch_assoc($result)) {
-    array_push($data, $row["val"]);
-}
-} else {
-
-}
-echo json_encode($data);
-mysqli_close($conn);
-
-//header('Location: /Thesis/Proto/scratch.php');
+echo $output->setSuccessful();
 ?>

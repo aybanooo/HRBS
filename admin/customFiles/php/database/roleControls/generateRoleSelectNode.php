@@ -24,15 +24,14 @@ if (mysqli_num_rows($result) > 0) {
         //echo $row["accessID"]."<br>";   
         $options .= "<option value=\"".$row["accessID"]."\">".$row["accessname"]."</option>";
     }
-    echo $options;
+    //echo $options;
 } else {
-    echo "";
+    //echo "";
 }
 
-mysqli_close($conn);
-
 //header('Location: /Thesis/Proto/scratch.php');
-
-
-
 ?>
+
+<select class="form-control" name="select-roles">
+    <?php print $options;?>
+</select>

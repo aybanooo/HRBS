@@ -61,6 +61,7 @@ Follow the commit convention defined by your team
 - chore
     - Regular code maintenance [ You can also use emojis to represent commit types]
     - Updating grunt tasks etc; no production code change
+    - e.g changes to .gitignore
 
 #### Example
     style: dark mode
