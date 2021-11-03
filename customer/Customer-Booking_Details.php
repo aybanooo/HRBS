@@ -422,7 +422,11 @@ $days = $diff->format("%a");
 								<td colspan="2"><input class="form-control-plaintext" type="number" value="<?php echo number_format($totalPriceWServiceCharge, 2, '.', ''); ?>" id="total" readonly="readonly" lang="en-150" /></td>
 							</tr>
 							<tr align="right">
-								<td colspan="2"><input type="checkbox" class="form-check-input" id="exampleCheck1"><label class="form-check-label" for="exampleCheck1">I Understand the <a href="#">Terms and Agreement.</a></label></p>
+								<td colspan="2">
+								<div class="form-check">
+									<input type="checkbox" class="form-check-input" id="agree" >
+									<label for="agree">I understand the<a href="#" class="fst-italic link-primary" data-bs-toggle="modal" data-bs-target="#agreeModal"> terms and agreements</a></label>
+								</div>
 								</td>
 							</tr>
 							<tr align="right">
@@ -460,6 +464,49 @@ $days = $diff->format("%a");
 			</div>
 		</div>
 	</div>
+	
+	<div class="modal fade" id="agreeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		  <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-center">
+			<div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			  </div>
+			  <div class="modal-body">
+				<pre>The following regulations must be observed to ensure that this Hotel has publicness (is accepted by the public) and provides a safe and comfortable stay for guests: Failure to follow these rules may result in the cancellation of your stay and/or denial to use the hotel services.
+				Furthermore, if you damage any hotel equipment or fixtures, the Hotel maintains the right to charge you the full cost of the damage.
+				Rules
+				1.	Without permission, do not use the guest rooms for anything other than what they were intended for.
+				2.	For heating or cooking, do not light a fire in the passage or guest rooms.
+				3.	To prevent fire, refrain from smoking on bed, in non-smoking rooms, and in any other places prone to catch fire.
+				4.	The equipment and articles in guest rooms are strictly meant for the guests staying in the Hotel. Hence, inside the guest rooms, use of such equipment and articles by outsiders is prohibited.
+				5.	Be careful not to move the articles in the Hotel or guest rooms from their fixed places without permission.
+				6.	Do not change the position of the gadgets and fixtures in the Hotel or guest rooms without permission.
+				7.	Do not bring the following inside the hotel premises:
+				a Animals, birds, etc.
+				b Things giving off foul smell
+				c Articles exceeding the normal amount that can be carried into a hotel
+				d Guns, swords, etc.
+				e Explosives, or articles containing volatile oils that may ignite or catch fire
+				f Any other articles that may pose a threat to the safety of other guests staying in the Hotel
+				8.	Do not scream, sing loudly, or create loud noises by any other actions inside the Hotel or guest rooms, as it may disturb or annoy other guests staying in the Hotel.
+				9.	Refrain from engaging into gambling or acts that violate public order and morals inside the Hotel or guest rooms.
+				10.	Do not distribute advertisement goods or sell articles to the other guests or collect donation or signatures from them inside the Hotel premises, without proper permission.
+				11.	Note that we may refuse stay to patients suffering from an illness that may cause discomfort of any kind to the other guests inside the Hotel.
+				12.	Do not leave your personal belongings in the passages or the lobby.
+				13.	Any acts of photography that may bother the other guests in the Hotel are strictly prohibited inside the Hotel or guest rooms.
+				14.	Any personal meetings should be held in the 1st floor lobby only.
+				15.	In principle, the guest rooms accommodating same guests continuously for two or more nights shall not be cleaned during their period of stay. Such rooms, however, shall be cleaned once in six days to maintain cleanliness. Further, if cleaning of one or more of the guest rooms is deemed necessary by the hotel authorities, the guests occupying the room(s) shall not have a right to deny such room cleaning.
+
+				</pre>
+			  </div>
+			  <div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			  </div>
+			</div>
+		  </div>
+		</div>
 </body>
 
 <script>
