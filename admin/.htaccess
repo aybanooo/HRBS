@@ -46,7 +46,7 @@
     RewriteRule ^rooms$ admin-page-room.html [NC,L]
     RewriteRule ^amenities$ admin-page-amenities.html [NC,L]
     RewriteRule ^accounts$ admin-accounts.html [NC,L]
-    RewriteRule ^vouchers$ admin-vouchers.html [NC,L]
+    RewriteRule ^vouchers$ admin-vouchers.php [NC,L]
     RewriteRule ^billing$ admin-billing.html [NC,L]
     RewriteRule ^appearance$ admin-settings-appearance.html [NC,L]
     RewriteRule ^webpage$ admin-settings-webpage.html [NC,L]

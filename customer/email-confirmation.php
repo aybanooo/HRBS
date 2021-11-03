@@ -11,7 +11,7 @@
 
 		if ($resultSet-> num_rows == 1) {
 			//validate the email
-			$update = mysqli->query("UPDATE ACCOUNTS SET verified = 1 WHERE verification = '$verification' LIMIT 1");
+			$update = $mysqli->query("UPDATE ACCOUNTS SET verified = 1 WHERE verification = '$verification' LIMIT 1");
 
 			if ($update) {
 				echo "Your account has been validated";
@@ -19,7 +19,7 @@
 				echo $mysqli->error;
 			}
 		} else {
-			echo "This account is invalid or already verified."
+			echo "This account is invalid or already verified.";
 		}
 
 	} else {

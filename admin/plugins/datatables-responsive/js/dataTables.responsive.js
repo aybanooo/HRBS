@@ -856,6 +856,10 @@ $.extend( Responsive.prototype, {
 			}
 		}
 
+		// CUSTOM FIX NG LOLO MO PARA SA RESPONSIVE TABLE WIDTH
+		$(dt.table().node()).removeAttr('style');
+
+
 		that._controlClass();
 	},
 
