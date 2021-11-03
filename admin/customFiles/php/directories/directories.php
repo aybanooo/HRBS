@@ -31,6 +31,9 @@ define('__head_contents__', __dirUI__.'commonHeadContents.php');
 //----- Gens ------
 define('__gen__', __ROOT__.'/customFiles/php/generate/generate.php');
 
+//----- Configs ------
+define('__CONF_DB', __ROOTER__."/db.ini");
+
 define('__base__', "<base href='".$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."/admin/'>");
 
 $writableDIRs = [
