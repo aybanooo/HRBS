@@ -3,12 +3,6 @@ require_once(dirname(__FILE__, 3)."/directories/directories.php");
 require_once(__initDB__);
 require_once(__format__);
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
 
 function notSetToEmptyString(&$value) {
     if(isset($value))
