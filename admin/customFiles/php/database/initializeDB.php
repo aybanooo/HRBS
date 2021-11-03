@@ -5,7 +5,7 @@ $phpDIR = dirname(__FILE__, 2);
 require_once("$phpDIR/directories/directories.php");
 require_once(__outputHandler__);
 
-$ini = parse_ini_file(__ROOTER__.'/db.ini');
+$ini = parse_ini_file(__CONF_DB__);
 
 mysqli_report(MYSQLI_REPORT_STRICT);
 
