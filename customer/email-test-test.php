@@ -10,11 +10,12 @@ require 'vendor/autoload.php';
 
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
-$apiKeyPass = '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';
+$apiKeyPass = '';
+
 
 try {
     //Server settings
-    //$mail->SMTPDebug = $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    $mail->SMTPDebug = $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
     $mail->isSMTP();                                            //Send using SMTP
     $mail->Host       = 'smtp.sendgrid.net';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
@@ -25,7 +26,7 @@ try {
 
     //Recipients
     $mail->setFrom('Thanosthesis@gmail.com', 'Thanos');
-    $mail->addAddress('benjbenito10@gmail.com');  //Add a recipient
+    $mail->addAddress('benito.benjaminiii@ue.edu.ph');  //Add a recipient
     
     $body = '<p><strong>Hello<strong/> This is test email with PHPmailer<p/>';
   
