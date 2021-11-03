@@ -111,10 +111,18 @@ $("#form-login").validate({
     $(element).removeClass('is-invalid');
   },
   submitHandler: (form) => {
-    console.log("gegege");
+    verifyLogin(form);
+    
   }
 });
 
+function verifyLogin(form) {
+  $.post("customFiles/php/database/loginControls/verifyLogin.php", $(form).serialize(),
+    function (response, textStatus, jqXHR) {
+      console.log(response);
+    }
+  );
+}
 
 </script>
 </body>
