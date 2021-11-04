@@ -1,7 +1,12 @@
 <?php
-
-require_once("customFiles/php/directories/directories.php");
+require_once "customFiles/php/directories/directories.php";
 require_once __initDB__;
+require_once __F_LOGIN_HANDLER__;
+
+
+$ini = parse_ini_file(__CONF_SYSTEM__);
+
+#(session_status() === PHP_SESSION_ACTIVE && FALSE) && header("Location: https://{$ini['CLIENT_DOMAIN_NAME']}/admin/");
 
 if(mysqli_num_rows($result = mysqli_query($conn, "SELECT * FROM `companyinfo` LIMIT 1;")) != 1)
   echo "N/A";
@@ -120,7 +125,9 @@ function verifyLogin(form) {
   $.post("customFiles/php/database/loginControls/verifyLogin.php", $(form).serialize(),
     function (response, textStatus, jqXHR) {
       console.log(response);
-    }
+      response.isSuccessful && (location.href = response.data);
+    },
+    'json'
   );
 }
 

@@ -23,4 +23,6 @@ if ($conn->connect_error) {
     //echo $output->getOutput(true);
     die();
 }
+
+unset($ini);
 ?>

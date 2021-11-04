@@ -1,5 +1,13 @@
 <?php
   require_once("customFiles/php/directories/directories.php");
+  require_once __F_LOGIN_HANDLER__;
+
+  // Redirect to login page if token is invalid
+  if (!isTokenValid()) {
+    include("admin-login.php");
+    exit();
+  }
+
 ?>
 
 <!DOCTYPE html>
