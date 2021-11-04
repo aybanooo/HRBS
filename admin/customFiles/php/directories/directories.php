@@ -32,7 +32,8 @@ define('__head_contents__', __dirUI__.'commonHeadContents.php');
 define('__gen__', __ROOT__.'/customFiles/php/generate/generate.php');
 
 //----- Configs ------
-define('__CONF_DB__', __ROOTER__."/db.ini");
+define('__CONF_DB__', __ROOTER__."/db.ini"); #This contains database credentials
+define('__CONF_PRIVATE__', __ROOTER__."/db.ini"); #This contains private keys and stuffs
 
 //----- Autoload -----
 define('__AUTOLOAD_PUBLIC__', __public_assets__.'vendor/autoload.php'); 
