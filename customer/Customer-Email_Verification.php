@@ -1,8 +1,5 @@
 <?php
-<<<<<<< HEAD
-=======
 <<<<<<< Updated upstream
->>>>>>> benito/dev
 
 require_once("../../directories/directories.php");
 require_once(__dbCreds__);
@@ -25,8 +22,6 @@ $queryCustomer="SELECT email FROM customer";
 ?>
 
 
-<<<<<<< HEAD
-=======
 =======
     include "connect.php";
     if (isset($_POST['verify'])){
@@ -59,7 +54,6 @@ $queryCustomer="SELECT email FROM customer";
 
 ?>
 >>>>>>> Stashed changes
->>>>>>> benito/dev
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -233,10 +227,7 @@ $queryCustomer="SELECT email FROM customer";
 						<hr class="new1">
 			    		<form>
 							<tr>
-<<<<<<< HEAD
-=======
 <<<<<<< Updated upstream
->>>>>>> benito/dev
 								<div class="form-span" align="center">
                                     <span>Please enter the confirmation code that has been sent to    
                                         <?php 
@@ -249,12 +240,9 @@ $queryCustomer="SELECT email FROM customer";
                                         thegrandbudapest@gmail.com to verify your email and to continue the registration process.
                                     </span>
                                 </div>
-<<<<<<< HEAD
-=======
 =======
 								<div class="form-span" align="center"><span>Please enter the confirmation code that has been sent to your email to continue the verification process.</span></div>
 >>>>>>> Stashed changes
->>>>>>> benito/dev
 							</tr>
 							<br>
 							<tr>

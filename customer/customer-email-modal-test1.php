@@ -276,6 +276,7 @@
 		include_once "connect.php";
 	
  
+<<<<<<< HEAD:customer/customer-email-modal-test1.php
 
 	?>
 	<!-- Modal Verify -->
@@ -342,6 +343,64 @@
     </div>
 </div>
 
+=======
+
+	?>
+	<!-- Modal Verify -->
+	<section id="modal">
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog" role="document">
+			  	<div class="modal-content">
+					<div class="modal-header">
+				  	<h4 class="modal-title" id="myModalLabel">Verify your Account</h4>
+				
+					</div>
+					<!-- page 1 -->
+					<div class="modal-body">
+					<div class="modal-split">
+						<div class="loginForm">
+							<div class="col-lg-12 mx-auto">
+								<h2><b>Verify </b></h2>
+								<hr class="new1">
+									<form method="POST" action="email-test-test.php">
+										<tr>
+											<td><input type = "text" name = "email" required placeholder = "Email Address" id="emaillogin"></td>	
+										</tr>					
+									</form>
+							</div>
+						</div>
+					</div>
+					<!-- page 2 -->
+					<div class="modal-split">
+						<div class="loginform">
+							<div class="col-lg-12 mx-auto">
+								<h2 style="text-align: center;"><b>Verification Code Sent</b></h2>
+									<hr class="new1">
+										<tr>
+											<div class="form-span" align="center"><span>The verification code has been sent to your email.</span></div>
+										</tr>
+										<br>
+									<form>
+										<tr>
+											<td><input type = "text" name = "authentication" required placeholder = "Authentication Code" id="code"></td>	
+										</tr>					
+									</form>
+							</div>
+						</div>
+					</div>
+
+			
+					</div>
+		  
+					<div class="modal-footer">
+			
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+>>>>>>> benito/dev:customer/Customer-Booking_Form.php
 	<section id="bookForm">
 		<div class="bookForm">
 			<div class="row">
@@ -615,6 +674,7 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
+<<<<<<< HEAD:customer/customer-email-modal-test1.php
     $(document).ready(function(){
 
 $('#smartwizard').smartWizard({
@@ -629,6 +689,8 @@ showStepURLhash: false,
 });
 </script>
 <script>
+=======
+>>>>>>> benito/dev:customer/Customer-Booking_Form.php
 
 	$(`input[type="radio"][name="card"]`).on('click', function() {
 		if($(this).val()==1) {
@@ -651,7 +713,11 @@ showStepURLhash: false,
 </script>
 <script>    
     $(window).on('load', function() {
+<<<<<<< HEAD:customer/customer-email-modal-test1.php
         $('#exampleModal').modal('show');
+=======
+        $('#myModal').modal('show');
+>>>>>>> benito/dev:customer/Customer-Booking_Form.php
     });
 </script>
 <script>
@@ -754,6 +820,7 @@ function prep_modal()
   });
 }
 </script>
+<<<<<<< HEAD:customer/customer-email-modal-test1.php
 <script>
     $(document).ready(function(){
 
@@ -768,6 +835,8 @@ showStepURLhash: false,
 
 });
 </script>
+=======
+>>>>>>> benito/dev:customer/Customer-Booking_Form.php
 
 
 </html>
