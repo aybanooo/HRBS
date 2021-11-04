@@ -34,7 +34,7 @@ if(empty($_POST["roomID"]))
 if(!roomExist($conn))
     die();
 
-define("DELETE_DIR", __rooms__.$_POST["roomID"]);
+define("DELETE_DIR", __D_ROOMS__.$_POST["roomID"]);
 //  echo DELETE_DIR;
 
 

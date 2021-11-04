@@ -44,7 +44,7 @@ if (mysqli_query($conn, $sql)) {
 }
 
 
-if (!mkdir(__rooms__.$output->output["data"]->roomTypeID)) {
+if (!mkdir(__D_ROOMS__.$output->output["data"]->roomTypeID)) {
   $output->setFailed("Failed to create directory for room.");
   $sql = "delete from roomtype where name like '".$_POST["roomName"]."';";
   mysqli_query($conn, $sql);
@@ -53,15 +53,15 @@ if (!mkdir(__rooms__.$output->output["data"]->roomTypeID)) {
 }
 
 
-$file = __defaults__.'default-image-landscape.jpg';
-$newfile = __rooms__.$output->output["data"]->roomTypeID."/".$output->output["data"]->roomTypeID.'-cover.jpg';
+$file = __D_DEFAULTS_ADMIN__.'default-image-landscape.jpg';
+$newfile = __D_ROOMS__.$output->output["data"]->roomTypeID."/".$output->output["data"]->roomTypeID.'-cover.jpg';
 if (!copy($file, $newfile)) {
     $output->setFailed("Failed to copy default image to the room folder.");
     $sql = "delete from roomtype where name like '".$_POST["roomName"]."';";
     mysqli_query($conn, $sql);
-    if (!rmdir(__rooms__.$output->output["data"]->roomTypeID)) {
+    if (!rmdir(__D_ROOMS__.$output->output["data"]->roomTypeID)) {
       $output->setFailed("Failed to remove folder.");
-    }if (!rmdir(__rooms__.$output->output["data"]->roomTypeID."/section")) {
+    }if (!rmdir(__D_ROOMS__.$output->output["data"]->roomTypeID."/section")) {
       $output->setFailed("Failed to remove folder.");
     }
     die();

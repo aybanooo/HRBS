@@ -2,7 +2,7 @@
 
 require_once(dirname(__FILE__,3)."/directories/directories.php");
 require_once __initDB__;
-require_once __format__;
+require_once __F_FORMAT__;
 
 #print_r($_POST);
 #print_r($_FILES);
@@ -21,7 +21,7 @@ if(mysqli_num_rows($result = mysqli_query($conn, "SELECT `amenityName` FROM `ame
 }
 
 if(isset($_FILES['image'])) {
-    move_uploaded_file($_FILES['image']['tmp_name'], __amenities__."/$id/image.jpeg");
+    move_uploaded_file($_FILES['image']['tmp_name'], __D_AMENITIES__."/$id/image.jpeg");
 }
 
 if(mysqli_query($conn, "UPDATE `amenities` SET `amenityName`='$title',`amenityDesc`='$desc',`amenityStatusID`=null WHERE `amenityID`=$id LIMIT 1;"))

@@ -8,7 +8,7 @@ if(isset($_FILES['file']['name'])){
    /* Getting file name */
    $filename = $_FILES['file']['name'];
    /* Location */
-   $location = __profilePictures__.$filename;
+   $location = __D_PROFILE_PICTURES_ADMIN__.$filename;
    echo $location;
    $imageFileType = pathinfo($location,PATHINFO_EXTENSION);
    $imageFileType = strtolower($imageFileType);
@@ -31,8 +31,8 @@ if(isset($_FILES['file']['name'])){
 }
 else if(isset($_POST["empID"])){
    echo "eee";
-   $file = __defaults__.'profilePicture.jpg';
-   $newfile = __profilePictures__.$_POST["empID"].'.jpg';
+   $file = __D_DEFAULTS_ADMIN__.'profilePicture.jpg';
+   $newfile = __D_PROFILE_PICTURES_ADMIN__.$_POST["empID"].'.jpg';
    if (!copy($file, $newfile)) {
       echo "failed to copy $file...\n";
       //echo "<script>Failed to copy default file</script>";

@@ -9,8 +9,8 @@ require_once __initDB__;
 <html lang="en">
 <head>
   
-  <?php include __head_contents__;?>
-  <?php print __base__;?>
+  <?php include __F_HEAD_CONTENTS__;?>
+  <?php print __F_BASE__;?>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -63,7 +63,7 @@ require_once __initDB__;
   </nav>
 
   <!-- Main Sidebar Container -->
-  <?php include __navigation__; ?>
+  <?php include __F_NAVIGATION__; ?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->

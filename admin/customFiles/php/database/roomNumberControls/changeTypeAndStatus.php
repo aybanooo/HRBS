@@ -1,8 +1,8 @@
 <?php
 require_once("../../directories/directories.php");
 require_once(__initDB__);
-require_once(__formatInput__);
-require_once(__format__);
+require_once(__F_FORMAT_INPUT__);
+require_once(__F_FORMAT__);
 
 
 $_POST["roomNums"] = explode(",", $_POST["roomNums"]);

@@ -3,10 +3,10 @@
 $phpDIR = dirname(__FILE__, 2);
 
 require_once("$phpDIR/directories/directories.php");
-require_once(__outputHandler__);
+require_once(__F_OUTPUT_HANDLER__);
 
 $ini = parse_ini_file(__CONF_DB__);
-
+$ini = array_merge($ini, parse_ini_file(__CONF_PRIVATE__));
 mysqli_report(MYSQLI_REPORT_STRICT);
 
 // Create connection

@@ -1,7 +1,7 @@
 <?php
 require_once("../../directories/directories.php");
 require_once(__initDB__);
-require_once(__validations__);
+require_once(__F_VALIDATIONS__);
 
 if(!( isset($_POST["accountList"]) )) {
   exit;
@@ -13,8 +13,8 @@ $accs = $_POST["accountList"];
 
 foreach ($accs as $value) {
   $filename = $value.".jpg";
-  if (file_exists(__profilePictures__.$filename)) {
-      unlink(__profilePictures__.$filename);
+  if (file_exists(__D_PROFILE_PICTURES_ADMIN__.$filename)) {
+      unlink(__D_PROFILE_PICTURES_ADMIN__.$filename);
       //echo 'File '.$filename.' has been deleted';
   } else {
       //echo 'Could not delete '.$filename.', file does not exist';

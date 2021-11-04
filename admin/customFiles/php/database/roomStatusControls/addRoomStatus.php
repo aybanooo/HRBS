@@ -1,9 +1,9 @@
 <?php
 require_once("../../directories/directories.php");
 require_once(__initDB__);
-require_once(__outputHandler__);
-require_once(__format__);
-require_once(__formatInput__);
+require_once(__F_OUTPUT_HANDLER__);
+require_once(__F_FORMAT__);
+require_once(__F_FORMAT_INPUT__);
 
 
 if ( !(isset($_POST['input-one-newRoomStatus']) && isset($_POST['input-one-newDescription']) && isset($_POST['select-one-bookable']) ) )  {

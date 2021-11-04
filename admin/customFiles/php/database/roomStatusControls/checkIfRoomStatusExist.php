@@ -1,8 +1,8 @@
 <?php
 require_once("../../directories/directories.php");
 require_once(__initDB__);
-require_once(__format__);
-require_once(__formatInput__);
+require_once(__F_FORMAT__);
+require_once(__F_FORMAT_INPUT__);
 
 prepareForSQL($conn, $_GET['input-one-newRoomStatus']);
 

@@ -27,7 +27,7 @@ SETTINGS
 LOGOUT
 
 # USAGE
-# put this at the end of the page body (so it's organize) or anywhere after the including of __navigation__.
+# put this at the end of the page body (so it's organize) or anywhere after the including of __F_NAVIGATION__.
 # change the :nth-child(n) value to change active navigation. 
 <!-- Script to toggle navigation buttons -->
 <script>

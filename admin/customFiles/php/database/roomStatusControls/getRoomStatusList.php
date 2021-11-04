@@ -1,7 +1,7 @@
 <?php
 require_once("../../directories/directories.php");
 require_once(__initDB__);
-require_once(__outputHandler__);
+require_once(__F_OUTPUT_HANDLER__);
 
 $data = [
   "data" => []

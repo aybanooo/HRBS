@@ -124,7 +124,7 @@ $output->output["data"] =  json_encode(getRoomAsAssoc($roomTypeID, $conn, $outpu
 //echo $output->getOutputAsHTML();
 
 //Etong part na to nagdidisplay ng HTML
-include(__ROOT__."/admin-page-room-editRoom.php");
+include(__D_ROOT_ADMIN__."/admin-page-room-editRoom.php");
 
 
 

@@ -5,7 +5,7 @@ $phpDIR = dirname(__FILE__,3);
 
 require_once("$phpDIR/directories/directories.php");
 require_once(__initDB__);
-require_once(__validations__);
+require_once(__F_VALIDATIONS__);
 
 $data = [
     "data" => []

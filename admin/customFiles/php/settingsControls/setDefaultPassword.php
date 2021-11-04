@@ -2,8 +2,8 @@
 
 require_once(dirname(__FILE__, 2)."/directories/directories.php");
 require_once __initDB__;
-require_once __format__;
-require_once __validations__;
+require_once __F_FORMAT__;
+require_once __F_VALIDATIONS__;
 
 if(!isPassFormat($_POST['inp-defPass']))
     echo $output->setFailed(testPass($_POST['inp-defPass']));

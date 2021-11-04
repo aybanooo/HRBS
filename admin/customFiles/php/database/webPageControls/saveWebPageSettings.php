@@ -1,9 +1,9 @@
 <?php
 require_once("../../directories/directories.php");
 require_once(__initDB__);
-require_once(__validations__);
-require_once(__format__);
-require_once(__format_image__);
+require_once(__F_VALIDATIONS__);
+require_once(__F_FORMAT__);
+require_once(__F_FORMAT_IMAGE__);
 
 //print_r($_FILES);
 
@@ -13,7 +13,7 @@ if(isset($_FILES['pageCover'])) {
         echo$output->setFailed("Something went wrong while uploading the new page cover");
         die();
     }
-    move_uploaded_file($_FILES['pageCover']['tmp_name'], __public_images__."pageCover.jpeg");
+    move_uploaded_file($_FILES['pageCover']['tmp_name'], __D_PUBLIC_IMAGES__."pageCover.jpeg");
 }
 
 if(isset($_FILES['logo'])) {
@@ -21,9 +21,9 @@ if(isset($_FILES['logo'])) {
         echo$output->setFailed("Something went wrong while uploading the logo");
         die();
     }
-    move_uploaded_file($_FILES['logo']['tmp_name'], __public_images__."logo.png");
-    resizer(__public_images__."logo.png", __public_images__."logo_100x100.png", 128, 128);
-    resizer(__public_images__."logo.png", __public_images__."favicon.png", 32, 32);
+    move_uploaded_file($_FILES['logo']['tmp_name'], __D_PUBLIC_IMAGES__."logo.png");
+    resizer(__D_PUBLIC_IMAGES__."logo.png", __D_PUBLIC_IMAGES__."logo_100x100.png", 128, 128);
+    resizer(__D_PUBLIC_IMAGES__."logo.png", __D_PUBLIC_IMAGES__."favicon.png", 32, 32);
 }
 
 /*
@@ -32,7 +32,7 @@ if(isset($_FILES['thumb'])) {
         echo$output->setFailed("Something went wrong while uploading the new thumbnail");
         die();
     }
-    move_uploaded_file($_FILES['thumb']['tmp_name'], __public_images__."favicon.png");
+    move_uploaded_file($_FILES['thumb']['tmp_name'], __D_PUBLIC_IMAGES__."favicon.png");
 }
 */
 

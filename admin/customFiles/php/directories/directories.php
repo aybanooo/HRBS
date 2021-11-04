@@ -1,51 +1,52 @@
 <?php
 
 //root director kung nasaan yung index.html para sa admin
-define('__ROOT__', dirname(dirname(dirname(dirname(__FILE__)))));
-define('__ROOTER__', dirname(__ROOT__));
-define('__userControls__', __ROOT__.'/customFiles/php/database/userControls/');
-define('__roleControls__', __ROOT__.'/customFiles/php/database/roleControls/');
-define('__dbCreds__', __ROOT__."/customFiles/php/database/dbCreds.php");
-define('__initDB__', __ROOT__."/customFiles/php/database/initializeDB.php");
-define('__profilePictures__', __ROOT__."/assets/images/profilePictures/");
-define('__defaults__', __ROOT__."/assets/images/defaults/");
+define('__D_ROOT_ADMIN__', dirname(dirname(dirname(dirname(__FILE__)))));
+define('__D_ROOT__', dirname(__D_ROOT_ADMIN__));
+define('__D_PHP__', __D_ROOT_ADMIN__.'/customFiles/php/');
+define('__userControls__', __D_PHP__.'database/userControls/');
+define('__roleControls__', __D_PHP__.'database/roleControls/');
+define('__dbCreds__', __D_PHP__.'database/dbCreds.php');
+define('__initDB__', __D_PHP__.'database/initializeDB.php');
+define('__D_PROFILE_PICTURES_ADMIN__', __D_ROOT_ADMIN__."/assets/images/profilePictures/");
+define('__D_DEFAULTS_ADMIN__', __D_ROOT_ADMIN__."/assets/images/defaults/");
 
-define('__public_assets__', __ROOTER__.'/public_assets/');
-define('__rooms__', __public_assets__.'rooms/');
-define('__amenities__', __public_assets__.'amenities/');
-define('__public_images__', __public_assets__.'images/');
-define('__public_defaults__', __public_assets__.'defaults/');
+define('__D_PUBLIC_ASSETS__', __D_ROOT__.'/public_assets/');
+define('__D_ROOMS__', __D_PUBLIC_ASSETS__.'rooms/');
+define('__D_AMENITIES__', __D_PUBLIC_ASSETS__.'amenities/');
+define('__D_PUBLIC_IMAGES__', __D_PUBLIC_ASSETS__.'images/');
+define('__D_PUBLIC_DEFAULTS__', __D_PUBLIC_ASSETS__.'defaults/');
 
 //----- I/O constants --------
-define('__outputHandler__', __ROOT__.'/customFiles/php/outputHandler/outputHandler.php');
-define('__formatInput__', __ROOT__.'/customFiles/php/format/formatInput.php');
-define('__format__', __ROOT__.'/customFiles/php/format/format.php');
-define('__format_image__', __ROOT__.'/customFiles/php/format/formatImage.php');
-define('__validations__', __ROOT__.'/customFiles/php/database/validations/validations.php');
+define('__F_OUTPUT_HANDLER__', __D_PHP__.'outputHandler/outputHandler.php');
+define('__F_FORMAT_INPUT__', __D_PHP__.'format/formatInput.php');
+define('__F_FORMAT__', __D_PHP__.'format/format.php');
+define('__F_FORMAT_IMAGE__', __D_PHP__.'format/formatImage.php');
+define('__F_VALIDATIONS__', __D_PHP__.'database/validations/validations.php');
 
 //----- UI constants --------
-define('__dirUI__', __ROOT__.'/customFiles/php/UI/');
-define('__navigation__', __dirUI__.'navigation.php');
-define('__head_contents__', __dirUI__.'commonHeadContents.php');
+define('__D_UI__', __D_ROOT_ADMIN__.'/customFiles/php/UI/');
+define('__F_NAVIGATION__', __D_UI__.'navigation.php');
+define('__F_HEAD_CONTENTS__', __D_UI__.'commonHeadContents.php');
 
 //----- Gens ------
-define('__gen__', __ROOT__.'/customFiles/php/generate/generate.php');
+define('__F_GEN__', __D_PHP__.'generate/generate.php');
 
 //----- Configs ------
-define('__CONF_DB__', __ROOTER__."/db.ini"); #This contains database credentials
-define('__CONF_PRIVATE__', __ROOTER__."/private.ini"); #This contains private keys and stuffs
+define('__CONF_DB__', __D_ROOT__."/db.ini"); #This contains database credentials
+define('__CONF_PRIVATE__', __D_ROOT__."/private.ini"); #This contains private keys and stuffs
 
 //----- Autoload -----
-define('__AUTOLOAD_PUBLIC__', __public_assets__.'vendor/autoload.php'); 
+define('__AUTOLOAD_PUBLIC__', __D_PUBLIC_ASSETS__.'vendor/autoload.php'); 
 
-define('__base__', "<base href='".$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."/admin/'>");
+define('__F_BASE__', "<base href='".$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."/admin/'>");
 
 $writableDIRs = [
-    __profilePictures__,
-    __defaults__,
-    __public_assets__,
-    __rooms__,
-    __amenities__,
+    __D_PROFILE_PICTURES_ADMIN__,
+    __D_DEFAULTS_ADMIN__,
+    __D_PUBLIC_ASSETS__,
+    __D_ROOMS__,
+    __D_AMENITIES__,
 ];
 
 function checkDirectories() {

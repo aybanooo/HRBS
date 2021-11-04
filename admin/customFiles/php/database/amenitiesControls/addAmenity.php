@@ -2,8 +2,8 @@
 
 require_once(dirname(__FILE__, 3)."/directories/directories.php");
 require_once __initDB__;
-require_once __format__;
-require_once __validations__;
+require_once __F_FORMAT__;
+require_once __F_VALIDATIONS__;
 require_once "genAmenityCardFunction.php";
 
 #print_r($_POST);
@@ -18,7 +18,7 @@ if(mysqli_query($conn, "INSERT INTO `amenities`(`amenityName`, `amenityDesc`) VA
 
 $id = mysqli_insert_id($conn);
 
-$amenityEntryFolder = __amenities__."$id/";
+$amenityEntryFolder = __D_AMENITIES__."$id/";
 
 if(!file_exists($amenityEntryFolder))
     mkdir($amenityEntryFolder);
@@ -39,7 +39,7 @@ if(isset($_FILES['file-image-amenityImage'])) {
         die();
     }
 } else {
-    copy(__public_defaults__."default-image-landscape.jpg", $amenityEntryFolder."image.jpeg");
+    copy(__D_PUBLIC_DEFAULTS__."default-image-landscape.jpg", $amenityEntryFolder."image.jpeg");
 }
 
 
