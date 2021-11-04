@@ -687,9 +687,9 @@ $('#changeAccRoleForm').validate({
     },
     submitHandler: function (form) {
       toggleButtonDisabled("#changeAccRoleForm button[type='submit']", "#changeAccRoleForm", "Saving...");
-      newRole = $('#inputChangeAccRole option:selected').text();
-      findThis = $('#empIDChangeRole').val();
-      form = $(form).serializeArray();
+      const  newRole = $('#inputChangeAccRole option:selected').text();
+      const findThis = $('#empIDChangeRole').val();
+      let orm = $(form).serializeArray();
       $.ajax({
         type: 'post',
         url: 'customFiles/php/database/userControls/changeAccArole.php',
