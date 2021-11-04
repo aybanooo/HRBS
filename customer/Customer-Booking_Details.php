@@ -43,6 +43,18 @@ $date2 = date_create($dateEndFinal);
 $diff = date_diff($date1, $date2);
 $days = $diff->format("%a");
 
+$countQ = "SELECT (COUNT(customerID)+1) AS 'countCustID' FROM customer";
+$countRes = mysqli_query($conn, $countQ);
+$countRow = mysqli_fetch_assoc($countRes);
+$countCustID = $countRow['countCustID'];
+
+$customerQuery = "INSERT INTO customer (customerID, fname, lname, contact, email, verified, verification) VALUES ('$countCustID', '$firstName', '$lastName', '$contact', '$email', 'None', 'None')";
+mysqli_query($conn, $customerQuery) or die(mysqli_error($conn));
+
+$customerQuery1 = "INSERT INTO reservation (reservationID, roomNo, customerID, numberOfNightstay, adults, children, checkInDate, checkOutDate, checkInTime, checkOutTime) VALUES ('$countCustID', '0', '$countCustID', '$days', 'none', 'none' ,'$dateStartFinal', '$dateEndFinal', NULL, NULL)";
+
+mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
+
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
