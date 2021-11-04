@@ -1,13 +1,6 @@
 <?php
 require_once("../../directories/directories.php");
-require_once(__dbCreds__);
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
+require_once(__initDB__);
 
 $sql = "SELECT * FROM employee WHERE empID={$_GET['empID']} LIMIT 1;";
 //$sql = "SELECT * FROM access";

@@ -3,6 +3,7 @@
 require_once("../../directories/directories.php");
 require_once(__initDB__);
 require_once(__outputHandler__);
+require_once(__format__);
 require_once(__formatInput__);
 require_once(__validations__);
 

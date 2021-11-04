@@ -933,7 +933,6 @@ function initializeFormValidator() {
       $(element).removeClass('is-invalid');
     },
     submitHandler: function(form, e) {
-      e.preventDefault();
       //console.log($(form).serialize());
       toggleButtonDisabled("#btn-AddRoomStatus", "#card-tableManageRoomStatus", "Adding...");
       $.ajax({

@@ -5,9 +5,8 @@ $phpDIR = dirname(__FILE__,3);
 require_once("$phpDIR/directories/directories.php");
 require_once(__initDB__);
 require_once(__validations__);
+require_once(__format__);
 require_once(__formatInput__);
-
-mysqli_report(MYSQLI_REPORT_STRICT);
 
 $sql = "";
 

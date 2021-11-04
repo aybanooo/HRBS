@@ -1,13 +1,6 @@
 <?php
 require_once("../../directories/directories.php");
-require_once(__dbCreds__);
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
+require_once(__initDB__);
 
 function boolToCheck($value) {
     return $value ? 'checked': '';

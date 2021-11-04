@@ -1,13 +1,6 @@
 <?php
 require_once("../../directories/directories.php");
-require_once(__dbCreds__);
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  die("Connection failed: " . $conn->connect_error);
-}
+require_once(__initDB__);
 
 $sql = "INSERT INTO scratchtable (username, password, name)
 VALUES ('".$_POST["username"]."', '".$_POST["password"]."', '".$_POST["name"]."')";

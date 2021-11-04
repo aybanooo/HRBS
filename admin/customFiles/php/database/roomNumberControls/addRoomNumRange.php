@@ -3,8 +3,6 @@ require_once("../../directories/directories.php");
 require_once(__initDB__);
 require_once(__format__);
 
-mysqli_report(MYSQLI_REPORT_STRICT);
-
 if ( !(isset($_POST['roomNoFirst']) && isset($_POST['roomNoLast']) && isset($_POST['floorLevel']) && isset($_POST['roomTypeID']) && isset($_POST['statusID']) ) )  {
     $output->setFailed("Missing input");
     echo $output->getOutput(1);

@@ -1,17 +1,6 @@
 <?php
 require_once("../../directories/directories.php");
-require_once(__dbCreds__);
-require_once(__outputHandler__);
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  $output->setFailed("Cannot connect to database.".$conn->connect_error);
-  echo $output->getOutput(true);
-  die();
-}
-
+require_once(__initDB__);
 
 if( !isset($_POST["roomName"]) || empty(trim($_POST["roomName"]))) {
   $output->setFailed("No room name");
