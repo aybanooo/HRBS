@@ -29,6 +29,9 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /admin/
+    
+    RewriteCond %{HTTP:Authorization} ^(.*)
+    RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
     #RewriteRule ^.*$ htaccess_tester.php
 
     #RewriteCond %{REQUEST_FILENAME} !-f
@@ -52,7 +55,7 @@
     RewriteRule ^appearance$ admin-settings-appearance.php [NC,L]
     RewriteRule ^webpage$ admin-settings-webpage.php [NC,L]
     RewriteRule ^profile$ admin-settings-myAccount.php [NC,L]
-    RewriteRule ^login$ admin-login.php [NC,L]
+    RewriteRule ^logout$ admin-logout.php [NC,L]
 
     RewriteRule ^rooms/(.*)$ customFiles/php/database/roomControls/displayRoom.php?roomTypeID=$1 [NC,L]
     RewriteRule ^reservation/(.*)$ admin-reservation-view.php?reservationID=$1 [NC,L]
