@@ -7,7 +7,8 @@
     include("admin-login.php");
     exit();
   }
-
+  setupUserSession();
+  echo "<script>console.log('{$_SESSION['id']}');</script>"
 ?>
 
 <!DOCTYPE html>
@@ -342,6 +343,7 @@
 <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- Special Script-->
 <script src="customFiles/initialize Toastr.js"></script>
+<script src="customFiles/jwtParser.js"></script>
 <script src="customFiles/reservation_incidentals.js"></script>
 <script src="customFiles/customScript.js"></script>
 

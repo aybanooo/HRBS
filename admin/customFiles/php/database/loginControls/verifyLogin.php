@@ -31,7 +31,7 @@ if(password_verify($pass, FETCHED_PASS)) {
     $issuedAt   = new DateTimeImmutable();
     $expire     = (time() + (86400));
     $serverName = $ini['CLIENT_DOMAIN_NAME'];
-    $id   = $empId;
+    $id   = towtf($empId, 5);
 
     $data = [
         'iat'  => $issuedAt->getTimestamp(),         // Issued at: time when the token was generated
