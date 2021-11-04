@@ -16,6 +16,10 @@ if(isset($_POST['submit'])){
 
 		//sanitize form data
 		$email = $mysqli->real_escape_string($email);
+<<<<<<< HEAD
+=======
+
+>>>>>>> benito/dev
 
 		//generate verification key
 		$verification = md5(time().$email);

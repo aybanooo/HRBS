@@ -13,6 +13,7 @@
 	
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">	
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
 	<style type="text/css">
 	body{ 
     	padding-top: 65px; 
@@ -104,6 +105,7 @@
 		transition:0.3s;
 		transform:scale(1.005);
 	}
+
 	select#rate {
 		width:100%;
 		font-size:1.25rem;
@@ -124,9 +126,11 @@
 		border-radius:15px;
 		padding: 1%;
 	}
-	body.modal-open { 
+
+  body.modal-open { 
 		overflow: scroll; 
 	}
+
 
 	input#date {
     	text-align: right;
@@ -223,6 +227,29 @@
 	    -o-transform: translate(-50%, 0);
 	    transform: translate(-50%, 0%) !important;
 	}
+    body {
+    background-color: #eee
+}
+
+.form-control:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #80bdff;
+    outline: 0;
+    box-shadow: 0 0 0 0rem rgba(0, 123, 255, .25)
+}
+
+.btn-secondary:focus {
+    box-shadow: 0 0 0 0rem rgba(108, 117, 125, .5)
+}
+
+.close:focus {
+    box-shadow: 0 0 0 0rem rgba(108, 117, 125, .5)
+}
+
+.mt-200 {
+    margin-top: 200px
+}
 	</style>
 
 	<title>Booking Details</title>
@@ -245,78 +272,76 @@
 			</div>
 		</div>
 	</nav>
-	<!-- Modal -->
-	<section id="modal">
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keyboard="false" data-backdrop="static">
-			<div class="modal-dialog" role="document">
-			  	<div class="modal-content">
-					<div class="modal-header">
-				  	<h4 class="modal-title" id="myModalLabel">Verify your Account</h4>
-				
-					</div>
-				
-					<div class="modal-body">
-					<div class="modal-split">
-						<div class="loginForm">
-							<div class="col-lg-12 mx-auto">
-								<h2><b>Login</b></h2>
-								<hr class="new1">
-									<form method="POST" action="">
-										<tr>
-											<td><input type = "text" name = "email" required placeholder = "Email Address/Phone Number" id="emaillogin"></td>	
-										</tr>					
-										<tr>
-											<td class="sign" align = "center" align = "right"><input type = "submit" value = "Verify" name = "login" id="emailsubmit"></td>
-										</tr>
-									</form>
-							</div>
-						</div>
-					</div>
-					
-					<div class="modal-split">
-						<div class="loginform">
-							<div class="col-lg-12 mx-auto">
-								<h2 style="text-align: center;"><b>Verification Sent</b></h2>
-									<hr class="new1">
-									<form>
-										<tr>
-											<div class="form-span" align="center"><span>The verification code is sent to y our email.</span></div>
-										</tr>
-										<br>
-										<tr>
-											<td><input type = "text" name = "authentication" required placeholder = "Authentication Code" id="emaillogin"></td>	
-										</tr>					
-										<tr>
-											<td class="sign" align = "center" align = "right"><a href="confirmed"><input type="submit" formaction="Customer-Email_Confirmed.html" value = "Submit" id="emailsubmit"></a></td>
-										</tr>
-									</form>
-							</div>
-						</div>
-					</div>
-					<div class="modal-split">
-						<div class="loginform">
-							<div class="col-lg-12 mx-auto">
-								<h2 style="text-align: center;"><b>Account Verified</b></h2>
-									<hr class="new1">
-									<form>
-										<tr>
-											<div class="form-span" align="center"><span>You may now book your preferred room.</span></div>
-										</tr>
+	<?php
+		include_once "connect.php";
+	
+ 
 
-									</form>
-							</div>
-						</div>
-					</div>
-			
-					</div>
-		  
-					<div class="modal-footer">
-			
-					</div>
-				</div>
-			</div>
-		</div>
-	</section>
+	?>
+	<!-- Modal Verify -->
+	<link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard.min.css" rel="stylesheet" type="text/css" />
+<link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard_theme_dots.min.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.smartWizard.min.js"></script>
+<div class="container">
+    <div class="row d-flex justify-content-center mt-200"> <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal"> Launch multistep Wizard </button> </div> <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Smart Wizard modal</h5> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                </div>
+                <div class="modal-body">
+                    <div id="smartwizard">
+                        <ul>
+                            <li><a href="#step-1">Step 1<br /><small>Account Info</small></a></li>
+                            <li><a href="#step-2">Step 2<br /><small>Personal Info</small></a></li>
+                            <li><a href="#step-3">Step 3<br /><small>Payment Info</small></a></li>
+                            <li><a href="#step-4">Step 4<br /><small>Confirm details</small></a></li>
+                        </ul>
+                        <div>
+                            <div id="step-1">
+                                <div class="row">
+                                    <div class="col-md-6"> <input type="text" class="form-control" placeholder="Name" required> </div>
+                                    <div class="col-md-6"> <input type="text" class="form-control" placeholder="Email" required> </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6"> <input type="text" class="form-control" placeholder="Password" required> </div>
+                                    <div class="col-md-6"> <input type="text" class="form-control" placeholder="Repeat password" required> </div>
+                                </div>
+                            </div>
+                            <div id="step-2">
+                                <div class="row">
+                                    <div class="col-md-6"> <input type="text" class="form-control" placeholder="Address" required> </div>
+                                    <div class="col-md-6"> <input type="text" class="form-control" placeholder="City" required> </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6"> <input type="text" class="form-control" placeholder="State" required> </div>
+                                    <div class="col-md-6"> <input type="text" class="form-control" placeholder="Country" required> </div>
+                                </div>
+                            </div>
+                            <div id="step-3" class="">
+                                <div class="row">
+                                    <div class="col-md-6"> <input type="text" class="form-control" placeholder="Card Number" required> </div>
+                                    <div class="col-md-6"> <input type="text" class="form-control" placeholder="Card Holder Name" required> </div>
+                                </div>
+                                <div class="row mt-3">
+                                    <div class="col-md-6"> <input type="text" class="form-control" placeholder="CVV" required> </div>
+                                    <div class="col-md-6"> <input type="text" class="form-control" placeholder="Mobile Number" required> </div>
+                                </div>
+                            </div>
+                            <div id="step-4" class="">
+                                <div class="row">
+                                    <div class="col-md-12"> <span>Thanks For submitting your details with BBBootstrap.com. we will send you a confirmation email. We will review your details and revert back.</span> </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 	<section id="bookForm">
 		<div class="bookForm">
 			<div class="row">
@@ -345,7 +370,7 @@
 									<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
 									<script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
 									<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-								
+
 								</td>
 						</tr>
 						<tr>
@@ -551,6 +576,7 @@
 						</tr>
 						<tr align="right">
 							<td colspan="2"><a href="Customer-Booking_Details.html"><button type="button" class="btn btn-success">Finalize Booking</button></a></td>
+
 						</tr>
 					</table>
             	</div>
@@ -579,14 +605,31 @@
 			</div>
 		</div>
 	</div>
+
 </body>
 
 <!-- Scripts -->
+
 <script src="js/addAnotherRoomToReserve.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script>
+    $(document).ready(function(){
+
+$('#smartwizard').smartWizard({
+selected: 0,
+theme: 'dots',
+autoAdjustHeight:true,
+transitionEffect:'fade',
+showStepURLhash: false,
+
+});
+
+});
+</script>
+<script>
+
 	$(`input[type="radio"][name="card"]`).on('click', function() {
 		if($(this).val()==1) {
 			$('#mastercardDiv').removeClass('d-none');
@@ -608,7 +651,7 @@
 </script>
 <script>    
     $(window).on('load', function() {
-        $('#myModal').modal('show');
+        $('#exampleModal').modal('show');
     });
 </script>
 <script>
@@ -649,18 +692,18 @@ function prep_modal()
     	var n_button = document.createElement("button");
                 n_button.setAttribute("type","button");
           			n_button.setAttribute("class","btn btn-primary");
-					n_button.setAttribute("id","nextbutton");
-          			n_button.innerHTML = "Next";
+					n_button.setAttribute("id","verifyBtn");
+          			n_button.innerHTML = "Verify";
 
     	$(this).find('.modal-footer').append(b_button).append(n_button);
-
 
     	var page_track = 0;
 
     	$(n_button).click(function() {
+			
         
         this.blur();
-
+		/*<!-- page 1 -->*/
     		if(page_track == 0)
     		{
     			$(b_button).show();
@@ -686,7 +729,7 @@ function prep_modal()
 
 
     	});
-
+		/*<!-- page 2 -->*/
     	$(b_button).click(function() {
 
     		if(page_track == 1)
@@ -696,7 +739,7 @@ function prep_modal()
 
     		if(page_track == pages.length-1)
     		{
-    			$(n_button).text("Next");
+    			$(n_button).text("Verify");
     		}
 
     		if(page_track > 0)
@@ -706,13 +749,25 @@ function prep_modal()
     			pages.hide();
     			pages.eq(page_track).show();
     		}
-
-
     	});
-
   }
-
   });
 }
 </script>
+<script>
+    $(document).ready(function(){
+
+$('#smartwizard').smartWizard({
+selected: 0,
+theme: 'dots',
+autoAdjustHeight:true,
+transitionEffect:'fade',
+showStepURLhash: false,
+
+});
+
+});
+</script>
+
+
 </html>
