@@ -1,3 +1,26 @@
+<?php
+
+require_once("../../directories/directories.php");
+require_once(__dbCreds__);
+require_once(__outputHandler__);
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+// Check connection
+if ($conn->connect_error) {
+  $output->setFailed("Cannot connect to database.".$conn->connect_error);
+  echo $output->getOutput(true);
+  die();
+}
+
+$result=mysqli_query($conn, $queryCustomer);
+
+$queryCustomer="SELECT email FROM customer";
+
+
+?>
+
+
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -27,11 +50,11 @@
 	    position: fixed;
 	    
 	}
-	h1{
-		
+	.loginForm h1{
 		text-align: center;
 		padding-top: 2%;
 		padding-bottom: 2%;
+		font-size: 2em;
 	}
 	.loginForm{
 		background-color: white;
@@ -39,15 +62,15 @@
 		padding: 2%;
 		text-align: center;
 		margin: 5% auto;		
-		width: 40%;
-   		box-shadow: 0 0 5px 0 rgb(0 0 0 / 40%);
+		width: 50%;
+		box-shadow:0 0 5px 0 rgba(0,0,0,0.4);
 		border-radius: 5px;
 	}
 	input[type=text],input[type=password] {
-			border:none;
+			border:1px solid #c1c1c1;
 			background-color:#eee;
 			color:#000;
-			width:75%;
+			width:35%;
 			margin:auto;
 			display:block;
 			margin-bottom:4%;
@@ -56,7 +79,11 @@
 			outline:0;
 			padding-left:15px;
 			font-size:1em;
-			text-align: center;
+			transition:.3s;
+			text-align:center;
+	}
+	input[type=text]:focus ,input[type=password]:focus {
+		border:1px solid #000;
 	}
 	input[type=submit] {
 			border:none;
@@ -84,7 +111,6 @@
         color: rgba(255, 255, 255, .8);
         padding: 1%;
         position: absolute;
-        bottom: 0;
         width: 100%;
         text-align: center;
     }
@@ -113,7 +139,7 @@
  	}
  	.btn-instagram {
     	background: #dc4a38;
-    	color: #ffffff;
+    	color: #ffffff
  	}
  	.btn-facebook:hover, .btn-facebook:focus {
     	background: #2d4278;
@@ -126,12 +152,18 @@
  	.btn-instagram:hover, .btn-instagram:focus {
      	background: #bf3322;
      	color: #ffffff
- 	}
- 	.new1 {
+	}
+	.new1 {
 		border-top: 1px solid #999;
 		width:80%;
 		margin-bottom:25px;
  	}
+	.form-span {
+		width:75%;
+		box-sizing:border-box;
+		padding:1em;
+		margin:auto;
+	}
 	</style>
 	<title>Login</title>
 </head>
@@ -145,9 +177,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                     	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare_Rooms.html">Compare</a></li>
+                      	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare_Rooms.html">Compare</a></li>
                     	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Rooms.html">Rooms</a></li>
                     	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Amenities.html">Amenities</a></li>
+                    	<li class="nav-item"><a class="nav-link js-scroll-trigger active" href="Customer-Login.html">Login</a></li>
                     </ul>
                 </div>
             </div>
@@ -157,15 +190,29 @@
 		<div class="loginForm">
 			<div class="row">
                 <div class="col-lg-12 mx-auto">
-			    	<h1><b>Login</b></h1>
-			    	<hr class="new1">
-			    		<form method="POST" action="">
+			    	<h1><b>A verification code has been sent to your email account.</b></h1>
+						<hr class="new1">
+			    		<form>
 							<tr>
-								<td><input type = "text" name = "email" required placeholder = "Email Address/Phone Number"></td>	
+								<div class="form-span" align="center">
+                                    <span>Please enter the confirmation code that has been sent to    
+                                        <?php 
+                                        if (mysqli_num_rows($result)>0) {
+                                            echo $row["email"];           
+                                        } else {
+                                            echo "There are 0 results.";
+                                        }
+                                        ?>
+                                        thegrandbudapest@gmail.com to verify your email and to continue the registration process.
+                                    </span>
+                                </div>
+							</tr>
+							<br>
+							<tr>
+								<td><input type = "text" name = "authentication" required placeholder = "Authentication Code"></td>	
 							</tr>					
-							
 							<tr>
-								<td class="sign" align = "center" align = "right"><input type = "submit" value = "Verify" name = "login"></td>
+								<td class="sign" align = "center" align = "right"><a href="confirmed"><input type="submit" formaction="Customer-Email_Confirmed.html" value = "Submit"></a></td>
 							</tr>
 						</form>
 					</div>

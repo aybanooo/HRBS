@@ -8,41 +8,9 @@ if ($conn->connect_error) {
   die();
 }
 
-<<<<<<< HEAD
 $query="SELECT companyName FROM companyInfo";
 $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
-=======
-$result=mysqli_query($conn, $query);
-
-$query="SELECT amenityName, amenityDesc FROM amenities";
-
-    function getAmenitiesItem(&$id, &$conn, &$output) {
-        $sql = "SELECT amenityID, amenityName, amenityDesc FROM amenities";
-        $result = mysqli_query($conn, $sql);
-        $items = [];
-        $itemsContainer = [];
-            if(mysqli_num_rows($result) > 0) {
-                $rowID = null;
-                //echo mysqli_fetch_array($result)[0]."<br/>";
-                while($rows = mysqli_fetch_assoc($result)) {
-                    if (is_null($rowID))
-                        $rowID= $rows["amenityID"];
-                    if ($rows["info"] != null)
-                        $items += array($rows["amenityName"]=>$rows["info"]);
-                }
-                $itemsContainer = array("amenityName"=>$rowID);
-                $itemsContainer += array("amenityDesc"=>$items);
-            } else {
-                $output->setFailed("Amenitynot Available");
-                echo $output->getOutputAsHTML();
-                die();
-            }
-            
-        }
-        print_r($itemsContainer);
-        die();
->>>>>>> benito/dev
 ?> 
 
 <!DOCTYPE HTML>
@@ -161,34 +129,6 @@ $query="SELECT amenityName, amenityDesc FROM amenities";
         </div>
     </nav>
     
-<?php
-if (mysqli_num_rows($result)>0) {
-	while($row=mysqli_fetch_assoc($result)){
-		echo "<section id='amenities'>";
-		echo "    <div class='amenities'>";
-		echo "	      <div class='row'>";
-        echo "            <div class='col-lg-12 mx-auto'>";
-		echo "	    	      <h1><b>".$row["amenityName"]."</b></h1>";
-		echo "			          <div id='carouselExampleIndicators' class='carousel slide pointer-event' data-ride='carousel'>";
-		echo "		  		          <div class='carousel-inner' role='listbox'>";
-		echo "		    		          <div class='carousel-item active'>";
-		echo "		      				      <img class='d-block w-100' src='https://cf.bstatic.com/data/xphoto/1182x887/217/21775845.jpg?size=S' data-src='holder.js/900x400?theme=social' alt='900x400' data-holder-rendered='true'>";
-		echo "		      				      <div class='carousel-caption d-none d-md-block'>";
-		echo "                                    <h3>".$row["amenityName"]."</h3>";
-		echo "			          	              <p>".$row["amenityDesc"]."</p>";
-		echo "			        	       </div>";
-		echo "		    		      </div>";
-		echo "		  		      </div>";
-		echo "			      </div>";
-		echo "		      </div>";
-		echo "        </div>";
-		echo "    </div>";
-		echo "</section>";
-	}
-} else {
-	echo "There are 0 results.";
-}
-?>
 
     <section id="amenities">
 		<?php

@@ -1,7 +1,7 @@
 <?php 
-include('connect.php');
+include('dbcon.php');
 
-if(isset($_POST['verify'])){
+if(isset($_POST['submit'])){
 
 	//get form data
 	$email = $_POST['email'];
@@ -24,7 +24,7 @@ if(isset($_POST['verify'])){
 		//insert account into database and encrypt password
 		$password = md5($p);
 
-		$insert = $mysqli->query("(customer) VALUES('$data_table_value')"); 
+		$insert = $mysqli->query("INSERT INTO database_name(database_table) VALUES('$data_table_value')"); 
 
 		if ($insert) {
 			//send email
@@ -37,7 +37,6 @@ if(isset($_POST['verify'])){
 
 			mail($to, $subject, $message, $headers);
 			header('location');
-			echo 'Hello';
 
 		} else {
 			echo $mysqli->error;
@@ -45,4 +44,3 @@ if(isset($_POST['verify'])){
 
 	}
 }
-?>

@@ -3,10 +3,6 @@ require_once("../../directories/directories.php");
 require_once(__dbCreds__);
 require_once(__outputHandler__);
 require_once(__formatInput__);
-<<<<<<< HEAD
-=======
-require_once(__format__);
->>>>>>> delos.santos/wip/admin/billing
 
 mysqli_report(MYSQLI_REPORT_STRICT);
 

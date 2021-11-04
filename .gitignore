@@ -3,9 +3,14 @@ public_assets/rooms/*
 public_assets/amenities/*
 public_assets/images/*
 !public_assets/defaults/
-
+Testing Area/
+.vscode
 admin/assets/images/profilePictures/*
+<<<<<<< HEAD
 
 
 >>>>>>> benito/dev
 
+=======
+!.gitkeep
+>>>>>>> parent of af7665d (Squashed commit of the following:)
