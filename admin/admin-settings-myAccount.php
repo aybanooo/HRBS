@@ -132,20 +132,29 @@ session_start();
                   <div class="col-6">
                     <div id="accordion">
                         <div id="collapseOne" class="collapse fade" aria-labelledby="headingOne" data-parent="#accordion">
-                            <form>
+                            <form id="form-changePass">
                               <br>
                               <br>
                               <div class="form-group">
-                                <input type="password" name="oldPass" class="form-control" id="oldPass" placeholder="Old Password">
+                                <input type="password" class="form-control" id="inp-oldPass" name="inp-oldPass"  placeholder="Old Password">
                               </div>
                               <div class="form-group">
-                                <input type="password" name="newPass" class="form-control" id="newPass" placeholder="New Password">
+                                <input type="password" name="inp-newPass" class="form-control" id="inp-newPass" placeholder="New Password">
+                                <small class="form-text text-muted">
+                                  <ul>
+                                    <li>must be between 8 and 20 characters long.</li>
+                                    <li>must contain atleast one uppercase</li>
+                                    <li>must contain atleast one lowercase</li>
+                                    <li>Password must contain atleast one digit</li>
+                                    <li>Password must contain special characters from !  @ # $ % ^ & * ? _ ~ .</li>
+                                  </ul>
+                                </small>
                               </div>
                               <div class="form-group">
-                                <input type="password" name="newRePass" class="form-control" id="newRePass" placeholder="Repeat New Password">
+                                <input type="password" name="inp-newRePass" class="form-control" id="inp-newRePass" placeholder="Repeat New Password">
                               </div>
                               <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-block">Submit</button>
+                                <button type="submit"id="btn-submit-changePass" class="btn btn-primary btn-block">Submit</button>
                               </div>
                             </form>
                           </div>
@@ -207,23 +216,6 @@ session_start();
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
-<!-- ChartJS -->
-<script src="plugins/chart.js/Chart.min.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="dist/js/demo.js"></script>
-<!-- DataTables  & Plugins -->
-<script src="plugins/datatables/jquery.dataTables.min.js"></script>
-<script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
-<script src="plugins/datatables-responsive/js/dataTables.responsive.min.js"></script>
-<script src="plugins/datatables-responsive/js/responsive.bootstrap4.min.js"></script>
-<script src="plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script src="plugins/datatables-buttons/js/buttons.bootstrap4.min.js"></script>
-<script src="plugins/jszip/jszip.min.js"></script>
-<script src="plugins/pdfmake/pdfmake.min.js"></script>
-<script src="plugins/pdfmake/vfs_fonts.js"></script>
-<script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
-<script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
-<script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 <!-- SweetAlert2 -->
 <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Toastr -->
@@ -233,121 +225,83 @@ session_start();
 <script src="plugins/jquery-validation/additional-methods.min.js"></script>
 <!-- Special Script-->
 <script src="customFiles/customScript.js"></script>
+<script src="customFiles/initialize Toastr.js"></script>
+<script src="customFiles/buttonDisabler.js"></script>
 <script>
 
-var origText = "";
-
-$(".ce-noblank").on("focus","*[contentEditable=\"True\"]", function(){
-  origText = $(this).text();
-});
-
-$(".ce-noblank").on("focusout","*[contentEditable=\"True\"]", function(){
-  if($(this).text()==""){
-    $(this).text(origText);
-  } 
-});
-
-$(".ce-blankremove").on("focusout","*[contentEditable=\"True\"]", function(){
-  if($(this).text()==""){
-    $(this).closest('li').remove();
-  } 
-});
-
-settings = {
-      maxLen: 25,
+$("#form-changePass").validate({
+  rules: {
+    "inp-newPass": {
+      required: true,
+      strong_password: true
     }
-
-    keys = {
-      'backspace': 8,
-      'shift': 16,
-      'ctrl': 17,
-      'alt': 18,
-      'delete': 46,
-      // 'cmd':
-      'leftArrow': 37,
-      'upArrow': 38,
-      'rightArrow': 39,
-      'downArrow': 40,
-    }
-
-    utils = {
-      special: {},
-      navigational: {},
-      isSpecial(e) {
-        return typeof this.special[e.keyCode] !== 'undefined';
+  },
+  errorElement: 'span',
+  errorPlacement: function (error, element) {
+    error.addClass('invalid-feedback');
+    element.closest('.form-group').append(error);
+  },
+  highlight: function (element, errorClass, validClass) {
+    $(element).addClass('is-invalid');
+  },
+  unhighlight: function (element, errorClass, validClass) {
+    $(element).removeClass('is-invalid');
+  },
+  submitHandler:  (form, e) => {
+    toggleButtonDisabled("#btn-submit-changePass", "#form-changePass", "Please Wait...");
+     $.post("/admin/customFiles/php/database/employeeAccountControls/changePassword.php", $(form).serialize(),
+      function (response, textStatus, jqXHR) {
+        toggleButtonDisabled("#btn-submit-changePass", "#form-changePass", "Please Wait...");
+        Toast.fire({
+          icon: response.status,
+          title: response.message
+        });
+        if(response.isSuccessful) {
+          $(form).trigger('reset');
+          $(form).find(".form-group small.form-text li").removeClass('text-success');
+        }
       },
-      isNavigational(e) {
-        return typeof this.navigational[e.keyCode] !== 'undefined';
-      }
-    }
-
-    utils.special[keys['backspace']] = true;
-    utils.special[keys['shift']] = true;
-    utils.special[keys['ctrl']] = true;
-    utils.special[keys['alt']] = true;
-    utils.special[keys['delete']] = true;
-
-    utils.navigational[keys['upArrow']] = true;
-    utils.navigational[keys['downArrow']] = true;
-    utils.navigational[keys['leftArrow']] = true;
-    utils.navigational[keys['rightArrow']] = true;
-
-    $(".ce-noenter").on("keydown","*[contentEditable=\"True\"]", function(event){
-      if (event.which == 13)
-        document.activeElement.blur()
-    });
-
-    $("#loc").keydown(function() {
-      if (event.which == 13)
-        document.activeElement.blur()
-    });
-
-    $(".ce-shiftenter").on("keydown","*[contentEditable=\"True\"]", function(event){
-      if (event.which === 13 && event.shiftKey === false)
-        return false;
-    });
-
-    $(".ce-limit").on("keydown","*[contentEditable=\"True\"]", function(event){
-      let len = event.target.innerText.trim().length;
-      hasSelection = false;
-      selection = window.getSelection();
-      isSpecial = utils.isSpecial(event);
-      isNavigational = utils.isNavigational(event);
-      
-      if (selection) {
-        hasSelection = !!selection.toString();
-      }
-      
-      if (isSpecial || isNavigational) {
-        return true;
-      }
-      
-      if (len >= settings.maxLen && !hasSelection) {
-        event.preventDefault();
-        return false;
-      }
-      
-  });
-
-$("#loc").focusout(function() {
-  if($(this).val()==""){
-    $(this).val(origText);
-    var location = $("#map").attr('src');
-    location = location.substring(0,location.indexOf('&q=')+3) + $(this).val();
-    $("#map").attr('src', location);
+      "json"
+    );
   }
 });
 
-$('#loc').on('input', function() {
-  var location = $("#map").attr('src');
-  location = location.substring(0,location.indexOf('&q=')+3) + $(this).val();
-  $("#map").attr('src', location);
-});
-
-$("#loc").focus(function(){
-  origText = $(this).val();
-});
-
+$.validator.addMethod("strong_password", function (value, element) {
+    let password = value;
+    if (!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_~.])(.{8,20}$)/.test(password))) {
+        return false;
+    }
+    $(element).siblings('small').children('ul').children().attr('class', 'text-success');
+    return true;
+  }, function (value, element) {
+    let password = $(element).val();
+    if (!(/^(.{8,20}$)/.test(password))) {
+      $(element).siblings('small').children('ul').children().eq(0).attr('class', 'text-danger');
+    } else {
+      $(element).siblings('small').children('ul').children().eq(0).attr('class', 'text-success');
+    }
+    if (!(/^(?=.*[A-Z])/.test(password))) {
+      $(element).siblings('small').children('ul').children().eq(1).attr('class', 'text-danger');
+    } else {
+      $(element).siblings('small').children('ul').children().eq(1).attr('class', 'text-success');
+    }
+    if (!(/^(?=.*[a-z])/.test(password))) {
+      $(element).siblings('small').children('ul').children().eq(2).attr('class', 'text-danger');
+    } else {
+      $(element).siblings('small').children('ul').children().eq(2).attr('class', 'text-success');
+    }
+    if (!(/^(?=.*[0-9])/.test(password))) {
+      $(element).siblings('small').children('ul').children().eq(3).attr('class', 'text-danger');
+    } else {
+      $(element).siblings('small').children('ul').children().eq(3).attr('class', 'text-success');
+    }
+    if (!(/^(?=.*[!@#$%^&*?_~.])/.test(password))) {
+      $(element).siblings('small').children('ul').children().eq(4).attr('class', 'text-danger');
+    } else {
+      $(element).siblings('small').children('ul').children().eq(4).attr('class', 'text-success');
+    }
+    return false;
+  });
 
 </script>
 

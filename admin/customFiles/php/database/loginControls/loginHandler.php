@@ -38,6 +38,7 @@ function setupUserSession($token = null) {
             $token = JWT::decode($_COOKIE['authkn'], $GLOBALS['ini']['JWT_KEY'], ['HS512']);
         } catch(\Firebase\JWT\ExpiredException $e) {
             #return $e->getMessage();
+            header("Location: /admin/logout");
         }
     $userInfo  = json_decode(tonotwtf($token->userInfo, 5), true);
     } else {
