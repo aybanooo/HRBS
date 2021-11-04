@@ -4,7 +4,7 @@
 
   // Redirect to login page if token is invalid
   if (!isTokenValid()) {
-    include("admin-login.php");
+    header("Location: /admin/");
     exit();
   }
   session_start();

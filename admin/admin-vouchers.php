@@ -6,7 +6,7 @@ require_once __F_LOGIN_HANDLER__;
 
 // Redirect to login page if token is invalid
 if (!isTokenValid()) {
-  include("admin-login.php");
+  header("Location: /admin/");
   exit();
 }
 session_start();
