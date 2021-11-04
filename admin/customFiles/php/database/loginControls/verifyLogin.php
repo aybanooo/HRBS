@@ -3,6 +3,7 @@
 require_once(dirname(__FILE__,3)."/directories/directories.php");
 require_once __initDB__;
 require_once __F_FORMAT__;
+require_once __F_LOGIN_HANDLER__;
 require_once __AUTOLOAD_PUBLIC__;
 
 use \Firebase\JWT\JWT;
@@ -24,21 +25,35 @@ if (session_status() === PHP_SESSION_ACTIVE) {
 
 define('FETCHED_PASS',  mysqli_fetch_all($result, MYSQLI_NUM)[0][0]);
 if(password_verify($pass, FETCHED_PASS)) {
-
+    // Load jwt key
     $ini = array_merge(parse_ini_file(__CONF_PRIVATE__), $ini);
+
+    // Get user info
+    if(mysqli_num_rows($result = mysqli_query($conn, "SELECT * FROM `employee` WHERE `empID`=$empId LIMIT 1;")) != 1) {
+        echo $output->setFailed('Cannot find account details.');
+        die();
+    }
+
+    $tempUserInfo =  mysqli_fetch_all($result, MYSQLI_ASSOC)[0];
+    $userInfo['id'] = $tempUserInfo['empID']; 
+    $userInfo['first_name'] = $tempUserInfo['fName']; 
+    $userInfo['last_name'] = $tempUserInfo['lName']; 
+    $userInfo['acid'] = $tempUserInfo['accessID']; 
+    $userInfo['contact_number'] = $tempUserInfo['contact']; 
+
     // JWT shits
     $tempKey = $ini['JWT_KEY'];
     $issuedAt   = new DateTimeImmutable();
     $expire     = (time() + (86400));
     $serverName = $ini['CLIENT_DOMAIN_NAME'];
-    $id   = towtf($empId, 5);
+    $userInfo = towtf(json_encode($userInfo), 5);
 
     $data = [
         'iat'  => $issuedAt->getTimestamp(),         // Issued at: time when the token was generated
         'iss'  => $serverName,                       // Issuer
         'nbf'  => $issuedAt->getTimestamp(),         // Not before
         'exp'  => $expire,                           // Expire
-        'id' => $id,                     // User name
+        'userInfo' => $userInfo,                     // User information
     ];
 
     setcookie(
@@ -55,6 +70,9 @@ if(password_verify($pass, FETCHED_PASS)) {
         'httponly' => true,
         'samesite' => 'Strict',
     ]);
+    
+    session_start();
+    setupUserSession($userInfo);
     $output->output['data'] = "https://{$ini['CLIENT_DOMAIN_NAME']}/admin/";
     echo $output->setSuccessful();
 } else {

@@ -1,7 +1,14 @@
 <?php
 
 require_once "customFiles/php/directories/directories.php";
+require_once __F_LOGIN_HANDLER__;
 
+// Redirect to login page if token is invalid
+if (!isTokenValid()) {
+  include("admin-login.php");
+  exit();
+}
+session_start();
 ?>
 
 <!DOCTYPE html>
@@ -79,11 +86,11 @@ require_once "customFiles/php/directories/directories.php";
             <div class="card card-widget widget-user shadow">
               <!-- Add the bg color to the header using any of the bg-* classes -->
               <div class="widget-user-header bg-info">
-                <h3 class="widget-user-username">Broddy Potts</h3>
+                <h3 class="widget-user-username"><?php print "{$_SESSION['userInfo']['first_name']} {$_SESSION['userInfo']['last_name']}";  ?></h3>
                 <h5 class="widget-user-desc">Staff</h5>
               </div>
               <div class="widget-user-image">
-                <img class="img-circle elevation-2" src="dist/img/user6-128x128.jpg" alt="User Avatar">
+                <img class="img-circle elevation-2" src="/admin/assets/images/profilePictures/<?php print $_SESSION['userInfo']['id'].".jpg?".time() ?>" alt="User Avatar">
               </div>
               <div class="card-footer">
                 <div class="row">
@@ -91,7 +98,7 @@ require_once "customFiles/php/directories/directories.php";
                     <div class="description-block">
                       <h5 class="description-header">
                         <a class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                          09995648732
+                        <?php print $_SESSION['userInfo']['contact_number'];  ?>
                         </a>
                       </h5>
                       <span class="description-text">Contact #</span>
@@ -101,7 +108,7 @@ require_once "customFiles/php/directories/directories.php";
                   <!-- /.col -->
                   <div class="col-sm-4 border-right">
                     <div class="description-block">
-                      <h5 class="description-header">20829102</h5>
+                      <h5 class="description-header"><?php print $_SESSION['userInfo']['id']; ?></h5>
                       <span class="description-text">employee ID</span>
                     </div>
                     <!-- /.description-block -->

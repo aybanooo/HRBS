@@ -7,8 +7,9 @@
     include("admin-login.php");
     exit();
   }
+  session_start();
   setupUserSession();
-  echo "<script>console.log('{$_SESSION['id']}');</script>"
+  
 ?>
 
 <!DOCTYPE html>

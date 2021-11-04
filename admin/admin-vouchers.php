@@ -2,6 +2,14 @@
 require("customFiles/php/directories/directories.php");
 require_once(__F_VALIDATIONS__);
 require_once(__F_OUTPUT_HANDLER__);
+require_once __F_LOGIN_HANDLER__;
+
+// Redirect to login page if token is invalid
+if (!isTokenValid()) {
+  include("admin-login.php");
+  exit();
+}
+session_start();
 ?>
 
 <!DOCTYPE html>

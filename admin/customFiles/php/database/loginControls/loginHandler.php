@@ -32,13 +32,18 @@ function isTokenValid() {
     return !isLoginTokenExpired();
 }
 
-function setupUserSession() {
-    try {
-        $token = JWT::decode($_COOKIE['authkn'], $GLOBALS['ini']['JWT_KEY'], ['HS512']);
-    } catch(\Firebase\JWT\ExpiredException $e) {
-        #return $e->getMessage();
+function setupUserSession($token = null) {
+    if($token === null) {
+        try {
+            $token = JWT::decode($_COOKIE['authkn'], $GLOBALS['ini']['JWT_KEY'], ['HS512']);
+        } catch(\Firebase\JWT\ExpiredException $e) {
+            #return $e->getMessage();
+        }
+    $userInfo  = json_decode(tonotwtf($token->userInfo, 5), true);
+    } else {
+    $userInfo  = json_decode(tonotwtf($token, 5), true);
     }
-    $_SESSION['id'] = tonotwtf($token->id, 5);
+    $_SESSION['userInfo'] = $userInfo;
 }
 
 ?>
