@@ -6,6 +6,7 @@ define('__D_ROOT__', dirname(__D_ROOT_ADMIN__));
 define('__D_PHP__', __D_ROOT_ADMIN__.'/customFiles/php/');
 define('__userControls__', __D_PHP__.'database/userControls/');
 define('__roleControls__', __D_PHP__.'database/roleControls/');
+define('__D_LOGIN_CONTORLS__', __D_PHP__.'database/loginControls/');
 define('__dbCreds__', __D_PHP__.'database/dbCreds.php');
 define('__initDB__', __D_PHP__.'database/initializeDB.php');
 define('__D_PROFILE_PICTURES_ADMIN__', __D_ROOT_ADMIN__."/assets/images/profilePictures/");
@@ -34,7 +35,11 @@ define('__F_GEN__', __D_PHP__.'generate/generate.php');
 
 //----- Configs ------
 define('__CONF_DB__', __D_ROOT__."/db.ini"); #This contains database credentials
-define('__CONF_PRIVATE__', __D_ROOT__."/private.ini"); #This contains private keys and stuffs
+define('__CONF_PRIVATE__', __D_ROOT__."/private.ini"); #This contains private keys and stuff
+define('__CONF_SYSTEM__', __D_ROOT__."/system.ini"); #This contains the system/hotel stuff
+
+//----- Login Handlers -----
+define('__F_LOGIN_HANDLER__', __D_LOGIN_CONTORLS__."loginHandler.php");
 
 //----- Autoload -----
 define('__AUTOLOAD_PUBLIC__', __D_PUBLIC_ASSETS__.'vendor/autoload.php'); 
