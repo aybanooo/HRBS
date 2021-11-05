@@ -43,15 +43,14 @@ else {
     mysqli_fetch_all($result);
 }
 
-
 if(mysqli_num_rows($result = mysqli_query($conn, "SELECT `value` from `settings` WHERE `name` like 'showLogoInNav' LIMIT 1;"))) {
     while($r = mysqli_fetch_array($result))
         $output->output['data']['showLogo'] = toPhpBool($r['value']);
+    echo $output->setSuccessful();
 } else {
     echo $output->setFailed("Something went wrong while retrieving the data");
 }
 
-echo $output->setSuccessful();
 
 
 ?>
