@@ -116,20 +116,15 @@ $("#form-login").validate({
     $(element).removeClass('is-invalid');
   },
   submitHandler: (form) => {
-    verifyLogin(form);
-    
+    $.post("customFiles/php/database/loginControls/verifyLogin.php", $(form).serialize(),
+      function (response, textStatus, jqXHR) {
+        console.log(response);
+        response.isSuccessful && (location.href = response.data);
+      },
+      'json'
+    );
   }
 });
-
-function verifyLogin(form) {
-  $.post("customFiles/php/database/loginControls/verifyLogin.php", $(form).serialize(),
-    function (response, textStatus, jqXHR) {
-      console.log(response);
-      response.isSuccessful && (location.href = response.data);
-    },
-    'json'
-  );
-}
 
 </script>
 </body>
