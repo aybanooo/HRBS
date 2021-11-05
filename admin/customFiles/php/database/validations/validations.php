@@ -68,6 +68,16 @@ function checkRequiredGETval($strList = null, $notEmpty = false) {
   //echo "no missing\n";
 }
 
+function varsHaveEmpty($varList, $emptyStringOnly = false) {
+  foreach($varList as $varEntry) {
+    if($emptyStringOnly) {
+     if ($varEntry === "") return True;
+    } else {
+      if(empty($varEntry)) return True;
+    }
+  }
+}
+
 function isPassFormat($str) {
   return preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_~.])(.{8,20}$)/', $str);
   //return (ctype_alnum($str) && !preg_match('/\s/',$str) && strlen($str) >= 8);
