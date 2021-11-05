@@ -91,10 +91,11 @@ $companyInfo = mysqli_fetch_all($result, MYSQLI_ASSOC)[0];
 <script src="plugins/jquery-validation/jquery.validate.min.js"></script>
 <script src="plugins/jquery-validation/additional-methods.min.js"></script>
 <!-- Special Script-->
+<script src="customFiles/buttonDisabler.js"></script>
 <script src="customFiles/customScript.js"></script>
 <!-- Page Specific Script-->
 <script>
-
+try {
 $("#form-login").validate({
   rules: {
     "inp-empID": {
@@ -115,17 +116,31 @@ $("#form-login").validate({
   unhighlight: function (element, errorClass, validClass) {
     $(element).removeClass('is-invalid');
   },
-  submitHandler: (form) => {
-    $.post("customFiles/php/database/loginControls/verifyLogin.php", $(form).serialize(),
+  submitHandler: async (form, e) => {
+    e.preventDefault();
+    toggleButtonDisabled($(form).find('button'), "#form-login", "");
+    let response = await Promise.resolve($.post("customFiles/php/database/loginControls/verifyLogin.php", $(form).serialize(),
       function (response, textStatus, jqXHR) {
-        console.log(response);
-        response.isSuccessful && (location.href = response.data);
+        return(response);
       },
       'json'
-    );
+    ));
+    if(response.isSuccessful) 
+      (location.href = response.data);
+    else {
+      // check if error message exist and then add error if it doesn't exist
+      $("#err-credential").length || $("#form-login > div > div.row:first-child").removeClass('mb-4').after('<span id="err-credential" class="d-block text-danger text-center">Invalid credentials</span>');
+      $("#form-login").validate().showErrors({
+        "inp-empID": "",
+        "inp-password": "" 
+      });
+    }
+    toggleButtonDisabled($(form).find('button'), "#form-login", "");
   }
 });
-
+} catch (e) {
+  console.log(e);
+}
 </script>
 </body>
 </html>
