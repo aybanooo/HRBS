@@ -32,7 +32,7 @@ function prepareForSQL(&$conn, &$val, $type = null) {
 }
 
 function toPhpBool(&$val) {
-    $val = filter_var($val, FILTER_VALIDATE_BOOLEAN); 
+    return $val = filter_var($val, FILTER_VALIDATE_BOOLEAN); 
 }
 
 function emptyToZero(&$var) {
