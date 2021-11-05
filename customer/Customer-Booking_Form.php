@@ -488,7 +488,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								</td>
 							</tr>
 							<tr align="right">
-								<td colspan="2"><button type="submit" name="submit" id="submit" class="btn btn-success">Proceed to Payment</button></td>
+								<td colspan="2"><button type="submit" name="submit" id="submit" class="g-recaptcha" data-sitekey="6LcirBcdAAAAAMdYl6X_hmE0gduIRWTjwNPgfC9y" data-callback='onSubmit' data-action='submit'>Proceed to Payment</button></td>
 							</tr>
 					</form>
 					</table>
@@ -578,4 +578,24 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		})
 	})
 </script>
+<script>
+	function onSubmit(token) {
+		document.getElementById("submit").submit();
+	}
+</script>
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LcirBcdAAAAAMdYl6X_hmE0gduIRWTjwNPgfC9y"></script>
+<script>
+	function onClick(e) {
+		e.preventDefault();
+		grecaptcha.ready(function() {
+			grecaptcha.execute('reCAPTCHA_site_key', {
+				action: 'submit'
+			}).then(function(token) {
+				// Add your logic to submit to your backend server here.
+			});
+		});
+	}
+</script>
+
 </html>
