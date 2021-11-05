@@ -46,6 +46,9 @@ $socmed_2 = isset($_POST['inp-socmed-2']) ? prepareForSQL($conn, $_POST['inp-soc
 $socmed_3 = isset($_POST['inp-socmed-3']) ? prepareForSQL($conn, $_POST['inp-socmed-3']) : "";
 $showLogoInAdmin = isset($_POST['inp-logo-showLogoInAdmin']) ? prepareForSQL($conn, $_POST['inp-logo-showLogoInAdmin'], 0) : "0";
 
+// checks company name value then fail if empty
+varsHaveEmpty([$companyName], true) && die($output->setFailed("Company name cannot be empty"));
+
 if(isset($_POST['inp-loc'])) {
     $raw_loc = isset($_POST['inp-loc']) ? prepareForSQL($conn, $_POST['inp-loc']) : "";
     if (substr_count($raw_loc, ',') == 1) {
