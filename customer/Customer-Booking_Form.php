@@ -30,6 +30,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	<link rel="stylesheet" type="text/css" href="/public_assets/modules/libraries/daterangepicker/daterangepicker.css" />
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/cupertino/jquery-ui.css">
+	<script src="https://www.google.com/recaptcha/api.js"></script>
 	<style type="text/css">
 		body {
 			padding-top: 65px;
@@ -329,7 +330,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			</div>
 		</div>
 	</nav>
-
+	
 	<section id="bookForm">
 		<div class="bookForm">
 			<div class="row">
@@ -483,12 +484,19 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								?>
 							</tr>
 							<tr>
-								<td colspan="2">
-									<hr>
-								</td>
+								<td><br></td>
 							</tr>
 							<tr align="right">
-								<td colspan="2"><button type="submit" name="submit" id="submit" class="g-recaptcha" data-sitekey="6LcirBcdAAAAAMdYl6X_hmE0gduIRWTjwNPgfC9y" data-callback='onSubmit' data-action='submit'>Proceed to Payment</button></td>
+								<td colspan="2">
+									<div class="g-recaptcha" data-sitekey="6LeosxcdAAAAAJdlUOtkEsqLjbJIrOuty1YYu7OG"></div>
+								</td>
+							</tr>
+							<tr>
+								<td><br></td>
+							</tr>
+							<tr align="right">
+
+								<td colspan="2"><button type="submit" name="submit" id="submit" class="btn btn-success">Proceed to Payment</button></td>
 							</tr>
 					</form>
 					</table>
@@ -577,25 +585,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			$("#date_picker2").datepicker("option", "maxDate", endDate);
 		})
 	})
-</script>
-<script>
-	function onSubmit(token) {
-		document.getElementById("submit").submit();
-	}
-</script>
-<script src="https://www.google.com/recaptcha/api.js"></script>
-<script src="https://www.google.com/recaptcha/api.js?render=6LcirBcdAAAAAMdYl6X_hmE0gduIRWTjwNPgfC9y"></script>
-<script>
-	function onClick(e) {
-		e.preventDefault();
-		grecaptcha.ready(function() {
-			grecaptcha.execute('reCAPTCHA_site_key', {
-				action: 'submit'
-			}).then(function(token) {
-				// Add your logic to submit to your backend server here.
-			});
-		});
-	}
 </script>
 
 </html>
