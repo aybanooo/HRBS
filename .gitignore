@@ -7,3 +7,4 @@ Testing Area/
 .vscode
 admin/assets/images/profilePictures/*
 !.gitkeep
+admin/test.php
