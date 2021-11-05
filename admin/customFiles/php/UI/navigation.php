@@ -51,7 +51,7 @@ LOGOUT
   <a href="/admin/" class="brand-link">
       <img src="/public_assets/images/logo_100x100.png" alt="AdminLTE Logo" class="brand-image bg-transparent" style="opacity: .8">
       <span class="brand-text font-weight-light">
-        <?php print $companyInfo['companyName'] ?>
+        <?php print $companyInfo['companyName']==="" ? "&nbsp;" :  $companyInfo['companyName']; ?>
       </span>
   </a>
 
