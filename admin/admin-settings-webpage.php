@@ -693,10 +693,10 @@ function saveData(el) {
   //gather and append all images if changed
   if(typeof savedPageCover !== 'undefined')
     fd.append('pageCover', savedPageCover, 'pageCover');
-  if(typeof logo !== 'undefined')
+  if(typeof savedLogo !== 'undefined')
     fd.append('logo', savedLogo, 'logo');
-  if(typeof thumb !== 'undefined')
-    fd.append('thumb', thumb, 'thumb');
+  //if(typeof thumb !== 'undefined')
+  //  fd.append('thumb', thumb, 'thumb');
   //Adds inp-log-showLogoInAdmin in form data
   fd.append("inp-logo-showLogoInAdmin", $("#inp-logo-showLogoInAdmin").prop('checked'));
   /*
@@ -721,6 +721,11 @@ function saveData(el) {
         title: response.message
       });
       //*/
+      if(response.isSuccessful) {
+        delete savedLogo;
+        delete savedPageCover;
+      }
+      
       console.log(response);
       toggleButtonDisabled(el, ".content-header", "Saving...")
     }
