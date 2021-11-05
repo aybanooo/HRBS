@@ -6,6 +6,8 @@ require_once(__F_FORMAT__);
 require_once(__F_FORMAT_IMAGE__);
 
 //print_r($_FILES);
+
+
 if(isset($_FILES['pageCover'])) {
     if (check_file_type($_FILES['pageCover']['type'], 'image/jpeg')) {
         echo$output->setFailed("Something went wrong while uploading the new page cover");
@@ -43,8 +45,6 @@ $socmed_1 = isset($_POST['inp-socmed-1']) ? prepareForSQL($conn, $_POST['inp-soc
 $socmed_2 = isset($_POST['inp-socmed-2']) ? prepareForSQL($conn, $_POST['inp-socmed-2']) : "";
 $socmed_3 = isset($_POST['inp-socmed-3']) ? prepareForSQL($conn, $_POST['inp-socmed-3']) : "";
 $showLogoInAdmin = isset($_POST['inp-logo-showLogoInAdmin']) ? prepareForSQL($conn, $_POST['inp-logo-showLogoInAdmin'], 0) : "0";
-
-varsHaveEmpty([$companyName], true) && die($output->setFailed("Company name cannot be empty"));
 
 if(isset($_POST['inp-loc'])) {
     $raw_loc = isset($_POST['inp-loc']) ? prepareForSQL($conn, $_POST['inp-loc']) : "";
@@ -100,7 +100,10 @@ if(mysqli_query($conn, $sqlUpdate)) {
     die();
 }
 
-if(mysqli_query($conn, "UPDATE `settings` SET `value`='$showLogoInAdmin' WHERE `name` like 'showLogoInNav'")){
+if(mysqli_num_rows($result = mysqli_query($conn, "SELECT * FROM `settings` WHERE `name` LIKE 'showLogoInNav' LIMIT 1;"))==0) {
+    mysqli_query($conn, "INSERT INTO `settings` (`name`, `value`, `type`) VALUES ('showLogoInNav', '', '1') LIMIT 1;");
+}
+if(mysqli_query($conn, "UPDATE `settings` SET `value`='$showLogoInAdmin' WHERE `name` like 'showLogoInNav' LIMIT 1;")){
     echo $output->setSuccessful("Successfuly updated");
 } else {
     echo $output->setFailed("Something went wrong while updating the information", mysqli_error($conn));
