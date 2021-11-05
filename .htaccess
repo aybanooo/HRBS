@@ -3,14 +3,15 @@
 #Header unset ETag
 #FileETag None
 
-<IfModule mod_rewrite.c>
-    RewriteEngine On
-    RewriteBase /
+RewriteEngine On
+RewriteBase /
 
-    #custom Urls
-    RewriteRule ^$ customer/Customer-Home.php [NC,L]
-    RewriteCond %{REQUEST_URI} ^(?!\/(admin|customer)\/).*
-    RewriteRule ^(.+) customer/$1 [NC,L]
+#custom Urls
+RewriteRule ^$ customer/Customer-Home.php [NC,L]
+RewriteCond %{REQUEST_URI} ^(?!\/(admin|customer)\/).*
+RewriteRule ^(.+) customer/$1 [NC,L]
+
+<IfModule mod_rewrite.c>
 </IfModule>
 
 <FilesMatch "db\.ini">
