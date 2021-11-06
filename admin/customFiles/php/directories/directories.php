@@ -3,7 +3,13 @@
 //root director kung nasaan yung index.html para sa admin
 define('__D_ROOT_ADMIN__', dirname(dirname(dirname(dirname(__FILE__)))));
 define('__D_ROOT__', dirname(__D_ROOT_ADMIN__));
-define('__PRVT_F_ROOT__', dirname(__D_ROOT__)."/private/");
+
+// auto switch prvt dir
+$prvtdir = dirname(__D_ROOT__)."/private/";
+$prvtdir = !file_exists($prvtdir) ? __D_ROOT__."/test_files/" : $prvtdir; 
+define('__PRVT_F_ROOT__', $prvtdir);
+unset($prvtdir);
+
 define('__D_PHP__', __D_ROOT_ADMIN__.'/customFiles/php/');
 define('__userControls__', __D_PHP__.'database/userControls/');
 define('__roleControls__', __D_PHP__.'database/roleControls/');
@@ -40,6 +46,7 @@ define('__CONF_DB__', __PRVT_F_ROOT__."db.ini"); #This contains database credent
 define('__CONF_PRIVATE__', __PRVT_F_ROOT__."private.ini"); #This contains private keys and stuff
 define('__CONF_SYSTEM__', __PRVT_F_ROOT__."system.ini"); #This contains the system/hotel stuff
 define('__CONF_DMODE__', __PRVT_F_ROOT__."dmode.ini"); #For developers
+define('__CONF_DMODE_PARSED__', parse_ini_file(__CONF_DMODE__)['dmode']); #For developers
 
 //----- Handlers -----
 define('__F_LOGIN_HANDLER__', __D_LOGIN_CONTORLS__."loginHandler.php");
@@ -71,6 +78,7 @@ function checkDirectories() {
 }
 
 checkDirectories();
+unset($writableDIRs);
 
 date_default_timezone_set('Asia/Manila');
 
