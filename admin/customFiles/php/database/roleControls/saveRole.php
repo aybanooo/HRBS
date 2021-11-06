@@ -46,12 +46,12 @@ HAVING COUNT(permissions.permId) = (
 );';
 */
 
-if(getFutureFullAccountAccessCount($accessID, $_POST['perms'])==0) {
+if(getFFACount_change($accessID, $_POST['perms'])==0) {
     echo $output->setFailed("Atleast 1 role must have full account management access");
     die();
 }
 
-if(getFutureFullAccountUserCount($accessID, $_POST['perms'])==0) {
+if(getFFAUserCount_change($accessID, $_POST['perms'])==0) {
     echo $output->setFailed("Atleast 1 account must have full account management access");
     die();
 }
