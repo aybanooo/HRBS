@@ -590,7 +590,7 @@ $(document).ready(function(){
     const n = $(this).parent().find("input[type='checkbox']");
     const nchecked = $(this).parent().find("input[type='checkbox']:checked").length;
     n.prop('checked', (n.length > nchecked));
-    
+    $(this).closest('.card').children('.card-header').find('span[name="changesWarning"]').removeClass('d-none');
   });
 
   uploadCrop = $('.upload-div-container').croppie({
