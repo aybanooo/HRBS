@@ -13,7 +13,7 @@ if(getFFAUserCount_change($acid)==0) {
     echo $output->setFailed("Atleast 1 account must have full account management access");
     die();
 }
-die();
+#die();
 if ($result = mysqli_query($conn, "DELETE FROM access WHERE accessID=".$_POST["delid"]." LIMIT 1;")) {
     if(mysqli_affected_rows($conn) == 1) 
         echo $output->setSuccessful('Role have been deleted sucessfuly');
