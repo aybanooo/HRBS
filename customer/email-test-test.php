@@ -27,7 +27,7 @@ try {
 
     //Recipients
     $mail->setFrom('Thanosemailthesis@gmail.com', 'Thanos');
-    $mail->addAddress('Phoebeferraro@gmail.com');  //Add a recipient
+    $mail->addAddress('benjbenito10@gmail.com');  //Add a recipient
     
     $body = '<p><strong>Hello<strong/>This is a test email<p/>';
   
