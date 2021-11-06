@@ -10,7 +10,7 @@ require_once "genAmenityCardFunction.php";
 #print_r($_FILES); 
 
 $amenityName = prepareForSQL($conn, $_POST['inp-amenityName']);
-$description = prepareForSQL($conn, $_POST['inp-desc']);
+$description = prepareForSQL($conn, $_POST['inp-textArea-description']);
 
 if(mysqli_query($conn, "INSERT INTO `amenities`(`amenityName`, `amenityDesc`) VALUES ('$amenityName','$description') LIMIT 1;")) {
     
