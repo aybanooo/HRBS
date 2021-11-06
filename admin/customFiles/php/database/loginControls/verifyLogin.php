@@ -44,7 +44,7 @@ if(password_verify($pass, FETCHED_PASS)) {
     // JWT shits
     $tempKey = $ini['JWT_KEY'];
     $issuedAt   = new DateTimeImmutable();
-    $expire     = (time() + (86400));
+    $expire     = (time() + (43200));
     $serverName = $ini['CLIENT_DOMAIN_NAME'];
     $userInfo = towtf(json_encode($userInfo), 5);
 
@@ -63,7 +63,7 @@ if(password_verify($pass, FETCHED_PASS)) {
             $tempKey,
             'HS512'
         ), [
-        'expires' => (time() + (86400)),
+        'expires' => (time() + (43200)),
         'path' => '/admin/',
         'domain' => $_SERVER['HTTP_HOST'],
         'secure' => true,
