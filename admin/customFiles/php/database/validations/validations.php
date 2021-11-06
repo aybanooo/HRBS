@@ -159,7 +159,7 @@ function getFutureFullAccountAccessCount($accessID, $permissions) {
     return (!filter_var($val, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) && in_array($key, $accountsPermissionKeys));
   }, ARRAY_FILTER_USE_BOTH));
 
-  print_r($accountsPermissionKeys);
+  #print_r($accountsPermissionKeys);
   #echo $haveOffPermission."\n";
 
   // check if there is one false permission in account category on the post data
@@ -195,7 +195,7 @@ function getFutureFullAccountUserCount($accessID, $permissions) {
     return (!filter_var($val, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) && in_array($key, $accountsPermissionKeys));
   }, ARRAY_FILTER_USE_BOTH));
 
-  print_r($accountsPermissionKeys);
+  #print_r($accountsPermissionKeys);
   #echo $haveOffPermission."\n";
 
   // check if there is one false permission in account category on the post data
