@@ -31,6 +31,12 @@ function createSettingIfMissing($name, $value, $valType ) {
     mysqli_close($tempConn);
 }
 
+// A function that identifies if developer mode is on then return the connection error
+function getConnError($conn) {
+    return __CONF_DMODE_PARSED__ ?  mysqli_error($conn) : "" ;
+}
+
+
 #$2y$10$WvbX0/X.a9//Evje/6NOTumlEd0Qn4CX.z.T.1wSo.F...
 
 ?>
