@@ -147,6 +147,83 @@ function voucherEnabled() {
 //-------------------SETTINGS VALIDATION END-------------------
 
 
+//------------------- EMP ACCOUNT/ROLE VALIDATION-------------------
 
+function getFutureFullAccountAccessCount($accessID, $permissions) {
+  $tempConn = createTempDBConnection();
+  $accountsPermissionKeys = explode(",",mysqli_fetch_all(mysqli_query($tempConn, 'SELECT GROUP_CONCAT(`permID`) FROM `permissions` WHERE `category`=4;'))[0][0]);
+
+  // gets permissions to be turned off that is in account category
+  $haveOffPermission = count(array_filter($permissions, function($val, $key) use ($accountsPermissionKeys) { 
+    #echo $val." --> ".$key." = ".(in_array($key, $GLOBALS['accountsPermissionKeys']))."\n";
+    return (!filter_var($val, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) && in_array($key, $accountsPermissionKeys));
+  }, ARRAY_FILTER_USE_BOTH));
+
+  print_r($accountsPermissionKeys);
+  #echo $haveOffPermission."\n";
+
+  // check if there is one false permission in account category on the post data
+  // if there is one, the query below will exclude the access id (from the post)  
+  $sqlConditionAccessID = $haveOffPermission > 0 ? " && access.accessId!=$accessID ": "";
+
+  // sql to get the count of full account accessed role
+  $sql = "SELECT COUNT(*) FROM (SELECT access.accessID FROM `access` 
+  INNER JOIN `accesspermission` ON access.accessID=accesspermission.accessId 
+  INNER JOIN `permissions` ON accesspermission.permId=permissions.permID 
+  WHERE accesspermission.val=1 && permissions.category=4 $sqlConditionAccessID
+  GROUP BY access.accessID HAVING COUNT(permissions.permId) = ( 
+    SELECT COUNT(*) FROM `permissionscategory` A 
+    INNER JOIN `permissions` B ON A.categoryID=B.category 
+    WHERE A.categoryID=4 )
+  ) AS countOfRows;";
+  #echo $sql;
+
+  // get count of full account accessed role
+  $futureFullAccountAccessUsers = mysqli_fetch_all(mysqli_query($tempConn, $sql), MYSQLI_NUM)[0][0];
+  #echo($futureFullAccountAccessUsers);
+  mysqli_close($tempConn);
+  return $futureFullAccountAccessUsers;
+}
+
+function getFutureFullAccountUserCount($accessID, $permissions) {
+  $tempConn = createTempDBConnection();
+  $accountsPermissionKeys = explode(",",mysqli_fetch_all(mysqli_query($tempConn, 'SELECT GROUP_CONCAT(`permID`) FROM `permissions` WHERE `category`=4;'))[0][0]);
+
+  // gets permissions to be turned off that is in account category
+  $haveOffPermission = count(array_filter($permissions, function($val, $key) use ($accountsPermissionKeys) { 
+    #echo $val." --> ".$key." = ".(in_array($key, $GLOBALS['accountsPermissionKeys']))."\n";
+    return (!filter_var($val, FILTER_VALIDATE_BOOLEAN, FILTER_NULL_ON_FAILURE) && in_array($key, $accountsPermissionKeys));
+  }, ARRAY_FILTER_USE_BOTH));
+
+  print_r($accountsPermissionKeys);
+  #echo $haveOffPermission."\n";
+
+  // check if there is one false permission in account category on the post data
+  // if there is one, the query below will exclude the access id (from the post)  
+  $sqlConditionAccessID = $haveOffPermission > 0 ? " WHERE B.accessID!=$accessID ": "";
+
+  // sql to get the count of full account accessed users
+  $sql = "SELECT COUNT(*) FROM (
+    SELECT A.empID, B.* FROM `employee` A 
+    INNER JOIN (SELECT access.accessID FROM `access` 
+    INNER JOIN `accesspermission` ON access.accessID=accesspermission.accessId 
+    INNER JOIN `permissions` ON accesspermission.permId=permissions.permID 
+    WHERE accesspermission.val=1 && permissions.category=4  && access.accessId!=0 
+    GROUP BY access.accessID HAVING COUNT(permissions.permId) = ( 
+      SELECT COUNT(*) FROM `permissionscategory` A 
+      INNER JOIN `permissions` B ON A.categoryID=B.category 
+      WHERE A.categoryID=4 )
+    ) B ON A.accessID=B.accessID $sqlConditionAccessID
+  ) AS userWithAccessCount;";
+  #echo $sql;
+
+  // get count of full account accessed users
+  $futureFullAccountAccessUsers = mysqli_fetch_all(mysqli_query($tempConn, $sql), MYSQLI_NUM)[0][0];
+  #echo($futureFullAccountAccessUsers);
+  mysqli_close($tempConn);
+  return $futureFullAccountAccessUsers;
+}
+
+//------------------- EMP ACCOUNT/ROLE VALIDATION END-------------------
 
 ?>
