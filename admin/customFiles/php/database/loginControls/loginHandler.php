@@ -40,11 +40,23 @@ function setupUserSession($token = null) {
             #return $e->getMessage();
             header("Location: /admin/logout");
         }
-    $userInfo  = json_decode(tonotwtf($token->userInfo, 5), true);
+        $userInfo  = json_decode(tonotwtf($token->userInfo, 5), true);
     } else {
-    $userInfo  = json_decode(tonotwtf($token, 5), true);
+        $userInfo  = json_decode(tonotwtf($token, 5), true);
     }
     $_SESSION['userInfo'] = $userInfo;
+}
+
+function decodeLoginToken($token, $asArray = false) {
+    $token = JWT::decode($token, $GLOBALS['ini']['JWT_KEY'], ['HS512']);
+    if($asArray) $token = (array)$token;
+    return $token;
+}
+
+function getUserInfoFromToken($token) {
+    $token = JWT::decode($token, $GLOBALS['ini']['JWT_KEY'], ['HS512']);
+    $userInfo = json_decode(tonotwtf($token->userInfo,5));
+    return $userInfo;
 }
 
 ?>
