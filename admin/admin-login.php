@@ -43,7 +43,7 @@ $companyInfo = mysqli_fetch_all($result, MYSQLI_ASSOC)[0];
   <link rel="stylesheet" href="customFiles/specialStyle.css">
   <link rel="stylesheet" href="customFiles/login.css">
   <link rel="stylesheet" href="customFiles/overrideStyle.css">
-  
+  <link rel="stylesheet" type="text/css" href="/public_assets/modules/libraries/cookieconsent/build/cookieconsent.min.css" />
 
 </head>
 <body class="layout-fixed">
@@ -71,6 +71,7 @@ $companyInfo = mysqli_fetch_all($result, MYSQLI_ASSOC)[0];
       </div>
     </form>
   </div>
+  <div id="content" >.</div>
 
 <!-- REQUIRED SCRIPTS -->
 
@@ -93,6 +94,7 @@ $companyInfo = mysqli_fetch_all($result, MYSQLI_ASSOC)[0];
 <!-- Special Script-->
 <script src="customFiles/buttonDisabler.js"></script>
 <script src="customFiles/customScript.js"></script>
+<script src="/public_assets/modules/libraries/cookieconsent/build/cookieconsent.min.js"></script>
 <!-- Page Specific Script-->
 <script>
 try {
@@ -141,6 +143,26 @@ $("#form-login").validate({
 } catch (e) {
   console.log(e);
 }
+
+window.cookieconsent.initialise({
+  content: {
+    message: 'This website uses cookies to ensure you get the best experience on our website. Certain features uses cookies in order to work.'
+  },
+  palette:{
+    popup: {background: "#00000099"},
+    button: {background: "var(--success)"},
+  },
+  revokable:true,
+  onStatusChange: function(status) {
+    console.log(this.hasConsented() ?
+    'enable cookies' : 'disable cookies');
+  },
+  "theme": "classic",
+  "position": "top",
+  cookie: {
+    path: "/admin/"
+  }
+});
 </script>
 </body>
 </html>
