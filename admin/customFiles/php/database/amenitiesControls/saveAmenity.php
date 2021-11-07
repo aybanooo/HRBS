@@ -3,9 +3,12 @@
 require_once(dirname(__FILE__,3)."/directories/directories.php");
 require_once __initDB__;
 require_once __F_FORMAT__;
+require_once __F_PERMISSION_HANDLER__;
 
 #print_r($_POST);
 #print_r($_FILES);
+
+checkPermission(__V_P_AMENITIES_SAVE__, true);
 
 $id = tonotwtf($_POST['amid'], 3);
 formatToType($id, 1);
