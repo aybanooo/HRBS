@@ -268,6 +268,31 @@ function getFFACount_delete($accessID) {
   return $futureFullAccountAccessUsers;
 }
 */
+
+function getFFAUserCount_delete_emp($idListAsString) {
+  !is_string($idListAsString) && throw new Exception("ID list must be a string");
+  $sql = "SELECT COUNT(DISTINCT emptable.empID) FROM (
+    SELECT access.accessID FROM `access` 
+    INNER JOIN `accesspermission` ON access.accessID=accesspermission.accessId 
+    INNER JOIN `permissions` ON accesspermission.permId=permissions.permID 
+    WHERE accesspermission.val=1 && permissions.category=4 
+    GROUP BY access.accessID HAVING COUNT(permissions.permId) = ( 
+      SELECT COUNT(*) FROM `permissionscategory` A 
+      INNER JOIN `permissions` B ON A.categoryID=B.category 
+      WHERE A.categoryID=4 )
+    ) AS FAAroles 
+    INNER JOIN `employee` AS `emptable` ON emptable.accessID=FAAroles.accessID WHERE `empID` NOT IN ($idListAsString);";
+  $tempConnection = createTempDBConnection();
+  try{
+    $accountsAccessID = mysqli_fetch_all(mysqli_query($tempConnection, $sql), MYSQLI_NUM)[0][0];
+  } catch(Exception $e){
+    $accountsAccessID = null;
+  }
+  $accountsAccessID = intval($accountsAccessID);
+    #echo getFFAUserCount_change()
+  return($accountsAccessID);
+}
+
 //------------------- EMP ACCOUNT/ROLE VALIDATION END-------------------
 
 ?>
