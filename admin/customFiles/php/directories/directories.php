@@ -15,6 +15,7 @@ define('__userControls__', __D_PHP__.'database/userControls/');
 define('__roleControls__', __D_PHP__.'database/roleControls/');
 define('__D_LOGIN_CONTORLS__', __D_PHP__.'database/loginControls/');
 define('__D_DB_CONTORLS__', __D_PHP__.'database/dbControls/');
+define('__D_PERMISSION_CONTROLS__', __D_PHP__.'database/permissionControls/');
 define('__dbCreds__', __D_PHP__.'database/dbCreds.php');
 define('__initDB__', __D_PHP__.'database/initializeDB.php');
 define('__D_PROFILE_PICTURES_ADMIN__', __D_ROOT_ADMIN__."/assets/images/profilePictures/");
@@ -51,6 +52,7 @@ define('__CONF_DMODE_PARSED__', parse_ini_file(__CONF_DMODE__)['dmode']); #For d
 //----- Handlers -----
 define('__F_LOGIN_HANDLER__', __D_LOGIN_CONTORLS__."loginHandler.php");
 define('__F_DB_HANDLER__', __D_DB_CONTORLS__."dbHandler.php");
+define('__F_PERMISSION_HANDLER__', __D_PERMISSION_CONTROLS__."permissionHandler.php");
 
 //----- Autoload -----
 define('__AUTOLOAD_PUBLIC__', __D_PUBLIC_ASSETS__.'vendor/autoload.php'); 
