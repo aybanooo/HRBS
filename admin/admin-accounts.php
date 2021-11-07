@@ -476,7 +476,7 @@ session_start();
               return item;
             });
             console.groupEnd("IDs");
-            console.log("IDs", ids);
+            //console.log("IDs", ids);
             toggleButtonDisabled(node, ".dt-buttons", "");
             $.ajax({
               type: 'post',
@@ -486,12 +486,15 @@ session_start();
               },
               dataType: "json",
               success: function (response){
+                //console.log(response); return;
                 Toast.fire({
                   icon: response.status,
                   title: response.message
                 });
                 toggleButtonDisabled(node, ".dt-buttons", "");
-                dt.ajax.reload();
+                if(response.isSuccessful) {
+                  dt.ajax.reload();
+                }
               }
             });
           }
