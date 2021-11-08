@@ -42,15 +42,23 @@ define('__V_P_AMENITIES_SAVE__', explode(',',
 '11'
 ));
 
-// Amenities permission
-define('__V_P_ROLES_MANAGE_', explode(',',
+// Roles permission
+define('__V_P_ROLES_MANAGE__', explode(',',
 '10'
 ));
+
+// Account permission
+define('__V_P_ACCOUNT_CREATE__', explode(',',
+'7' ));
+define('__V_P_ACCOUNT_DELETE__', explode(',',
+'8' ));
 
 //--------------- PERMISSION LIST END ---------------
 
 function checkPermission($permissionList, $dieResponse = false) {
     $userInfo = getUserInfoFromToken($_COOKIE['authkn']);
+    if( !tokenEmpIDexist() )
+        die($GLOBALS['output']->setFailed("You don't exist!"));
     $tempConn = createTempDBConnection();
     $userID = $userInfo->id;
     $implodedPerms = implode(',', $permissionList);
@@ -62,7 +70,7 @@ function checkPermission($permissionList, $dieResponse = false) {
     WHERE empID=$userID && B.val=1 && B.permId IN 
     ($implodedPerms);
     ";
-
+    
     $userCurrPermissionCount = mysqli_fetch_all(mysqli_query($tempConn, $sql), MYSQLI_NUM)[0][0];
     $userCurrPermissionCount = intval($userCurrPermissionCount);
     mysqli_close($tempConn);
