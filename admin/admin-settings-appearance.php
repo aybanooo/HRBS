@@ -7,7 +7,9 @@
     header("Location: /admin/");
     exit();
   }
-  session_start();
+checkUserExistence();
+session_start();
+setupUserSession();
 ?>
 
 <!DOCTYPE html>

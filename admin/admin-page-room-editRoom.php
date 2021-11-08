@@ -8,7 +8,9 @@ if (!isTokenValid()) {
   header("Location: /admin/");
   exit();
 }
+checkUserExistence();
 session_start();
+setupUserSession();
 ?>
 
 <!DOCTYPE html>
