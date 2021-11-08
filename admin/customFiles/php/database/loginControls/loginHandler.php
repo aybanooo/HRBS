@@ -1,6 +1,7 @@
 <?php
 require_once(dirname(__FILE__,3)."/directories/directories.php");
 require_once __AUTOLOAD_PUBLIC__;
+require_once __F_DB_HANDLER__;
 require_once __F_FORMAT__;
 use \Firebase\JWT\JWT;
 
@@ -30,6 +31,22 @@ function isLoginTokenExpired() {
 function isTokenValid() {
     if (!isset($_COOKIE['authkn'])) return False;
     return !isLoginTokenExpired();
+}
+
+function tokenEmpIDexist() {
+    $tempConn = createTempDBConnection();
+    $userID = getUserInfoFromToken($_COOKIE['authkn'])->id;
+    prepareForSQL($tempConn, $userID);
+    $exists = mysqli_fetch_all(mysqli_query($tempConn, "SELECT COUNT(DISTINCT empID)=1 from `employee` WHERE empID=$userID;"))[0][0];
+    toPhpBool($exists);
+    mysqli_close($tempConn);
+    return $exists;
+}
+
+function checkUserExistence() {
+    if(!tokenEmpIDexist()) {
+        header("Location: /admin/logout");
+    }
 }
 
 function setupUserSession($token = null) {
