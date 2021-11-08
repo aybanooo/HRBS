@@ -3,7 +3,7 @@ require_once(dirname(__FILE__,3)."/directories/directories.php");
 require_once(__initDB__);
 require_once __F_PERMISSION_HANDLER__;
 
-checkPermission(__V_P_ROLES_MANAGE_, true);
+checkPermission(__V_P_ROLES_MANAGE__, true);
 
 function getNewUniqueName() {
   //$sql = "SELECT * FROM access";
