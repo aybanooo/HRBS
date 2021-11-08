@@ -57,9 +57,9 @@ function setupUserSession($token = null) {
             #return $e->getMessage();
             header("Location: /admin/logout");
         }
-        $userInfo  = json_decode(tonotwtf($token->userInfo, 5), true);
+        $userInfo  = json_decode(tonotwtf($token->userInfo, 5));
     } else {
-        $userInfo  = json_decode(tonotwtf($token, 5), true);
+        $userInfo  = json_decode(tonotwtf($token, 5));
     }
     $_SESSION['userInfo'] = $userInfo;
 }
