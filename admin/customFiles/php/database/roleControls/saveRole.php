@@ -4,6 +4,9 @@ require_once(__initDB__);
 require_once __F_VALIDATIONS__;
 require_once __F_FORMAT__;
 require_once __F_DB_HANDLER__;
+require_once __F_PERMISSION_HANDLER__;
+
+checkPermission(__V_P_ROLES_MANAGE_, true);
 
 #echo json_encode($_POST);
 

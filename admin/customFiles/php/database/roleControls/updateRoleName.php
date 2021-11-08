@@ -3,6 +3,9 @@ require_once(dirname(__FILE__, 3)."/directories/directories.php");
 require_once(__initDB__);
 require_once(__F_FORMAT__);
 require_once(__F_VALIDATIONS__);
+require_once __F_PERMISSION_HANDLER__;
+
+checkPermission(__V_P_ROLES_MANAGE_, true);
 
 
 checkRequiredPOSTval("acid, newRoleName");

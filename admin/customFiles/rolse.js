@@ -142,18 +142,46 @@ async function newRole(e) {
     await $.ajax({
             type: 'post',
             url: 'customFiles/php/database/roleControls/createNewRole.php',
-            dataType: "html",
+            dataType: "json",
             success: function (response) {
-            //console.log(response);
-            console.log("naAdd na sa DB");
-            $("#rolesBody").append(response);
-            getRoleSelectNodes();
-            console.log("naAdd na sa page");
+                console.log(response);
+                Toast.fire({
+                    icon: response.status,
+                    title: response.message
+                });               
+                if(response.isSuccessful) {
+                    console.log("naAdd na sa DB");
+                    $("#rolesBody").append(response.data);
+                    getRoleSelectNodes();
+                    console.log("naAdd na sa page");
+                    updateRolesCount(table);
+                }
             }
         });
     toggleButtonDisabled(e, "#roles");
 }
 
+function updateRolesCount(api) {
+    //var api = this.api();
+    var roleCount = {};
+    api.rows().data().pluck('accessID').toArray().forEach(element => {
+        if (roleCount[element])
+        roleCount[element]++;
+        else
+        roleCount[element] = 1;
+    });
+    //console.log(roleCount);
+    //Updates the roles count in the roles card
+    for (const [key, value] of Object.entries(roleCount)) {
+        $("#rolesBody").find(`input[name="roleID"][value="${key}"]`).siblings('h3').find('.roleCount').text(value);
+    }
+    $("#rolesBody").find('input[name="roleID"]').each((i,e) => {
+        if(!($(e).attr('value') in roleCount)) {
+        //console.log($(e).attr('value'));
+        $(e).siblings('h3').find('.roleCount').text('0');
+        }
+    });
+}
 
 function getRoleSelectNodes() {
     $.ajax({

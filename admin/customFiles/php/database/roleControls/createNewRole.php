@@ -1,6 +1,9 @@
 <?php
 require_once(dirname(__FILE__,3)."/directories/directories.php");
 require_once(__initDB__);
+require_once __F_PERMISSION_HANDLER__;
+
+checkPermission(__V_P_ROLES_MANAGE_, true);
 
 function getNewUniqueName() {
   //$sql = "SELECT * FROM access";
@@ -34,7 +37,12 @@ if (mysqli_query($conn, "INSERT INTO access (accessname) VALUES ('$roleName');")
 include "./checkaccesspermrelation.php";
 $fakeWhere = "WHERE accessID=$insertID";
 #$fakeWhere = "WHERE accessID=6";#
+ob_start();
 include "./getNewRoleCard.php";
+$card = ob_get_contents();
+ob_end_clean();
+$output->output['data'] = $card;
 
+echo $output->setSuccessful('New role have been created.');
 //header('Location: /Thesis/Proto/scratch.php');
 ?>
