@@ -62,7 +62,7 @@ $dateStartFinal = date("Y-m-d", strtotime($var1));
 
 $var2 = strtr($dateEnd, '/', '-');
 $dateEndFinal = date("Y-m-d", strtotime($var2));
-TT
+
 $date1 = date_create($dateStartFinal);
 $date2 = date_create($dateEndFinal);
 $diff = date_diff($date1, $date2);
@@ -589,8 +589,8 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 		// Finalize the transaction after payer approval
 		onApprove: function(data, actions) {
 			return actions.order.capture().then(function() {
-				window.location = "paypalSuccess.php?&orderID=" + data.orderID;
-				window.location = "paypalSuccess.php?&customerID=" + data.customerID;
+				window.location = "tracnsaction-completed.php?&orderID=" + data.orderID + "&customerID=" + data.customerID;
+				//window.location = "paypalSuccess.php?&customerID=" + data.customerID;
 			});
 		}
 	}).render('#paypal-button-container');
