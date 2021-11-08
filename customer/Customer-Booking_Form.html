@@ -347,7 +347,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			</div>
 			<div class="row">
 				<div class="col-lg-10 mx-auto">
-					<form action="Customer-Booking_Details.php" method="POST">
+					<form action="Customer-Booking_Details.php" method="POST" autocomplete="off">
 						<table class="tableOne">
 							<tr>
 								<td colspan="2">
@@ -488,7 +488,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								</td>
 							</tr>
 							<tr align="right">
-								<td colspan="2"><button type="submit" name="submit" id="submit" class="g-recaptcha" data-sitekey="6LcirBcdAAAAAMdYl6X_hmE0gduIRWTjwNPgfC9y" data-callback='onSubmit' data-action='submit'>Proceed to Payment</button></td>
+								<td colspan="2"><button type="submit" name="submit" id="submit" class="g-recaptcha" data-sitekey="6LcirBcdAAAAAMdYl6X_hmE0gduIRWTjwNPgfC9y" data-callback='onSubmit' data-action='submit' required >Proceed to Payment</button></td>
 							</tr>
 					</form>
 					</table>
