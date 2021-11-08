@@ -39,7 +39,12 @@ SELECT A.*, B.name FROM `permissions` A INNER JOIN `permissionscategory` B ON A.
 
 // Amenities permission
 define('__V_P_AMENITIES_SAVE__', explode(',',
-'11, 20, 21'
+'11'
+));
+
+// Amenities permission
+define('__V_P_ROLES_MANAGE_', explode(',',
+'10'
 ));
 
 //--------------- PERMISSION LIST END ---------------
