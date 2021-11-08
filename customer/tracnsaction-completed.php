@@ -8,7 +8,7 @@ use Sample\PayPalClient;
 use PayPalCheckoutSdk\Orders\OrdersGetRequest;
 require 'paypalClient.php';
 $orderID = $_GET['orderID'];
-$customerID = $_GET['customerID']
+$customerID = $_GET['customerID'];
 class GetOrder
 {
 
@@ -36,14 +36,15 @@ class GetOrder
     //insert details to database
     include('dbcon'); //eto yung conmnection ng database
     //prepare and bind 
-    $stmt = $con->prepare("INSERT INTO tblname (tablecoloums) VALUES (?, ?, ?, ?)");
+    $stmt = $con->prepare("UPDATE reservation SET reservationStatus = '1' WHERE reservationID = '$customerID';");
     $stmt->bind_param("ssss, $VALUES");
     $stmt->execute();
     if (!$stmt) {
         echo 'There was a problem on your code' .mysqli_error($con);
     }
     else{
-        header("Location://paypalSuccess.php");
+      //  header("Location://paypalSuccess.php");
+      echo $customerID;
     }
     $stmt->close();
     $con->close();
