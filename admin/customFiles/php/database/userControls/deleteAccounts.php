@@ -3,6 +3,9 @@ require_once("../../directories/directories.php");
 require_once(__initDB__);
 require_once(__F_VALIDATIONS__);
 require_once(__F_DB_HANDLER__);
+require_once __F_PERMISSION_HANDLER__;
+
+checkPermission(__V_P_ACCOUNT_DELETE__, true);
 
 if(!( isset($_POST["accountList"]) )) {
   echo $output->setFailed("Please select atleast 1 account");
