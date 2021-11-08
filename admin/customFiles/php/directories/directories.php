@@ -38,6 +38,7 @@ define('__F_VALIDATIONS__', __D_PHP__.'database/validations/validations.php');
 define('__D_UI__', __D_ROOT_ADMIN__.'/customFiles/php/UI/');
 define('__F_NAVIGATION__', __D_UI__.'navigation.php');
 define('__F_HEAD_CONTENTS__', __D_UI__.'commonHeadContents.php');
+define('__F_MAIN_HEADER__', __D_UI__.'mainHeader.php');
 
 //----- Gens ------
 define('__F_GEN__', __D_PHP__.'generate/generate.php');
