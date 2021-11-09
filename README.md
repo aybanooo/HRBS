@@ -2,7 +2,7 @@
  Hotel Reservation and Billing System
 
 - [Setup](#setup)
-  - [Required files in the private folder](#required-files-in-the-private-folder)
+  - [Required files in the private folder (Location is defined in the "directories.php")](#required-files-in-the-private-folder-location-is-defined-in-the-directoriesphp)
 - [GIT](#git)
   - [Allowed characters when naming branches](#allowed-characters-when-naming-branches)
   - [Merging types](#merging-types)
@@ -16,7 +16,7 @@
 
 # Setup
 
-## Required files in the private folder
+## Required files in the private folder (Location is defined in the "directories.php")
 
 1. db.ini <br>
 
