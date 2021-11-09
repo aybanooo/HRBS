@@ -16,7 +16,12 @@
 <html lang="en">
 <head>
   
-  <?php include __F_HEAD_CONTENTS__;?>
+  <?php 
+    include __F_HEAD_CONTENTS__;
+    include(__D_UI__."js/analytics.php");
+  ?>
+
+
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
