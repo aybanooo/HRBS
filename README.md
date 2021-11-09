@@ -1,6 +1,8 @@
 # HRBS <!-- omit in toc -->
  Hotel Reservation and Billing System
 
+- [Setup](#setup)
+  - [Required files in the private folder](#required-files-in-the-private-folder)
 - [GIT](#git)
   - [Allowed characters when naming branches](#allowed-characters-when-naming-branches)
   - [Merging types](#merging-types)
@@ -12,6 +14,35 @@
 - [Xampp Setup](#xampp-setup)
   - [Required extension to be enabled in php.ini](#required-extension-to-be-enabled-in-phpini)
 
+# Setup
+
+## Required files in the private folder
+
+1. db.ini <br>
+
+        [Database]
+        DB_SERVERNAME = "localhost"
+        DB_USERNAME = ""
+        DB_PASS = ""
+        DB_NAME = ""
+
+2. dmode.ini <br>
+        
+        [dmode]
+        dmode = FALSE
+
+3. private.ini
+
+        [JWT]
+        JWT_KEY = ""
+
+        [Google Analytics]
+        ANALYTICS_TRACKING_ID = ""
+
+4. system.ini
+
+        [Client Info]
+        CLIENT_DOMAIN_NAME = "hrbs.hotel"
 # GIT
 
 ## Allowed characters when naming branches
