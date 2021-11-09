@@ -17,7 +17,10 @@ setupUserSession();
 <html lang="en">
 <head>
   
-  <?php include __F_HEAD_CONTENTS__;?>
+  <?php 
+    include __F_HEAD_CONTENTS__;
+    include(__D_UI__."js/analytics.php");
+  ?>
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -112,9 +115,11 @@ setupUserSession();
         <!-- /.row (Whole row) -->
         
         <div class="row">
-
+          
           <!-- 1st col -->
-          <div class="col-12 col-lg-6">
+          <div class="col-12 col-lg-6 d-none
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    ">
             <div class="row">
               <div class="col-12">
                 <!-- Donut chart -->
@@ -143,13 +148,31 @@ setupUserSession();
             <div class="row">
               <div class="col-6">
                 <!-- small card -->
-                <div class="small-box bg-gradient-info">
+                <div class="small-box bg-gradient-info" id="analytics-sessions">
                   <div class="inner">
                     <span class="timetabCard">
-                      <button class="active">Today</button>  
+                      <button class="active" onclick="openTab(event, 1)">Today</button>
+                      <button onclick="openTab(event, 2)">5d</button>
+                      <button onclick="openTab(event, 3)">1m</button>
+                      <button onclick="openTab(event, 4)">1y</button>
+                      <button onclick="openTab(event, 5)">Max</button>
                     </span>
-                    <h3 class="timetabCardContent active">150</h3>
-                    <p>Total User Accounts</p>
+                      <h3 class="timetabCardContent active">
+                        <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                      </h3>
+                      <h3 class="timetabCardContent">
+                        <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                      </h3>
+                      <h3 class="timetabCardContent">
+                        <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                      </h3>
+                      <h3 class="timetabCardContent">
+                        <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                      </h3>
+                      <h3 class="timetabCardContent">
+                        <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                      </h3>
+                    <p>Sessions</p>
                   </div>
                   <div class="icon">
                     <i class="fas fa-users"></i>
@@ -160,7 +183,7 @@ setupUserSession();
     
               <div class="col-6">
                 <!-- small card with time shit -->
-                <div class="small-box bg-gradient-success">
+                <div class="small-box bg-gradient-success" id="analytics-users">
                   <div class="inner">
                     <span class="timetabCard">
                       <button class="active" onclick="openTab(event, 1)">Today</button>
@@ -169,12 +192,22 @@ setupUserSession();
                       <button onclick="openTab(event, 4)">1y</button>
                       <button onclick="openTab(event, 5)">Max</button>
                     </span>
-                    <h3 class="timetabCardContent active">150</h3>
-                    <h3 class="timetabCardContent">123</h3>
-                    <h3 class="timetabCardContent">43</h3>
-                    <h3 class="timetabCardContent">21</h3>
-                    <h3 class="timetabCardContent">167</h3>
-                    <p>New User Accounts</p>
+                    <h3 class="timetabCardContent active">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <h3 class="timetabCardContent">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <h3 class="timetabCardContent">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <h3 class="timetabCardContent">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <h3 class="timetabCardContent">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <p>Website Visitors</p>
                   </div>
                   <div class="icon">
                     <i class="fas fa-user"></i>
@@ -185,13 +218,31 @@ setupUserSession();
     
               <div class="col-6">
                 <!-- small card -->
-                <div class="small-box bg-gradient-info">
+                <div class="small-box bg-gradient-info" id="analytics-session-average">
                   <div class="inner">
                     <span class="timetabCard">
-                      <button class="active">Today</button>  
+                      <button class="active" onclick="openTab(event, 1)">Today</button>
+                      <button onclick="openTab(event, 2)">5d</button>
+                      <button onclick="openTab(event, 3)">1m</button>
+                      <button onclick="openTab(event, 4)">1y</button>
+                      <button onclick="openTab(event, 5)">Max</button>
                     </span>
-                    <h3>65</h3>
-                    <p>Total Visits</p>
+                      <h3 class="timetabCardContent active">
+                        <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                      </h3>
+                      <h3 class="timetabCardContent">
+                        <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                      </h3>
+                      <h3 class="timetabCardContent">
+                        <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                      </h3>
+                      <h3 class="timetabCardContent">
+                        <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                      </h3>
+                      <h3 class="timetabCardContent">
+                        <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                      </h3>
+                    <p>Avg. Sessions Duration (Minutes)</p>
                   </div>
                   <div class="icon">
                     <i class="fas fa-eye"></i>
@@ -202,7 +253,7 @@ setupUserSession();
     
               <div class="col-6">
                 <!-- small card with time shit -->
-                <div class="small-box bg-gradient-success">
+                <div class="small-box bg-gradient-success" id="analytics-users-new">
                   <div class="inner">
                     <span class="timetabCard">
                       <button class="active" onclick="openTab(event, 1)">Today</button>
@@ -211,12 +262,22 @@ setupUserSession();
                       <button onclick="openTab(event, 4)">1y</button>
                       <button onclick="openTab(event, 5)">Max</button>
                     </span>
-                    <h3 class="timetabCardContent active">32</h3>
-                    <h3 class="timetabCardContent">42</h3>
-                    <h3 class="timetabCardContent">70</h3>
-                    <h3 class="timetabCardContent">94</h3>
-                    <h3 class="timetabCardContent">167</h3>
-                    <p>Timely Visits</p>
+                    <h3 class="timetabCardContent active">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <h3 class="timetabCardContent">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <h3 class="timetabCardContent">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <h3 class="timetabCardContent">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <h3 class="timetabCardContent">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <p>New Visitors</p>
                   </div>
                   <div class="icon">
                     <i class="far fa-eye"></i>
@@ -227,13 +288,31 @@ setupUserSession();
     
               <div class="col-6">
                 <!-- small card -->
-                <div class="small-box bg-gradient-info">
+                <div class="small-box bg-gradient-info" id="analytics-page_views-per_session">
                   <div class="inner">
                     <span class="timetabCard">
-                      <button class="active">Today</button>  
+                        <button class="active" onclick="openTab(event, 1)">Today</button>
+                        <button onclick="openTab(event, 2)">5d</button>
+                        <button onclick="openTab(event, 3)">1m</button>
+                        <button onclick="openTab(event, 4)">1y</button>
+                        <button onclick="openTab(event, 5)">Max</button>
                     </span>
-                    <h3>65</h3>
-                    <p>Bounce Rate</p>
+                    <h3 class="timetabCardContent active">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <h3 class="timetabCardContent">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <h3 class="timetabCardContent">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <h3 class="timetabCardContent">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <h3 class="timetabCardContent">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <p>Page Views Per Session</p>
                   </div>
                   <div class="icon">
                     <i class="fas fa-percent"></i>
@@ -244,7 +323,7 @@ setupUserSession();
     
               <div class="col-6">
                 <!-- small card with time shit -->
-                <div class="small-box bg-gradient-success">
+                <div class="small-box bg-gradient-success" id="analytics-bounce_rate">
                   <div class="inner">
                     <span class="timetabCard">
                       <button class="active" onclick="openTab(event, 1)">Today</button>
@@ -253,12 +332,22 @@ setupUserSession();
                       <button onclick="openTab(event, 4)">1y</button>
                       <button onclick="openTab(event, 5)">Max</button>
                     </span>
-                    <h3 class="timetabCardContent active">150</h3>
-                    <h3 class="timetabCardContent">123</h3>
-                    <h3 class="timetabCardContent">43</h3>
-                    <h3 class="timetabCardContent">21</h3>
-                    <h3 class="timetabCardContent">167</h3>
-                    <p>Avg. Sessions (Minutes)</p>
+                    <h3 class="timetabCardContent active">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <h3 class="timetabCardContent">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <h3 class="timetabCardContent">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <h3 class="timetabCardContent">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <h3 class="timetabCardContent">
+                      <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                    </h3>
+                    <p>Bounce Rate</p>
                   </div>
                   <div class="icon">
                     <i class="fas fa-stopwatch"></i>
@@ -314,6 +403,7 @@ setupUserSession();
 <script src="plugins/flot/plugins/jquery.flot.pie.js"></script>
 <!-- Special Script-->
 <script src="customFiles/customScript.js"></script>
+<script src="customFiles/webAnalytics.js"></script>
 
 <script>
   $(function () {
