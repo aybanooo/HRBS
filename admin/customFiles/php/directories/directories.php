@@ -49,6 +49,7 @@ define('__CONF_PRIVATE__', __PRVT_F_ROOT__."private.ini"); #This contains privat
 define('__CONF_SYSTEM__', __PRVT_F_ROOT__."system.ini"); #This contains the system/hotel stuff
 define('__CONF_DMODE__', __PRVT_F_ROOT__."dmode.ini"); #For developers
 define('__CONF_DMODE_PARSED__', parse_ini_file(__CONF_DMODE__)['dmode']); #For developers
+define('__CONF_GAPI_CRDS__', __PRVT_F_ROOT__."thesis-331607-94c600763d0c.json"); #for google analytics. service account
 
 //----- Handlers -----
 define('__F_LOGIN_HANDLER__', __D_LOGIN_CONTORLS__."loginHandler.php");
