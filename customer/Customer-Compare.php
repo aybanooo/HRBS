@@ -129,7 +129,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare.php">Compare</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Rooms.php">Rooms</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Amenities.php">Amenities</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger active" href="Customer-Login.php">Login</a></li>
                 </ul>
             </div>
         </div>
