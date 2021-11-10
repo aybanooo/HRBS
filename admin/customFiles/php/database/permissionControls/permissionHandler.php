@@ -15,17 +15,17 @@ SELECT A.*, B.name FROM `permissions` A LEFT JOIN `permissionscategory` B ON A.c
 +--------+---------------------+----------+------------+
 |     21 | Manage Reservations |        0 | General    |
 |     20 | General Testing     |        0 | General    |
-|      1 | Manage Rooms        |        1 | Rooms      |
-|     23 | Manage Room Numbers |        1 | Rooms      |
-|     24 | Manage Room Status  |        1 | Rooms      |
-|     11 | Manage amenities    |        2 | Amenities  |
-|     19 | Manage Vouchers     |        3 | Vouchers   |
-|     10 | Manage roles        |        4 | Accounts   |
-|      9 | Reset password      |        4 | Accounts   |
-|      8 | Delete accounts     |        4 | Accounts   |
-|     22 | Change Account Role |        4 | Accounts   |
-|      7 | Add accounts        |        4 | Accounts   |
-|     18 | Manage Hotel Info   |        5 | Hotel Info |
+|      1 | Manage Rooms        |        1 | Rooms      |-
+|     23 | Manage Room Numbers |        1 | Rooms      |-
+|     24 | Manage Room Status  |        1 | Rooms      |-
+|     11 | Manage amenities    |        2 | Amenities  |-
+|     19 | Manage Vouchers     |        3 | Vouchers   |-
+|     10 | Manage roles        |        4 | Accounts   |-
+|      9 | Reset password      |        4 | Accounts   |-
+|      8 | Delete accounts     |        4 | Accounts   |-
+|     22 | Change Account Role |        4 | Accounts   |-
+|      7 | Add accounts        |        4 | Accounts   |-
+|     18 | Manage Hotel Info   |        5 | Hotel Info |-
 +--------+---------------------+----------+------------+
 */
 
