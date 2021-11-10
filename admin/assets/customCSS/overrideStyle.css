@@ -1,6 +1,6 @@
 /* Enter your custom style here*/
 /* Don't forget to put "!important" to override styles */
 
-.btn {  
-  border: none;
+h1,h2,h3,h4 {
+	color: brown;
 }

@@ -6,6 +6,9 @@ require_once(__F_OUTPUT_HANDLER__);
 require_once(__F_FORMAT__);
 require_once(__F_FORMAT_INPUT__);
 require_once(__F_VALIDATIONS__);
+require_once(__F_PERMISSION_HANDLER__);
+
+checkPermission(__V_P_VOUCHERS_MANAGE__, 1);
 
 function generateCode() {
     $template = "abcdefghijklmnopABCDEFGHIJKLMNOP0123456789";

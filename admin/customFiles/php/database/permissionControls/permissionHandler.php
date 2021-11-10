@@ -41,6 +41,10 @@ define('__V_P_ROOMS_MANAGE_STATUS__', explode(',',
 define('__V_P_AMENITIES_MANAGE__', explode(',',
 '11' ));
 
+// Amenities permission
+define('__V_P_VOUCHERS_MANAGE__', explode(',',
+'19' ));
+
 // Roles permission
 define('__V_P_ROLES_MANAGE__', explode(',',
 '10' ));
