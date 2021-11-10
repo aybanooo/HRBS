@@ -4,6 +4,9 @@ require_once(__initDB__);
 require_once(__F_VALIDATIONS__);
 require_once(__F_FORMAT__);
 require_once(__F_FORMAT_IMAGE__);
+require_once(__F_PERMISSION_HANDLER__);
+
+checkPermission(__V_P_HOTEL_INFO_MANAGE__, true);
 
 //print_r($_FILES);
 
