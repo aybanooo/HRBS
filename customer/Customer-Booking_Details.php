@@ -589,7 +589,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 		// Finalize the transaction after payer approval
 		onApprove: function(data, actions) {
 			return actions.order.capture().then(function() {
-				window.location = "tracnsaction-completed.php?&orderID=" + data.orderID + "&customerID=" + data.customerID;
+				window.location = "tracnsaction-completed.php?&orderID=" + data.orderID + "&customerID=" + data.countCustID;
 				//window.location = "paypalSuccess.php?&customerID=" + data.customerID;
 			});
 		}
