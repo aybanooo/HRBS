@@ -219,13 +219,13 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			<div class="col-lg-4 mx-auto">
 				<p><b>Contact us</b></p>
 				<p><?php echo $followingdata["contact"]; ?></p>
-				<p><a href="mailto:<?php $followingdata["email"]; ?>"><?php echo $followingdata["email"]; ?></a></p>
+				<p><?php echo $followingdata["email"]; ?></p>               
 			</div>
 			<div class="col-lg-4 mx-auto">
 				<p>Connect with us at</p>
-				<a href="<?php $followingdata["socialFB"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-facebook btn-rounded"><i class="fa fa-facebook"></i></button></a>
-				<a href="<?php $followingdata["socialInstagram"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-instagram btn-rounded"><i class="fa fa-instagram"></i></button></a>
-				<a href="<?php $followingdata["socialTwitter"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-twitter btn-rounded"><i class="fa fa-twitter"></i></button></a>
+					<button type="button" class="btn btn-social-icon btn-facebook btn-rounded" href="<?php echo $followingdata["socialFB"]; ?>"><i class="fa fa-facebook"></i></button>
+					<button type="button" class="btn btn-social-icon btn-instagram btn-rounded" href="<?php echo $followingdata["socialInstagram"]; ?>"><i class="fa fa-instagram"></i></button>
+					<button type="button" class="btn btn-social-icon btn-twitter btn-rounded" href="<?php echo $followingdata["socialTwitter"]; ?>"><i class="fa fa-twitter"></i></button>          
 			</div>
 			<div class="col-lg-4 mx-auto">
 				<p><?php echo $followingdata["footerRight"]; ?></p>
