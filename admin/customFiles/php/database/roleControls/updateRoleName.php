@@ -5,7 +5,7 @@ require_once(__F_FORMAT__);
 require_once(__F_VALIDATIONS__);
 require_once __F_PERMISSION_HANDLER__;
 
-checkPermission(__V_P_ROLES_MANAGE_, true);
+checkPermission(__V_P_ROLES_MANAGE__, true);
 
 
 checkRequiredPOSTval("acid, newRoleName");
