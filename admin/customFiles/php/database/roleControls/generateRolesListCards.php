@@ -62,3 +62,9 @@ if(mysqli_num_rows($result = mysqli_query($conn, "SELECT A.*, B.category AS cate
 include "./generateHTMLcards.php";
 die();
 ?>
+
+<pre>
+  <?php
+    echo json_encode($categories);
+  ?>
+</pre>

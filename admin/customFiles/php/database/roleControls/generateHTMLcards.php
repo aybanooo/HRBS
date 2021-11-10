@@ -44,7 +44,17 @@
               ?>
               <div class="row mt-2">
                 <div class="col-12">
-                  <h5> <?php print $val['permissionCategories'][$i]['name'];?> </h5>
+                  <?php
+                    if(count($val['permissionCategories'][$i]['permissions']) > 1) {
+                    ?>
+                      <h5 class="mb-0 mt-2"> <?php print $val['permissionCategories'][$i]['name'];?> </h5>
+                   <?php
+                  } else {
+                    ?>
+                      <h5 class="mb-1 mt-2"> <?php print $val['permissionCategories'][$i]['name'];?> </h5>
+                    <?php
+                  }
+                  ?>
                 </div>
               </div> 
               <div class="row">
@@ -87,9 +97,17 @@
               ?>
               <div class="row mt-2">
                 <div class="col-12">
-                  <h5 class="mb-0 mt-2"> <?php 
-                    print  $val['permissionCategories'][$i]['name'];
-                  ?> </h5>
+                  <?php
+                    if(count($val['permissionCategories'][$i]['permissions']) > 1) {
+                    ?>
+                      <h5 class="mb-0 mt-2"> <?php print $val['permissionCategories'][$i]['name'];?> </h5>
+                   <?php
+                  } else {
+                    ?>
+                      <h5 class="mb-1 mt-2"> <?php print $val['permissionCategories'][$i]['name'];?> </h5>
+                    <?php
+                  }
+                  ?>
                 </div>
               </div> 
               <div class="row">
