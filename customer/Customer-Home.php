@@ -9,7 +9,7 @@ if ($conn->connect_error) {
 }
 
 $query = "SELECT companyName, companyDesc, address, longitude, latitude  
-FROM companyInfo";
+FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
