@@ -26,13 +26,7 @@ class GetOrder
     $orderID = $response->result->id;
     $email = $response->result->payer->email_address;
     $name = $response->result->purchase_units[0]->shipping->name->full_name;
-    $address1 = $response->result->purchase_units[0]->address->address_line_1;
-    $address2 = $response->result->purchase_units[0]->address->admin_area_2;
-    $address3 = $response->result->purchase_units[0]->address->admin_area_1;
-    $address4 = $response->result->purchase_units[0]->address->postal_code;
-    $address5 = $response->result->purchase_units[0]->address->country_code;
-    $fullAddress = $address1.", ".$address2.", ".$address3.", ".$address4.", ".$address5;
-
+  
     //insert details to database
     include('dbcon'); //eto yung conmnection ng database
     //prepare and bind 
