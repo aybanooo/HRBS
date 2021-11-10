@@ -499,7 +499,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		</div>
 	</section>
 	<?php
-	$query = "SELECT DISTINCT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
+	$query = "SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
         FROM socialmedias, companyinfo";
 	$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 	$followingdata = $result->fetch_array(MYSQLI_ASSOC);
@@ -513,7 +513,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			</div>
 			<div class="col-lg-4 mx-auto">
 				<p>Connect with us at</p>
-				<a href="<?php echo $followingdata["socialFB"]; ?>"><button type="button" class="btn btn-social-icon btn-facebook btn-rounded" ><i class="fa fa-facebook"></i></button></a>
+				<button type="button" class="btn btn-social-icon btn-facebook btn-rounded" href="<?php echo $followingdata["socialFB"]; ?>"><i class="fa fa-facebook"></i></button>
 				<button type="button" class="btn btn-social-icon btn-instagram btn-rounded" href="<?php echo $followingdata["socialInstagram"]; ?>"><i class="fa fa-instagram"></i></button>
 				<button type="button" class="btn btn-social-icon btn-twitter btn-rounded" href="<?php echo $followingdata["socialTwitter"]; ?>"><i class="fa fa-twitter"></i></button>
 			</div>
