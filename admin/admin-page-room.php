@@ -1106,11 +1106,13 @@ function deleteSelection(selection) {
     success: function (response) {
       //console.log(response);
       Toast.fire({
-        icon: response.isSuccessful ? "success" : "error",
+        icon: response.status,
         title: response.message
       });
-      tableManageRoom.ajax.reload();
-      $("#itemPool").html('');
+      if(response.isSuccessful) {
+        tableManageRoom.ajax.reload();
+        $("#itemPool").html('');
+      }
     }
   });
 

@@ -1,6 +1,9 @@
 <?php
 require_once("../../directories/directories.php");
 require_once(__initDB__);
+require_once __F_PERMISSION_HANDLER__;
+
+checkPermission(__V_P_ROOMS_MANAGE__, true);
 
 function roomExist(&$conn) {
     $sql = "SELECT * FROM roomtype where roomTypeID='".$_POST["roomID"]."' LIMIT 1;";
@@ -39,8 +42,7 @@ define("DELETE_DIR", __D_ROOMS__.$_POST["roomID"]);
 
 
 if( !isset($_POST["roomID"]) || empty(trim($_POST["roomID"]))) {
-    $output->setFailed("No room ID");
-    echo $output->getOutput(true);
+    echo $output->setFailed("No room ID");
     die();
 }
 
@@ -52,7 +54,7 @@ mysqli_query($conn, $sql);
 if (mysqli_query($conn, $sql)) {
     $output->setSuccessful("Room deleted successfully");
 } else {
-    $output->setFailed("Something went wrong while deleting the room.", mysqli_error($conn) );
+    $output->setFailed("Something went wrong while deleting the room.");
     echo $output->getOutput(true);
     die();
 }
@@ -61,8 +63,7 @@ try {
     if(file_exists(DELETE_DIR))
         removeDirectory(DELETE_DIR);
 } catch (Exception $e) {
-    $output->setFailed("Failed to delete folder and files. ".$e);
-    echo $output->getOutput(true);
+    echo $output->setFailed("Failed to delete folder and files.");
     die();
 }
 

@@ -1,6 +1,9 @@
 <?php
 require_once("../../directories/directories.php");
 require_once(__initDB__);
+require_once __F_PERMISSION_HANDLER__;
+
+checkPermission(__V_P_ROOMS_MANAGE__, true);
 
 if( !isset($_POST["roomName"]) || empty(trim($_POST["roomName"]))) {
   $output->setFailed("No room name");

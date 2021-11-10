@@ -2,6 +2,9 @@
 
 require_once("../../directories/directories.php");
 require_once(__initDB__);
+require_once __F_PERMISSION_HANDLER__;
+
+checkPermission(__V_P_ROOMS_MANAGE__, true);
 
 function imageNameExistsInGallery(&$conn, $imageName) {
     $sql = "SELECT picture from gallery where picture like '".$imageName."';";
