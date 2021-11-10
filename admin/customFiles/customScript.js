@@ -16,24 +16,23 @@ function dimRooms() {
 
 function delRoomInList(evt, roomID) {
   //evt.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
-  
   $.ajax({
     type: "post",
     url: "customFiles/php/database/roomControls/deleteRoom.php",
     data: {
       roomID: roomID
     },
-    async: false,
+    dataType: 'json',
     success: function (response) {
-      response = JSON.parse(response);
       //console.log(response);
-      if (response.isSuccessful)
-        tbl.row($(evt).parentsUntil("tr")).remove().draw(false);
       Toast.fire({
-        icon: response.isSuccessful ? "success" : "error",
-        title: response.isSuccessful ? "Room has been sucessfuly deleted." : "Failed to delete room. "+response.error.desc
+        icon: response.status,
+        title: response.message
       });
-      refreshManageRoomNumSelectElements();
+      if (response.isSuccessful) {
+        tbl.row($(evt).parentsUntil("tr")).remove().draw(false);
+        refreshManageRoomNumSelectElements();
+      }
     }
   });
   
