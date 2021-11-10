@@ -1,14 +1,8 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "test");
-
-if ($conn->connect_error) {
-    $output->setFailed("Cannot connect to database." . $conn->connect_error);
-    echo $output->getOutput(true);
-    die();
-}
+include('db.php');
 
 $query = "SELECT companyName, companyDesc, address, longitude, latitude  
-FROM companyInfo";
+FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
@@ -226,7 +220,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                 <div class="container">
                     <!-- Featured Project Row-->
                     <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-                        <div class="col-xl-8 col-lg-7"><a href="B.0-Customer-Rooms-Room-Details-Modified.html"><img class="img-fluid mb-3 mb-lg-0" src="https://806d2bf04cf5fa54997a-e7c5344b3b84eec5da7b51276407b19c.ssl.cf1.rackcdn.com/responsive/1536/806d2bf04cf5fa54997a-e7c5344b3b84eec5da7b51276407b19c.ssl.cf1.rackcdn.com/u/conservatorium/rooms/penthouse/Penthouse-Suite---900--1-.jpg" alt="" /></a></div>
+                        <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="https://806d2bf04cf5fa54997a-e7c5344b3b84eec5da7b51276407b19c.ssl.cf1.rackcdn.com/responsive/1536/806d2bf04cf5fa54997a-e7c5344b3b84eec5da7b51276407b19c.ssl.cf1.rackcdn.com/u/conservatorium/rooms/penthouse/Penthouse-Suite---900--1-.jpg" alt="" /></div>
                         <div class="col-xl-4 col-lg-5">
                             <div class="featured-text text-center text-lg-left">
                                 <h4><?php echo $row["name"]; ?></h4>
@@ -285,7 +279,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     <!-- Footer-->
     <?php
     $query = "SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
-        FROM socialMedias, companyInfo";
+        FROM socialmedias, companyinfo";
     $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
     $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     ?>
@@ -294,13 +288,13 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             <div class="col-lg-4 mx-auto">
                 <p><b>Contact us</b></p>
                 <p><?php echo $followingdata["contact"]; ?></p>
-                <p><?php echo $followingdata["email"]; ?></p>
+                <p><a href="mailto:<?php $followingdata["email"]; ?>"><?php echo $followingdata["email"]; ?></a></p>
             </div>
             <div class="col-lg-4 mx-auto">
                 <p>Connect with us at</p>
-                <button type="button" class="btn btn-social-icon btn-facebook btn-rounded" href="<?php echo $followingdata["socialFB"]; ?>"><i class="fa fa-facebook"></i></button>
-                <button type="button" class="btn btn-social-icon btn-instagram btn-rounded" href="<?php echo $followingdata["socialInstagram"]; ?>"><i class="fa fa-instagram"></i></button>
-                <button type="button" class="btn btn-social-icon btn-twitter btn-rounded" href="<?php echo $followingdata["socialTwitter"]; ?>"><i class="fa fa-twitter"></i></button>
+                <a href="<?php echo $followingdata["socialFB"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-facebook btn-rounded"><i class="fa fa-facebook"></i></button></a>
+                <a href="<?php echo $followingdata["socialInstagram"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-instagram btn-rounded"><i class="fa fa-instagram"></i></button></a>
+                <a href="<?php echo $followingdata["socialTwitter"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-twitter btn-rounded"><i class="fa fa-twitter"></i></button></a>
             </div>
             <div class="col-lg-4 mx-auto">
                 <p><?php echo $followingdata["footerRight"]; ?></p>

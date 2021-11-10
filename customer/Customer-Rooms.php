@@ -1,14 +1,7 @@
 <?php
+include('db.php');
 
-$conn = new mysqli("localhost", "root", "", "test");
-
-if ($conn->connect_error) {
-  $output->setFailed("Cannot connect to database.".$conn->connect_error);
-  echo $output->getOutput(true);
-  die();
-}
-
-$query="SELECT companyName FROM companyInfo";
+$query="SELECT companyName FROM companyinfo";
 $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 ?>
@@ -20,7 +13,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title><?php echo $followingdata['companyName']; ?> Login</title>
+    <title><?php echo $followingdata['companyName']; ?> Rooms</title>
     <link rel="icon" type="image/x-icon" href="" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -201,27 +194,27 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		
 	<?php
         $query="SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
-        FROM socialMedias, companyInfo";
+        FROM socialmedias, companyinfo";
         $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
         $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     ?>
 	<div class="footer">
-		<div class="row">
-			<div class="col-lg-4 mx-auto">
-				<p><b>Contact us</b></p>
-				<p><?php echo $followingdata["contact"]; ?></p>
-				<p><?php echo $followingdata["email"]; ?></p>               
-			</div>
-			<div class="col-lg-4 mx-auto">
-				<p>Connect with us at</p>
-					<button type="button" class="btn btn-social-icon btn-facebook btn-rounded" href="<?php echo $followingdata["socialFB"]; ?>"><i class="fa fa-facebook"></i></button>
-					<button type="button" class="btn btn-social-icon btn-instagram btn-rounded" href="<?php echo $followingdata["socialInstagram"]; ?>"><i class="fa fa-instagram"></i></button>
-					<button type="button" class="btn btn-social-icon btn-twitter btn-rounded" href="<?php echo $followingdata["socialTwitter"]; ?>"><i class="fa fa-twitter"></i></button>          
-			</div>
-			<div class="col-lg-4 mx-auto">
-				<p><?php echo $followingdata["footerRight"]; ?></p>
-			</div>
-		</div>
-	</div>
+        <div class="row">
+            <div class="col-lg-4 mx-auto">
+                <p><b>Contact us</b></p>
+                <p><?php echo $followingdata["contact"]; ?></p>
+                <p><a href="mailto:<?php $followingdata["email"]; ?>"><?php echo $followingdata["email"]; ?></a></p>
+            </div>
+            <div class="col-lg-4 mx-auto">
+                <p>Connect with us at</p>
+                <a href="<?php echo $followingdata["socialFB"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-facebook btn-rounded"><i class="fa fa-facebook"></i></button></a>
+                <a href="<?php echo $followingdata["socialInstagram"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-instagram btn-rounded"><i class="fa fa-instagram"></i></button></a>
+                <a href="<?php echo $followingdata["socialTwitter"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-twitter btn-rounded"><i class="fa fa-twitter"></i></button></a>
+            </div>
+            <div class="col-lg-4 mx-auto">
+                <p><?php echo $followingdata["footerRight"]; ?></p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

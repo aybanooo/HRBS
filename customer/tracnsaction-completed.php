@@ -31,17 +31,17 @@ class GetOrder
     include('db.php'); //eto yung conmnection ng database
     //prepare and bind 
     $maxIDQ = "SELECT MAX(customerID) AS 'maxID' FROM customer";
-    $maxIDRes = mysqli_query($con, $maxIDQ);
+    $maxIDRes = mysqli_query($conn, $maxIDQ);
     $maxIDRow = mysqli_fetch_assoc($maxIDRes);
     $customerID = $maxIDRow['maxID'];
     $stmt = "UPDATE reservation SET reservationStatus = '1' WHERE reservationID = '$customerID'";
     
     if (!$stmt) {
-        echo 'There was a problem on your code' .mysqli_error($con);
+        echo 'There was a problem on your code' .mysqli_error($conn);
     }
     else{
       echo '<script>window.location.href="paypalSuccess.php";</script>';
-      mysqli_query($con, $stmt) or die('Error: ' . mysqli_error($con));
+      mysqli_query($conn, $stmt) or die('Error: ' . mysqli_error($conn));
     }
     /**
      *Enable the following line to print complete response as JSON.
