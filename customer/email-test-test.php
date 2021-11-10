@@ -11,7 +11,7 @@ require 'vendor/autoload.php';
 
 //Create an instance; passing `true` enables exceptions
 $mail = new PHPMailer(true);
-$apiKeyPass = '';
+$apiKeyPass = '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';
 
 
 try {
