@@ -8,7 +8,7 @@ use Sample\PayPalClient;
 use PayPalCheckoutSdk\Orders\OrdersGetRequest;
 require 'paypalClient.php';
 $orderID = $_GET['orderID'];
-$customerID = $_GET['customerID'];
+
 class GetOrder
 {
 
@@ -28,20 +28,21 @@ class GetOrder
     $name = $response->result->purchase_units[0]->shipping->name->full_name;
   
     //insert details to database
-    include('dbcon'); //eto yung conmnection ng database
+    include('db.php'); //eto yung conmnection ng database
     //prepare and bind 
-    $stmt = $con->prepare("UPDATE reservation SET reservationStatus = '1' WHERE reservationID = '$customerID';");
-    $stmt->bind_param("ssss, $VALUES");
-    $stmt->execute();
+    $maxIDQ = "SELECT MAX(customerID) AS 'maxID' FROM customer";
+    $maxIDRes = mysqli_query($con, $maxIDQ);
+    $maxIDRow = mysqli_fetch_assoc($maxIDRes);
+    $customerID = $maxIDRow['maxID'];
+    $stmt = "UPDATE reservation SET reservationStatus = '1' WHERE reservationID = '$customerID'";
+    
     if (!$stmt) {
         echo 'There was a problem on your code' .mysqli_error($con);
     }
     else{
-      //  header("Location://paypalSuccess.php");
-      echo $customerID;
+      echo '<script>window.location.href="paypalSuccess.php";</script>';
+      mysqli_query($con, $stmt) or die('Error: ' . mysqli_error($con));
     }
-    $stmt->close();
-    $con->close();
     /**
      *Enable the following line to print complete response as JSON.
      */
