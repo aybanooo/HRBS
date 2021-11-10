@@ -4,6 +4,9 @@ require_once(__initDB__);
 require_once(__F_OUTPUT_HANDLER__);
 require_once(__F_FORMAT__);
 require_once(__F_FORMAT_INPUT__);
+require_once __F_PERMISSION_HANDLER__;
+
+checkPermission(__V_P_ROOMS_MANAGE_STATUS__, true);
 
 
 if ( !(isset($_POST['input-one-newRoomStatus']) && isset($_POST['input-one-newDescription']) && isset($_POST['select-one-bookable']) ) )  {

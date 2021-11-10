@@ -15,28 +15,23 @@ SELECT A.*, B.name FROM `permissions` A LEFT JOIN `permissionscategory` B ON A.c
 +--------+----------------------+----------+-----------+
 |     21 | Manage Reservations  |        0 | NULL      |
 |     20 | General Testing      |        0 | NULL      |
-|      1 | Add/Delete Rooms     |        1 | Rooms     |
+|      1 | Manage Rooms         |        1 | Rooms     |
 |     23 | Manage Room Numbers  |        1 | Rooms     |
 |     24 | Manage Room Status   |        1 | Rooms     |
-|      6 | Manage room rates    |        1 | Rooms     |
-|      2 | Manage room thumbnai |        1 | Rooms     |
-|      4 | Manage room sections |        1 | Rooms     |
-|      3 | Manage room descript |        1 | Rooms     |
-|      5 | Manage room general  |        1 | Rooms     |
 |     11 | Manage amenities     |        2 | Amenities |
 |     19 | Manage Vouchers      |        3 | Vouchers  |
-|     10 | Manage roles         |        4 | Accounts  |
-|     22 | Change Account Role  |        4 | Accounts  |
-|      9 | Reset password       |        4 | Accounts  |
-|      8 | Delete accounts      |        4 | Accounts  |
 |      7 | Add accounts         |        4 | Accounts  |
+|     22 | Change Account Role  |        4 | Accounts  |
+|      8 | Delete accounts      |        4 | Accounts  |
+|     10 | Manage roles         |        4 | Accounts  |
+|      9 | Reset password       |        4 | Accounts  |
 |     18 | Modify Location      |        5 | Webpage   |
 |     17 | Modify Display       |        5 | Webpage   |
 |     16 | Modify Social Media  |        5 | Webpage   |
-|     15 | Modify Contact Info  |        5 | Webpage   |
 |     14 | Modify Company Logo  |        5 | Webpage   |
-|     12 | Modify company name  |        5 | Webpage   |
 |     13 | Modify Page Cover    |        5 | Webpage   |
+|     12 | Modify company name  |        5 | Webpage   |
+|     15 | Modify Contact Info  |        5 | Webpage   |
 +--------+----------------------+----------+-----------+
 */
 

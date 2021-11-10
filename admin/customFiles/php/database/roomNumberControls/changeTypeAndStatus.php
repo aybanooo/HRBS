@@ -3,6 +3,9 @@ require_once("../../directories/directories.php");
 require_once(__initDB__);
 require_once(__F_FORMAT_INPUT__);
 require_once(__F_FORMAT__);
+require_once __F_PERMISSION_HANDLER__;
+
+checkPermission(__V_P_ROOMS_MANAGE_NUMBERS__, true);
 
 
 $_POST["roomNums"] = explode(",", $_POST["roomNums"]);

@@ -2,13 +2,15 @@
 require_once("../../directories/directories.php");
 require_once(__initDB__);
 require_once(__F_OUTPUT_HANDLER__);
+require_once __F_PERMISSION_HANDLER__;
+
+checkPermission(__V_P_ROOMS_MANAGE_STATUS__, true);
 
 if(!isset($_POST["roomStatusIDArray"])) {
     $output->setFailed("Selection doesn't exist.");
     echo $output->getOutput(1);
     die();
 }
-
 
 $roomStatusIDArray = implode(", ", $_POST["roomStatusIDArray"]);
 

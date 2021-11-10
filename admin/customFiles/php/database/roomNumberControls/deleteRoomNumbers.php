@@ -1,6 +1,9 @@
 <?php
 require_once("../../directories/directories.php");
 require_once(__initDB__);
+require_once __F_PERMISSION_HANDLER__;
+
+checkPermission(__V_P_ROOMS_MANAGE_NUMBERS__, true);
 
 if(!isset($_POST["roomNoArray"])) {
     $output->setFailed("Selection doesn't exist.");
