@@ -71,7 +71,8 @@ function decodeLoginToken($token, $asArray = false) {
 }
 
 function getUserInfoFromToken($token) {
-    $token = JWT::decode($token, $GLOBALS['ini']['JWT_KEY'], ['HS512']);
+    $ini = array_merge(parse_ini_file(__CONF_PRIVATE__));
+    $token = JWT::decode($token, $ini['JWT_KEY'], ['HS512']);
     $userInfo = json_decode(tonotwtf($token->userInfo,5));
     return $userInfo;
 }
