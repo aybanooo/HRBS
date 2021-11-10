@@ -22,7 +22,7 @@ BILLING
 SETTINGS
   L System
   L Appearance
-  L Webpage
+  L Webpage (Changed to "Hotel Info")
   L My Account
 LOGOUT
 
@@ -177,9 +177,9 @@ LOGOUT
               </a>
             </li>
             <li class="nav-item">
-              <a href="webpage" class="nav-link">
+              <a href="settings-hotel" class="nav-link">
                 <i class="fas fa-file nav-icon"></i>
-                <p>Webpage</p>
+                <p>Hotel Info</p>
               </a>
             </li>
             <li class="nav-item">

@@ -58,7 +58,7 @@
     RewriteRule ^billing$ admin-billing.php [NC,L]
     RewriteRule ^settings-system$ admin-settings-system.php [NC,L]
     RewriteRule ^appearance$ admin-settings-appearance.php [NC,L]
-    RewriteRule ^webpage$ admin-settings-webpage.php [NC,L]
+    RewriteRule ^settings-hotel$ admin-settings-webpage.php [NC,L]
     RewriteRule ^profile$ admin-settings-myAccount.php [NC,L]
     RewriteRule ^logout$ admin-logout.php [NC,L]
 
