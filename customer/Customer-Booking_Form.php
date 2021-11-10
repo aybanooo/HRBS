@@ -359,7 +359,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<th><label for="date">Check In Date:</label></th>
 								<td>
 									<div class="form-group">
-										<input type="text" name="date_picker1" id="date_picker1">
+										<input type="text" name="date_picker1" id="date_picker1" required>
 									</div>
 								</td>
 							</tr>
@@ -367,7 +367,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<th><label for="date">Check Out Date:</label></th>
 								<td>
 									<div class="form-group">
-										<input type="text" name="date_picker2" id="date_picker2">
+										<input type="text" name="date_picker2" id="date_picker2" required>
 									</div>
 								</td>
 							</tr>
