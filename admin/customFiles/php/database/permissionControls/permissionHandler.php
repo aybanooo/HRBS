@@ -15,16 +15,16 @@ SELECT A.*, B.name FROM `permissions` A LEFT JOIN `permissionscategory` B ON A.c
 +--------+----------------------+----------+-----------+
 |     21 | Manage Reservations  |        0 | NULL      |
 |     20 | General Testing      |        0 | NULL      |
-|      1 | Manage Rooms         |        1 | Rooms     |
-|     23 | Manage Room Numbers  |        1 | Rooms     |
-|     24 | Manage Room Status   |        1 | Rooms     |
-|     11 | Manage amenities     |        2 | Amenities |
+|      1 | Manage Rooms         |        1 | Rooms     |-
+|     23 | Manage Room Numbers  |        1 | Rooms     |-
+|     24 | Manage Room Status   |        1 | Rooms     |-
+|     11 | Manage amenities     |        2 | Amenities |-
 |     19 | Manage Vouchers      |        3 | Vouchers  |
-|      7 | Add accounts         |        4 | Accounts  |
-|     22 | Change Account Role  |        4 | Accounts  |
-|      8 | Delete accounts      |        4 | Accounts  |
-|     10 | Manage roles         |        4 | Accounts  |
-|      9 | Reset password       |        4 | Accounts  |
+|      7 | Add accounts         |        4 | Accounts  |-
+|     22 | Change Account Role  |        4 | Accounts  |-
+|      8 | Delete accounts      |        4 | Accounts  |-
+|     10 | Manage roles         |        4 | Accounts  |-
+|      9 | Reset password       |        4 | Accounts  |-
 |     18 | Modify Location      |        5 | Webpage   |
 |     17 | Modify Display       |        5 | Webpage   |
 |     16 | Modify Social Media  |        5 | Webpage   |
@@ -44,7 +44,7 @@ define('__V_P_ROOMS_MANAGE_STATUS__', explode(',',
 '24' ));
 
 // Amenities permission
-define('__V_P_AMENITIES_SAVE__', explode(',',
+define('__V_P_AMENITIES_MANAGE__', explode(',',
 '11' ));
 
 // Roles permission

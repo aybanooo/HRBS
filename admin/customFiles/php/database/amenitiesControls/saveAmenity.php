@@ -8,7 +8,7 @@ require_once __F_PERMISSION_HANDLER__;
 #print_r($_POST);
 #print_r($_FILES);
 
-checkPermission(__V_P_AMENITIES_SAVE__, true);
+checkPermission(__V_P_AMENITIES_MANAGE__, true);
 
 $id = tonotwtf($_POST['amid'], 3);
 formatToType($id, 1);

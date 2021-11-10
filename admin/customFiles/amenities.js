@@ -261,7 +261,7 @@ function removeAmenity(el) {
                 title: response.message
             });
             toggleButtonDisabled(el, `div.card[data-amid='${amid}']`, "");
-            target.remove();
+            (response.isSuccessful) && target.remove();
         }
     });
 }

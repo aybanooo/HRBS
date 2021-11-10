@@ -5,7 +5,9 @@ require_once __initDB__;
 require_once __F_FORMAT__;
 require_once __F_VALIDATIONS__;
 require_once "genAmenityCardFunction.php";
+require_once __F_PERMISSION_HANDLER__;
 
+checkPermission(__V_P_AMENITIES_MANAGE__, true);
 #print_r($_POST);
 #print_r($_FILES); 
 
