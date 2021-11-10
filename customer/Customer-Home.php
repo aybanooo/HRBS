@@ -220,7 +220,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                 <div class="container">
                     <!-- Featured Project Row-->
                     <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-                        <div class="col-xl-8 col-lg-7"><a href="B.0-Customer-Rooms-Room-Details-Modified.html"><img class="img-fluid mb-3 mb-lg-0" src="https://806d2bf04cf5fa54997a-e7c5344b3b84eec5da7b51276407b19c.ssl.cf1.rackcdn.com/responsive/1536/806d2bf04cf5fa54997a-e7c5344b3b84eec5da7b51276407b19c.ssl.cf1.rackcdn.com/u/conservatorium/rooms/penthouse/Penthouse-Suite---900--1-.jpg" alt="" /></a></div>
+                        <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="https://806d2bf04cf5fa54997a-e7c5344b3b84eec5da7b51276407b19c.ssl.cf1.rackcdn.com/responsive/1536/806d2bf04cf5fa54997a-e7c5344b3b84eec5da7b51276407b19c.ssl.cf1.rackcdn.com/u/conservatorium/rooms/penthouse/Penthouse-Suite---900--1-.jpg" alt="" /></div>
                         <div class="col-xl-4 col-lg-5">
                             <div class="featured-text text-center text-lg-left">
                                 <h4><?php echo $row["name"]; ?></h4>
