@@ -14,7 +14,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require_once 'email-config.php';
+//require_once 'email-config.php';
 require 'vendor/autoload.php';
 
 //Create an instance; passing true enables exceptions
