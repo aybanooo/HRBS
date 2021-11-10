@@ -3,7 +3,7 @@ require_once("../../directories/directories.php");
 require_once(__initDB__);
 
 function createSelectElements($list) {
-    $select = "<select class='custom-select form-control-border bg-transparent selectRoomType' name='selectRoomType'>";
+    $select = "<select class='custom-select form-control-border selectRoomType' name='selectRoomType'>";
     foreach($list as $id => $name) {
         $select .= "<option value='$id'>$name</option>";
     }

@@ -209,7 +209,7 @@ setupUserSession();
                             </div>
                             <div class="col">
                               <span class="font-weight-bold text-gray" style="pointer-events: none; position: absolute; top: -5px; left: 0; font-size: 1.5ex;">Bookable</span>
-                              <select class="custom-select form-control-border bg-transparent selectRoomType" id="select-one-bookable" name="select-one-bookable">
+                              <select class="custom-select form-control-border selectRoomType" id="select-one-bookable" name="select-one-bookable">
                                 <option value="1">Yes</option>
                                 <option value="0">No</option>
                               </select>
@@ -434,7 +434,7 @@ $("#form-createNewRoom").validate({
           //console.log(response);
         Toast.fire({
           icon: response.isSuccessful ? "success" : "error",
-          title: response.isSuccessful ? "Room has been `successfuly added." : "Cannot add room. " + response.message
+          title: response.isSuccessful ? "Room has been successfuly added." : "Cannot add room. " + response.message
         });
         refreshManageRoomNumSelectElements();
       }

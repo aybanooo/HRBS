@@ -3,7 +3,7 @@ require_once("../../directories/directories.php");
 require_once(__initDB__);
 
 function createSelectElements($list) {
-    $select = "<select class='custom-select form-control-border bg-transparent selectRoomType' name='selectRoomStatus'>";
+    $select = "<select class='custom-select form-control-border selectRoomType' name='selectRoomStatus'>";
     foreach($list as $id => $name) {
         $select .= "<option value='$id'>$name</option>";
     }
@@ -24,7 +24,7 @@ if(mysqli_num_rows($result) > 0) {
     $output->output["data"] = createSelectElements($tempList);
 } else {
     $output->output["data"] = "
-    <select class='custom-select form-control-border bg-transparent selectRoomType'>
+    <select class='custom-select form-control-border selectRoomType'>
         <option disabled selected value>None</option>
     </select>";
     $output->setFailed("No Status");
