@@ -1,5 +1,6 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "test");
+
+$conn = new mysqli("localhost", "u362912910_thanos", "", "u362912910_hrbs");
 
 if ($conn->connect_error) {
     $output->setFailed("Cannot connect to database." . $conn->connect_error);
