@@ -1,6 +1,6 @@
 <?php
 
-$conn = new mysqli("localhost", "u362912910_thanos", "=9]~W:s7T", "u362912910_hrbs");
+$conn = new mysqli("localhost", "u362912910_thanos2", "L]5py5jrlHY", "u362912910_hrbs2");
 
 if ($conn->connect_error) {
     $output->setFailed("Cannot connect to database." . $conn->connect_error);
@@ -9,7 +9,7 @@ if ($conn->connect_error) {
 }
 
 $query = "SELECT companyName, companyDesc, address, longitude, latitude  
-FROM companyinfo";
+FROM companyInfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
@@ -286,7 +286,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     <!-- Footer-->
     <?php
     $query = "SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
-        FROM socialmedias, companyinfo";
+        FROM socialMedias, companyInfo";
     $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
     $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     ?>
