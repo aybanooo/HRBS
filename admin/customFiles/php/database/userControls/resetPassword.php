@@ -3,6 +3,9 @@
 require_once("../../directories/directories.php");
 require_once(__initDB__);
 require_once(__F_FORMAT__);
+require_once __F_PERMISSION_HANDLER__;
+
+checkPermission(__V_P_ACCOUNT_RESET_PASS__, true);
 
 $empID = prepareForSQL($conn, $_POST['empID']);
 

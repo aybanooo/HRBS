@@ -52,6 +52,8 @@ define('__V_P_ACCOUNT_CREATE__', explode(',',
 '7' ));
 define('__V_P_ACCOUNT_DELETE__', explode(',',
 '8' ));
+define('__V_P_ACCOUNT_RESET_PASS__', explode(',',
+'9' ));
 
 //--------------- PERMISSION LIST END ---------------
 
