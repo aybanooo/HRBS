@@ -3,9 +3,15 @@ require_once("../../directories/directories.php");
 require_once(__initDB__);
 require_once(__F_VALIDATIONS__);
 require_once(__F_DB_HANDLER__);
+require_once(__F_LOGIN_HANDLER__);
 require_once __F_PERMISSION_HANDLER__;
 
+// Validations
 checkPermission(__V_P_ACCOUNT_DELETE__, true);
+$currentUserID = getUserInfoFromToken($_COOKIE['authkn'])->id;
+// Check if the user is trying to delete their account
+if(in_array($currentUserID, $_POST['accountList']))
+  die($output->setFailed("You cannot delete your own account"));
 
 if(!( isset($_POST["accountList"]) )) {
   echo $output->setFailed("Please select atleast 1 account");
