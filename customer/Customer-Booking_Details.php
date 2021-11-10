@@ -1,7 +1,7 @@
 <?php
 include('db.php');
 
-$query = "SELECT companyName FROM companyInfo";
+$query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
@@ -473,7 +473,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 
 	<?php
 	$query = "SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
-        FROM socialMedias, companyInfo";
+        FROM socialmedias, companyinfo";
 	$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 	$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	?>

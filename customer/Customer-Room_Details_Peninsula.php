@@ -1,14 +1,8 @@
 <?php
 
-$conn = new mysqli("localhost", "root", "", "test");
+include('db.php');
 
-if ($conn->connect_error) {
-  $output->setFailed("Cannot connect to database.".$conn->connect_error);
-  echo $output->getOutput(true);
-  die();
-}
-
-$query="SELECT companyName FROM companyInfo";
+$query="SELECT companyName FROM companyinfo";
 $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 ?> 
@@ -468,7 +462,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	  </section>
       <?php
         $query="SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
-        FROM socialMedias, companyInfo";
+        FROM socialmedias, companyinfo";
         $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
         $followingdata = $result->fetch_array(MYSQLI_ASSOC);
       ?>

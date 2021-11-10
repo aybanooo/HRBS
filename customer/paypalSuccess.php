@@ -1,11 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "test");
-
-if ($conn->connect_error) {
-    $output->setFailed("Cannot connect to database." . $conn->connect_error);
-    echo $output->getOutput(true);
-    die();
-}
+include('db.php');
 
  //Import PHPMailer classes into the global namespace
 //These must be at the top of your script, not inside a function
@@ -53,7 +47,7 @@ try {
     echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
 
-$query = "SELECT companyName FROM companyInfo";
+$query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 ?>
@@ -203,7 +197,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     </nav>
     <?php
     $query = "SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
-        FROM socialMedias, companyInfo";
+        FROM socialmedias, companyinfo";
     $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
     $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     ?>
