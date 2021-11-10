@@ -77,7 +77,7 @@ setupUserSession();
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Settings</h1>
+            <h1>Hotel Information</h1>
           </div>
           <div class="col-sm-6">
             <div class="row mt-3 mt-sm-0 ">
@@ -99,7 +99,7 @@ setupUserSession();
           <div class="col-12 ">
             <div class="card">
               <div class="card-header">
-                <h3  class="card-title">Company Name</h3>
+                <h3  class="card-title">Hotel Name</h3>
               </div>
               <div class="card-body">
                 <div class="container-fluid p-0 m-0">

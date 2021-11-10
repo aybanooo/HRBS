@@ -869,3 +869,7 @@ body.dark-mode .swal2-title {
 body.dark-mode .swal2-popup {
     border-color: var(--gray) !important;
 }
+
+.CodeMirror, .CodeMirror-gutters {
+    background: transparent !important;
+}

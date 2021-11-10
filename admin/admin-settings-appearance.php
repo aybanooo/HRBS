@@ -43,7 +43,8 @@ setupUserSession();
   <link rel="stylesheet" href="customFiles/specialStyle.css">
   <link rel="stylesheet" href="customFiles/appearance.css">
   <link rel="stylesheet" href="customFiles/codeMirror/lib/codemirror.css">
-  <link rel="stylesheet" href="customFiles/codeMirror/addons/lint/lint.css">
+  <link rel="stylesheet" href="customFiles/codeMirror/theme/ayu-mirage.css">
+  <link rel="stylesheet" href="customFiles/codeMirror/addon/lint/lint.css">
   <link rel="stylesheet" href="assets/customCSS/overrideStyle.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed light-mode">
@@ -155,17 +156,17 @@ setupUserSession();
 <script src="customFiles/customScript.js"></script>
 <script src="customFiles/codeMirror/lib/codemirror.js"></script>
 <script src="customFiles/codeMirror/mode/css/css.js"></script>
-<script src="customFiles/codeMirror/addons/lint/coffeescript-lint.js"></script>
-<script src="customFiles/codeMirror/addons/lint/css-lint.js"></script>
-<script src="customFiles/codeMirror/addons/lint/csslint.js"></script>
-<script src="customFiles/codeMirror/addons/lint/html-lint.js"></script>
-<script src="customFiles/codeMirror/addons/lint/javascript-lint.js"></script>
-<script src="customFiles/codeMirror/addons/lint/jshint.js"></script>
-<script src="customFiles/codeMirror/addons/lint/json-lint.js"></script>
-<script src="customFiles/codeMirror/addons/lint/jsonlint.js"></script>
-<script src="customFiles/codeMirror/addons/lint/lint.js"></script>
-<script src="customFiles/codeMirror/addons/lint/linter.js"></script>
-<script src="customFiles/codeMirror/addons/lint/yaml-lint.js"></script>
+<script src="customFiles/codeMirror/addon/lint/coffeescript-lint.js"></script>
+<script src="customFiles/codeMirror/addon/lint/css-lint.js"></script>
+<script src="customFiles/codeMirror/addon/lint/html-lint.js"></script>
+<script src="customFiles/codeMirror/addon/lint/javascript-lint.js"></script>
+<script src="customFiles/codeMirror/addon/lint/json-lint.js"></script>
+<script src="customFiles/codeMirror/addon/lint/lint.js"></script>
+<script src="customFiles/codeMirror/addon/lint/yaml-lint.js"></script>
+<script src="customFiles/codeMirror/addon/lint/csslint.js"></script>
+<script src="customFiles/codeMirror/addon/lint/jshint.js"></script>
+<script src="customFiles/codeMirror/addon/lint/json-lint.js"></script>
+<script src="customFiles/codeMirror/addon/lint/linter.js"></script>
 
 <script src="customFiles/appearance.js"></script>
 <script src="customFiles/initialize Toastr.js"></script>
