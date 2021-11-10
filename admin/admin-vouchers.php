@@ -3,6 +3,7 @@ require("customFiles/php/directories/directories.php");
 require_once(__F_VALIDATIONS__);
 require_once(__F_OUTPUT_HANDLER__);
 require_once __F_LOGIN_HANDLER__;
+require_once __F_PERMISSION_HANDLER__;
 
 // Redirect to login page if token is invalid
 if (!isTokenValid()) {
@@ -103,8 +104,8 @@ setupUserSession();
               <div class="card-body d-flex justify-content-center align-middle">
                 <div class="form-group mt-3">
                   <div class="custom-control custom-switch" style="transform: scale(1.5)">
-                    <input type="checkbox" class="custom-control-input" id="toggleVoucher" <?php echo voucherEnabled() ? "checked" : "";?>>
-                    <label class="custom-control-label d-block" for="toggleVoucher" data-toggle="collapse" data-target="voucherCard" >Enable Voucher</label>
+                    <input type="checkbox" class="custom-control-input" id="toggleVoucher" <?php echo voucherEnabled() ? "checked" : "";?> <?php print checkPermission(__V_P_VOUCHERS_MANAGE__) ? "" : "disabled"; ?>>
+                    <label class="custom-control-label d-block" for="toggleVoucher" data-toggle="collapse" data-target="voucherCard">Enable Voucher</label>
                   </div>
                 </div>
               </div>
