@@ -1,12 +1,5 @@
 <?php
-
-$conn = new mysqli("localhost", "u362912910_thanos2", "L]5py5jrlHY", "u362912910_hrbs2");
-
-if ($conn->connect_error) {
-    $output->setFailed("Cannot connect to database." . $conn->connect_error);
-    echo $output->getOutput(true);
-    die();
-}
+include('db.php');
 
 $query = "SELECT companyName, companyDesc, address, longitude, latitude  
 FROM companyInfo";
