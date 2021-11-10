@@ -513,9 +513,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			</div>
 			<div class="col-lg-4 mx-auto">
 				<p>Connect with us at</p>
-				<button type="button" class="btn btn-social-icon btn-facebook btn-rounded" href="<?php $followingdata["socialFB"]; ?>"><i class="fa fa-facebook"></i></button>
-				<button type="button" class="btn btn-social-icon btn-instagram btn-rounded" href="<?php $followingdata["socialInstagram"]; ?>"><i class="fa fa-instagram"></i></button>
-				<button type="button" class="btn btn-social-icon btn-twitter btn-rounded" href="<?php $followingdata["socialTwitter"]; ?>"><i class="fa fa-twitter"></i></button>
+				<button type="button" class="btn btn-social-icon btn-facebook btn-rounded" href="<?php echo $followingdata["socialFB"]; ?>"><i class="fa fa-facebook"></i></button>
+				<button type="button" class="btn btn-social-icon btn-instagram btn-rounded" href="<?php echo $followingdata["socialInstagram"]; ?>"><i class="fa fa-instagram"></i></button>
+				<button type="button" class="btn btn-social-icon btn-twitter btn-rounded" href="<?php echo $followingdata["socialTwitter"]; ?>"><i class="fa fa-twitter"></i></button>
 			</div>
 			<div class="col-lg-4 mx-auto">
 				<p><?php echo $followingdata["footerRight"]; ?></p>
