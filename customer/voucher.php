@@ -8,6 +8,7 @@ include('db.php');
 	$fetch = mysqli_fetch_array($query);
 	$array = array();
 
+
 	 	if($count > 0){
 			$discount = $fetch['discount'] / 100;
 			$total = $discount * $price;

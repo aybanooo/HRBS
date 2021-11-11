@@ -39,6 +39,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             width: 100%;
             text-align: center;
         }
+
         .template-demo>.btn {
             margin-right: 0.5rem;
         }
@@ -46,6 +47,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         .template-demo {
             margin-top: 0.5rem;
         }
+
         .btn.btn-social-icon {
             width: 50px;
             height: 50px;
@@ -60,10 +62,12 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             background: #3b579d;
             color: #ffffff
         }
+
         .btn-twitter {
             background: #2caae1;
             color: #ffffff
         }
+
         .btn-instagram {
             background: #dc4a38;
             color: #ffffff
@@ -97,6 +101,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             color: #4c4c4c;
             white-space: pre;
         }
+
         .btndate {
             border: none;
             background: white;

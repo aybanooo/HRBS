@@ -312,6 +312,7 @@ if(empty($_POST['date_picker2'])){
 
 	<title>Booking Details</title>
 </head>
+
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 		<div class="container">
