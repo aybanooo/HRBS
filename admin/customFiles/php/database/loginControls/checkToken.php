@@ -3,8 +3,7 @@ require_once(dirname(__FILE__,3)."/directories/directories.php");
 require_once __AUTOLOAD_PUBLIC__;
 
 use \Firebase\JWT\JWT;
-
-$secretKey  = 'bGS6lzFqvvSQ8ALbOxatm7/Vk7mLQyzqaS34Q4oR1ew=';
+$confPrivate = array_merge(parse_ini_file(__CONF_PRIVATE__),parse_ini_file(__CONF_SYSTEM__));
 $token = JWT::decode($_COOKIE['authkn'], $confPrivate['JWT_KEY'], ['HS512']);
 $now = new DateTimeImmutable();
 $serverName = $confPrivate['CLIENT_DOMAIN_NAME'];
@@ -16,4 +15,5 @@ if ($token->iss !== $serverName ||
     header('HTTP/1.1 401 Unauthorized');
     exit;
 }
+
 ?>

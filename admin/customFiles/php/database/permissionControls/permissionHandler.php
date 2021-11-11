@@ -65,6 +65,7 @@ define('__V_P_HOTEL_INFO_MANAGE__', explode(',',
 //--------------- PERMISSION LIST END ---------------
 
 function checkPermission($permissionList, $dieResponse = false) {
+    if(isAdmin()) return true;
     $userInfo = getUserInfoFromToken($_COOKIE['authkn']);
     if( !tokenEmpIDexist() )
         die($GLOBALS['output']->setFailed("You don't exist!"));

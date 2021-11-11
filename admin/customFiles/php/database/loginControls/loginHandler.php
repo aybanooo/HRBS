@@ -33,7 +33,13 @@ function isTokenValid() {
     return !isLoginTokenExpired();
 }
 
+function isAdmin() {
+    $userID = getUserInfoFromToken($_COOKIE['authkn'])->id;
+    if ($userID==='admin') return true; #allow admin
+}
+
 function tokenEmpIDexist() {
+    if(isAdmin()) return true;
     $tempConn = createTempDBConnection();
     $userID = getUserInfoFromToken($_COOKIE['authkn'])->id;
     prepareForSQL($tempConn, $userID);

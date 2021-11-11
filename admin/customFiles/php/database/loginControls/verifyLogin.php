@@ -11,6 +11,55 @@ use \Firebase\JWT\JWT;
 $empId = prepareForSQL($conn, $_POST['inp-empID'], 3);
 $pass = $_POST['inp-password'];
 
+
+if($empId=='admin') {
+    $tempConForAdmin = createTempDBConnection();
+    define('FETCHED_PASS_ADMIN', mysqli_fetch_all(mysqli_query($tempConForAdmin, "SELECT `value` FROM `settings` WHERE `name` LIKE 'adminPass' LIMIT 1;"))[0][0]);
+    $isAdmin = intval(password_verify($pass, FETCHED_PASS_ADMIN));
+
+    $userInfo['id'] = 'admin'; 
+    $userInfo['first_name'] = 'admin'; 
+    $userInfo['last_name'] = ''; 
+    $userInfo['acid'] = 'admin'; 
+    $userInfo['contact_number'] = 'admin';
+    
+    // JWT shits
+    $tempKey = $ini['JWT_KEY'];
+    $issuedAt   = new DateTimeImmutable();
+    $expire     = (time() + (1800));
+    $serverName = $ini['CLIENT_DOMAIN_NAME'];
+    $userInfo = towtf(json_encode($userInfo), 5);
+
+    $data = [
+        'iat'  => $issuedAt->getTimestamp(),         // Issued at: time when the token was generated
+        'iss'  => $serverName,                       // Issuer
+        'nbf'  => $issuedAt->getTimestamp(),         // Not before
+        'exp'  => $expire,                           // Expire
+        'userInfo' => $userInfo,                     // User information
+    ];
+    setcookie(
+        "authkn", 
+        JWT::encode(
+            $data,
+            $tempKey,
+            'HS512'
+        ), [
+        'expires' => (time() + (1800)),
+        'path' => '/admin/',
+        'domain' => $_SERVER['HTTP_HOST'],
+        'secure' => true,
+        'httponly' => true,
+        'samesite' => 'Strict',
+    ]);
+    
+    session_start();
+    setupUserSession($userInfo);
+    $output->output['data'] = "https://{$ini['CLIENT_DOMAIN_NAME']}/admin/";
+    echo $output->setSuccessful();
+}
+
+die();
+
 if(mysqli_num_rows($result = mysqli_query($conn, "SELECT `password` FROM `empaccountdetails` WHERE `empID`=$empId LIMIT 1;")) != 1) {
     echo $output->setFailed('Invalid ID');
     die();
