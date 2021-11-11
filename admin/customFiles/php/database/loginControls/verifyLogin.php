@@ -11,7 +11,7 @@ use \Firebase\JWT\JWT;
 $empId = prepareForSQL($conn, $_POST['inp-empID'], 3);
 $pass = $_POST['inp-password'];
 
-
+// This single if checks if the empId input admin and then creates a login token for admin then end the script
 if($empId=='admin') {
     $tempConForAdmin = createTempDBConnection();
     define('FETCHED_PASS_ADMIN', mysqli_fetch_all(mysqli_query($tempConForAdmin, "SELECT `value` FROM `settings` WHERE `name` LIKE 'adminPass' LIMIT 1;"))[0][0]);
@@ -56,9 +56,8 @@ if($empId=='admin') {
     setupUserSession($userInfo);
     $output->output['data'] = "https://{$ini['CLIENT_DOMAIN_NAME']}/admin/";
     echo $output->setSuccessful();
+    die();
 }
-
-die();
 
 if(mysqli_num_rows($result = mysqli_query($conn, "SELECT `password` FROM `empaccountdetails` WHERE `empID`=$empId LIMIT 1;")) != 1) {
     echo $output->setFailed('Invalid ID');
@@ -72,6 +71,7 @@ if (session_status() === PHP_SESSION_ACTIVE) {
     header("Location: https://{$ini['CLIENT_DOMAIN_NAME']}/admin/");
 }
 
+// This single if checks if the empId input user and then creates a login token for user
 define('FETCHED_PASS',  mysqli_fetch_all($result, MYSQLI_NUM)[0][0]);
 if(password_verify($pass, FETCHED_PASS)) {
     // Load jwt key

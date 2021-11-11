@@ -20,7 +20,7 @@ createSettingIfMissing("defPass", $wtfdPass, 3);
 if(mysqli_query($conn, "ALTER TABLE `empaccountdetails` ALTER COLUMN `password` SET DEFAULT '$defVal';") && mysqli_query($conn, "UPDATE `settings` SET `value`='$wtfdPass' WHERE `name` like 'defPass' LIMIT 1;")) {
     echo $output->setSuccessful("Default password have been updated");
 } else {
-    echo $output->setFailed("Something went wrong while updating the default password");
+    echo $output->setFailed("Something went wrong while updating the default password", getConnError($conn));
 }
 
 ?>
