@@ -6,7 +6,7 @@ use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
 
 //Load Composer's autoloader
-require_once 'email-config.php';
+//require_once 'email-config.php';
 require 'vendor/autoload.php';
 
 //Create an instance; passing `true` enables exceptions
@@ -26,7 +26,8 @@ try {
     $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('Thanosemailthesis@gmail.com', 'Thanos');
+    $mail->setFrom('thanoshotelreservation@ghrbs.site
+    ', 'Thanos');
     $mail->addAddress('benjbenito10@gmail.com');  //Add a recipient
     
     $body = '<p><strong>Hello<strong/>This is a test email<p/>';
