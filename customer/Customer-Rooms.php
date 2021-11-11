@@ -44,7 +44,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		height: auto;
 		margin:auto;
 		margin-top: 5%;
-		margin-bottom: 1%;
+		margin-bottom: 5%;
 		box-shadow:0 0 5px 0 rgba(0,0,0,0.4);
 		border-radius: 5px;
 		padding-bottom:25px;

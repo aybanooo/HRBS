@@ -5,6 +5,12 @@ $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
+if(empty($_POST['date_picker1'])){
+	$dateError = "Please pick a date";
+}
+if(empty($_POST['date_picker2'])){
+	$dateError = "Please pick a date";
+}
 ?>
 
 <!DOCTYPE HTML>
@@ -354,6 +360,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<td>
 									<div class="form-group">
 										<input type="text" name="date_picker1" id="date_picker1">
+										<span><?php echo $dateError; ?></span>
 									</div>
 								</td>
 							</tr>
@@ -362,6 +369,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<td>
 									<div class="form-group">
 										<input type="text" name="date_picker2" id="date_picker2">
+										<span><?php echo $dateError; ?></span>
 									</div>
 								</td>
 							</tr>
