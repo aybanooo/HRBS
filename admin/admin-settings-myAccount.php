@@ -89,7 +89,7 @@ setupUserSession();
               <!-- Add the bg color to the header using any of the bg-* classes -->
               <div class="widget-user-header bg-info">
                 <h3 class="widget-user-username"><?php print "{$_SESSION['userInfo']->first_name} {$_SESSION['userInfo']->last_name}";  ?></h3>
-                <h5 class="widget-user-desc">Staff</h5>
+                <h5 class="widget-user-desc"><?php print "{$_SESSION['userInfo']->acname}" ;?></h5>
               </div>
               <div class="widget-user-image">
                 <img class="img-circle elevation-2" src="/admin/assets/images/profilePictures/<?php print $_SESSION['userInfo']->id.".jpg?".time() ?>" alt="User Avatar">
