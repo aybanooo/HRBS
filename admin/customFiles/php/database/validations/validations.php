@@ -155,8 +155,16 @@ function voucherEnabled() {
 // method type is the method on what kind of role/account manipulation is done
 function getFFACount_change($accessID, $permissions = null) {
   $tempConn = createTempDBConnection();
+  $countOfTrueToBeAddedInFFA = 0;
   $accountsPermissionKeys = explode(",",mysqli_fetch_all(mysqli_query($tempConn, 'SELECT GROUP_CONCAT(`permID`) FROM `permissions` WHERE `category`=4;'))[0][0]);
   if(!is_null($permissions)) {
+    foreach($accountsPermissionKeys as $requiredAcid) {
+      if(!isset($permissions[$requiredAcid])) 
+      return 0;
+      else{ 
+        if($permissions[$requiredAcid]==="true") $countOfTrueToBeAddedInFFA+=1;
+      }
+    }
     // gets permissions to be turned off that is in account category
     $haveOffPermission = count(array_filter($permissions, function($val, $key) use ($accountsPermissionKeys) { 
       #echo $val." --> ".$key." = ".(in_array($key, $GLOBALS['accountsPermissionKeys']))."\n";
@@ -187,6 +195,9 @@ function getFFACount_change($accessID, $permissions = null) {
 
   // get count of full account accessed role
   $futureFullAccountAccessUsers = mysqli_fetch_all(mysqli_query($tempConn, $sql), MYSQLI_NUM)[0][0];
+  if( $countOfTrueToBeAddedInFFA == count($accountsPermissionKeys)) {
+    $futureFullAccountAccessUsers+=1;
+  }
   #echo($futureFullAccountAccessUsers);
   mysqli_close($tempConn);
   return $futureFullAccountAccessUsers;
@@ -195,8 +206,16 @@ function getFFACount_change($accessID, $permissions = null) {
 function getFFAUserCount_change($accessID, $permissions = null) {
   $tempConn = createTempDBConnection();
   $accountsPermissionKeys = explode(",",mysqli_fetch_all(mysqli_query($tempConn, 'SELECT GROUP_CONCAT(`permID`) FROM `permissions` WHERE `category`=4;'))[0][0]);
-
+  $countOfTrueToBeAddedInFFA = 0;
+  
   if(!is_null($permissions)) {
+    foreach($accountsPermissionKeys as $requiredAcid) {
+      if(!isset($permissions[$requiredAcid])) 
+      return 0;
+      else{ 
+        if($permissions[$requiredAcid]==="true") $countOfTrueToBeAddedInFFA+=1;
+      }
+    }
     // gets permissions to be turned off that is in account category
     $haveOffPermission = count(array_filter($permissions, function($val, $key) use ($accountsPermissionKeys) { 
       #echo $val." --> ".$key." = ".(in_array($key, $GLOBALS['accountsPermissionKeys']))."\n";
@@ -231,6 +250,9 @@ function getFFAUserCount_change($accessID, $permissions = null) {
 
   // get count of full account accessed users
   $futureFullAccountAccessUsers = mysqli_fetch_all(mysqli_query($tempConn, $sql), MYSQLI_NUM)[0][0];
+  if( $countOfTrueToBeAddedInFFA == count($accountsPermissionKeys)) {
+    $futureFullAccountAccessUsers+=1;
+  }
   #echo($futureFullAccountAccessUsers);
   mysqli_close($tempConn);
   return $futureFullAccountAccessUsers;
