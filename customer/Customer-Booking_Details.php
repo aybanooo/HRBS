@@ -455,7 +455,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 							<tr align="right">
 								<td colspan="2">
 									<div class="form-check">
-										<input type="checkbox" class="form-check-input" id="agree">
+										<input type="checkbox" class="form-check-input" id="agree" required>
 										<label for="agree">I understand the<a href="#" class="fst-italic link-primary" data-bs-toggle="modal" data-bs-target="#agreeModal"> terms and agreements</a></label>
 									</div>
 								</td>
