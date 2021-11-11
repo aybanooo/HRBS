@@ -78,7 +78,7 @@ if(password_verify($pass, FETCHED_PASS)) {
     $ini = array_merge(parse_ini_file(__CONF_PRIVATE__), $ini);
 
     // Get user info
-    if(mysqli_num_rows($result = mysqli_query($conn, "SELECT * FROM `employee` WHERE `empID`=$empId LIMIT 1;")) != 1) {
+    if(mysqli_num_rows($result = mysqli_query($conn, "SELECT A.*, B.accessname FROM `employee` A INNER JOIN `access` B ON A.accessID=B.accessID WHERE `empID`=$empId LIMIT 1;")) != 1) {
         echo $output->setFailed('Cannot find account details.');
         die();
     }
@@ -88,6 +88,7 @@ if(password_verify($pass, FETCHED_PASS)) {
     $userInfo['first_name'] = $tempUserInfo['fName']; 
     $userInfo['last_name'] = $tempUserInfo['lName']; 
     $userInfo['acid'] = $tempUserInfo['accessID']; 
+    $userInfo['acname'] = $tempUserInfo['accessname']; 
     $userInfo['contact_number'] = $tempUserInfo['contact']; 
 
     // JWT shits
