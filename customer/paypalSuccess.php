@@ -1,16 +1,58 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "test");
+include('db.php');
 
-if ($conn->connect_error) {
-    $output->setFailed("Cannot connect to database." . $conn->connect_error);
-    echo $output->getOutput(true);
-    die();
+ //Import PHPMailer classes into the global namespace
+//These must be at the top of your script, not inside a function
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+
+//Load Composer's autoloader
+//require_once 'email-config.php';
+require 'vendor/autoload.php';
+
+//Create an instance; passing true enables exceptions
+$mail = new PHPMailer(true);
+$apiKeyPass = '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';
+
+
+try {
+    //Server settings
+    $mail->SMTPDebug = $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
+    $mail->isSMTP();                                            //Send using SMTP
+    $mail->Host       = 'smtp.sendgrid.net';                     //Set the SMTP server to send through
+    $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    $mail->Username   = 'apikey';                     //SMTP username
+    $mail->Password   = $apiKeyPass;                               //SMTP password
+    $mail->SMTPSecure = 'tls';            //Enable implicit TLS encryption
+    $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS
+
+    //Recipients
+    $mail->setFrom('Thanosemailthesis@gmail.com', 'Thanos');
+    $mail->addAddress('benjbenito10@gmail.com');  //Add a recipient
+
+    $body = '<p><strong>Hello<strong/>This is a test email<p/>';
+
+
+    //Content
+
+    $mail->Subject = 'Test email';
+    $mail->Body    = $body;
+    $mail->AltBody = strip_tags($body);
+
+
+    $mail->send();
+    echo 'Message has been sent';
+} catch (Exception $e) {
+    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
 }
 
-$query = "SELECT companyName FROM companyInfo";
+$query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 ?>
+
+
 
 <!DOCTYPE HTML>
 <html lang="en">
@@ -155,7 +197,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     </nav>
     <?php
     $query = "SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
-        FROM socialMedias, companyInfo";
+        FROM socialmedias, companyinfo";
     $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
     $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     ?>
@@ -170,13 +212,13 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             <div class="col-lg-4 mx-auto">
                 <p><b>Contact us</b></p>
                 <p><?php echo $followingdata["contact"]; ?></p>
-                <p><?php echo $followingdata["email"]; ?></p>
+                <p><a href="mailto:<?php $followingdata["email"]; ?>"><?php echo $followingdata["email"]; ?></a></p>
             </div>
             <div class="col-lg-4 mx-auto">
                 <p>Connect with us at</p>
-                <button type="button" class="btn btn-social-icon btn-facebook btn-rounded" href="<?php echo $followingdata["socialFB"]; ?>"><i class="fa fa-facebook"></i></button>
-                <button type="button" class="btn btn-social-icon btn-instagram btn-rounded" href="<?php echo $followingdata["socialInstagram"]; ?>"><i class="fa fa-instagram"></i></button>
-                <button type="button" class="btn btn-social-icon btn-twitter btn-rounded" href="<?php echo $followingdata["socialTwitter"]; ?>"><i class="fa fa-twitter"></i></button>
+                <a href="<?php echo $followingdata["socialFB"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-facebook btn-rounded"><i class="fa fa-facebook"></i></button></a>
+                <a href="<?php echo $followingdata["socialInstagram"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-instagram btn-rounded"><i class="fa fa-instagram"></i></button></a>
+                <a href="<?php echo $followingdata["socialTwitter"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-twitter btn-rounded"><i class="fa fa-twitter"></i></button></a>
             </div>
             <div class="col-lg-4 mx-auto">
                 <p><?php echo $followingdata["footerRight"]; ?></p>

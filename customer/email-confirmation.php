@@ -13,6 +13,7 @@
 			//validate the email
 			$update = $mysqli->query("UPDATE ACCOUNTS SET verified = 1 WHERE verification = '$verification' LIMIT 1");
 
+
 			if ($update) {
 				echo "Your account has been validated";
 			} else {
@@ -20,6 +21,7 @@
 			}
 		} else {
 			echo "This account is invalid or already verified.";
+
 		}
 
 	} else {

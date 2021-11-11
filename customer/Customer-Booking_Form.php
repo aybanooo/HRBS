@@ -1,16 +1,16 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "test");
+include('db.php');
 
-if ($conn->connect_error) {
-	$output->setFailed("Cannot connect to database." . $conn->connect_error);
-	echo $output->getOutput(true);
-	die();
-}
-
-$query = "SELECT companyName FROM companyInfo";
+$query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
+if(empty($_POST['date_picker1'])){
+	$dateError = "Please pick a date";
+}
+if(empty($_POST['date_picker2'])){
+	$dateError = "Please pick a date";
+}
 ?>
 
 <!DOCTYPE HTML>
@@ -30,6 +30,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 	<link rel="stylesheet" type="text/css" href="/public_assets/modules/libraries/daterangepicker/daterangepicker.css" />
 	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/cupertino/jquery-ui.css">
+	<script src="https://www.google.com/recaptcha/api.js"></script>
 	<style type="text/css">
 		body {
 			padding-top: 65px;
@@ -328,7 +329,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			</div>
 		</div>
 	</nav>
-
+	
 	<section id="bookForm">
 		<div class="bookForm">
 			<div class="row">
@@ -358,6 +359,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<td>
 									<div class="form-group">
 										<input type="text" name="date_picker1" id="date_picker1">
+										<span><?php echo $dateError; ?></span>
 									</div>
 								</td>
 							</tr>
@@ -366,6 +368,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<td>
 									<div class="form-group">
 										<input type="text" name="date_picker2" id="date_picker2">
+										<span><?php echo $dateError; ?></span>
 									</div>
 								</td>
 							</tr>
@@ -482,11 +485,18 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								?>
 							</tr>
 							<tr>
-								<td colspan="2">
-									<hr>
-								</td>
+								<td><br></td>
 							</tr>
 							<tr align="right">
+								<td colspan="2">
+									<div class="g-recaptcha" data-sitekey="6LeosxcdAAAAAJdlUOtkEsqLjbJIrOuty1YYu7OG"></div>
+								</td>
+							</tr>
+							<tr>
+								<td><br></td>
+							</tr>
+							<tr align="right">
+
 								<td colspan="2"><button type="submit" name="submit" id="submit" class="btn btn-success">Proceed to Payment</button></td>
 							</tr>
 					</form>
@@ -497,28 +507,28 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	</section>
 	<?php
 	$query = "SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
-        FROM socialMedias, companyInfo";
+        FROM socialmedias, companyinfo";
 	$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 	$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	?>
 	<div class="footer">
-		<div class="row">
-			<div class="col-lg-4 mx-auto">
-				<p><b>Contact us</b></p>
-				<p><?php echo $followingdata["contact"]; ?></p>
-				<p><?php echo $followingdata["email"]; ?></p>
-			</div>
-			<div class="col-lg-4 mx-auto">
-				<p>Connect with us at</p>
-				<button type="button" class="btn btn-social-icon btn-facebook btn-rounded" href="<?php echo $followingdata["socialFB"]; ?>"><i class="fa fa-facebook"></i></button>
-				<button type="button" class="btn btn-social-icon btn-instagram btn-rounded" href="<?php echo $followingdata["socialInstagram"]; ?>"><i class="fa fa-instagram"></i></button>
-				<button type="button" class="btn btn-social-icon btn-twitter btn-rounded" href="<?php echo $followingdata["socialTwitter"]; ?>"><i class="fa fa-twitter"></i></button>
-			</div>
-			<div class="col-lg-4 mx-auto">
-				<p><?php echo $followingdata["footerRight"]; ?></p>
-			</div>
-		</div>
-	</div>
+        <div class="row">
+            <div class="col-lg-4 mx-auto">
+                <p><b>Contact us</b></p>
+                <p><?php echo $followingdata["contact"]; ?></p>
+                <p><a href="mailto:<?php $followingdata["email"]; ?>"><?php echo $followingdata["email"]; ?></a></p>
+            </div>
+            <div class="col-lg-4 mx-auto">
+                <p>Connect with us at</p>
+                <a href="<?php echo $followingdata["socialFB"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-facebook btn-rounded"><i class="fa fa-facebook"></i></button></a>
+                <a href="<?php echo $followingdata["socialInstagram"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-instagram btn-rounded"><i class="fa fa-instagram"></i></button></a>
+                <a href="<?php echo $followingdata["socialTwitter"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-twitter btn-rounded"><i class="fa fa-twitter"></i></button></a>
+            </div>
+            <div class="col-lg-4 mx-auto">
+                <p><?php echo $followingdata["footerRight"]; ?></p>
+            </div>
+        </div>
+    </div>
 </body>
 
 
@@ -577,4 +587,5 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		})
 	})
 </script>
+
 </html>

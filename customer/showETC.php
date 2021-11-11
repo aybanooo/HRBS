@@ -1,11 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "test");
-
-if ($conn->connect_error) {
-  $output->setFailed("Cannot connect to database.".$conn->connect_error);
-  echo $output->getOutput(true);
-  die();
-}
+include('db.php');
 
 $valueFromBooking = $_POST['id'];
 

@@ -1,13 +1,15 @@
 <?php
 
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "test";
+$username = "u362912910_thanos2";
+$password = "L]5py5jrlHY";
+$dbname = "u362912910_hrbs2";
+//$username = "root";
+//$password = "";
+//$dbname = "test";
+$conn = new mysqli($servername, $username, $password, $dbname);
 
-$con = new mysqli($servername, $username, $password, $dbname);
-
-if ($con->connect_error) {
+if ($conn->connect_error) {
     $output->setFailed("Cannot connect to database." . $conn->connect_error);
     echo $output->getOutput(true);
     die();

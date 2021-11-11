@@ -1,37 +1,56 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "test");
+include('db.php');
 
-if ($conn->connect_error) {
-	$output->setFailed("Cannot connect to database." . $conn->connect_error);
-	echo $output->getOutput(true);
-	die();
-}
-
-$query = "SELECT companyName FROM companyInfo";
+$query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
-if (isset($_POST['fname'])) {
-	$firstName = $_POST['fname'];
+// Checks if form has been submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	function post_captcha($user_response)
+	{
+		$fields_string = '';
+		$fields = array(
+			'secret' => '6LeosxcdAAAAAJlXUFpqxe1Y-VGDCXu5uLxKU9YY',
+			'response' => $user_response
+		);
+		foreach ($fields as $key => $value)
+			$fields_string .= $key . '=' . $value . '&';
+		$fields_string = rtrim($fields_string, '&');
+
+		$ch = curl_init();
+		curl_setopt($ch, CURLOPT_URL, 'https://www.google.com/recaptcha/api/siteverify');
+		curl_setopt($ch, CURLOPT_POST, count($fields));
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $fields_string);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, True);
+
+		$result = curl_exec($ch);
+		curl_close($ch);
+
+		return json_decode($result, true);
+	}
+
+	// Call the function post_captcha
+	$res = post_captcha($_POST['g-recaptcha-response']);
+
+	if (!$res['success']) {
+		// What happens when the CAPTCHA wasn't checked
+		echo '<p>Please go back and make sure you check the security CAPTCHA box.</p><br>';
+	} else {
+		// If CAPTCHA is successfully completed...
+
+		$firstName = mysqli_real_escape_string($conn, $_POST['fname']);
+		$lastName = mysqli_real_escape_string($conn, $_POST['lname']);
+		$contact = mysqli_real_escape_string($conn, $_POST['cnumber']);
+		$email = mysqli_real_escape_string($conn, $_POST['email']);
+		$roomName = mysqli_real_escape_string($conn, $_POST['roomName']);
+		$dateStart = mysqli_real_escape_string($conn, $_POST['date_picker1']);
+		$dateEnd = mysqli_real_escape_string($conn, $_POST['date_picker2']);
+	}
+} else {
 }
-if (isset($_POST['lname'])) {
-	$lastName = $_POST['lname'];
-}
-if (isset($_POST['cnumber'])) {
-	$contact = $_POST['cnumber'];
-}
-if (isset($_POST['email'])) {
-	$email = $_POST['email'];
-}
-if (isset($_POST['roomName'])) {
-	$roomName = $_POST['roomName'];
-}
-if (isset($_POST['date_picker1'])) {
-	$dateStart = $_POST['date_picker1'];
-}
-if (isset($_POST['date_picker2'])) {
-	$dateEnd = $_POST['date_picker2'];
-}
+
+
 $var1 = strtr($dateStart, '/', '-');
 $dateStartFinal = date("Y-m-d", strtotime($var1));
 
@@ -42,6 +61,18 @@ $date1 = date_create($dateStartFinal);
 $date2 = date_create($dateEndFinal);
 $diff = date_diff($date1, $date2);
 $days = $diff->format("%a");
+
+$countQ = "SELECT (COUNT(customerID)+1) AS 'countCustID' FROM customer";
+$countRes = mysqli_query($conn, $countQ);
+$countRow = mysqli_fetch_assoc($countRes);
+$countCustID = $countRow['countCustID'];
+
+$customerQuery = "INSERT INTO customer (customerID, fname, lname, contact, email, verified, verification) VALUES ('$countCustID', '$firstName', '$lastName', '$contact', '$email', 'None', 'None')";
+mysqli_query($conn, $customerQuery) or die(mysqli_error($conn));
+
+$customerQuery1 = "INSERT INTO reservation (reservationID, roomNo, customerID, numberOfNightstay, adults, children, checkInDate, checkOutDate, checkInTime, checkOutTime) VALUES ('$countCustID', '0', '$countCustID', '$days', 'none', 'none' ,'$dateStartFinal', '$dateEndFinal', NULL, NULL)";
+
+mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 
 ?>
 <!DOCTYPE HTML>
@@ -285,19 +316,19 @@ $days = $diff->format("%a");
 						</tr>
 						<tr align="right">
 							<th>First Name:</th>
-							<td><?php echo $firstName; ?></td>
+							<td><?php echo htmlspecialchars($firstName); ?></td>
 						</tr>
 						<tr align="right">
 							<th>Last Name:</th>
-							<td><?php echo $lastName; ?></td>
+							<td><?php echo htmlspecialchars($lastName); ?></td>
 						</tr>
 						<tr align="right">
 							<th>Contact:</th>
-							<td><?php echo $contact; ?></td>
+							<td><?php echo htmlspecialchars($contact); ?></td>
 						</tr>
 						<tr align="right">
 							<th>Email Address:</th>
-							<td><?php echo $email; ?></td>
+							<td><?php echo htmlspecialchars($email); ?></td>
 						</tr>
 						<tr>
 							<td colspan="2">
@@ -332,11 +363,11 @@ $days = $diff->format("%a");
 						</tr>
 						<tr align="right">
 							<th>Check-in Date:</th>
-							<td><?php echo $dateStart; ?></td>
+							<td><?php echo htmlspecialchars($dateStart); ?></td>
 						</tr>
 						<tr align="right">
 							<th>Check-out Date:</th>
-							<td><?php echo $dateEnd;  ?></td>
+							<td><?php echo htmlspecialchars($dateEnd);  ?></td>
 						</tr>
 						<tr align="right">
 							<th>Length of Stay:</th>
@@ -423,10 +454,8 @@ $days = $diff->format("%a");
 							</tr>
 							<tr align="right">
 								<td colspan="2">
-								<div class="form-check">
-									<input type="checkbox" class="form-check-input" id="agree" >
-									<label for="agree">I understand the<a href="#" class="fst-italic link-primary" data-bs-toggle="modal" data-bs-target="#agreeModal"> terms and agreements</a></label>
-								</div>
+									<input type="checkbox" class="form-check-input" id="agree" value="yes" required>
+									<label for="agree">I understand the<a href="#" class="fst-italic link-primary" data-bs-toggle="modal" data-bs-target="#agreeModal"> terms and agreements</a></label></input>
 								</td>
 							</tr>
 							<tr align="right">
@@ -442,7 +471,7 @@ $days = $diff->format("%a");
 
 	<?php
 	$query = "SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
-        FROM socialMedias, companyInfo";
+        FROM socialmedias, companyinfo";
 	$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 	$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	?>
@@ -451,29 +480,29 @@ $days = $diff->format("%a");
 			<div class="col-lg-4 mx-auto">
 				<p><b>Contact us</b></p>
 				<p><?php echo $followingdata["contact"]; ?></p>
-				<p><?php echo $followingdata["email"]; ?></p>
+				<p><a href="mailto:<?php $followingdata["email"]; ?>"><?php echo $followingdata["email"]; ?></a></p>
 			</div>
 			<div class="col-lg-4 mx-auto">
 				<p>Connect with us at</p>
-				<button type="button" class="btn btn-social-icon btn-facebook btn-rounded" href="<?php echo $followingdata["socialFB"]; ?>"><i class="fa fa-facebook"></i></button>
-				<button type="button" class="btn btn-social-icon btn-instagram btn-rounded" href="<?php echo $followingdata["socialInstagram"]; ?>"><i class="fa fa-instagram"></i></button>
-				<button type="button" class="btn btn-social-icon btn-twitter btn-rounded" href="<?php echo $followingdata["socialTwitter"]; ?>"><i class="fa fa-twitter"></i></button>
+				<a href="<?php echo $followingdata["socialFB"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-facebook btn-rounded"><i class="fa fa-facebook"></i></button></a>
+				<a href="<?php echo $followingdata["socialInstagram"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-instagram btn-rounded"><i class="fa fa-instagram"></i></button></a>
+				<a href="<?php echo $followingdata["socialTwitter"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-twitter btn-rounded"><i class="fa fa-twitter"></i></button></a>
 			</div>
 			<div class="col-lg-4 mx-auto">
 				<p><?php echo $followingdata["footerRight"]; ?></p>
 			</div>
 		</div>
 	</div>
-	
-	<div class="modal fade" id="agreeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-center">
+
+	<!--<div class="modal fade" id="agreeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-center">
 			<div class="modal-content">
-			  <div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-			  </div>
-			  <div class="modal-body">
-				<pre>The following regulations must be observed to ensure that this Hotel has publicness (is accepted by the public) and provides a safe and comfortable stay for guests: Failure to follow these rules may result in the cancellation of your stay and/or denial to use the hotel services.
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<pre>The following regulations must be observed to ensure that this Hotel has publicness (is accepted by the public) and provides a safe and comfortable stay for guests: Failure to follow these rules may result in the cancellation of your stay and/or denial to use the hotel services.
 				Furthermore, if you damage any hotel equipment or fixtures, the Hotel maintains the right to charge you the full cost of the damage.
 				Rules
 				1.	Without permission, do not use the guest rooms for anything other than what they were intended for.
@@ -499,16 +528,23 @@ $days = $diff->format("%a");
 				15.	In principle, the guest rooms accommodating same guests continuously for two or more nights shall not be cleaned during their period of stay. Such rooms, however, shall be cleaned once in six days to maintain cleanliness. Further, if cleaning of one or more of the guest rooms is deemed necessary by the hotel authorities, the guests occupying the room(s) shall not have a right to deny such room cleaning.
 
 				</pre>
-			  </div>
-			  <div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
-			  </div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+				</div>
 			</div>
-		  </div>
 		</div>
+	</div>
+	-->
 </body>
-
+<!--<script>
+$('input[type="checkbox"]').on('change', function(e){
+   if(e.target.checked){
+     $('#myModal').data();
+   }
+});
+</script>
+-->
 <script>
 	$(document).ready(function() {
 		$('#activate').on('click', function() {
@@ -528,8 +564,7 @@ $days = $diff->format("%a");
 					} else {
 						var json = JSON.parse(data);
 						$('#result').html(+json.discount + "% Off");
-						var myVal = $('#total').val(json.price);
-						myVal = (Math.round(parseFloat(myVal) * 100) / 100).tofixed(2);
+						$('#total').val(Math.round((parseFloat(json.price)) * 100) / 100);
 					}
 				});
 			}
@@ -552,7 +587,8 @@ $days = $diff->format("%a");
 		// Finalize the transaction after payer approval
 		onApprove: function(data, actions) {
 			return actions.order.capture().then(function() {
-				window.location = "paypalSuccess.php?&orderID=" + data.orderID;
+				window.location = "tracnsaction-completed.php?&orderID=" + data.orderID + "&customerID=" + data.countCustID;
+				//window.location = "paypalSuccess.php?&customerID=" + data.customerID;
 			});
 		}
 	}).render('#paypal-button-container');

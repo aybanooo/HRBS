@@ -22,31 +22,27 @@ class GetOrder
     // 3. Call PayPal to get the transaction details
     $client = PayPalClient::client();
     $response = $client->execute(new OrdersGetRequest($orderId));
-    //TRANSACTION DETAILS
+    //TRANSACTION DETAILS kukunin mga nasa details form tas ipapasok sa db.
     $orderID = $response->result->id;
     $email = $response->result->payer->email_address;
     $name = $response->result->purchase_units[0]->shipping->name->full_name;
-    $address1 = $response->result->purchase_units[0]->address->address_line_1;
-    $address2 = $response->result->purchase_units[0]->address->admin_area_2;
-    $address3 = $response->result->purchase_units[0]->address->admin_area_1;
-    $address4 = $response->result->purchase_units[0]->address->postal_code;
-    $address5 = $response->result->purchase_units[0]->address->country_code;
-    $fullAddress = $address1.", ".$address2.", ".$address3.", ".$address4.", ".$address5;
-
+  
     //insert details to database
-    include('dbcon'); //eto yung conmnection ng database
+    include('db.php'); //eto yung conmnection ng database
     //prepare and bind 
-    $stmt = $con->prepare("INSERT INTO tblname (tablecoloums) VALUES (?, ?, ?, ?)");
-    $stmt->bind_param("ssss, $VALUES");
-    $stmt->execute();
+    $maxIDQ = "SELECT MAX(customerID) AS 'maxID' FROM customer";
+    $maxIDRes = mysqli_query($conn, $maxIDQ);
+    $maxIDRow = mysqli_fetch_assoc($maxIDRes);
+    $customerID = $maxIDRow['maxID'];
+    $stmt = "UPDATE reservation SET reservationStatus = '1' WHERE reservationID = '$customerID'";
+    
     if (!$stmt) {
-        echo 'There was a problem on your code' .mysqli_error($con);
+        echo 'There was a problem on your code' .mysqli_error($conn);
     }
     else{
-        header("Location://paypalSuccess.php");
+      echo '<script>window.location.href="paypalSuccess.php";</script>';
+      mysqli_query($conn, $stmt) or die('Error: ' . mysqli_error($conn));
     }
-    $stmt->close();
-    $con->close();
     /**
      *Enable the following line to print complete response as JSON.
      */
