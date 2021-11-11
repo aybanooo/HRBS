@@ -154,6 +154,7 @@ function voucherEnabled() {
 // function name format is getFFA<what to get>_<method type>
 // method type is the method on what kind of role/account manipulation is done
 function getFFACount_change($accessID, $permissions = null) {
+  if(isAdmin()) return 1;
   $tempConn = createTempDBConnection();
   $countOfTrueToBeAddedInFFA = 0;
   $accountsPermissionKeys = explode(",",mysqli_fetch_all(mysqli_query($tempConn, 'SELECT GROUP_CONCAT(`permID`) FROM `permissions` WHERE `category`=4;'))[0][0]);
@@ -204,6 +205,7 @@ function getFFACount_change($accessID, $permissions = null) {
 }
 
 function getFFAUserCount_change($accessID, $permissions = null) {
+  if(isAdmin()) return 1;
   $tempConn = createTempDBConnection();
   $accountsPermissionKeys = explode(",",mysqli_fetch_all(mysqli_query($tempConn, 'SELECT GROUP_CONCAT(`permID`) FROM `permissions` WHERE `category`=4;'))[0][0]);
   $countOfTrueToBeAddedInFFA = 0;
@@ -292,6 +294,7 @@ function getFFACount_delete($accessID) {
 */
 
 function getFFAUserCount_delete_emp($idListAsString) {
+  if(isAdmin()) return 1;
   !is_string($idListAsString) && throw new Exception("ID list must be a string");
   $sql = "SELECT COUNT(DISTINCT emptable.empID) FROM (
     SELECT access.accessID FROM `access` 
@@ -317,6 +320,7 @@ function getFFAUserCount_delete_emp($idListAsString) {
 }
 
 function accessIDhaveFFA($accessID) {
+  if(isAdmin()) return 1;
   $sql = "SELECT COUNT(*) FROM (
       SELECT A.accessID FROM `access` A 
       INNER JOIN `accesspermission` B ON A.accessID=B.accessId 
