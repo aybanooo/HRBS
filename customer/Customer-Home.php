@@ -344,8 +344,8 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 <script>
     function initMap() {
         const uluru = {
-            lat: 59.9407,
-            lng: 30.3254
+            lat: <?php echo $followingdata['latitude']; ?> ,
+            lng: <?php echo $followingdata['longitude']; ?>
         };
         const map = new google.maps.Map(document.getElementById("map"), {
             zoom: 15,

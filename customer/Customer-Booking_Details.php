@@ -478,25 +478,25 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 	$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	?>
 	<div class="footer">
-        <div class="row">
-            <div class="col-lg-4 mx-auto">
-                <p><b>Contact us</b></p>
-                <p><?php echo $followingdata["contact"]; ?></p>
-                <p><a href="mailto:<?php $followingdata["email"]; ?>"><?php echo $followingdata["email"]; ?></a></p>
-            </div>
-            <div class="col-lg-4 mx-auto">
-                <p>Connect with us at</p>
-                <a href="<?php echo $followingdata["socialFB"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-facebook btn-rounded"><i class="fa fa-facebook"></i></button></a>
-                <a href="<?php echo $followingdata["socialInstagram"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-instagram btn-rounded"><i class="fa fa-instagram"></i></button></a>
-                <a href="<?php echo $followingdata["socialTwitter"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-twitter btn-rounded"><i class="fa fa-twitter"></i></button></a>
-            </div>
-            <div class="col-lg-4 mx-auto">
-                <p><?php echo $followingdata["footerRight"]; ?></p>
-            </div>
-        </div>
-    </div>
+		<div class="row">
+			<div class="col-lg-4 mx-auto">
+				<p><b>Contact us</b></p>
+				<p><?php echo $followingdata["contact"]; ?></p>
+				<p><a href="mailto:<?php $followingdata["email"]; ?>"><?php echo $followingdata["email"]; ?></a></p>
+			</div>
+			<div class="col-lg-4 mx-auto">
+				<p>Connect with us at</p>
+				<a href="<?php echo $followingdata["socialFB"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-facebook btn-rounded"><i class="fa fa-facebook"></i></button></a>
+				<a href="<?php echo $followingdata["socialInstagram"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-instagram btn-rounded"><i class="fa fa-instagram"></i></button></a>
+				<a href="<?php echo $followingdata["socialTwitter"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-twitter btn-rounded"><i class="fa fa-twitter"></i></button></a>
+			</div>
+			<div class="col-lg-4 mx-auto">
+				<p><?php echo $followingdata["footerRight"]; ?></p>
+			</div>
+		</div>
+	</div>
 
-	<div class="modal fade" id="agreeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<!--<div class="modal fade" id="agreeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-center">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -533,13 +533,20 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 				</div>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Save changes</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	-->
 </body>
-
+<!--<script>
+$('input[type="checkbox"]').on('change', function(e){
+   if(e.target.checked){
+     $('#myModal').data();
+   }
+});
+</script>
+-->
 <script>
 	$(document).ready(function() {
 		$('#activate').on('click', function() {
@@ -559,8 +566,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 					} else {
 						var json = JSON.parse(data);
 						$('#result').html(+json.discount + "% Off");
-						var myVal = $('#total').val(json.price);
-						myVal = (Math.round(parseFloat(myVal) * 100) / 100).tofixed(2);
+						$('#total').val(Math.round((parseFloat(json.price)) * 100) / 100);
 					}
 				});
 			}

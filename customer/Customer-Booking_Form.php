@@ -5,6 +5,12 @@ $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
+if(empty($_POST['date_picker1'])){
+	$dateError = "Please pick a date";
+}
+if(empty($_POST['date_picker2'])){
+	$dateError = "Please pick a date";
+}
 ?>
 
 <!DOCTYPE HTML>
