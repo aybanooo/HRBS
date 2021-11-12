@@ -4,7 +4,6 @@ require_once __F_DB_HANDLER__;
 
 
 $conn = createTempDBConnection();
-echo "gege";
 function createSelectElements($list) {
     $select = "<select class='custom-select form-control-border selectRoomType' name='selectRoomType'>";
     foreach($list as $id => $name) {
