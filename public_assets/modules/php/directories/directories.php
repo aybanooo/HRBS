@@ -15,8 +15,18 @@ define('__D_ROOMS__', __D_PUBLIC_ASSETS__.'rooms/');
 define('__D_AMENITIES__', __D_PUBLIC_ASSETS__.'amenities/');
 define('__D_PUBLIC_IMAGES__', __D_PUBLIC_ASSETS__.'images/');
 define('__D_PUBLIC_DEFAULTS__', __D_PUBLIC_ASSETS__.'defaults/');
+define('__D_PUBLIC_PHP__', __D_PUBLIC_ASSETS__.'modules/php/');
+define('__D_DB_CONTORLS__', __D_PUBLIC_PHP__.'database/dbControls/');
+define('__D_UI__', __D_PUBLIC_PHP__.'UI/');
+
+//----- Handlers -----
+define('__F_DB_HANDLER__', __D_DB_CONTORLS__."dbHandler.php");
 
 //----- I/O constants --------
+define('__F_OUTPUT_HANDLER__', __D_PUBLIC_PHP__.'outputHandler/outputHandler.php');
+define('__F_FORMAT_INPUT__', __D_PUBLIC_PHP__.'format/formatInput.php');
+define('__F_FORMAT__', __D_PUBLIC_PHP__.'format/format.php');
+define('__F_FORMAT_IMAGE__', __D_PUBLIC_PHP__.'format/formatImage.php');
 
 //----- UI constants --------
 
@@ -39,7 +49,7 @@ define('__F_BASE_CUSTOMER__', "<base href='".$_SERVER['REQUEST_SCHEME']."://".$_
 
 date_default_timezone_set('Asia/Manila');
 
-die();
+return;
 #the ff succeeding  are for debuging
 ?>
 
