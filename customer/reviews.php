@@ -11,7 +11,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title><?php echo $followingdata['companyName']; ?> | Customer Review</title>
@@ -20,51 +20,45 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="css/styles.css" rel="stylesheet" />
 
-
     <style type="text/css">
         body {
             padding-top: 65px;
             background-color: #F2F2F3;
         }
-
         #mainNav .navbar-brand {
             color: rgba(255, 255, 255, 1);
         }
-
         #mainNav .nav-link {
             color: rgba(255, 255, 255, 1);
         }
-
         nav#mainNav {
             background-color: black;
             position: fixed;
-
         }
-
-        h1 {
-
+        .loginForm h1 {
             text-align: center;
             padding-top: 2%;
             padding-bottom: 2%;
+            font-size: 2em;
         }
-
         .loginForm {
             background-color: white;
             color: black;
             padding: 2%;
             text-align: center;
             margin: 5% auto;
-            width: 40%;
+            width: 50%;
             box-shadow: 0 0 5px 0 rgb(0 0 0 / 40%);
             border-radius: 5px;
         }
 
         input[type=text],
         input[type=password] {
-            border: none;
+
+            border: 1px solid #c1c1c1;
             background-color: #eee;
             color: #000;
-            width: 75%;
+            width: 35%;
             margin: auto;
             display: block;
             margin-bottom: 4%;
@@ -75,7 +69,10 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             font-size: 1em;
             text-align: center;
         }
-
+        textarea#exampleFormControlTextarea1{
+            width: 75%;
+            margin: auto;
+        }
         input[type=submit] {
             border: none;
             outline: 0;
@@ -103,9 +100,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             background-color: black;
             color: rgba(255, 255, 255, .8);
             padding: 1%;
-            position: absolute;
             width: 100%;
             text-align: center;
+            position: absolute;
         }
 
         textarea {
@@ -175,29 +172,29 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="Customer-Home.html"><?php echo $followingdata['companyName']; ?></a>
+            <a class="navbar-brand js-scroll-trigger" href="Customer-Home.php"><?php echo $followingdata['companyName']; ?></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
             </button>
         </div>
     </nav>
-
+    <form action="" method="POST">
     <section id="login">
         <div class="loginForm">
             <div class="row">
                 <div class="col-lg-12 mx-auto">
-                    <h1><b>Review</b></h1>
+                    <h1><b>Comments and Suggestions</b></h1>
                     <hr class="new1">
                     <form method="POST" action="">
                         <tr align="left">
-                            <td><input type="text" name="reservationID" required placeholder="Enter Reservation ID"></td>
+                            <td><input type="text" name="reservationID" required placeholder="Reservation ID"></td>
                         </tr>
                         <tr>
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter Comments/Suggestion and Rating"></textarea>
                         </tr>
                         <tr>
-                            <td class="sign" align="center" align="right"><input type="submit" value="Verify" name="Send Review"></td>
+                            <td class="sign" align="center" align="right"><input type="submit" value="Send Review" name="submit"></td>
                         </tr>
                     </form>
                 </div>
@@ -205,6 +202,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         </div>
         </div>
     </section>
+    </form>
     <?php
     $query = "SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
         FROM socialmedias, companyinfo";
@@ -230,7 +228,4 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         </div>
     </div>
 </body>
-
-</html>
-
 </html>

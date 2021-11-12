@@ -1,11 +1,9 @@
 <?php
 include('db.php');
 
-$query = "SELECT companyName, companyDesc, address, longitude, latitude  
-FROM companyinfo";
+$query = "SELECT companyName, companyDesc, address, longitude, latitude FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
-
 ?>
 
 <!DOCTYPE HTML>
@@ -13,10 +11,10 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title><?php echo $followingdata['companyName']; ?> | Login</title>
+    <title><?php echo $followingdata['companyName']; ?> | Cancel Booking</title>
     <link rel="icon" type="image/x-icon" href="" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -39,7 +37,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         nav#mainNav {
             background-color: black;
             position: fixed;
-
         }
 
         .loginForm h1 {
@@ -113,6 +110,11 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             width: 100%;
             text-align: center;
             position: absolute;
+        }
+
+        textarea#exampleFormControlTextarea1 {
+            width: 75%;
+            margin: auto;
         }
 
         .template-demo>.btn {
@@ -190,14 +192,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                 Menu
                 <i class="fas fa-bars"></i>
             </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare_Rooms.php">Compare</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Rooms.php">Rooms</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Amenities.php">Amenities</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger active" href="CustomerLogin.php">Login</a></li>
-                </ul>
-            </div>
         </div>
     </nav>
 
@@ -207,31 +201,15 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                 <div class="col-lg-12 mx-auto">
                     <h1><b>Booking Cancellation.</b></h1>
                     <hr class="new1">
-
-                    <?php
-
-                    if (isset($_POST['cancellation'])) {
-                        $cancellationCode = $_POST['cancellation'];
-                    }
-
-                    $query = "SELECT reservationID FROM reservation WHERE reservationID = `$cancellationCode`";
-
-                    echo "nice"
-
-
-
-
-
-                    ?>
                     <form action="" method="POST">
-                        <tr>
-                            <div class="form-span" align="center"><span>Please enter the Reservation ID of the booking.</span></div>
-                        </tr>
-                        <br>
 
                         <tr>
                             <td><input type="text" name="cancellation" required placeholder="Reservation ID"></td>
                         </tr>
+                        <tr>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Reason why you want to cancel the booking. "></textarea>
+                        </tr>
+                        <br>
                         <tr>
                             <td>
                                 <input type="checkbox" id="cbverify" required>
@@ -247,20 +225,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         </div>
         </div>
     </section>
-    <?php
-
-    if (isset($_POST['fname'])) {
-        $firstName = $_POST['fname'];
-    }
-
-    $cancellation = "SELECT * FROM Reservation"
-
-
-
-
-    ?>
-
-    <!-- Footer-->
     <?php
     $query = "SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
         FROM socialmedias, companyinfo";
@@ -285,8 +249,5 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             </div>
         </div>
     </div>
-
-
 </body>
-
 </html>

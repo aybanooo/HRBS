@@ -21,6 +21,7 @@ if($empId=='admin') {
     $userInfo['first_name'] = 'admin'; 
     $userInfo['last_name'] = ''; 
     $userInfo['acid'] = 'admin'; 
+    $userInfo['acname'] = 'admin'; 
     $userInfo['contact_number'] = 'admin';
     
     // JWT shits
