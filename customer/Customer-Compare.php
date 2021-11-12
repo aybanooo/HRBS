@@ -174,34 +174,60 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                     <div class="col-3">
 
                                                     </div>
-                                                    <?php
-                                                    $query = "SELECT COUNT(roomTypeID) FROM `roomtype`;";
-                                                    $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-                                                    if (mysqli_num_rows($result) > 0) {
-                                                        while ($row = mysqli_fetch_assoc($result)) {
-                                                    ?>
-                                                        <div class="col-3">
-                                                            <div class="form-group">
-                                                                <select class="form-control">
-                                                                    <option>None</option>
-                                                                    <?php
-                                                                    $query = "SELECT `name` FROM roomtype;";
-                                                                    $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-                                                                    if (mysqli_num_rows($result) > 0) {
-                                                                        while ($row = mysqli_fetch_assoc($result)) {
-                                                                    ?>
-                                                                            <option><?php echo $row["name"]; ?></option>
-                                                                    <?php
-                                                                        }
+                                                    <div class="col-3">
+                                                        <div class="form-group">
+                                                            <select class="form-control">
+                                                                <option>None</option>
+                                                                <?php
+                                                                $query = "SELECT `name` FROM roomtype;";
+                                                                $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+                                                                if (mysqli_num_rows($result) > 0) {
+                                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                                ?>
+                                                                        <option><?php echo $row["name"]; ?></option>
+                                                                <?php
                                                                     }
-                                                                    ?>
-                                                                </select>
-                                                            </div>
+                                                                }
+                                                                ?>
+                                                            </select>
                                                         </div>
-                                                    <?php
-                                                        }
-                                                    }
-                                                    ?>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="form-group">
+                                                            <select class="form-control">
+                                                                <option>None</option>
+                                                                <?php
+                                                                $query = "SELECT `name` FROM roomtype;";
+                                                                $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+                                                                if (mysqli_num_rows($result) > 0) {
+                                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                                ?>
+                                                                        <option><?php echo $row["name"]; ?></option>
+                                                                <?php
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3">
+                                                        <div class="form-group">
+                                                            <select class="form-control">
+                                                                <option>None</option>
+                                                                <?php
+                                                                $query = "SELECT `name` FROM roomtype;";
+                                                                $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+                                                                if (mysqli_num_rows($result) > 0) {
+                                                                    while ($row = mysqli_fetch_assoc($result)) {
+                                                                ?>
+                                                                        <option><?php echo $row["name"]; ?></option>
+                                                                <?php
+                                                                    }
+                                                                }
+                                                                ?>
+                                                            </select>
+                                                        </div>
+                                                    </div>
 
                                                 </div>
                                             </div>
