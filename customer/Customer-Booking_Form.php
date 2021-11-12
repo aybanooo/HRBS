@@ -4,13 +4,6 @@ include('db.php');
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
-
-if(empty($_POST['date_picker1'])){
-	$dateError = "Please pick a date";
-}
-if(empty($_POST['date_picker2'])){
-	$dateError = "Please pick a date";
-}
 ?>
 
 <!DOCTYPE HTML>
@@ -330,7 +323,7 @@ if(empty($_POST['date_picker2'])){
 			</div>
 		</div>
 	</nav>
-	
+
 	<section id="bookForm">
 		<div class="bookForm">
 			<div class="row">
@@ -359,8 +352,7 @@ if(empty($_POST['date_picker2'])){
 								<th><label for="date">Check In Date:</label></th>
 								<td>
 									<div class="form-group">
-										<input type="text" name="date_picker1" id="date_picker1">
-										<span><?php echo $dateError; ?></span>
+										<input type="text" name="date_picker1" id="date_picker1" required>
 									</div>
 								</td>
 							</tr>
@@ -368,8 +360,7 @@ if(empty($_POST['date_picker2'])){
 								<th><label for="date">Check Out Date:</label></th>
 								<td>
 									<div class="form-group">
-										<input type="text" name="date_picker2" id="date_picker2">
-										<span><?php echo $dateError; ?></span>
+										<input type="text" name="date_picker2" id="date_picker2" required>
 									</div>
 								</td>
 							</tr>
@@ -513,23 +504,23 @@ if(empty($_POST['date_picker2'])){
 	$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	?>
 	<div class="footer">
-        <div class="row">
-            <div class="col-lg-4 mx-auto">
-                <p><b>Contact us</b></p>
-                <p><?php echo $followingdata["contact"]; ?></p>
-                <p><a href="mailto:<?php $followingdata["email"]; ?>"><?php echo $followingdata["email"]; ?></a></p>
-            </div>
-            <div class="col-lg-4 mx-auto">
-                <p>Connect with us at</p>
-                <a href="<?php echo $followingdata["socialFB"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-facebook btn-rounded"><i class="fa fa-facebook"></i></button></a>
-                <a href="<?php echo $followingdata["socialInstagram"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-instagram btn-rounded"><i class="fa fa-instagram"></i></button></a>
-                <a href="<?php echo $followingdata["socialTwitter"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-twitter btn-rounded"><i class="fa fa-twitter"></i></button></a>
-            </div>
-            <div class="col-lg-4 mx-auto">
-                <p><?php echo $followingdata["footerRight"]; ?></p>
-            </div>
-        </div>
-    </div>
+		<div class="row">
+			<div class="col-lg-4 mx-auto">
+				<p><b>Contact us</b></p>
+				<p><?php echo $followingdata["contact"]; ?></p>
+				<p><a href="mailto:<?php $followingdata["email"]; ?>"><?php echo $followingdata["email"]; ?></a></p>
+			</div>
+			<div class="col-lg-4 mx-auto">
+				<p>Connect with us at</p>
+				<a href="<?php echo $followingdata["socialFB"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-facebook btn-rounded"><i class="fa fa-facebook"></i></button></a>
+				<a href="<?php echo $followingdata["socialInstagram"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-instagram btn-rounded"><i class="fa fa-instagram"></i></button></a>
+				<a href="<?php echo $followingdata["socialTwitter"]; ?>" target="_blank"><button type="button" class="btn btn-social-icon btn-twitter btn-rounded"><i class="fa fa-twitter"></i></button></a>
+			</div>
+			<div class="col-lg-4 mx-auto">
+				<p><?php echo $followingdata["footerRight"]; ?></p>
+			</div>
+		</div>
+	</div>
 </body>
 
 
