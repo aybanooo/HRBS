@@ -1,48 +1,27 @@
+thanoshotelreservation@ghrbs.site
 <?php
-use PHPMailer\PHPMailer\PHPMailer;
-require 'vendor/autoload.php';
-    $mail = new PHPMailer;
-    $mail->isSMTP();
-    $mail->Host = 'smtp.hostinger.com';
-    $mail->Port = 465;
-    $mail->SMTPAuth = true;
-    $mail->Username = 'thanoshotelreservation@ghrbs.site';
-    $mail->Password = 'Thanos123';
-    $mail->setFrom('test@hostinger-tutorials.com', 'Mr. Drago');
-    $mail->addAddress('Benjbenito10@gmail.com', 'Pogi');
-    if ($mail->addReplyTo($_POST['email'], $_POST['name'])) {
-        $mail->Subject = 'PHPMailer contact form';
-        $mail->isHTML(false);
-        $mail->Body = <<<EOT
-Email: {$_POST['email']}
-Name: {$_POST['name']}
-Message: {$_POST['message']}
-EOT;
-        if (!$mail->send()) {
-            $msg = 'Sorry, something went wrong. Please try again later.';
-        } else {
-            $msg = 'Message sent! Thanks for contacting us.';
-        }
+    ini_set( 'display_errors', 1 );
+    error_reporting( E_ALL );
+    $from = "thanoshotelreservation@ghrbs.site";
+    $to = "BENJBENITO10@GMAIL.COM";
+    $subject = "Checking PHP mail";
+    $message = "
+    <html>
+    <head>
+    <title>This is a test HTML email</title>
+    </head>
+    <body>
+    <p>Hi, it’s a test email. Please ignore.</p>
+    </body>
+    </html>
+    ";
+    // The content-type header must be set when sending HTML email
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+    $headers = "From:" . $from;
+    if(mail($to,$subject,$message, $headers)) {
+    echo "Message was sent.";
     } else {
-        $msg = 'Share it with us!';
+      echo "Message was not sent.";
     }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Contact form</title>
-</head>
-<body>
-<h1>Do You Have Anything in Mind?</h1>
-<?php if (!empty($msg)) {
-    echo "<h2>$msg</h2>";
-} ?>
-<form method="POST">
-    <label for="name">Name: <input type="text" name="name" id="name"></label><br><br>
-    <label for="email">Email: <input type="email" name="email" id="email"></label><br><br>   
-    <label for="message">Message: <textarea name="message" id="message" rows="8" cols="20"></textarea></label><br><br>
-    <input type="submit" value="Send">
-</form>
-</body>
-</html>
