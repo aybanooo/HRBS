@@ -54,7 +54,9 @@ mysqli_query($conn, $sql);
 if (mysqli_query($conn, $sql)) {
     $output->setSuccessful("Room deleted successfully");
 } else {
-    $output->setFailed("Something went wrong while deleting the room.");
+    if(getConnErrorNo($conn)==1451)
+        die($output->setFailed('Room type still exists in room numbers'));
+    $output->setFailed("Something went wrong while deleting the room.", getConnError($conn), getConnErrorNo($conn));
     echo $output->getOutput(true);
     die();
 }
