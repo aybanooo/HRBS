@@ -36,6 +36,10 @@ function getConnError($conn) {
     return __CONF_DMODE_PARSED__ ?  mysqli_error($conn) : "" ;
 }
 
+function getConnErrorNo($conn) {
+    return __CONF_DMODE_PARSED__ ?  mysqli_errno($conn) : "" ;
+}
+
 
 #$2y$10$WvbX0/X.a9//Evje/6NOTumlEd0Qn4CX.z.T.1wSo.F...
 
