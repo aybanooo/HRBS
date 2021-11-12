@@ -48,7 +48,7 @@ if(mysqli_num_rows($result = mysqli_query($conn, "SELECT * FROM access $fakeWher
 }
 
 #put permissions in accessID's categories
-if(mysqli_num_rows($result = mysqli_query($conn, "SELECT A.*, B.category AS categoryID, B.name  FROM accesspermission A LEFT JOIN permissions B ON A.permId=b.permID $fakeWhere;")) > 0) {
+if(mysqli_num_rows($result = mysqli_query($conn, "SELECT A.*, B.category AS categoryID, B.name  FROM accesspermission A LEFT JOIN permissions B ON A.permId=B.permID $fakeWhere;")) > 0) {
   #$temp = mysqli_fetch_all($result, MYSQLI_ASSOC);
   while($r = mysqli_fetch_assoc($result)) {
     $i = array_search($r['categoryID'], array_column($categories, 'categoryID'));
