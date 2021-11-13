@@ -205,17 +205,17 @@
               <thead>
                 <tr>
                   <th></th>
-                  <th>Reservation</th>
+                  <th>Status</th>
+                  <th>Reservation ID</th>
                   <th>Room #</th>
                   <th>Booked by</th>
-                  <th># of stay (/night)</th>
-                  <th>Adults</th>
-                  <th>Children</th>
                   <th>Check-In Date</th>
                   <th>Check-Out Date</th>
                   <th>Check-In Time</th>
                   <th>Check-Out Time</th>
-                  <th>Status</th>
+                  <th># of stay (per night)</th>
+                  <th>Adults</th>
+                  <th>Children</th>
                   <th>Contact</th>
                   <th>Email</th>
                 </tr>
@@ -397,51 +397,81 @@ table_Reservation = $('#table-reservation').DataTable( {
   "lengthChange": true, 
   "autoWidth": false,
   columns: [
-  {
-    data: null,
-    defaultContent: "<span class='p-2'></span>",
-    className: 'dtr-control',
-    orderable: false
-  }, {
+    {
+      data: null,
+      defaultContent: "<span class='p-2'></span>",
+      className: 'dtr-control',
+      orderable: false
+    }, {
+      data: 'reservationStatus',
+      render: function (data, type, row, meta) {
+        return getReservationStatusBadge(data);
+      }
+    }, {
       data: 'reservationID',
-      render: function ( data, type, row, meta ) {
-        console.log(row
-        );
+      render: function (data, type, row, meta) {
+        //console.log(row);
         return data;
       }
     }, {
-     data: 'roomNo',
-     "visible": false
+      data: 'roomNo',
+      "visible": false
     }, {
-     data: 'Name',
-     className: 'None' 
+      data: 'Name',
+      className: 'None'
     }, {
-     data: 'numberOfNightstay' 
+      data: 'checkInDate'
     }, {
-     data: 'adults' 
+      data: 'checkOutDate'
     }, {
-     data: 'children' 
+      data: 'checkInTime'
     }, {
-     data: 'checkInDate' 
+      data: 'checkOutTime'
     }, {
-     data: 'checkOutDate' 
+      data: 'numberOfNightstay',
+      className: 'none'
     }, {
-     data: 'checkInTime' 
+      data: 'adults',
+      className: 'none'
     }, {
-     data: 'checkOutTime' 
+      data: 'children',
+      className: 'none'
     }, {
-     data: 'reservationStatus' 
+      data: 'contact',
+      className: 'none'
     }, {
-     data: 'contact'
-    }, {
-     data: 'email'
+      data: 'email',
+      className: 'none'
     }
   ],
   "columnDefs": [
+    {orderable: false, targets: 0},
     {"className": "align-middle", "targets": "_all"}
-  ]
+  ],
+  order: [[1, 'asc']]
 });
   //$('.dataTables_length').addClass('bs-select');
+
+function getReservationStatusBadge(value) {
+  value = parseInt(value);
+  let statusText;
+  let badgeColor;
+  switch(value) {
+    case 1:
+      statusText = "Paid";
+      badgeColor = "success";
+      break;
+    case 2:
+      statusText = "Cancelled";
+      badgeColor = "information";
+      break;
+    default:
+      statusText = "Unpaid";
+      badgeColor = "danger";
+      break;
+  }
+  return `<span class="badge badge-${badgeColor}">${statusText}</span>`; 
+}
 
   $(document).ready(function() {
   $("#incidentalTableSearch").on("keyup", function() {
