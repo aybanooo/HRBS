@@ -171,7 +171,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                     </div>
                                     <div class="col-lg-4 mx-auto">
 
-                                        <h3 id="name" class="p-3"><?php echo $followingdata['name']; ?></h3>
+                                        <h3 id="name" class="p-3"><?php echo $followingdata['roomtypeID']; ?></h3>
                                     </div>
                                     <div class="col-lg-4 mx-auto">
                                         <a href="Customer-Booking_Form.php"><button type="button" class="btn btn-success">Book Now</button></a>
