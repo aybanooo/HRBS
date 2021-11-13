@@ -1,7 +1,9 @@
 <?php
 include('db.php');
 
-$valueFromBooking = $_POST['id'];
+// Iescape natin para iwas SQL injection. Ito din dahilan ng error kapag may quote yung query. 
+// Bakit nga pala name ng room yung value? hindi ba dapat ID ng room?
+$valueFromBooking = mysqli_real_escape_string($conn, $_POST['id']); 
 
 $query="SELECT rate FROM roomtype WHERE `name`='{$valueFromBooking}'";
 $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
