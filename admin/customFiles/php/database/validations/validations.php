@@ -7,6 +7,7 @@ require_once(__initDB__);
 require_once(__F_OUTPUT_HANDLER__);
 require_once(__F_FORMAT__);
 require_once(__F_DB_HANDLER__);
+require_once(__F_LOGIN_HANDLER__);
 
 
 function getCurrentDateAsUTCtimestamp() {
@@ -341,6 +342,13 @@ function accessIDhaveFFA($accessID) {
   mysqli_close($tempConnection);
   return $accountsAccessID;
 }
+
+function haveAdminSideAccess() {
+  if(!isTokenValid()){
+    header("HTTP/1.1 401");
+    exit();
+  }
+} 
 
 //------------------- EMP ACCOUNT/ROLE VALIDATION END-------------------
 
