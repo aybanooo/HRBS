@@ -45,7 +45,19 @@
   <!-- Special Style-->
   <link rel="stylesheet" href="customFiles/specialStyle.css">
   <link rel="stylesheet" href="customFiles/overrideStyle.css">
+  <style>
+    #table-reservation tbody > tr:not(tr.child) {
+      text-align: center;
+    }
 
+    #table-reservation tbody > tr:not(.child) td:nth-child(n+2):hover {
+      cursor: pointer;
+    }
+
+    #table-reservation tbody > tr:not(.child):hover {
+      color: var(--primary);
+    }
+  </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed light-mode">
 <div class="wrapper">
@@ -189,91 +201,28 @@
               <h3 class="card-title">Reservations</h3>
           </div>
           <div class="card-body table-bg p-2">
-            <div class="table-responsive">          
-            <table id="rsvTable" class="table borderless reservationTable">
+            <table id="table-reservation" class="table table-bordered table-striped">
               <thead>
                 <tr>
-                  <th>Reservation ID</th>
-                  <th>name</th>
-                  <th>Date</th>
-                  <th>Room</th>
+                  <th></th>
+                  <th>Reservation</th>
                   <th>Room #</th>
+                  <th>Booked by</th>
+                  <th># of stay (/night)</th>
+                  <th>Adults</th>
+                  <th>Children</th>
                   <th>Check-In Date</th>
                   <th>Check-Out Date</th>
                   <th>Check-In Time</th>
                   <th>Check-Out Time</th>
+                  <th>Status</th>
+                  <th>Contact</th>
+                  <th>Email</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>Mimi Yun</td>
-                  <td>2020-10-23</td>
-                  <td>Royal Penthouse Suite</td>
-                  <td>503</td>
-                  <td>2021-04-13</td>
-                  <td>2020-04-18</td>
-                  <td>6:45</td>
-                  <td>15:30</td>
-                </tr>
-                <tr>
-                  <td>2</td>
-                  <td>Trevor Weesley</td>
-                  <td>2020-10-01</td>
-                  <td>Imperial Suite</td>
-                  <td>444</td>
-                  <td>2020-10-02</td>
-                  <td>2020-10-07</td>
-                  <td>2:45</td>
-                  <td>20:30</td>
-                </tr>
-                <tr>
-                  <td>3</td>
-                  <td>George Bush</td>
-                  <td>2020-10-23</td>
-                  <td>Imperial Suite</td>
-                  <td>314</td>
-                  <td>2020-10-24</td>
-                  <td>2020-10-26</td>
-                  <td>16:55</td>
-                  <td>8:31</td>
-                </tr>
-                <tr>
-                  <td>4</td>
-                  <td>Sasha Grey</td>
-                  <td>2020-10-23</td>
-                  <td>Royal Penthouse Suite</td>
-                  <td>521</td>
-                  <td>2021-04-13</td>
-                  <td>2020-04-18</td>
-                  <td>12:12</td>
-                  <td>18:11</td>
-                </tr>
-                <tr>
-                  <td>5</td>
-                  <td>Michael Truman</td>
-                  <td>2020-10-23</td>
-                  <td>Imperial Suite</td>
-                  <td>444</td>
-                  <td>2020-12-02</td>
-                  <td>2020-12-07</td>
-                  <td>11:19</td>
-                  <td>10:47</td>
-                </tr>
-                <tr>
-                  <td>6</td>
-                  <td>Eliar Fox</td>
-                  <td>2021-01-13</td>
-                  <td>Royal Penthouse Suite</td>
-                  <td>522</td>
-                  <td>2021-01-29</td>
-                  <td>2021-02-2</td>
-                  <td>13:01</td>
-                  <td>15:26</td>
-                </tr>
               </tbody>
             </table>
-            </div>
           </div>
         </div>
         <!-- Data Table End -->
@@ -353,98 +302,148 @@
 <script src="customFiles/customScript.js"></script>
 
 <script>
-  $(function () {
-    /* ChartJS
-     * -------
-     * Here we will create a few charts using ChartJS
-     */
+$(function () {
+  /* ChartJS
+    * -------
+    * Here we will create a few charts using ChartJS
+    */
 
-    //--------------
-    //- AREA CHART -
-    //--------------
+  //--------------
+  //- AREA CHART -
+  //--------------
 
-    // Get context with jQuery - using jQuery's .get() method.
-    
-    var labelToday = ["0:00","1:00","6:00","18:00","24:00"]
-    var month = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
-    var areaChartData = {
-      labels  : labelToday,
-      datasets: [
-        {
-          label               : 'Reservations',
-          backgroundColor     : 'rgba(60,141,188,0.9)',
-          borderColor         : 'rgba(60,141,188,0.8)',
-          pointRadius          : false,
-          pointColor          : '#3b8bba',
-          pointStrokeColor    : 'rgba(60,141,188,1)',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(60,141,188,1)',
-          data                : [5, 3, 10, 2, 0]
-        },
-        {
-          label               : 'Cancelled',
-          backgroundColor     : 'rgba(201, 143, 143, 0.9)',
-          borderColor         : 'rgba(201, 143, 143, 0.8)',
-          pointRadius         : false,
-          pointColor          : 'rgba(201, 143, 143, 1)',
-          pointStrokeColor    : '#c1c7d1',
-          pointHighlightFill  : '#fff',
-          pointHighlightStroke: 'rgba(220,220,220,1)',
-          data                : [0, 0, 1, 0, 2]
-        },
-      ]
-    }
-
-    var areaChartOptions = {
-      maintainAspectRatio : false,
-      responsive : true,
-      legend: {
-        display: true
+  // Get context with jQuery - using jQuery's .get() method.
+  
+  var labelToday = ["0:00","1:00","6:00","18:00","24:00"]
+  var month = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+  var areaChartData = {
+    labels  : labelToday,
+    datasets: [
+      {
+        label               : 'Reservations',
+        backgroundColor     : 'rgba(60,141,188,0.9)',
+        borderColor         : 'rgba(60,141,188,0.8)',
+        pointRadius          : false,
+        pointColor          : '#3b8bba',
+        pointStrokeColor    : 'rgba(60,141,188,1)',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(60,141,188,1)',
+        data                : [5, 3, 10, 2, 0]
       },
-      scales: {
-        xAxes: [{
-          gridLines : {
-            display : true,
-          }
-        }],
-        yAxes: [{
-          gridLines : {
-            display : false,
-          }
-        }]
-      }
+      {
+        label               : 'Cancelled',
+        backgroundColor     : 'rgba(201, 143, 143, 0.9)',
+        borderColor         : 'rgba(201, 143, 143, 0.8)',
+        pointRadius         : false,
+        pointColor          : 'rgba(201, 143, 143, 1)',
+        pointStrokeColor    : '#c1c7d1',
+        pointHighlightFill  : '#fff',
+        pointHighlightStroke: 'rgba(220,220,220,1)',
+        data                : [0, 0, 1, 0, 2]
+      },
+    ]
+  }
+
+  var areaChartOptions = {
+    maintainAspectRatio : false,
+    responsive : true,
+    legend: {
+      display: true
+    },
+    scales: {
+      xAxes: [{
+        gridLines : {
+          display : true,
+        }
+      }],
+      yAxes: [{
+        gridLines : {
+          display : false,
+        }
+      }]
     }
+  }
 
-    //-------------
-    //- LINE CHART -
-    //--------------
-    var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
-    var lineChartOptions = $.extend(true, {}, areaChartOptions)
-    var lineChartData = $.extend(true, {}, areaChartData)
-    lineChartData.datasets[0].fill = false;
-    lineChartData.datasets[1].fill = false;
-    lineChartOptions.datasetFill = false
+  //-------------
+  //- LINE CHART -
+  //--------------
+  var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+  var lineChartOptions = $.extend(true, {}, areaChartOptions)
+  var lineChartData = $.extend(true, {}, areaChartData)
+  lineChartData.datasets[0].fill = false;
+  lineChartData.datasets[1].fill = false;
+  lineChartOptions.datasetFill = false
 
-    var lineChart = new Chart(lineChartCanvas, {
-      type: 'line',
-      data: lineChartData,
-      options: lineChartOptions
-    })
+  var lineChart = new Chart(lineChartCanvas, {
+    type: 'line',
+    data: lineChartData,
+    options: lineChartOptions
   })
+})
 </script>
+
 <!-- Table script -->
 <script>
- $(document).ready(function () {
-  $('#rsvTable').DataTable( {
+
+table_Reservation = $('#table-reservation').DataTable( {
+  ajax: "customFiles/php/database/reservationControls/getReservations.php",
+  dataSrc: 'data',
+  responsive: {
+    details: {
+      type: 'column',
+      target: 0
+    }
+  },
+  "lengthChange": true, 
+  "autoWidth": false,
+  columns: [
+  {
+    data: null,
+    defaultContent: "<span class='p-2'></span>",
+    className: 'dtr-control',
+    orderable: false
+  }, {
+      data: 'reservationID',
+      render: function ( data, type, row, meta ) {
+        console.log(row
+        );
+        return data;
+      }
+    }, {
+     data: 'roomNo',
+     "visible": false
+    }, {
+     data: 'Name',
+     className: 'None' 
+    }, {
+     data: 'numberOfNightstay' 
+    }, {
+     data: 'adults' 
+    }, {
+     data: 'children' 
+    }, {
+     data: 'checkInDate' 
+    }, {
+     data: 'checkOutDate' 
+    }, {
+     data: 'checkInTime' 
+    }, {
+     data: 'checkOutTime' 
+    }, {
+     data: 'reservationStatus' 
+    }, {
+     data: 'contact'
+    }, {
+     data: 'email'
+    }
+  ],
   "columnDefs": [
-    { "width": "10%", "targets": 0 }
+    {"className": "align-middle", "targets": "_all"}
   ]
 });
-  $('.dataTables_length').addClass('bs-select');
-});
+  //$('.dataTables_length').addClass('bs-select');
 
-
-  $(document).ready(function(){
+  $(document).ready(function() {
   $("#incidentalTableSearch").on("keyup", function() {
     var value = $(this).val().toLowerCase();
     $("#incidentalTable tbody tr").filter(function() {
