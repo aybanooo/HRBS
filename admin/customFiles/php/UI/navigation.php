@@ -209,10 +209,10 @@ LOGOUT
 
   <!-- Custom Area -->
   <div class="sidebar-custom d-flex justify-content-center">
-    <div class="form-group">
-      <div class="custom-control custom-switch">
+    <div class="form-group w-100 d-block text-center">
+      <label id="lbutton-darkmode" for="toggle-darkMode"><i class="fas fa-lightbulb fa-lg"></i></label>
+      <div class="custom-control custom-switch d-none">
         <input type="checkbox" class="custom-control-input" id="toggle-darkMode">
-        <label class="custom-control-label" for="toggle-darkMode">Dark Mode</label>
       </div>
     </div>
   </div>
