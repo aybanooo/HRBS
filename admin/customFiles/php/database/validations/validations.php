@@ -343,7 +343,7 @@ function accessIDhaveFFA($accessID) {
   return $accountsAccessID;
 }
 
-function haveAdminSideAccess() {
+function checkAdminSideAccess() {
   if(!isTokenValid()){
     header("HTTP/1.1 401");
     exit();
