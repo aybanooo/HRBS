@@ -4,6 +4,7 @@ require_once(dirname(__FILE__, 3).'/directories/directories.php');
 require_once(__F_VALIDATIONS__);
 require_once(__F_GEN__);
 require_once(__initDB__);
+checkAdminSideAccess();
 
 voucherEnabled();
 

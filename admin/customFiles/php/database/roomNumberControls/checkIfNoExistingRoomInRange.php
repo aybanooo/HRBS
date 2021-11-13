@@ -1,5 +1,7 @@
 <?php
-
+require_once(dirname(__FILE__,3)."/directories/directories.php");
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 
 $_GET['ignoreExisting'] =  filter_var($_GET['ignoreExisting'], FILTER_VALIDATE_BOOLEAN);
 

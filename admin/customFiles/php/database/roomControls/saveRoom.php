@@ -2,7 +2,10 @@
 
 require_once("../../directories/directories.php");
 require_once(__initDB__);
+require_once __F_DB_HANDLER__;
 require_once __F_PERMISSION_HANDLER__;
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 
 checkPermission(__V_P_ROOMS_MANAGE__, true);
 
@@ -29,7 +32,7 @@ function insertImageInfoToGallery(&$conn, $sectionID, $pictureName, $is360) {
     if (mysqli_query($conn, $sql)) {
         //echo "Image Successfully added to there.";
     } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        echo "Error: " . $sql . "<br>" . getConnError($conn);
     }
 }
 

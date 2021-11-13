@@ -4,6 +4,8 @@ require_once(dirname(__FILE__,3)."/directories/directories.php");
 require_once __initDB__;
 require_once __F_FORMAT__;
 require_once __F_PERMISSION_HANDLER__;
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 
 #print_r($_POST);
 #print_r($_FILES);

@@ -4,6 +4,7 @@ require_once(__initDB__);
 require_once(__F_LOGIN_HANDLER__);
 require_once __F_PERMISSION_HANDLER__;
 require_once(__F_VALIDATIONS__);
+checkAdminSideAccess();
 
 checkRequiredPOSTval("newAccessID, empID");
 

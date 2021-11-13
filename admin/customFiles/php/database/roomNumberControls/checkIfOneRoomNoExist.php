@@ -1,6 +1,8 @@
 <?php
 require_once("../../directories/directories.php");
 require_once(__initDB__);
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 
 $sql = "SELECT roomNo FROM room WHERE roomNo=".$_POST["roomNo"].";";
 $result = mysqli_query($conn, $sql);

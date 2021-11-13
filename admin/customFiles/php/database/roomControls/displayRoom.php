@@ -2,6 +2,8 @@
 
 require_once("../../directories/directories.php");
 require_once(__initDB__);
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 
 if( !isset($_GET["roomTypeID"]) || empty(trim($_GET["roomTypeID"]))) {
     header("Location: /admin/rooms");

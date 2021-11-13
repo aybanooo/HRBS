@@ -1,6 +1,8 @@
 <?php
 require_once("../../directories/directories.php");
 require_once(__initDB__);
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 
 $sql = "SELECT * FROM employee WHERE empID={$_GET['empID']} LIMIT 1;";
 //$sql = "SELECT * FROM access";

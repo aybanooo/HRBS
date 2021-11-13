@@ -1,4 +1,7 @@
 <?php 
+require_once(dirname(__FILE__,3)."/directories/directories.php");
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
     #echo json_encode($data);
     #die();
   foreach($data as $val){

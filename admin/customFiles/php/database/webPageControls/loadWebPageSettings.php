@@ -2,6 +2,8 @@
 require_once(dirname(__FILE__, 3)."/directories/directories.php");
 require_once(__initDB__);
 require_once(__F_FORMAT__);
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 
 
 function notSetToEmptyString(&$value) {

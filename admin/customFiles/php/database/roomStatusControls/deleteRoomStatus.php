@@ -3,6 +3,8 @@ require_once("../../directories/directories.php");
 require_once(__initDB__);
 require_once(__F_OUTPUT_HANDLER__);
 require_once __F_PERMISSION_HANDLER__;
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 
 checkPermission(__V_P_ROOMS_MANAGE_STATUS__, true);
 

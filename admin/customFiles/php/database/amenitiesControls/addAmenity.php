@@ -6,6 +6,8 @@ require_once __F_FORMAT__;
 require_once __F_VALIDATIONS__;
 require_once "genAmenityCardFunction.php";
 require_once __F_PERMISSION_HANDLER__;
+require_once __F_DB_HANDLER__;
+checkAdminSideAccess();
 
 checkPermission(__V_P_AMENITIES_MANAGE__, true);
 #print_r($_POST);
@@ -16,6 +18,9 @@ $description = prepareForSQL($conn, $_POST['inp-textArea-description']);
 
 if(mysqli_query($conn, "INSERT INTO `amenities`(`amenityName`, `amenityDesc`) VALUES ('$amenityName','$description') LIMIT 1;")) {
     
+} else {
+    echo $output->setFailed("Something went wrong while processing your request.", getConnError($conn));
+    die();
 }
 
 $id = mysqli_insert_id($conn);

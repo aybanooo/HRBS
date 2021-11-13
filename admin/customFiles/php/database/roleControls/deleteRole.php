@@ -3,6 +3,7 @@ require_once("../../directories/directories.php");
 require_once(__initDB__);
 require_once __F_VALIDATIONS__;
 require_once __F_PERMISSION_HANDLER__;
+checkAdminSideAccess();
 
 checkPermission(__V_P_ROLES_MANAGE__, true);
 

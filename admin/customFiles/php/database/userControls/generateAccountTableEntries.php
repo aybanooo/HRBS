@@ -1,7 +1,8 @@
 <?php
 require_once("../../directories/directories.php");
 require_once(__initDB__);
-
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 function boolToCheck($value) {
     return $value ? 'checked': '';
 }

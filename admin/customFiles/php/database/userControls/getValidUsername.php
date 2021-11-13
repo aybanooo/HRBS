@@ -1,6 +1,8 @@
 <?php
 require_once("../../directories/directories.php");
 require_once(__initDB__);
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 
 $sql = "SELECT id, firstname, lastname FROM MyGuests";
 

@@ -1,5 +1,7 @@
 <?php
-
+require_once(dirname(__FILE__,3)."/directories/directories.php");
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 function generateAmenityCard($amenityData) {
 ?>
 <div class="card card-outline ce-noblank overflow-hidden" data-amid="<?php print $amenityData['amenityID']; ?>">

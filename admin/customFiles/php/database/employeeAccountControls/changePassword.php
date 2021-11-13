@@ -5,6 +5,7 @@ require_once __initDB__;
 require_once __AUTOLOAD_PUBLIC__;
 require_once __F_FORMAT__;
 require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 
 use \Firebase\JWT\JWT;
 

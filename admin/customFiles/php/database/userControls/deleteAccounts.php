@@ -5,6 +5,8 @@ require_once(__F_VALIDATIONS__);
 require_once(__F_DB_HANDLER__);
 require_once(__F_LOGIN_HANDLER__);
 require_once __F_PERMISSION_HANDLER__;
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 
 // Validations
 checkPermission(__V_P_ACCOUNT_DELETE__, true);
