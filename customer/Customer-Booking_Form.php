@@ -477,7 +477,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								?>
 							</tr>
 							<tr>
-								<td><br></td>
+								<td colspan="2">
+									<hr>
+								</td>
 							</tr>
 							<tr>
 								<td colspan="2">
@@ -485,28 +487,28 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								</td>
 							</tr>
 							<tr>
-								<td></td>
 								<td><input id="senior" type="radio" name="seniorcitizen" value="1" checked>
-							    <label for="senior">With Senior Citizen</label>
-								<input id="pwd" type="radio" name="seniorcitizen" value="2">
-							    <label for="pwd">With PWD</label>
-									
-								<div id="seniorDiv">
-									<div class="form-group">
-										<label for="seniorID">Senior Citizen ID Number</label>
-										<input id="name" type="text" placeholder="Senior Citizen ID Number">
+									<label for="senior">With Senior Citizen</label>
+									<input id="pwd" type="radio" name="seniorcitizen" value="2">
+									<label for="pwd">With PWD</label>
+								</td>
+								<td>
+									<div id="seniorDiv">
+										<div class="form-group">
+											<input id="name" type="text" placeholder="Senior Citizen ID Number">
+										</div>
 									</div>
-								</div>
-								<div class="d-none" id="pwdDiv">
-									<div class="form-group">
-										<label for="pwdID">PWD ID Number</label>
-										<input id="name" type="text" placeholder="PWD ID Number">
+									<div class="d-none" id="pwdDiv">
+										<div class="form-group">
+											<input id="name" type="text" placeholder="PWD ID Number">
+										</div>
 									</div>
-								</div>
 								</td>
 							</tr>
 							<tr>
-								<td><br></td>
+								<td colspan="2">
+									<br>
+								</td>
 							</tr>
 							<tr align="right">
 								<td colspan="2">
@@ -610,12 +612,11 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 </script>
 <Script>
 	$(`input[type="radio"][name="seniorcitizen"]`).on('click', function() {
-		if($(this).val()==1) {
+		if ($(this).val() == 1) {
 			$('#seniorDiv').removeClass('d-none');
 			$('#pwdDiv').removeClass('d-none').addClass('d-none');
-			
-		}
-		else{
+
+		} else {
 			$('#pwdDiv').removeClass('d-none');
 			$('#seniorDiv').removeClass('d-none').addClass('d-none');
 		}
