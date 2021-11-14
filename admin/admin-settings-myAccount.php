@@ -98,7 +98,7 @@ $resetPassUrl = isAdmin() ? "/admin/customFiles/php/settingsControls/updateDefau
               </div>
               <div class="card-footer">
                 <div class="row">
-                  <div class="col-sm-4 border-right">
+                  <div class="col-4 border-right">
                     <div class="description-block">
                       <h5 class="description-header">
                         <a class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -110,7 +110,7 @@ $resetPassUrl = isAdmin() ? "/admin/customFiles/php/settingsControls/updateDefau
                     <!-- /.description-block -->
                   </div>
                   <!-- /.col -->
-                  <div class="col-sm-4 border-right">
+                  <div class="col-4 border-right">
                     <div class="description-block">
                       <h5 class="description-header"><?php print $_SESSION['userInfo']->id; ?></h5>
                       <span class="description-text">employee ID</span>
@@ -118,7 +118,7 @@ $resetPassUrl = isAdmin() ? "/admin/customFiles/php/settingsControls/updateDefau
                     <!-- /.description-block -->
                   </div>
                   <!-- /.col -->
-                  <div class="col-sm-4">
+                  <div class="col -4">
                     <div class="description-block">
                       <h5 class="description-header">
                         <a class="collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -133,7 +133,7 @@ $resetPassUrl = isAdmin() ? "/admin/customFiles/php/settingsControls/updateDefau
                 </div>
                 <!-- /.row -->
                 <div class="row d-flex justify-content-center">
-                  <div class="col-6">
+                  <div class="col-12 col-sm-6 col-md-5">
                     <div id="accordion">
                         <div id="collapseOne" class="collapse fade" aria-labelledby="headingOne" data-parent="#accordion">
                             <form id="form-changePass">
