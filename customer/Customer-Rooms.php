@@ -174,7 +174,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 									<h1><b><?php echo $row["name"]; ?></b></h1>
 								</div>
 								<div class="col-sm-4">
-									<a href="<?php echo $followingdata['url']; ?>"><button type="button" class="btn btn-primary" >Book a Room</button></a>
+									<a href="<?php $followingdata['url']; ?>"><button type="button" class="btn btn-primary" >Book a Room</button></a>
 								</div>
 							</div>	
 								<p><?php echo $row["desc"]; ?></p>
