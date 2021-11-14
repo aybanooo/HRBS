@@ -161,7 +161,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
         <section id="rooms">
             <?php
-                $query="SELECT `name`, `desc` FROM roomtype;";
+                $query="SELECT `name`, `desc`, `url` FROM roomtype;";
                 $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
                 if (mysqli_num_rows($result)>0) {
                     while($row=mysqli_fetch_assoc($result)){
