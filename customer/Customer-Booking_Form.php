@@ -489,7 +489,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							    	<label for="pwd">With PWD</label></td>
 									
 							    	<div id="seniorDiv">
-					asdadasdasdddddd
+										<div class="form-group">
+											asdadasdasdddddd
+										</div>
 									</div>
 									<div class="d-none" id="pwdDiv">
 											asdasdasd
