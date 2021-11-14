@@ -616,7 +616,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		}
 		else{
 			$('#pwdDiv').removeClass('d-none');
-			$('#SeniorDiv').removeClass('d-none').addClass('d-none');
+			$('#seniorDiv').removeClass('d-none').addClass('d-none');
 		}
 	})
 </Script>
