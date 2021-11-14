@@ -355,8 +355,6 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 							$serviceCharge = $followingdata['rate'] * 0.10;
 							$totalRoomRate = $days * $followingdata['rate'];
 							$totalPriceWServiceCharge = $vat + $serviceCharge + $totalRoomRate;
-
-
 							?>
 							<th>Rate:</th>
 							<td><?php echo number_format($followingdata['rate'], 2,  '.', ','); ?></td>

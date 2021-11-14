@@ -24,8 +24,6 @@ class GetOrder
     $response = $client->execute(new OrdersGetRequest($orderId));
     //TRANSACTION DETAILS kukunin mga nasa details form tas ipapasok sa db.
     $orderID = $response->result->id;
-    $email = $response->result->payer->email_address;
-    $name = $response->result->purchase_units[0]->shipping->name->full_name;
   
     //insert details to database
     include('db.php'); //eto yung conmnection ng database
