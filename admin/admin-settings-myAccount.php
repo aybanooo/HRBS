@@ -11,6 +11,8 @@ if (!isTokenValid()) {
 checkUserExistence();
 session_start();
 setupUserSession();
+
+$resetPassUrl = isAdmin() ? "/admin/customFiles/php/settingsControls/updateDefaultPassword_admin.php" : "/admin/customFiles/php/database/employeeAccountControls/changePassword.php";
 ?>
 
 <!DOCTYPE html>
@@ -251,7 +253,7 @@ $("#form-changePass").validate({
   },
   submitHandler:  (form, e) => {
     toggleButtonDisabled("#btn-submit-changePass", "#form-changePass", "Please Wait...");
-     $.post("/admin/customFiles/php/database/employeeAccountControls/changePassword.php", $(form).serialize(),
+     $.post("<?php print $resetPassUrl; ?>", $(form).serialize(),
       function (response, textStatus, jqXHR) {
         toggleButtonDisabled("#btn-submit-changePass", "#form-changePass", "Please Wait...");
         Toast.fire({

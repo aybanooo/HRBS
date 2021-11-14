@@ -112,13 +112,6 @@ setupUserSession();
               </div>
             </div>
           </div>
-          <div class="col">
-            <div class="card">
-              <div class="card-body">
-                
-              </div>
-            </div>
-          </div>
         </div>
         
       </div>
@@ -193,6 +186,17 @@ setupUserSession();
         progressExtraCssClasses: "mt-2"
       }
     });
+    $('#inp-defPass-admin').pwstrength({
+      common: {
+        minChar: 8,
+        maxChar: 20,
+      },
+      ui: {
+        showVerdictsInsideProgressBar: true,
+        progressBarMinPercentage: 10,
+        progressExtraCssClasses: "mt-2"
+      }
+    });
   });
 
   // Set new default password
@@ -230,6 +234,47 @@ setupUserSession();
           $(form).find('ul > li').attr('class', 'text-normal');
           $("#inp-defPass").pwstrength("forceUpdate");
           toggleButtonDisabled($(form).find('button[type="submit"]'), "#form-defPass", "Updating...");
+        },
+        'json'
+      );
+    }
+  });
+
+  // Set new default password
+  $("#form-defPass-admin").validate({
+    onkeyup: function(element) {
+      if ($("#inp-defPass-admin").is(":focus")) 
+        $(element).valid();
+    },
+    rules: {
+      'inp-defPass-admin': {
+        strong_password: true
+      }
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    },
+    submitHandler: function(form, e) {
+      toggleButtonDisabled($(form).find('button[type="submit"]'), "#form-defPass-admin", "Updating...");
+      $.post("/admin/customFiles/php/settingsControls/updateDefaultPassword_admin.php", $(form).serializeArray(),
+        function (response, textStatus, jqXHR) {
+          //console.log(response);
+          Toast.fire({
+            icon: response.status,
+            title: response.message
+          });
+          $(form).trigger('reset');
+          $(form).find('ul > li').attr('class', 'text-normal');
+          $("#inp-defPass-admin").pwstrength("forceUpdate");
+          toggleButtonDisabled($(form).find('button[type="submit"]'), "#form-defPass-admin", "Updating...");
         },
         'json'
       );
