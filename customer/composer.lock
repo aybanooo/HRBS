@@ -1,9 +1,14 @@
 {
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "76a1b77419df4d37609e0679243ed8a1",
     "packages": [
         {
             "name": "paypal/paypal-checkout-sdk",
             "version": "1.0.2",
-            "version_normalized": "1.0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paypal/Checkout-PHP-SDK.git",
@@ -21,9 +26,7 @@
             "require-dev": {
                 "phpunit/phpunit": "^5.7"
             },
-            "time": "2021-09-21T20:57:38+00:00",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "PayPalCheckoutSdk\\": "lib/PayPalCheckoutSdk",
@@ -53,12 +56,11 @@
             "support": {
                 "source": "https://github.com/paypal/Checkout-PHP-SDK/tree/1.0.2"
             },
-            "install-path": "../paypal/paypal-checkout-sdk"
+            "time": "2021-09-21T20:57:38+00:00"
         },
         {
             "name": "paypal/paypalhttp",
             "version": "1.0.1",
-            "version_normalized": "1.0.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/paypal/paypalhttp_php.git",
@@ -77,9 +79,7 @@
                 "phpunit/phpunit": "^5.7",
                 "wiremock-php/wiremock-php": "1.43.2"
             },
-            "time": "2021-09-14T21:35:26+00:00",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "PayPalHttp\\": "lib/PayPalHttp"
@@ -99,12 +99,11 @@
                 "issues": "https://github.com/paypal/paypalhttp_php/issues",
                 "source": "https://github.com/paypal/paypalhttp_php/tree/1.0.1"
             },
-            "install-path": "../paypal/paypalhttp"
+            "time": "2021-09-14T21:35:26+00:00"
         },
         {
             "name": "phpmailer/phpmailer",
             "version": "v6.5.1",
-            "version_normalized": "6.5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PHPMailer/PHPMailer.git",
@@ -140,9 +139,7 @@
                 "stevenmaguire/oauth2-microsoft": "Needed for Microsoft XOAUTH2 authentication",
                 "symfony/polyfill-mbstring": "To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)"
             },
-            "time": "2021-08-18T09:14:16+00:00",
             "type": "library",
-            "installation-source": "dist",
             "autoload": {
                 "psr-4": {
                     "PHPMailer\\PHPMailer\\": "src/"
@@ -180,9 +177,16 @@
                     "type": "github"
                 }
             ],
-            "install-path": "../phpmailer/phpmailer"
+            "time": "2021-08-18T09:14:16+00:00"
         }
     ],
-    "dev": true,
-    "dev-package-names": []
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "plugin-api-version": "2.0.0"
 }
