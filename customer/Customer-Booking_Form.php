@@ -482,11 +482,10 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								</td>
 							</tr>
 							<tr>
-								<td colspan="2">
 									<td><input id="senior" type="radio" name="seniorcitizen" value="1">
 							    	<label for="senior">With Senior Citizen</label></td>
 
-									<td><input id="pwd" type="radio" name="seniorcitizen" value="2">With PWD
+									<td><input id="pwd" type="radio" name="seniorcitizen" value="2">
 							    	<label for="pwd">With PWD</label></td>
 									
 							    	<div id="senioreDiv">
@@ -495,7 +494,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 									<div class="d-none" id="pwdDiv">
 											
 									</div>
-								</td>
 							</tr>
 							<tr>
 								<td><br></td>
