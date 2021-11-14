@@ -5,6 +5,9 @@ require_once __initDB__;
 require_once __F_FORMAT__;
 require_once __F_VALIDATIONS__;
 require_once __F_DB_HANDLER__;
+checkAdminSideAccess();
+
+checkRequiredPOSTval('inp-defPass', true);
 
 if(!isPassFormat($_POST['inp-defPass']))
     echo $output->setFailed(testPass($_POST['inp-defPass']));
