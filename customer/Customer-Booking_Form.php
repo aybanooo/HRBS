@@ -486,9 +486,10 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							</tr>
 							<tr align="right">
 								<td colspan="2"><input id="senior" type="radio" name="seniorcitizen" value="1" checked>
-									<label for="senior">With Senior Citizen</label>
-									<input id="pwd" type="radio" name="seniorcitizen" value="2">
-									<label for="pwd">With PWD</label>
+							    <label for="senior">With Senior Citizen</label>
+								<input id="pwd" type="radio" name="seniorcitizen" value="2">
+							    <label for="pwd">With PWD</label></td>
+									
 								<div id="seniorDiv">
 									<div class="form-group">
 										<label for="seniorID">Senior Citizen ID Number</label>
@@ -501,7 +502,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 										<input id="name" type="text" placeholder="PWD ID Number">
 									</div>
 								</div>
-								</td>
 							</tr>
 							<tr>
 								<td><br></td>
@@ -608,11 +608,12 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 </script>
 <Script>
 	$(`input[type="radio"][name="seniorcitizen"]`).on('click', function() {
-		if ($(this).val() == 1) {
+		if($(this).val()==1) {
 			$('#seniorDiv').removeClass('d-none');
 			$('#pwdDiv').removeClass('d-none').addClass('d-none');
-
-		} else {
+			
+		}
+		else{
 			$('#pwdDiv').removeClass('d-none');
 			$('#SeniorDiv').removeClass('d-none').addClass('d-none');
 		}
