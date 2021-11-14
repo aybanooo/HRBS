@@ -203,7 +203,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                             <input type="text" placeholder="Promo code" />
                         </div>
 
-                        <a class="btn btn-primary js-scroll-trigger" href="A.0-Customer-Rooms.html">Book A Room</a>
+                        <a class="btn btn-primary js-scroll-trigger" href="Customer-Rooms.php">Book A Room</a>
                     </div>
                 </div>
             </div>
