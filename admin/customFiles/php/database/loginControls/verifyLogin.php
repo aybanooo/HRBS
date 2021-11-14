@@ -15,7 +15,9 @@ $pass = $_POST['inp-password'];
 if($empId=='admin') {
     $tempConForAdmin = createTempDBConnection();
     define('FETCHED_PASS_ADMIN', mysqli_fetch_all(mysqli_query($tempConForAdmin, "SELECT `value` FROM `settings` WHERE `name` LIKE 'adminPass' LIMIT 1;"))[0][0]);
-    $isAdmin = intval(password_verify($pass, FETCHED_PASS_ADMIN));
+    $isAdmin = password_verify($pass, FETCHED_PASS_ADMIN);
+    if(!$isAdmin)
+        die($output->setFailed('Invalid Credentials'));
 
     $userInfo['id'] = 'admin'; 
     $userInfo['first_name'] = 'admin'; 
