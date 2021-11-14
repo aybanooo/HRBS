@@ -154,7 +154,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
     <section class="content m-5">
         <?php
-        $query = "SELECT * FROM roomtype WHERE roomTypeID = 40";
+        $query = "SELECT * FROM roomtype WHERE roomTypeID = 41";
         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
         $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         ?>
