@@ -477,8 +477,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								?>
 							</tr>
 							<tr align="right">
-								<th><label for="seniorPwd">Senior Citizen & PWD:</label></th>
-
 								<td><input id="senior" type="radio" name="seniorcitizen">With Senior Citizen</td>';
 								<td><input id="pwd" type="radio" name="seniorcitizen">With PWD</td>';
 
