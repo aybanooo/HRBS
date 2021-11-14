@@ -485,6 +485,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								</td>
 							</tr>
 							<tr>
+								<td></td>
 								<td><input id="senior" type="radio" name="seniorcitizen" value="1" checked>
 							    <label for="senior">With Senior Citizen</label>
 								<input id="pwd" type="radio" name="seniorcitizen" value="2">
