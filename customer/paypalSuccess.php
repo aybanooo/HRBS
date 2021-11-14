@@ -1,10 +1,13 @@
 <?php
 include('db.php');
-
+$maxIDQ = "SELECT MAX(email) AS 'maxID' FROM customer";
+$maxIDRes = mysqli_query($conn, $maxIDQ);
+$maxIDRow = mysqli_fetch_assoc($maxIDRes);
+$customerEmail = $maxIDRow['maxID'];
 ini_set( 'display_errors', 1 );
 error_reporting( E_ALL );
 $from = "thanoshotelreservation@ghrbs.site";
-$to = "benjbenito10@gmail.com";
+$to = $customerEmail;
 $subject = "Checking PHP mail";
 $message = "PHP mail works just fine";
 $headers = "From:" . $from;
