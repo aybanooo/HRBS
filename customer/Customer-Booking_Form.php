@@ -490,7 +490,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<input id="pwd" type="radio" name="seniorcitizen" value="2">
 							    <label for="pwd">With PWD</label>
 									
-								<div class="d-none" id="seniorDiv">
+								<div id="seniorDiv">
 									<div class="form-group">
 										<label for="seniorID">Senior Citizen ID Number</label>
 										<input id="name" type="text" placeholder="Senior Citizen ID Number">
