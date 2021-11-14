@@ -481,18 +481,18 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 									<h4><b>Senior Citizen and Person with Disability</b></h4>
 								</td>
 							</tr>
-							<tr>
+							<tr align="right">
 									<td><input id="senior" type="radio" name="seniorcitizen" value="1">
 							    	<label for="senior">With Senior Citizen</label></td>
 
 									<td><input id="pwd" type="radio" name="seniorcitizen" value="2">
 							    	<label for="pwd">With PWD</label></td>
 									
-							    	<div id="senioreDiv">
-					
+							    	<div id="seniorDiv">
+					asdadasdasdddddd
 									</div>
 									<div class="d-none" id="pwdDiv">
-											
+											asdasdasd
 									</div>
 							</tr>
 							<tr>
@@ -601,13 +601,13 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 <Script>
 	$(`input[type="radio"][name="card"]`).on('click', function() {
 		if($(this).val()==1) {
-			$('#mastercardDiv').removeClass('d-none');
-			$('#bankDiv').removeClass('d-none').addClass('d-none');
+			$('#seniorDiv').removeClass('d-none');
+			$('#pwdDiv').removeClass('d-none').addClass('d-none');
 			
 		}
 		else{
-			$('#bankDiv').removeClass('d-none');
-			$('#mastercardDiv').removeClass('d-none').addClass('d-none');
+			$('#pwdDiv').removeClass('d-none');
+			$('#SeniorDiv').removeClass('d-none').addClass('d-none');
 		}
 	})
 </Script>
