@@ -233,12 +233,12 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                     <div class="row mx-1 mx-sm-5 my-sm-2">
                                                         <div class="col-12 ce-limit ce-noenter ce-blankremove">
                                                             <ul class="list-unstyled row gen-info-list">
-                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $followingdata['maxAdult']; ?> Adult</span></li>
-                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $followingdata['maxChildren']; ?> Children</span></li>
-                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $followingdata['bedroom']; ?> Bedroom</span></li>
-                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $followingdata['bathroom']; ?> Bathroom</span></li>
-                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $followingdata['genInfoOne']; ?> </span></li>
-                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $followingdata['genInfoTwo']; ?> </span></li>
+                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span>4 Adult</span></li>
+                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span>4  Children</span></li>
+                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span>2 Bedroom</span></li>
+                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span>1  Bathroom</span></li>
+                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span>Aircondition</span></li>
+                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span>Wifi</span></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -257,11 +257,8 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                     <div class="row mx-1 mx-sm-5 my-sm-2">
                                                         <div class="col-12 ce-limit ce-noenter ce-blankremove">
                                                             <ul class="list-unstyled row gen-info-list">
-                                                                <li class="list-item col-6 col-md-3"><i class="fas fa-check mx-1"></i><span>Carpet na antique</span></li>
-                                                                <li class="list-item col-6 col-md-3"><i class="fas fa-check mx-1"></i><span>Painting ni Elsa</span></li>
-                                                                <li class="list-item col-6 col-md-3"><i class="fas fa-check mx-1"></i><span>Kurtina sa kama</span></li>
-                                                                <li class="list-item col-6 col-md-3"><i class="fas fa-check mx-1"></i><span>Bintanang sakop buong pader</span></li>
-                                                                <li class="list-item col-6 col-md-3"><i class="fas fa-check mx-1"></i><span>Trojan Horse</span></li>
+                                                                <li class="list-item col-6 col-md-3"><i class="fas fa-check mx-1"></i><span>55" Television</span></li>
+                                                                <li class="list-item col-6 col-md-3"><i class="fas fa-check mx-1"></i><span>Playstation Console</span></li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -298,7 +295,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                     <div class="row mx-1 mx-sm-5 my-sm-2">
                                                         <div class="col-12 ce-limit ce-noenter ce-blankremove">
                                                             <ul class="list-unstyled row gen-info-list">
-                                                                <li class="list-item col-6 col-md-3"><i class="fas fa-check mx-1"></i><span><span><?php echo $followingdata['genInfoFour']; ?> </span></li>
                                                                 <li class="list-item col-6 col-md-3"><i class="fas fa-check mx-1"></i><span>1 bathroom</span></li>
                                                                 <li class="list-item col-6 col-md-3"><i class="fas fa-check mx-1"></i><span>1 Kitchen</span></li>
                                                                 <li class="list-item col-6 col-md-3"><i class="fas fa-check mx-1"></i><span>Wifi</span></li>
