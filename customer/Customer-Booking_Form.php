@@ -328,7 +328,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		<div class="bookForm">
 			<div class="row">
 				<div class="col-lg-3 mx-auto">
-					<a class="return" href="Customer-Room_Details_Imperial.html">
+					<a class="return" href="Customer-Rooms.php">
 						< Back to Room</a>
 				</div>
 				<div class="col-lg-6 mx-auto">
@@ -476,11 +476,16 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								}
 								?>
 							</tr>
-							<tr align="right">
+							<tr>
+								<td colspan="2">
+									<h4><b>Senior Citizen and Person with Disability</b></h4>
+								</td>
+							</tr>
+							<tr>
 								<td></td>
 								<td><input id="senior" type="radio" name="seniorcitizen">With Senior Citizen</td>';
 							</tr>
-							<tr align="right">
+							<tr>
 								<td></td>
 								<td><input id="pwd" type="radio" name="seniorcitizen">With PWD</td>';
 							</tr>
