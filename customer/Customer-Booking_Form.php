@@ -482,12 +482,20 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								</td>
 							</tr>
 							<tr>
-								<td></td>
-								<td><input id="senior" type="radio" name="seniorcitizen">With Senior Citizen</td>';
-							</tr>
-							<tr>
-								<td></td>
-								<td><input id="pwd" type="radio" name="seniorcitizen">With PWD</td>';
+								<td colspan="2">
+									<td><input id="senior" type="radio" name="seniorcitizen" value="1">
+							    	<label for="senior">With Senior Citizen</label></td>
+
+									<td><input id="pwd" type="radio" name="seniorcitizen" value="2">With PWD
+							    	<label for="pwd">With PWD</label></td>
+									
+							    	<div id="senioreDiv">
+					
+									</div>
+									<div class="d-none" id="pwdDiv">
+											
+									</div>
+								</td>
 							</tr>
 							<tr>
 								<td><br></td>
@@ -592,5 +600,18 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		})
 	})
 </script>
+<Script>
+	$(`input[type="radio"][name="card"]`).on('click', function() {
+		if($(this).val()==1) {
+			$('#mastercardDiv').removeClass('d-none');
+			$('#bankDiv').removeClass('d-none').addClass('d-none');
+			
+		}
+		else{
+			$('#bankDiv').removeClass('d-none');
+			$('#mastercardDiv').removeClass('d-none').addClass('d-none');
+		}
+	})
+</Script>
 
 </html>
