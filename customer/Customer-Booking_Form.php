@@ -477,25 +477,31 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								?>
 							</tr>
 							<tr>
+								<td><br></td>
+							</tr>
+							<tr>
 								<td colspan="2">
-									<h4><b>Senior Citizen and Person with Disability</b></h4>
+									<h4><b>Senior Citizen and Person with Disability (Optional)</b></h4>
 								</td>
 							</tr>
 							<tr align="right">
-									<td><input id="senior" type="radio" name="seniorcitizen" value="1" checked>
-							    	<label for="senior">With Senior Citizen</label></td>
-
-									<td><input id="pwd" type="radio" name="seniorcitizen" value="2">
-							    	<label for="pwd">With PWD</label></td>
+								<td colspan="2"><input id="senior" type="radio" name="seniorcitizen" value="1" checked>
+							    <label for="senior">With Senior Citizen</label>
+								<input id="pwd" type="radio" name="seniorcitizen" value="2">
+							    <label for="pwd">With PWD</label></td>
 									
-							    	<div id="seniorDiv">
-										<div class="form-group">
-											asdadasdasdddddd
-										</div>
+								<div id="seniorDiv">
+									<div class="form-group">
+										<label for="seniorID">Senior Citizen ID Number</label>
+										<input id="name" type="text" placeholder="Senior Citizen ID Number">
 									</div>
-									<div class="d-none" id="pwdDiv">
-											asdasdasd
+								</div>
+								<div class="d-none" id="pwdDiv">
+									<div class="form-group">
+										<label for="pwdID">PWD ID Number</label>
+										<input id="name" type="text" placeholder="PWD ID Number">
 									</div>
+								</div>
 							</tr>
 							<tr>
 								<td><br></td>
@@ -601,7 +607,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	})
 </script>
 <Script>
-	$(`input[type="radio"][name="card"]`).on('click', function() {
+	$(`input[type="radio"][name="seniorcitizen"]`).on('click', function() {
 		if($(this).val()==1) {
 			$('#seniorDiv').removeClass('d-none');
 			$('#pwdDiv').removeClass('d-none').addClass('d-none');
