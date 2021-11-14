@@ -4,10 +4,13 @@ $phpDIR = dirname(__FILE__,3);
 
 require_once("$phpDIR/directories/directories.php");
 require_once(__initDB__);
-require_once(__validations__);
-require_once(__formatInput__);
+require_once(__F_VALIDATIONS__);
+require_once(__F_FORMAT__);
+require_once(__F_FORMAT_INPUT__);
+require_once(__F_PERMISSION_HANDLER__);
+checkAdminSideAccess();
 
-mysqli_report(MYSQLI_REPORT_STRICT);
+checkPermission(__V_P_VOUCHERS_MANAGE__, 1);
 
 $sql = "";
 

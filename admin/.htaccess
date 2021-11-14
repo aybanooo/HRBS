@@ -29,6 +29,9 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /admin/
+    
+    RewriteCond %{HTTP:Authorization} ^(.*)
+    RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
     #RewriteRule ^.*$ htaccess_tester.php
 
     #RewriteCond %{REQUEST_FILENAME} !-f
@@ -41,17 +44,25 @@
 
     #RewriteRule ^sad$ admin-webAnalytics.html [R=302]
 
+    RewriteCond %{REQUEST_URI} profilePictures/.*\.(jpg|jpeg|gif|png|ico)$ [NC]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule .*$ ../public_assets/defaults/profilePicture.jpg [L]
+
     #custom Urls
-    RewriteRule ^analytics$ admin-webAnalytics.html [NC,L]
-    RewriteRule ^rooms$ admin-page-room.html [NC,L]
-    RewriteRule ^amenities$ admin-page-amenities.html [NC,L]
-    RewriteRule ^accounts$ admin-accounts.html [NC,L]
+    RewriteRule ^analytics$ admin-webAnalytics.php [NC,L]
+    RewriteRule ^rooms$ admin-page-room.php [NC,L]
+    RewriteRule ^amenities$ admin-page-amenities.php [NC,L]
+    RewriteRule ^accounts$ admin-accounts.php [NC,L]
     RewriteRule ^vouchers$ admin-vouchers.php [NC,L]
-    RewriteRule ^billing$ admin-billing.html [NC,L]
-    RewriteRule ^appearance$ admin-settings-appearance.html [NC,L]
-    RewriteRule ^webpage$ admin-settings-webpage.html [NC,L]
-    RewriteRule ^profile$ admin-settings-myAccount.html [NC,L]
+    RewriteRule ^billing$ admin-billing.php [NC,L]
+    RewriteRule ^settings-system$ admin-settings-system.php [NC,L]
+    RewriteRule ^appearance$ admin-settings-appearance.php [NC,L]
+    RewriteRule ^settings-hotel$ admin-settings-webpage.php [NC,L]
+    RewriteRule ^profile$ admin-settings-myAccount.php [NC,L]
+    RewriteRule ^logout$ admin-logout.php [NC,L]
 
     RewriteRule ^rooms/(.*)$ customFiles/php/database/roomControls/displayRoom.php?roomTypeID=$1 [NC,L]
+    RewriteRule ^reservation/(.*)$ admin-reservation-view.php?reservationID=$1 [NC,L]
 </IfModule>
 

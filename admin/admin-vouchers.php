@@ -1,15 +1,25 @@
 <?php
 require("customFiles/php/directories/directories.php");
-require_once(__validations__);
-require_once(__outputHandler__);
+require_once(__F_VALIDATIONS__);
+require_once(__F_OUTPUT_HANDLER__);
+require_once __F_LOGIN_HANDLER__;
+require_once __F_PERMISSION_HANDLER__;
+
+// Redirect to login page if token is invalid
+if (!isTokenValid()) {
+  header("Location: /admin/");
+  exit();
+}
+checkUserExistence();
+session_start();
+setupUserSession();
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Hotel Reservation System Admin</title>
+  
+  <?php include __F_HEAD_CONTENTS__;?>
   
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -47,10 +57,10 @@ require_once(__outputHandler__);
   <link rel="stylesheet" href="customFiles/specialStyle.css">
 
 </head>
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed light-mode">
 <div class="wrapper">
 
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+  <nav class="main-header navbar navbar-expand navbar-light">
     <!-- Left navbar links -->
     <ul class="navbar-nav">
       <li class="nav-item">
@@ -70,7 +80,7 @@ require_once(__outputHandler__);
   </nav>
 
   <!-- Main Sidebar Container -->
-  <?php include_once __navigation__?>
+  <?php include_once __F_NAVIGATION__?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -94,8 +104,8 @@ require_once(__outputHandler__);
               <div class="card-body d-flex justify-content-center align-middle">
                 <div class="form-group mt-3">
                   <div class="custom-control custom-switch" style="transform: scale(1.5)">
-                    <input type="checkbox" class="custom-control-input" id="toggleVoucher" <?php echo voucherEnabled() ? "checked" : "";?>>
-                    <label class="custom-control-label d-block" for="toggleVoucher" data-toggle="collapse" data-target="voucherCard" >Enable Voucher</label>
+                    <input type="checkbox" class="custom-control-input" id="toggleVoucher" <?php echo voucherEnabled() ? "checked" : "";?> <?php print checkPermission(__V_P_VOUCHERS_MANAGE__) ? "" : "disabled"; ?>>
+                    <label class="custom-control-label d-block" for="toggleVoucher" data-toggle="collapse" data-target="voucherCard">Enable Voucher</label>
                   </div>
                 </div>
               </div>
@@ -324,6 +334,17 @@ $(function () {
     });
 });
 
+</script>
+
+<!-- Script to toggle navigation buttons -->
+<script>
+  let activeNav = document.querySelector(".sidebar > nav > ul > li:nth-child(5)");
+  if (activeNav.querySelector('ul') != null){
+    activeNav.className += " menu-is-opening menu-open";
+    activeNav.querySelector('.menu-open > ul > li:nth-child(1) > a').classList.toggle('active');
+    activeNav.querySelector('ul').style.display = "block";
+  }
+  activeNav.querySelector('a:nth-child(1)').classList.toggle('active');
 </script>
 </body>
 </html>

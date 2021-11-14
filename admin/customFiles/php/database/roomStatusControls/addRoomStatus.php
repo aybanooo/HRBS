@@ -1,26 +1,15 @@
 <?php
 require_once("../../directories/directories.php");
-require_once(__dbCreds__);
-require_once(__outputHandler__);
-require_once(__formatInput__);
+require_once(__initDB__);
+require_once(__F_OUTPUT_HANDLER__);
+require_once(__F_FORMAT__);
+require_once(__F_FORMAT_INPUT__);
+require_once __F_PERMISSION_HANDLER__;
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 
-mysqli_report(MYSQLI_REPORT_STRICT);
+checkPermission(__V_P_ROOMS_MANAGE_STATUS__, true);
 
-// Create connection
-try {
-$conn = new mysqli($servername, $username, $password, $dbname);
-} catch (mysqli_sql_exception $e) {
-    $output->setFailed("Cannot connect to database.");
-    echo $output->getOutput(true);
-    die();
-}
-
-// Check connection
-if ($conn->connect_error) {
-    $output->setFailed("Cannot connect to database.".$conn->connect_error);
-    //echo $output->getOutput(true);
-    die();
-}
 
 if ( !(isset($_POST['input-one-newRoomStatus']) && isset($_POST['input-one-newDescription']) && isset($_POST['select-one-bookable']) ) )  {
     $output->setFailed("Missing input");

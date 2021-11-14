@@ -1,13 +1,8 @@
 <?php
 require_once("../../directories/directories.php");
-require_once(__dbCreds__);
-
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
-}
+require_once(__initDB__);
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 
 function boolToCheck($value) {
     return $value ? 'checked': '';
@@ -24,15 +19,14 @@ if (mysqli_num_rows($result) > 0) {
         //echo $row["accessID"]."<br>";   
         $options .= "<option value=\"".$row["accessID"]."\">".$row["accessname"]."</option>";
     }
-    echo $options;
+    //echo $options;
 } else {
-    echo "";
+    //echo "";
 }
 
-mysqli_close($conn);
-
 //header('Location: /Thesis/Proto/scratch.php');
-
-
-
 ?>
+
+<select class="form-control" name="select-roles">
+    <?php print $options;?>
+</select>

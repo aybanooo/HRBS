@@ -1,26 +1,31 @@
 <?php
 require_once("../../directories/directories.php");
-require_once(__dbCreds__);
+require_once(__initDB__);
+require_once __F_VALIDATIONS__;
+require_once __F_PERMISSION_HANDLER__;
+checkAdminSideAccess();
 
-// Create connection
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-// Check connection
-if (!$conn) {
-  die("Connection failed: " . mysqli_connect_error());
+checkPermission(__V_P_ROLES_MANAGE__, true);
+
+$acid = prepareForSQL($conn, $_POST["delid"]);
+
+if(getFFACount_change($acid)==0) {
+  echo $output->setFailed("Atleast 1 role must have full account management access");
+  die();
 }
-
-$status = 1;
-
-$sql = "DELETE FROM access WHERE accessID=".$_POST["roleID"];
-
-if ($conn->query($sql) === TRUE) {
-    if($conn->affected_rows <= 0) 
-        $status = 0;
-
+if(getFFAUserCount_change($acid)==0) {
+    echo $output->setFailed("Atleast 1 account must have full account management access");
+    die();
+}
+#die();
+if ($result = mysqli_query($conn, "DELETE FROM access WHERE accessID=".$_POST["delid"]." LIMIT 1;")) {
+    if(mysqli_affected_rows($conn) == 1) 
+        echo $output->setSuccessful('Role have been deleted sucessfuly');
+    else 
+      echo $output->setSuccessful('Nothing has been deleted');
 } else {
-    $status = 0;
+  echo $output->setFailed('Something went wrong while deleting roles');
 }
-echo $status;
 
 mysqli_close($conn);
 

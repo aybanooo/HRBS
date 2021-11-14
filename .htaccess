@@ -3,48 +3,23 @@
 #Header unset ETag
 #FileETag None
 
-#-Indexes
-#Options +FollowSymLinks -MultiViews 
-# Turn mod_rewrite on
-#RewriteEngine On
-#RewriteBase /
+RewriteEngine On
+RewriteBase /
 
-#RewriteCond %{THE_REQUEST} /([^.]+)\.html$ [NC]
-#RewriteRule ^ /%1 [NC,L,R] 
+RewriteCond %{REQUEST_URI} \.(jpg|jpeg|gif|png|ico)$ [NC]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .*$ public_assets/defaults/default-image-landscape.jpg [L]
 
-#RewriteCond %{REQUEST_FILENAME}.html -f
-#RewriteRule ^ %{REQUEST_URI}.html [NC,L]
-
-#RewriteRule ^(.*)$ echo.php?q=$1 [L,QSA]
-
-#RewriteCond %{REQUEST_FILENAME} !-d 
-#RewriteCond %{REQUEST_FILENAME}\.php -f 
-#RewriteRule ^(.*)$ $1.php
+#custom Urls
+RewriteRule ^$ customer/Customer-Home.php [NC,L]
+RewriteCond %{REQUEST_URI} ^(?!\/(admin|customer|public_assets)\/).*
+RewriteRule ^(.+) customer/$1 [NC,L]
 
 <IfModule mod_rewrite.c>
-    #RewriteEngine On
-    #RewriteBase /
-    #RewriteRule ^.*$ htaccess_tester.php
-
-    #RewriteCond %{REQUEST_FILENAME} !-f
-
-    #nireredirect lahat ng url na may .html papunta sa root
-    #RewriteCond %{THE_REQUEST} \.html
-    #RewriteRule ^(.*)\.html$ / [R=301,L]
-
-    #RewriteCond %{REQUEST_FILENAME} !-f
-
-    #custom Urls
-    #RewriteRule ^analytics$ admin-webAnalytics.html [NC,L]
-    #RewriteRule ^rooms$ admin-page-room.html [NC,L]
-    #RewriteRule ^amenities$ admin-page-amenities.html [NC,L]
-    #RewriteRule ^accounts$ admin-accounts.html [NC,L]
-    #RewriteRule ^vouchers$ admin-vouchers.html [NC,L]
-    #RewriteRule ^billing$ admin-billing.html [NC,L]
-    #RewriteRule ^appearance$ admin-settings-appearance.html [NC,L]
-    #RewriteRule ^webpage$ admin-settings-webpage.html [NC,L]
-    #RewriteRule ^profile$ admin-settings-myAccount.html [NC,L]
-
-    #RewriteRule ^rooms/(.*)$ customFiles/php/database/roomControls/displayRoom.php?q=$1 [NC,L]
 </IfModule>
 
+<FilesMatch "db\.ini">
+  Order allow,deny
+  Deny from all
+</FilesMatch>

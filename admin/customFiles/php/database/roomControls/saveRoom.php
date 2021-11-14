@@ -1,17 +1,13 @@
 <?php
 
 require_once("../../directories/directories.php");
-require_once(__dbCreds__);
-require_once(__outputHandler__);
+require_once(__initDB__);
+require_once __F_DB_HANDLER__;
+require_once __F_PERMISSION_HANDLER__;
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  $output->setFailed("Cannot connect to database.".$conn->connect_error);
-  echo $output->getOutput(true);
-  die();
-}
+checkPermission(__V_P_ROOMS_MANAGE__, true);
 
 function imageNameExistsInGallery(&$conn, $imageName) {
     $sql = "SELECT picture from gallery where picture like '".$imageName."';";
@@ -36,7 +32,7 @@ function insertImageInfoToGallery(&$conn, $sectionID, $pictureName, $is360) {
     if (mysqli_query($conn, $sql)) {
         //echo "Image Successfully added to there.";
     } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        echo "Error: " . $sql . "<br>" . getConnError($conn);
     }
 }
 
@@ -55,7 +51,7 @@ function insertAndMoveGallery(&$conn, &$queries) {
             $imageName = getUniqueName($conn, $imageTempID);
             insertImageInfoToGallery($conn, $sectionKey, $imageName, $imageInfo->is360);
             $imageIndex = array_search($imageTempID, $_FILES['images']['name']);
-            $imageDirectory = __rooms__.$queries->roomTypeID."/";
+            $imageDirectory = __D_ROOMS__.$queries->roomTypeID."/";
             //echo $imageDirectory;
             move_uploaded_file($_FILES['images']['tmp_name'][$imageIndex],  $imageDirectory.$imageName.".jpg");
         }
@@ -110,7 +106,7 @@ function deleteImageFromDB(&$conn, $imageID) {
 }
 
 function deleteImageFileOnDirectory(&$filename, &$queries) {
-    $filePath = __rooms__.$queries->roomTypeID."/".$filename;
+    $filePath = __D_ROOMS__.$queries->roomTypeID."/".$filename;
     if(file_exists($filePath))
         unlink($filePath);
 }
@@ -271,7 +267,7 @@ function updateRoomDescription(&$conn, &$queries) {
 function updateRoomCover(&$conn, &$queries) {
     $coverIndex = array_search("roomCover", $_FILES['images']['name']);
     //echo $coverIndex;
-    $imagePath = __rooms__.$queries->roomTypeID."/".$queries->roomTypeID."-cover.jpg";
+    $imagePath = __D_ROOMS__.$queries->roomTypeID."/".$queries->roomTypeID."-cover.jpg";
     //echo $imageDirectory."\n";
     //echo file_exists($imageDirectory) ? "Exists" : "Nah";
     move_uploaded_file($_FILES['images']['tmp_name'][$coverIndex], $imagePath);
@@ -444,7 +440,7 @@ echo $output->getOutput(true);
 
 /*
 foreach ($_FILES['roomCover']['tmp_name'] as $index => &$value) {
-    move_uploaded_file($value,  __rooms__. $_FILES['roomCover']['name'][$index].".jpg");
+    move_uploaded_file($value,  __D_ROOMS__. $_FILES['roomCover']['name'][$index].".jpg");
 }*/
 //move_uploaded_file($_FILES['file']['tmp_name'], 'uploads/' . $_FILES['file']['name']);
 //$output->output["data"]=$_POST["queries"];

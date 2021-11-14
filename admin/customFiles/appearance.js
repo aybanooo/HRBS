@@ -2,7 +2,8 @@ var myCodeMirror = CodeMirror(document.getElementById('appendTextEditor'), {
     mode:  "css",
     lineNumbers: true,
     gutters: ["CodeMirror-lint-markers"],
-    lint: true
+    lint: true,
+    theme: 'ayu-mirage'
   });
 
 myCodeMirror.setSize("100%", 500);
@@ -81,3 +82,13 @@ function saveAppearance() {
     });
 
 }
+
+$(function () {
+    var val = getCookie('darkmode') === 'true';
+    myCodeMirror.setOption('theme', (val? 'ayu-mirage' : 'default'));
+});
+
+$("#toggle-darkMode").click(function() {
+    var val = getCookie('darkmode') === 'true';
+    myCodeMirror.setOption('theme', (val? 'ayu-mirage' : 'default'));
+});

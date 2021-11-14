@@ -1,16 +1,11 @@
 <?php
 require_once("../../directories/directories.php");
-require_once(__dbCreds__);
-require_once(__outputHandler__);
+require_once(__initDB__);
+require_once __F_PERMISSION_HANDLER__;
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-    $output->setFailed("Cannot connect to database.".$conn->connect_error);
-    echo $output->getOutput(true);
-    die();
-}
+checkPermission(__V_P_ROOMS_MANAGE__, true);
 
 function roomExist(&$conn) {
     $sql = "SELECT * FROM roomtype where roomTypeID='".$_POST["roomID"]."' LIMIT 1;";
@@ -44,13 +39,12 @@ if(empty($_POST["roomID"]))
 if(!roomExist($conn))
     die();
 
-define("DELETE_DIR", __rooms__.$_POST["roomID"]);
+define("DELETE_DIR", __D_ROOMS__.$_POST["roomID"]);
 //  echo DELETE_DIR;
 
 
 if( !isset($_POST["roomID"]) || empty(trim($_POST["roomID"]))) {
-    $output->setFailed("No room ID");
-    echo $output->getOutput(true);
+    echo $output->setFailed("No room ID");
     die();
 }
 
@@ -62,7 +56,9 @@ mysqli_query($conn, $sql);
 if (mysqli_query($conn, $sql)) {
     $output->setSuccessful("Room deleted successfully");
 } else {
-    $output->setFailed("Something went wrong while deleting the room.", mysqli_error($conn) );
+    if(mysqli_errno($conn)==1451)
+        die($output->setFailed('Room type still exists in room numbers'));
+    $output->setFailed("Something went wrong while deleting the room.", getConnError($conn), getConnErrorNo($conn));
     echo $output->getOutput(true);
     die();
 }
@@ -71,8 +67,7 @@ try {
     if(file_exists(DELETE_DIR))
         removeDirectory(DELETE_DIR);
 } catch (Exception $e) {
-    $output->setFailed("Failed to delete folder and files. ".$e);
-    echo $output->getOutput(true);
+    echo $output->setFailed("Failed to delete folder and files.");
     die();
 }
 

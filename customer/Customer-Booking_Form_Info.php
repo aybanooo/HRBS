@@ -11,8 +11,7 @@ $firstName = $_POST['fname'];
 $lastName = $_POST['lname'];
 $contact = $_POST['cnumber'];
 $email = $_POST['email'];
-$roomName = $_POST['roomName'];
-
+$pickRoom = $_POST['pickRoom'];
 
 $sql = "INSERT INTO customer (fname, lname, contact, email) VALUES('$firstName', '$lastName', '$contact', '$email');";
 

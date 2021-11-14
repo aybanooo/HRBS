@@ -1,17 +1,11 @@
 <?php
 require_once("../../directories/directories.php");
-require_once(__dbCreds__);
-require_once(__outputHandler__);
+require_once(__initDB__);
+require_once __F_PERMISSION_HANDLER__;
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  $output->setFailed("Cannot connect to database.".$conn->connect_error);
-  echo $output->getOutput(true);
-  die();
-}
-
+checkPermission(__V_P_ROOMS_MANAGE__, true);
 
 if( !isset($_POST["roomName"]) || empty(trim($_POST["roomName"]))) {
   $output->setFailed("No room name");
@@ -55,7 +49,7 @@ if (mysqli_query($conn, $sql)) {
 }
 
 
-if (!mkdir(__rooms__.$output->output["data"]->roomTypeID)) {
+if (!mkdir(__D_ROOMS__.$output->output["data"]->roomTypeID)) {
   $output->setFailed("Failed to create directory for room.");
   $sql = "delete from roomtype where name like '".$_POST["roomName"]."';";
   mysqli_query($conn, $sql);
@@ -64,15 +58,15 @@ if (!mkdir(__rooms__.$output->output["data"]->roomTypeID)) {
 }
 
 
-$file = __defaults__.'default-image-landscape.jpg';
-$newfile = __rooms__.$output->output["data"]->roomTypeID."/".$output->output["data"]->roomTypeID.'-cover.jpg';
+$file = __D_DEFAULTS_ADMIN__.'default-image-landscape.jpg';
+$newfile = __D_ROOMS__.$output->output["data"]->roomTypeID."/".$output->output["data"]->roomTypeID.'-cover.jpg';
 if (!copy($file, $newfile)) {
     $output->setFailed("Failed to copy default image to the room folder.");
     $sql = "delete from roomtype where name like '".$_POST["roomName"]."';";
     mysqli_query($conn, $sql);
-    if (!rmdir(__rooms__.$output->output["data"]->roomTypeID)) {
+    if (!rmdir(__D_ROOMS__.$output->output["data"]->roomTypeID)) {
       $output->setFailed("Failed to remove folder.");
-    }if (!rmdir(__rooms__.$output->output["data"]->roomTypeID."/section")) {
+    }if (!rmdir(__D_ROOMS__.$output->output["data"]->roomTypeID."/section")) {
       $output->setFailed("Failed to remove folder.");
     }
     die();

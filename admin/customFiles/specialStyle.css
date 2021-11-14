@@ -70,9 +70,6 @@
     border: none;
 }
 
-.table-bg {
-}
-
 .reservationTable {
     text-align: center; 
 }
@@ -82,11 +79,6 @@ table#rsvTable.dataTable tbody tr:hover {
     cursor: pointer;
   }
    
-
-.reservationTable tbody td {
-    background-color: white !important;
-}
-
 .timetabCard {
     display: block;
     margin: 0;
@@ -215,9 +207,14 @@ table#rsvTable.dataTable tbody tr:hover {
     outline: none;
 }
 
-.editRoom-container *:not([class="priceTag"]):not(.modal *) {
+body.dark-mode .editRoom-container *:not([class="priceTag"]):not(.modal *) {
+    color: var(--light);
+}
+
+body.light-mode .editRoom-container *:not([class="priceTag"]):not(.modal *) {
     color: var(--dark);
 }
+
 
 #roomName + label  {
     display: block !important;
@@ -272,8 +269,20 @@ li>*:not(.datepicker) {
     color: var(--blue);
 }
 
-.fa-times:hover {
-    color: var(--red);
+.hover-danger * {
+    transition-duration: 0.2s;
+}
+
+.hover-danger:hover * {
+    color: var(--danger);
+}
+
+.hover-success * {
+    transition-duration: 0.2s;
+}
+
+.hover-success:hover * {
+    color: var(--success);
 }
 
 .input-group-append:hover .fa-times {
@@ -368,18 +377,13 @@ a {
 
 .no-sort {cursor: default!important;}
 
-#accountTable tr td:first-child, #accountTable tr:first-child .form-check-label {
+#accountTable tr td:last-child, #accountTable tr:last-child .form-check-label {
     cursor: pointer ;
     outline: none;
-    text-align: center;
 }
 
 #accountTable input {
     pointer-events: none;
-}
-
-.swal2-title {
-    margin-left: 20px !important;
 }
 
 #newAccImage{
@@ -535,8 +539,7 @@ textarea:focus, input:focus{
     border: none;
 }
 
-#amenityTable textarea {
-    resize: none;
+#amenityList textarea {
     border: none;
     border-radius: 0px;
 }
@@ -817,4 +820,62 @@ textarea#roomDescription {
 
 .text-transparent {
     color: transparent !important;
+}
+
+.iti__flag {background-image: url("/admin/plugins/int-tel-input/img/flags.png");}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .iti__flag {background-image: url("/admin/plugins/int-tel-input/img/flags@2x.png");}
+}
+
+.iti {
+    width: 100% !important;
+}
+
+.container-imageCropper .imageCropper {
+    display: none;
+  }
+
+  .container-imageCropper.ready .imageCropper {
+    display: block;
+  }
+
+  .container-imageCropper.ready .container-spinner {
+    display: none;
+  }
+
+/* Fix custom select arrows when dark mode */
+body.dark-mode .custom-select {
+    background: #343a40 url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 4 5'%3E%3Cpath fill='white' d='M2 0L0 2h4zm0 5L0 3h4z'/%3E%3C/svg%3E") right .75rem center/8px 10px no-repeat
+}
+
+#inp-companyName {
+    font-size: 1.75rem !important; 
+}
+
+body.dark-mode .swal2-popup.swal2-toast {
+    background-color: var(--dark);
+}
+
+body.dark-mode .swal2-title {
+    color: var(--light) !important;
+}
+
+body.dark-mode .swal2-popup {
+    border-color: var(--gray) !important;
+}
+
+.CodeMirror, .CodeMirror-gutters {
+    background: transparent !important;
+}
+
+#lbutton-darkmode {
+    width: 50%;
+    cursor: pointer;
+    transition-duration: 0.2s;
+}
+
+#lbutton-darkmode:hover {
+    cursor: pointer;
+    transform: scale(1.3);
 }

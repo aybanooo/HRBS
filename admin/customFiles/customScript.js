@@ -16,24 +16,23 @@ function dimRooms() {
 
 function delRoomInList(evt, roomID) {
   //evt.currentTarget.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.parentElement.remove();
-  
   $.ajax({
     type: "post",
     url: "customFiles/php/database/roomControls/deleteRoom.php",
     data: {
       roomID: roomID
     },
-    async: false,
+    dataType: 'json',
     success: function (response) {
-      response = JSON.parse(response);
       //console.log(response);
-      if (response.isSuccessful)
-        tbl.row($(evt).parentsUntil("tr")).remove().draw(false);
       Toast.fire({
-        icon: response.isSuccessful ? "success" : "error",
-        title: response.isSuccessful ? "Room has been sucessfuly deleted." : "Failed to delete room. "+response.error.desc
+        icon: response.status,
+        title: response.message
       });
-      refreshManageRoomNumSelectElements();
+      if (response.isSuccessful) {
+        tbl.row($(evt).parentsUntil("tr")).remove().draw(false);
+        refreshManageRoomNumSelectElements();
+      }
     }
   });
   
@@ -359,119 +358,6 @@ function deleteAmenityImage(evt) {
   target.setAttribute('src', 'dist/img/default-image.jpg');
 }
 
-function addAmenityEntry() {
-/* 
-  <div class="form-group m-0">
-    <textarea class="form-control" rows="3" placeholder="Enter amenity description"></textarea>
-  </div>
-  */
-
-  var tr = document.createElement('tr');
-
-  var td = document.createElement('td');
-  td.className = 'word-break:break-all';
-
-  var mainRow = document.createElement('div');
-  mainRow.className = 'row';
-
-  var mainCol = document.createElement('div');
-  mainCol.className = 'col-12';
-
-  var mainCard = document.createElement('div');
-  mainCard.className = 'card card-outline ce-noblank overflow-hidden';
-
-  var mainCardHead = document.createElement('div');
-  mainCardHead.className = 'card-header ce-noenter ce-limit';
-
-    var h3 = document.createElement('h3');
-    h3.className = 'card-title amenity';
-    h3.setAttribute('contenteditable', 'True');
-    h3.innerText = 'Amenity Name';
-
-    var cardTools = document.createElement('div');
-    cardTools.className = 'card-tools';
-    
-      var button = document.createElement('button');
-      button.className = 'btn btn-tool';
-      button.setAttribute('type', 'button');
-      button.setAttribute('onclick', 'removeAmenityCard(event)');
-
-        var i = document.createElement('i');
-        i.className = 'fas fa-times';
-        
-        button.appendChild(i);
-      
-      cardTools.appendChild(button);
-    
-    mainCardHead.appendChild(h3);
-    mainCardHead.appendChild(cardTools);
-    
-  var mainCardBody = document.createElement('div');
-  mainCardBody.className = 'card-body p-0';
-
-  var mainTextAreaDiv = document.createElement('div');
-  mainTextAreaDiv.className = 'form-group m-0';
-
-  var textarea = document.createElement('textarea');
-  textarea.setAttribute('rows','3');
-  textarea.setAttribute('placeholder', 'Enter amenity description');
-
-  mainTextAreaDiv.append(textarea);
-
-    var imgCard = document.createElement('div');
-    imgCard.className = 'card m-0 bg-gradient-dark';
-
-      var img = document.createElement('img');
-      img.className = 'card-img-top rounded';
-      img.setAttribute('src', 'dist/img/default-image.jpg');
-      img.setAttribute('alt', 'Image');
-
-      var cardImgOverlay = document.createElement('div');
-      cardImgOverlay.className = 'card-img-overlay d-flex flex-column justify-content-end';
-      
-        var container = document.createElement('div');
-        container.className = 'container-fluid p-0';
-
-          var a1 = document.createElement('a');
-          a1.className = 'btn btn-app mb-0 ml-0'
-
-            var i1 = document.createElement('i');
-            i1.className = 'fas fa-edit';
-            var a1Text = document.createTextNode('Change')
-            a1.appendChild(i1);
-            a1.appendChild(a1Text);
-          
-          var a2 = document.createElement('a');
-          a2.className = 'btn btn-app mb-0'
-            
-            var i2 = document.createElement('i');
-            i2.className = 'fas fa-trash';
-            var a2Text = document.createTextNode('Delete')
-            a2.appendChild(i2);
-            a2.appendChild(a2Text);
-
-          container.appendChild(a1);
-          container.appendChild(a2);
-        
-        cardImgOverlay.appendChild(container);
-      
-      imgCard.appendChild(img);
-      imgCard.appendChild(cardImgOverlay);
-
-    mainCardBody.appendChild(mainTextAreaDiv);
-    mainCardBody.appendChild(imgCard);
-
-  mainCard.appendChild(mainCardHead);
-  mainCard.appendChild(mainCardBody);
-  mainCol.appendChild(mainCard);
-  mainRow.appendChild(mainCol);
-  td.appendChild(mainRow);
-  tr.appendChild(td);
-
-  var target = document.querySelector('#amenityTable tbody');
-  target.insertBefore(tr, target.childNodes[0]);
-}
-
 function removeNewAccImg() {
   document.querySelector('#newAccImg').setAttribute('src', './dist/img/default-profile-icon.jpg')
 }
@@ -499,3 +385,54 @@ var tbl = $('#accountTable tr:has(td)').map(function(i, v) {
 }).get();
 
 //console.log(tbl);
+
+// Cookie related functions
+
+function setCookie(cname, cvalue, exdays) {
+  const d = new Date();
+  d.setTime(d.getTime() + (exdays*24*60*60*1000));
+  let expires = "expires="+ d.toUTCString();
+  document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+  let name = cname + "=";
+  let decodedCookie = decodeURIComponent(document.cookie);
+  let ca = decodedCookie.split(';');
+  for(let i = 0; i <ca.length; i++) {
+    let c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+
+// Cookie related functions END
+
+$("#toggle-darkMode").click(function() {
+  var val = $(this).prop('checked');
+  document.cookie = `darkmode=${val}`;
+  updateDarkMode();
+});
+
+const updateDarkMode = () => {
+  var oppositeVal = getCookie('darkmode') !== 'true' ? 'dark' : 'light';
+  var val = getCookie('darkmode') === 'true' ? 'dark' : 'light';
+  $('#toggle-darkMode').prop('checked', getCookie('darkmode') === 'true');
+  //console.log(val);
+
+  var mainsidebarClass =  $('aside.main-sidebar').attr('class').replace(oppositeVal, val);
+  $('aside.main-sidebar').attr('class', mainsidebarClass);
+  
+  var mainsidebarClass =  $('body').attr('class').replace(oppositeVal, val);
+  $('body').attr('class', mainsidebarClass);
+
+  var mainsidebarClass =  $('nav.main-header').attr('class').replace(oppositeVal, val);
+  $('nav.main-header').attr('class', mainsidebarClass);
+}
+updateDarkMode();

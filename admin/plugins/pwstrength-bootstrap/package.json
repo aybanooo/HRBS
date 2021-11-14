@@ -1,0 +1,70 @@
+{
+  "_from": "pwstrength-bootstrap",
+  "_id": "pwstrength-bootstrap@3.1.0",
+  "_inBundle": false,
+  "_integrity": "sha512-jlKITancGN2y1QaPf5TPLjJ4TSQN53j+r6HpwUpaGQsgdRcYl8PduTAGcKIkTe31g3VkXp710RBufR03QgCeJg==",
+  "_location": "/pwstrength-bootstrap",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "pwstrength-bootstrap",
+    "name": "pwstrength-bootstrap",
+    "escapedName": "pwstrength-bootstrap",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/pwstrength-bootstrap/-/pwstrength-bootstrap-3.1.0.tgz",
+  "_shasum": "9f93cc1894525d457e7d3eb2b83b9aacd8b2515c",
+  "_spec": "pwstrength-bootstrap",
+  "_where": "D:\\Alt Program Files\\xampp\\htdocs\\HRBS\\Testing Area\\Isolation Zone",
+  "author": {
+    "name": "Alejandro Blanco",
+    "email": "alejandro.b.e@gmail.com"
+  },
+  "bugs": {
+    "url": "https://github.com/ablanco/jquery.pwstrength.bootstrap/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "jQuery plugin for Twitter Bootstrap that provides rulesets for visualy displaying the quality of a users typed in password.",
+  "devDependencies": {
+    "grunt": "^1.4.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-uglify": "^5.0.1",
+    "grunt-eslint": "^23.0.0",
+    "grunt-jasmine-node": "^0.3.1",
+    "grunt-shell": "^3.0.1",
+    "jquery": ">=1.7.0",
+    "jsdom": "^9.12.0"
+  },
+  "homepage": "https://github.com/ablanco/jquery.pwstrength.bootstrap",
+  "jsdelivr": "dist/pwstrength-bootstrap.min.js",
+  "keywords": [
+    "bootstrap",
+    "password",
+    "strength",
+    "meter",
+    "jquery-plugin",
+    "ecosystem:jquery"
+  ],
+  "license": "(GPL-3.0 OR MIT)",
+  "name": "pwstrength-bootstrap",
+  "peerDependencies": {
+    "bootstrap": ">=2.0.0",
+    "jquery": ">=1.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ablanco/jquery.pwstrength.bootstrap.git"
+  },
+  "scripts": {
+    "test": "grunt test"
+  },
+  "version": "3.1.0"
+}

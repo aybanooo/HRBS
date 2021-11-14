@@ -1,18 +1,9 @@
 <?php
 
 require_once("../../directories/directories.php");
-require_once(__dbCreds__);
-require_once(__outputHandler__);
-
-// Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  $output->setFailed("Cannot connect to database.".$conn->connect_error);
-  echo $output->getOutput(true);
-  die();
-}
-
+require_once(__initDB__);
+require_once __F_VALIDATIONS__;
+checkAdminSideAccess();
 
 if( !isset($_GET["roomTypeID"]) || empty(trim($_GET["roomTypeID"]))) {
     header("Location: /admin/rooms");
@@ -135,8 +126,8 @@ $output->output["data"] =  json_encode(getRoomAsAssoc($roomTypeID, $conn, $outpu
 //echo $output->getOutputAsHTML();
 
 //Etong part na to nagdidisplay ng HTML
-$editRoomHTML =  file_get_contents(__ROOT__."/admin-page-room-editRoom.html");
-echo $editRoomHTML;
+include(__D_ROOT_ADMIN__."/admin-page-room-editRoom.php");
+
 
 
 // eto yung nagpapasa ng variable na may laman ng room data para sa HTML
@@ -144,5 +135,5 @@ echo $editRoomHTML;
 // may special chars (ewan ko kung bakit) inalis ko na lang yung parse
 //echo "<script>xyzroominfocba = JSON.parse(`".json_encode(getRoomAsAssoc($roomTypeID, $conn, $output))."`);</script>";
 echo "<script>xyzroominfocba = ".json_encode(getRoomAsAssoc($roomTypeID, $conn, $output)).";</script>";
-
+    
 ?>
