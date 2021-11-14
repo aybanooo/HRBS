@@ -484,11 +484,11 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 									<h4><b>Senior Citizen and Person with Disability (Optional)</b></h4>
 								</td>
 							</tr>
-							<tr align="right">
-								<td colspan="2"><input id="senior" type="radio" name="seniorcitizen" value="1" checked>
+							<tr>
+								<td><input id="senior" type="radio" name="seniorcitizen" value="1" checked>
 							    <label for="senior">With Senior Citizen</label>
 								<input id="pwd" type="radio" name="seniorcitizen" value="2">
-							    <label for="pwd">With PWD</label></td>
+							    <label for="pwd">With PWD</label>
 									
 								<div id="seniorDiv">
 									<div class="form-group">
@@ -502,6 +502,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 										<input id="name" type="text" placeholder="PWD ID Number">
 									</div>
 								</div>
+								</td>
 							</tr>
 							<tr>
 								<td><br></td>
