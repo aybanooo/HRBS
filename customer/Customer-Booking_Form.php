@@ -485,21 +485,22 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								</td>
 							</tr>
 							<tr>
+								<td>
 								<td><input id="senior" type="radio" name="seniorcitizen" value="1" checked>
 							    <label for="senior">With Senior Citizen</label>
 								<input id="pwd" type="radio" name="seniorcitizen" value="2">
-							    <label for="pwd">With PWD</label>
+							    <label for="pwd">With PWD</label></td>
 									
 								<div id="seniorDiv">
 									<div class="form-group">
-										<label for="seniorID">Senior Citizen ID Number</label>
-										<input id="name" type="text" placeholder="Senior Citizen ID Number">
+										<td><label for="seniorID">Senior Citizen ID Number</label></td>
+										<td><input id="seniorID" type="text" placeholder="Senior Citizen ID Number"></td>
 									</div>
 								</div>
 								<div class="d-none" id="pwdDiv">
 									<div class="form-group">
-										<label for="pwdID">PWD ID Number</label>
-										<input id="name" type="text" placeholder="PWD ID Number">
+										<td><label for="pwdID">PWD ID Number</label></td>
+										<td><input id="pwdID" type="text" placeholder="PWD ID Number"></td>
 									</div>
 								</div>
 								</td>
