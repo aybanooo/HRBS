@@ -44,8 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$contact = mysqli_real_escape_string($conn, $_POST['cnumber']);
 		$email = mysqli_real_escape_string($conn, $_POST['email']);
 		$roomName = mysqli_real_escape_string($conn, $_POST['roomName']);
-		$dateStart = mysqli_real_escape_string($conn, $_POST['date_picker1']);
-		$dateEnd = mysqli_real_escape_string($conn, $_POST['date_picker2']);
+		$dateStart = mysqli_real_escape_string($conn, $_POST['from']);
+		$dateEnd = mysqli_real_escape_string($conn, $_POST['to']);
 	}
 } else {
 }

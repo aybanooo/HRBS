@@ -308,10 +308,30 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
+    <script src="/public_assets/modules/libraries/daterangepicker/daterangepicker.js"></script>
 </body>
 
 </html>
-<script src="dist/simplepicker.js"></script>
+
+<script>
+	$(function() {
+		let $dt1 = $("#from").datepicker({
+			changeMonth: true,
+			numberOfMonths: 1,
+			minDate: +2,
+			dateFormat: 'dd-mm-yy',
+
+			onSelect: function(dateString, instance) {
+				let date = $dt1.datepicker('getDate');
+				date.setDate(date.getDate() + 1)
+				$dt2.datepicker('option', 'minDate', date);
+			}
+		});
+		var $dt2 = $("#to").datepicker({
+			dateFormat: 'dd-mm-yy',
+		});
+	});
+</script>
 <script>
     let simplepicker1 = new SimplePicker(".picker-1", {
         zIndex: 10
