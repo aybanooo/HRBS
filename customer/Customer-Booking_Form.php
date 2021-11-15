@@ -291,16 +291,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			-o-transform: translate(-50%, 0);
 			transform: translate(-50%, 0%) !important;
 		}
-
-		div#ui-datepicker-div {
-			color: #000000;
-		}
-
-		a.ui-state-default {
-			color: #000000;
-			background-color: #ffffff;
-			;
-		}
 	</style>
 
 	<title>Booking Details</title>
@@ -349,7 +339,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								</td>
 							</tr>
 							<tr align="right">
-								<th><label for="date">Check In Date:</label></th>
+								<th>Check In Date:</th>
 								<td>
 									<div class="form-group">
 										<input type="text" name="from" id="from" required autocomplete="off" placeholder="DD-MM-YY">
@@ -357,7 +347,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								</td>
 							</tr>
 							<tr align="right">
-								<th><label for="date">Check Out Date:</label></th>
+								<th>Check Out Date:</th>
 								<td>
 									<div class="form-group">
 										<input type="text" name="to" id="to" required autocomplete="off" placeholder="DD-MM-YY">
