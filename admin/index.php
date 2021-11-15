@@ -99,7 +99,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div class="row">
+        <div class="row d-none">
           <div class="col">
             <!-- LINE CHART -->
             <div class="card card-info reservationLargeCards">
@@ -139,9 +139,31 @@
         <div class="row">
           <div class="col-lg-3 col-6">
             <!-- small card -->
-            <div class="small-box bg-info">
+            <div class="small-box bg-info" id="rsrvtn-all">
               <div class="inner">
-                <h3>150</h3>
+                <span class="timetabCard">
+                  <button class="active" onclick="openTab(event, 1)">Today</button>
+                  <button onclick="openTab(event, 2)">5d</button>
+                  <button onclick="openTab(event, 3)">1m</button>
+                  <button onclick="openTab(event, 4)">1y</button>
+                  <button onclick="openTab(event, 5)">Max</button>
+                </span>
+
+                <h3 class="timetabCardContent active">
+                  <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                </h3>
+                <h3 class="timetabCardContent">
+                  <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                </h3>
+                <h3 class="timetabCardContent">
+                  <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                </h3>
+                <h3 class="timetabCardContent">
+                  <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                </h3>
+                <h3 class="timetabCardContent">
+                  <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                </h3>
 
                 <p>Reservations</p>
               </div>
@@ -153,10 +175,12 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small card -->
-            <div class="small-box bg-success">
+            <div class="small-box bg-success" id="rsrvtn-paid">
               <div class="inner">
-                <h3>53</h3>
-                <p>Cleared Reservations</p>
+                <h3>
+                  <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                </h3>
+                <p>Paid Reservations</p>
               </div>
               <div class="icon">
                 <i class="fas fa-check-circle"></i>
@@ -166,9 +190,11 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small card -->
-            <div class="small-box bg-warning">
+            <div class="small-box bg-warning" id="rsrvtn-rooms-avail">
               <div class="inner">
-                <h3>44</h3>
+                <h3>
+                  <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                </h3>
 
                 <p>Available Room</p>
               </div>
@@ -180,9 +206,11 @@
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small card -->
-            <div class="small-box bg-danger">
+            <div class="small-box bg-danger" id="rsrvtn-cancelled">
               <div class="inner">
-                <h3>65</h3>
+                <h3>
+                  <span class="spinner-border mt-0 d-flex align-items-center" role="status" aria-hidden="true"></span>
+                </h3>
 
                 <p>Cancelled Reservations</p>
               </div>
@@ -473,6 +501,33 @@ function getReservationStatusBadge(value) {
   return `<span class="badge badge-${badgeColor}">${statusText}</span>`; 
 }
 
+const updateStatsBox = (id, val) => $(`#${id} .inner h3`).html(val);
+
+const updateStatsBox_timely = (id, val) => {
+  if(typeof val !== 'object') throw new Error('Invalid value');
+  if(typeof id !== 'string') throw new Error('Invalid id');
+
+  $("#rsrvtn-all .inner > h3").each(function (index, element) {
+    // element == this
+    $(this).html(val[index]);
+  });
+
+}
+
+
+async function updateReservationStats() {
+  let stats = await $.getJSON("customFiles/php/database/reservationControls/getReservationStats.php", null,
+    function (data, textStatus, jqXHR) {
+      //console.log(data);
+      return data;
+    }
+  );
+  updateStatsBox_timely("rsrvtn-all", stats.rsrvtn_count);
+  updateStatsBox("rsrvtn-paid", stats.rsrvtn_paid);
+  updateStatsBox("rsrvtn-cancelled", stats.rsrvtn_cancelled);
+  updateStatsBox("rsrvtn-rooms-avail", 'n/a');
+}
+
   $(document).ready(function() {
   $("#incidentalTableSearch").on("keyup", function() {
     var value = $(this).val().toLowerCase();
@@ -480,6 +535,7 @@ function getReservationStatusBadge(value) {
       $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
     });
   });
+  updateReservationStats();
 });
 
 
