@@ -218,11 +218,15 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                     <div class="timefeature">
                         <div class="timebox">
                             <div class="form-group">
+                                <h6>Check - in Date</h6>
+                                <br>
                                 <input type="text" name="from" id="from" required="" autocomplete="off" placeholder="DD-MM-YY">
                             </div>
 
                             <br>
                             <div class="form-group">
+                            <h6>Check - out Date</h6>
+                            <br>
                                 <input type="text" name="to" id="to" required autocomplete="off" placeholder="DD-MM-YY">
                             </div>
                         </div>
