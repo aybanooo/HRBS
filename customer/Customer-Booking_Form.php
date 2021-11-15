@@ -352,7 +352,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<th><label for="date">Check In Date:</label></th>
 								<td>
 									<div class="form-group">
-										<input type="text" name="date_picker1" id="date_picker1" required>
+										<input type="text" name="from" id="from" required autocomplete="off" placeholder="DD-MM-YY">
 									</div>
 								</td>
 							</tr>
@@ -360,7 +360,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<th><label for="date">Check Out Date:</label></th>
 								<td>
 									<div class="form-group">
-										<input type="text" name="date_picker2" id="date_picker2" required>
+										<input type="text" name="to" id="to" required autocomplete="off" placeholder="DD-MM-YY">
 									</div>
 								</td>
 							</tr>
@@ -437,9 +437,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<?php
 								if (isset($_POST['fname'])) {
 									$firstname = $_POST['fname'];
-									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" value="' . $firstname . '"></td>';
+									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" value="' . $firstname . '" autocomplete="off"></td>';
 								} else {
-									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" required></td>';
+									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" required autocomplete="off"></td>';
 								}
 								?>
 							</tr>
@@ -448,9 +448,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<?php
 								if (isset($_POST['lname'])) {
 									$lastname = $_POST['lname'];
-									echo '<td><input id="lname" type="text" name="lname" placeholder="Last Name" value="' . $lastname . '"></td>';
+									echo '<td><input id="lname" type="text" name="lname" placeholder="Last Name" value="' . $lastname . '" autocomplete="off"></td>';
 								} else {
-									echo '<td><input id="lname" type="text" name="lname" placeholder="Last Name" required></td>';
+									echo '<td><input id="lname" type="text" name="lname" placeholder="Last Name" required autocomplete="off"></td>';
 								}
 								?>
 							</tr>
@@ -459,9 +459,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<?php
 								if (isset($_POST['cnumber'])) {
 									$contact = $_POST['cnumber'];
-									echo '<td><input id="cnumber" type="text" name="cnumber" placeholder="Contact Number" value="' . $contact . '"></td>';
+									echo '<td><input id="cnumber" type="text" name="cnumber" placeholder="Contact Number" value="' . $contact . '" autocomplete="off"></td>';
 								} else {
-									echo '<td><input id="cnumber" type="text" name="cnumber" placeholder="Contact Number" required></td>';
+									echo '<td><input id="cnumber" type="text" name="cnumber" placeholder="Contact Number" required autocomplete="off"></td>';
 								}
 								?>
 							</tr>
@@ -470,9 +470,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<?php
 								if (isset($_POST['email'])) {
 									$email = $_POST['email'];
-									echo '<td><input id="email" type="email" name="email" placeholder="Email Address" value="' . $email . '"></td>';
+									echo '<td><input id="email" type="email" name="email" placeholder="Email Address" value="' . $email . '" autocomplete="off"></td>';
 								} else {
-									echo '<td><input id="email" type="email" name="email" placeholder="Email Address" required></td>';
+									echo '<td><input id="email" type="email" name="email" placeholder="Email Address" required autocomplete="off"></td>';
 								}
 								?>
 							</tr>
@@ -495,12 +495,12 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<td>
 									<div id="seniorDiv">
 										<div class="form-group">
-											<input id="name" type="text" placeholder="Senior Citizen ID Number">
+											<input id="seniorID" type="text" placeholder="Senior Citizen ID Number" autocomplete="off">
 										</div>
 									</div>
 									<div class="d-none" id="pwdDiv">
 										<div class="form-group">
-											<input id="name" type="text" placeholder="PWD ID Number">
+											<input id="pwdID" type="text" placeholder="PWD ID Number" autocomplete="off">
 										</div>
 									</div>
 								</td>
@@ -587,28 +587,23 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	}
 </script>
 <script>
-	$(document).ready(function() {
-		var startDate;
-		var endDate;
-		$("#date_picker1").datepicker({
+	$(function() {
+		let $dt1 = $("#from").datepicker({
+			changeMonth: true,
+			numberOfMonths: 1,
+			minDate: +2,
 			dateFormat: 'dd-mm-yy',
-			maxDate: '365',
-			minDate: '+5'
-		})
-		$("#date_picker2").datepicker({
-			dateFormat: 'dd-mm-yy',
-			maxDate: '365',
-			minDate: '+5'
+
+			onSelect: function(dateString, instance) {
+				let date = $dt1.datepicker('getDate');
+				date.setDate(date.getDate() + 1)
+				$dt2.datepicker('option', 'minDate', date);
+			}
 		});
-		$('#date_picker1').change(function() {
-			startDate = $(this).datepicker('getDate');
-			$("#date_picker1").datepicker("option", "minDate", startDate);
-		})
-		$('#date_picker2').change(function() {
-			endDate = $(this).datepicker('getDate');
-			$("#date_picker2").datepicker("option", "maxDate", endDate);
-		})
-	})
+		var $dt2 = $("#to").datepicker({
+			dateFormat: 'dd-mm-yy',
+		});
+	});
 </script>
 <Script>
 	$(`input[type="radio"][name="seniorcitizen"]`).on('click', function() {
