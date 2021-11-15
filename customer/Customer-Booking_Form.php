@@ -352,7 +352,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<th><label for="date">Check In Date:</label></th>
 								<td>
 									<div class="form-group">
-										<input type="text" name="date_picker1" id="date_picker1" required autocomplete="off">
+										<input type="text" name="from" id="from" required autocomplete="off" placeholder="DD-MM-YY">
 									</div>
 								</td>
 							</tr>
@@ -360,7 +360,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<th><label for="date">Check Out Date:</label></th>
 								<td>
 									<div class="form-group">
-										<input type="text" name="date_picker2" id="date_picker2" required autocomplete="off">
+										<input type="text" name="to" id="to" required autocomplete="off" placeholder="DD-MM-YY">
 									</div>
 								</td>
 							</tr>
@@ -495,12 +495,12 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<td>
 									<div id="seniorDiv">
 										<div class="form-group">
-											<input id="name" type="text" placeholder="Senior Citizen ID Number" autocomplete="off">
+											<input id="seniorID" type="text" placeholder="Senior Citizen ID Number" autocomplete="off">
 										</div>
 									</div>
 									<div class="d-none" id="pwdDiv">
 										<div class="form-group">
-											<input id="name" type="text" placeholder="PWD ID Number" autocomplete="off">
+											<input id="pwdID" type="text" placeholder="PWD ID Number" autocomplete="off">
 										</div>
 									</div>
 								</td>
@@ -587,27 +587,23 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	}
 </script>
 <script>
-	$(document).ready(function() {
-		var startDate;
-		var endDate;
-		$("#date_picker1").datepicker({
+	$(function() {
+		let $dt1 = $("#from").datepicker({
+			changeMonth: true,
+			numberOfMonths: 1,
+			minDate: +2,
 			dateFormat: 'dd-mm-yy',
-			maxDate: '365',
-			minDate: '+2'
-		})
-		$("#date_picker2").datepicker({
-			dateFormat: 'dd-mm-yy',
-			//maxDate: '365',
-			//minDate: '+3'
+
+			onSelect: function(dateString, instance) {
+				let date = $dt1.datepicker('getDate');
+				date.setDate(date.getDate() + 1)
+				$dt2.datepicker('option', 'minDate', date);
+			}
 		});
-		$('#date_picker1').change(function() {
-			startDate = $(this).datepicker('getDate');
-		})
-		$('#date_picker2').change(function() {
-			endDate = $(this).datepicker('getDate');
-			$("#date_picker1").datepicker("option", "maxDate", endDate);
-		})
-	})
+		var $dt2 = $("#to").datepicker({
+			dateFormat: 'dd-mm-yy',
+		});
+	});
 </script>
 <Script>
 	$(`input[type="radio"][name="seniorcitizen"]`).on('click', function() {
