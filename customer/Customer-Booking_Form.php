@@ -591,14 +591,14 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		var startDate;
 		var endDate;
 		$("#date_picker1").datepicker({
-			dateFormat: 'dd-mm-yy'//,
+			dateFormat: 'dd-mm-yy',
 			//maxDate: '365',
-			//minDate: '+2'
+			minDate: '+2'
 		})
 		$("#date_picker2").datepicker({
-			dateFormat: 'dd-mm-yy'//,
+			dateFormat: 'dd-mm-yy',
 			//maxDate: '365',
-			//minDate: '+3'
+			minDate: '+3'
 		});
 		$('#date_picker1').change(function() {
 			startDate = $(this).datepicker('getDate');
