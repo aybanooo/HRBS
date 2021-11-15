@@ -23,7 +23,7 @@ RewriteRule .*$ public_assets/defaults/default-image-landscape.jpg [L]
 
 #custom Urls
 RewriteRule ^$ customer/Customer-Home.php [NC,L]
-RewriteCond %{REQUEST_URI} ^(?!\/(admin|customer|public_assets)\/).*
+RewriteCond %{REQUEST_URI} ^(?!\/(admin|customer|public_assets|testing_area)\/).*
 RewriteRule ^(.+) customer/$1 [NC,L]
 
 <IfModule mod_rewrite.c>
