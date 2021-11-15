@@ -602,11 +602,11 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		});
 		$('#date_picker1').change(function() {
 			startDate = $(this).datepicker('getDate');
-			$("#date_picker1").datepicker("option", "minDate", startDate);
+			$("#date_picker2").datepicker("option", "minDate", startDate);
 		})
 		$('#date_picker2').change(function() {
 			endDate = $(this).datepicker('getDate');
-			$("#date_picker2").datepicker("option", "maxDate", endDate);
+			$("#date_picker1").datepicker("option", "maxDate", endDate);
 		})
 	})
 </script>
