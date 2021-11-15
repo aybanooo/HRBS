@@ -101,16 +101,18 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             color: #4c4c4c;
             white-space: pre;
         }
-        input#from, input#to{
-        width: 100%;
-			font-size: 1.25rem;
-			outline-color: #999;
-			border: #999;
-			background-color: #E5E8E8;
-			border-radius: 3px;
-			text-align: center;
-			margin: 0 auto;
-			display: block;
+
+        input#from,
+        input#to {
+            width: 100%;
+            font-size: 1.25rem;
+            outline-color: #999;
+            border: #999;
+            background-color: #E5E8E8;
+            border-radius: 3px;
+            text-align: center;
+            margin: 0 auto;
+            display: block;
         }
 
         .btndate {
@@ -169,15 +171,16 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             transition: 0.3s;
             transform: scale(1.005);
         }
-        div#ui-datepicker-div {
-			color: #000000;
-		}
 
-		a.ui-state-default {
-			color: #000000;
-			background-color: #ffffff;
-			;
-		}
+        div#ui-datepicker-div {
+            color: #000000;
+        }
+
+        a.ui-state-default {
+            color: #000000;
+            background-color: #ffffff;
+            ;
+        }
     </style>
 </head>
 
@@ -294,7 +297,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             <div class="row">
                 <div class="col-md-10 col-lg-8 mx-auto text-center">
                     <div id="map"></div>
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIwzALxUPNbatRBj3Xi1Uhp0fFzwWNBkE&callback=initMap&libraries=&v=weekly" async></script>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&libraries=&v=weekly&channel=2" async></script>
                 </div>
             </div>
         </div>
@@ -367,14 +370,19 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 </script>
 <script>
     function initMap() {
-        const uluru = {
+        // The location of Uluru
+        /*const uluru = {
             lat: <?php echo $followingdata['latitude']; ?>,
             lng: <?php echo $followingdata['longitude']; ?>
-        };
+        };*/
+        const uluru = { lat: -25.362, lng: 131.526 };
+        
+        // The map, centered at Uluru
         const map = new google.maps.Map(document.getElementById("map"), {
             zoom: 15,
             center: uluru,
         });
+        // The marker, positioned at Uluru
         const marker = new google.maps.Marker({
             position: uluru,
             map: map,
