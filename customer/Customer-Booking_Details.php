@@ -70,7 +70,9 @@ $countCustID = $countRow['countCustID'];
 $customerQuery = "INSERT INTO customer (customerID, fname, lname, contact, email, verified, verification) VALUES ('$countCustID', '$firstName', '$lastName', '$contact', '$email', 'None', 'None')";
 mysqli_query($conn, $customerQuery) or die(mysqli_error($conn));
 
-$customerQuery1 = "INSERT INTO reservation (reservationID, roomNo, customerID, numberOfNightstay, adults, children, checkInDate, checkOutDate, checkInTime, checkOutTime) VALUES ('$countCustID', '0', '$countCustID', '$days', 'none', 'none' ,'$dateStartFinal', '$dateEndFinal', NULL, NULL)";
+$customerQuery1 = ("INSERT INTO reservation 
+	(reservationID, roomNo, customerID, numberOfNightstay, adults, children, checkInDate, checkOutDate, checkInTime, checkOutTime, dateCreated) 
+	VALUES ('$countCustID', '0', '$countCustID', '$days', 'none', 'none' ,'$dateStartFinal', '$dateEndFinal', NULL, NULL, NOW()) LIMIT 1;");
 
 mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 
