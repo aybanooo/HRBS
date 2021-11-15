@@ -39,6 +39,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             width: 100%;
             text-align: center;
         }
+        h6{
+            color:white;
+        }
 
         .template-demo>.btn {
             margin-right: 0.5rem;
