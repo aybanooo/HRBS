@@ -593,7 +593,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		$("#date_picker1").datepicker({
 			dateFormat: 'dd-mm-yy',
 			maxDate: '365',
-			minDate: dateToday;
+			minDate: '+2'
 		})
 		$("#date_picker2").datepicker({
 			dateFormat: 'dd-mm-yy',
