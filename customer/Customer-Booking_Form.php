@@ -316,7 +316,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare.html">Compare</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare.php">Compare</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Rooms.php">Rooms</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Amenities.php">Amenities</a></li>
 				</ul>
@@ -328,7 +328,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		<div class="bookForm">
 			<div class="row">
 				<div class="col-lg-3 mx-auto">
-					<a class="return" href="Customer-Room_Details_Imperial.html">
+					<a class="return" href="Customer-Rooms.php">
 						< Back to Room</a>
 				</div>
 				<div class="col-lg-6 mx-auto">
@@ -477,7 +477,38 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								?>
 							</tr>
 							<tr>
-								<td><br></td>
+								<td colspan="2">
+									<hr>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<h4><b>Senior Citizen and Person with Disability (Optional)</b></h4>
+								</td>
+							</tr>
+							<tr>
+								<td><input id="senior" type="radio" name="seniorcitizen" value="1" checked>
+									<label for="senior">With Senior Citizen</label>
+									<input id="pwd" type="radio" name="seniorcitizen" value="2">
+									<label for="pwd">With PWD</label>
+								</td>
+								<td>
+									<div id="seniorDiv">
+										<div class="form-group">
+											<input id="name" type="text" placeholder="Senior Citizen ID Number">
+										</div>
+									</div>
+									<div class="d-none" id="pwdDiv">
+										<div class="form-group">
+											<input id="name" type="text" placeholder="PWD ID Number">
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<br>
+								</td>
 							</tr>
 							<tr align="right">
 								<td colspan="2">
@@ -567,7 +598,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		$("#date_picker2").datepicker({
 			dateFormat: 'dd-mm-yy',
 			maxDate: '365',
-			minDate: '+5'
+			minDate: '+6'
 		});
 		$('#date_picker1').change(function() {
 			startDate = $(this).datepicker('getDate');
@@ -579,5 +610,17 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		})
 	})
 </script>
+<Script>
+	$(`input[type="radio"][name="seniorcitizen"]`).on('click', function() {
+		if ($(this).val() == 1) {
+			$('#seniorDiv').removeClass('d-none');
+			$('#pwdDiv').removeClass('d-none').addClass('d-none');
+
+		} else {
+			$('#pwdDiv').removeClass('d-none');
+			$('#seniorDiv').removeClass('d-none').addClass('d-none');
+		}
+	})
+</Script>
 
 </html>
