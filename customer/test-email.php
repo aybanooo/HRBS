@@ -6,7 +6,6 @@ thanoshotelreservation@ghrbs.site
     $to = "BENJBENITO10@GMAIL.COM";
     $subject = "Checking PHP mail";
     $message = "
-    <!DOCTYPE html>
 <html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" lang="en">
 
 <head>
