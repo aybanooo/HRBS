@@ -7,16 +7,17 @@
 #$customerEmail = $maxIDRow['maxID'];
 #ini_set( 'display_errors', 1 );
 #error_reporting( E_ALL );
+$apiKey = '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';
 use PHPMailer\PHPMailer\PHPMailer;
 require 'vendor/autoload.php';
     $mail = new PHPMailer;
     $mail->isSMTP();
-    $mail->Host = 'smtp.hostinger.com';
-    $mail->Port = 465;
+    $mail->Host = 'smtp.sendgrid.net';
+    $mail->Port = 587;
     $mail->SMTPAuth = true;
     $mail->Username = 'thanoshotelreservation@ghrbs.site';
-    $mail->Password = 'Thanos123';
-    $mail->setFrom('test@hostinger-tutorials.com', 'Mr. Drago');
+    $mail->Password = $apiKey;
+    $mail->setFrom('thanoshotelreservation@ghrbs.site', 'GHRBS-ADMIN');
     $mail->addAddress('benjbenito10@gmail.com', 'Valued Guest');
     if ($mail->addReplyTo($_POST['email'], $_POST['name'])) {
         $mail->Subject = 'PHPMailer contact form';
