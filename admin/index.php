@@ -675,7 +675,7 @@ function prevRecord() {
   let max = table_Reservation.rows().data().length;
   let currentIndex = parseInt($("#rsvtn-panel-id").attr('data-index'));
   $("#btn-modal-rsvtn-next").removeAttr('disabled');
-  if(currentIndex-2 <= 0) {
+  if(currentIndex-1 <= 0) {
     $("#btn-modal-rsvtn-prev").attr('disabled','');
   } else {
     $("#btn-modal-rsvtn-prev").removeAttr('disabled');
