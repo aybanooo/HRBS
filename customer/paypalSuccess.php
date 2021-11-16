@@ -19,7 +19,7 @@ $apiKey = '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
     $mail->Password = $apiKey;
     $mail->setFrom('thanoshotelreservation@ghrbs.site', 'Thanos');
     $mail->addReplyTo('thanoshotelreservation@ghrbs.site', 'Thanos');
-    $mail->addAddress('benjbenito10@gmail.com', 'Benj');
+    $mail->addAddress($customerEmail, 'Valued Guest');
     $mail->Subject = 'Testing PHPMailer';
     $mail->msgHTML(file_get_contents('message.html'), __DIR__);
     $mail->Body = 'This is a plain text message body';
