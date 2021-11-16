@@ -136,7 +136,7 @@
         <!-- /.row (Whole row) -->
         
         <div class="row">
-          <div class="col-lg-3 col-6">
+          <div class="col-6 col-lg-3">
             <!-- small card -->
             <div class="small-box bg-info" id="rsrvtn-all">
               <div class="inner">
@@ -172,7 +172,7 @@
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <div class="col-6 col-lg-3">
             <!-- small card -->
             <div class="small-box bg-success" id="rsrvtn-paid">
               <div class="inner">
@@ -187,7 +187,7 @@
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <div class="col-6 col-lg-3">
             <!-- small card -->
             <div class="small-box bg-warning" id="rsrvtn-rooms-avail">
               <div class="inner">
@@ -203,7 +203,7 @@
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <div class="col-6 col-lg-3">
             <!-- small card -->
             <div class="small-box bg-danger" id="rsrvtn-cancelled">
               <div class="inner">
