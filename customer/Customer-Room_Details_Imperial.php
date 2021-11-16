@@ -245,7 +245,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                                 <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $followingdataGuest["maxAdult"]; ?> Adult</span></li>
                                                                 <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $followingdataGuest["maxChildren"]; ?> Children</span></li>
                                                             <?php 
-                                                                $queryGenInfo = "SELECT A.*, B.* FROM roomsec A INNER JOIN roominfo B ON A.`sectionID`=B.`roo­mSecID` WHERE A.`general`=1 && A.`roomTypeID`=45;";
+                                                                $queryGenInfo = "SELECT A.*, B.* FROM roomsec A INNER JOIN roominfo B ON A.`sectionID`= B.`roo­mSecID` WHERE A.`general`=1 && A.`roomTypeID`=38;";
                                                                 $result = mysqli_query($conn, $queryGenInfo) or die(mysqli_error($conn));
                                                                 while ($rowGenInfo = mysqli_fetch_assoc($result)) {
                                                             ?>
