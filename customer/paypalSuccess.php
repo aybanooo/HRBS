@@ -11,7 +11,7 @@ $apiKey = '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
     require 'vendor/autoload.php';
     $mail = new PHPMailer;
     $mail->isSMTP();
-    $mail->SMTPDebug = 2;
+    $mail->SMTPDebug = 0;
     $mail->Host = 'smtp.sendgrid.net';
     $mail->Port = 587;
     $mail->SMTPAuth = true;
