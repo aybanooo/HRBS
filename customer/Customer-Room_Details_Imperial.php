@@ -237,12 +237,13 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                     <?php
                                                         $queryGuest = "SELECT `maxAdult`, `maxChildren` FROM roomtype;";
                                                         $result = mysqli_query($conn, $queryGuest) or die(mysqli_error($conn));
+                                                        $followingdataGuest = $result->fetch_array(MYSQLI_ASSOC);
                                                     ?>
                                                     <div class="row mx-1 mx-sm-5 my-sm-2">
                                                         <div class="col-12 ce-limit ce-noenter ce-blankremove">
                                                             <ul class="list-unstyled row gen-info-list">
-                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $result["maxAdult"]; ?></span></li>
-                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $result["maxChildren"]; ?></span></li>
+                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $followingdataGuest["maxAdult"]; ?></span></li>
+                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $followingdataGuest["maxChildren"]; ?></span></li>
                                                     <?php 
                                                         $queryGenInfo = "SELECT A.*, B.* FROM roomsec A INNER JOIN roominfo B ON A.`sectionID`=B.`roo­mSecID` WHERE A.`general`=1 && A.`roomTypeID`=38;";
                                                         $result = mysqli_query($conn, $queryGenInfo) or die(mysqli_error($conn));
