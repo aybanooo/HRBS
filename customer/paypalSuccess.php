@@ -21,7 +21,7 @@ $apiKey = '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
     $mail->addReplyTo('thanoshotelreservation@ghrbs.site', 'Thanos');
     $mail->addAddress($customerEmail, 'Valued Guest');
     $mail->Subject = 'GHRBS booking details';
-    $mail->msgHTML(file_get_contents('message.html'), __DIR__);
+    
     $mail->Body = 'This is a plain text message body';
     //$mail->addAttachment('test.txt');
     if (!$mail->send()) {
