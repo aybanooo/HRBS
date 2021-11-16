@@ -18,7 +18,6 @@
   
   <?php 
     include __F_HEAD_CONTENTS__;
-    include(__D_UI__."js/analytics.php");
   ?>
 
 
