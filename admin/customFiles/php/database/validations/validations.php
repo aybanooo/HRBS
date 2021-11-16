@@ -40,12 +40,12 @@ function checkRequiredPOSTval($strList = null, $notEmpty = false) {
     $temp = array_map('trim', explode(',', $strList));
     foreach($temp as $val) {
         if(!isset($_POST[$val])) {
-            echo $GLOBALS['output']->setFailed("Something went wrong while processing the request.", $val." is missing."); 
+            echo $GLOBALS['output']->setFailed("Something went wrong while processing the request.", devShowError($val." is missing.")); 
             die();
         }
         if($notEmpty) {
           if(empty($_POST[$val])) {
-            echo $GLOBALS['output']->setFailed("Something went wrong while processing the request.", $val." is empty."); 
+            echo $GLOBALS['output']->setFailed("Something went wrong while processing the request.",  devShowError($val." is empty.")); 
             die();
           }
         }
@@ -57,12 +57,12 @@ function checkRequiredGETval($strList = null, $notEmpty = false) {
   $temp = array_map('trim', explode(',', $strList));
   foreach($temp as $val) {
       if(!isset($_GET[$val])) {
-          echo $GLOBALS['output']->setFailed("Something went wrong while processing the request.", $val." is missing."); 
+          echo $GLOBALS['output']->setFailed("Something went wrong while processing the request.", devShowError($val." is missing.")); 
           die();
       }
       if($notEmpty) {
         if(empty($_GET[$val])) {
-          echo $GLOBALS['output']->setFailed("Something went wrong while processing the request.", $val." is empty."); 
+          echo $GLOBALS['output']->setFailed("Something went wrong while processing the request.", devShowError($val." is empty.")); 
           die();
         }
       }
@@ -371,5 +371,9 @@ function empIdExist($id, $die=false) {
 }
 
 //------------------- EMP ACCOUNT/ROLE VALIDATION END-------------------
+
+function devShowError($error) {
+  return __CONF_DMODE_PARSED__ ?  ($error) : null ;
+}
 
 ?>
