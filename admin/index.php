@@ -265,10 +265,77 @@
     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="reservationModalTitle"><strong id="reservationID">#</strong> Reservation</h5>
+          <h5 class="modal-title" id="reservationModalTitle"><strong id="rsvtn-panel-id">#</strong> Reservation</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
+        </div>
+        <div class="modal-body">
+          <div class="row m-3">
+            <div class="col-12 col-lg-6">
+              <div class="row">
+                <div class="col-6 mb-3">
+                  <small class="d-block text-muted mb-0">Status</small>
+                  <span id="rsvtn-panel-status" class="ml-2">
+                    <span class="badge badge-danger">Unpaid</span>
+                  </span>
+                </div>
+                <div class="col-6 mb-3">
+                  <small class="d-block text-muted mb-0">Room #</small>
+                  <span id="rsvtn-panel-room-num" class="ml-2">
+                    n/a
+                  </span>
+                </div>
+                <div class="col-12 mb-3">
+                  <small class="d-block text-muted mb-0">Booked by</small>
+                  <h5 id="rsvtn-panel-bookedby" class="ml-2 mb-0">
+                    N/A
+                  </h5>
+                  <small class="d-block text-muted mb-0 ml-2">For <strong><span id="rsvtn-panel-stay-count">n</span> nights</strong></small>
+                </div>
+                <div class="col-12 mb-3">
+                  <small class="d-block text-muted mb-0">Number of guest</small>
+                  <span id="rsvtn-panel-guest-total" class="ml-2">
+                    n/a
+                  </span>
+                  <small class="d-block text-muted mb-0 ml-2"><strong id="rsvtn-panel-guest-adult">n</strong> Adults, <strong id="rsvtn-panel-guest-children">n</strong> Children </small>
+                </div>
+                <div class="col-12 mb-3">
+                  <small class="d-block text-muted mb-0">Contact</small>
+                  <span id="rsvtn-panel-contact-num" class="ml-2 d-block">
+                    n/a
+                  </span>
+                  <span id="rsvtn-panel-contact-email" class="ml-2 d-block">
+                    n/a
+                  </span>
+                </div>
+                <div class="col-6 col-md-6 mb-3">
+                  <small class="d-block text-muted mb-0">Check-In Date</small>
+                  <span id="rsvtn-panel-check-in-date" class="ml-2 d-block">
+                    n/a
+                  </span>
+                </div>
+                <div class="col-6 col-md-6 mb-3">
+                  <small class="d-block text-muted mb-0">Check-Out Date</small>
+                  <span id="rsvtn-panel-check-out-date" class="ml-2 d-block">
+                    n/a
+                  </span>
+                </div>
+                <div class="col-6 col-md-6 mb-3">
+                  <small class="d-block text-muted mb-0">Check-In Time</small>
+                  <span id="rsvtn-panel-check-in-time" class="ml-2">
+                    n/a
+                  </span>
+                </div>
+                <div class="col-6 col-md-6 mb-3">
+                  <small class="d-block text-muted mb-0">Check-Out Time</small>
+                  <span id="rsvtn-panel-check-in-time" class="ml-2">
+                    n/a
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -310,6 +377,8 @@
 <script src="plugins/sweetalert2/sweetalert2.min.js"></script>
 <!-- Toastr -->
 <script src="plugins/toastr/toastr.min.js"></script>
+<!-- Moment -->
+<script src="plugins/moment/moment.min.js"></script>
 <!-- DataTables  & Plugins -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -537,6 +606,35 @@ async function updateReservationStats() {
   updateReservationStats();
 });
 
+function updateRsvtnModal(data) {
+  $("#rsvtn-panel-id").html(data.reservationID);
+  $("#rsvtn-panel-status").html(getReservationStatusBadge(data.reservationStatus));
+  $("#rsvtn-panel-room-num").html(data.roomNo);
+  $("#rsvtn-panel-bookedby").html(data.Name);
+  (data.Name.trim()==="") && $("#rsvtn-panel-bookedby").html("How is this possible????");
+  $("#rsvtn-panel-stay-count").html(data.numberOfNightstay);
+  let guestTotal = parseInt(data.children) + parseInt(data.adults); 
+  $("#rsvtn-panel-guest-total").html(guestTotal);
+  $("#rsvtn-panel-guest-adult").html(data.adults);
+  $("#rsvtn-panel-guest-children").html(data.children);
+  $("#rsvtn-panel-contact-num").html(data.contact);
+  $("#rsvtn-panel-contact-email").html(data.email);
+  if(data.contact.trim()==="" && data.email.trim()==="") {
+    $("#rsvtn-panel-contact-num").html("No contact info");
+  }
+  //checkin related updates
+  $("#rsvtn-panel-check-in-date").html(moment(data.checkInDate).format("MMMM Do YYYY [<small class='d-block text-muted mb-0'>]dddd[</small>]").toString());
+  $("#rsvtn-panel-check-out-date").html(moment(data.checkOutDate).format("MMMM Do YYYY [<small class='d-block text-muted mb-0'>]dddd[</small>]").toString());
+
+}
+
+$("#table-reservation").on('click', 'tbody td:not(:first-child, .child)', function() {
+  let target = $(this).parent();
+  let data = table_Reservation.row( target ).data();
+  console.log(data);
+  updateRsvtnModal(data);
+  $("#reservationModal").modal('toggle');
+});
 
 </script>
 
