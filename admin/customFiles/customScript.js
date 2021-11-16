@@ -408,7 +408,6 @@ function getCookie(cname) {
       return c.substring(name.length, c.length);
     }
   }
-  return "";
 }
 
 
@@ -416,7 +415,7 @@ function getCookie(cname) {
 
 $("#toggle-darkMode").click(function() {
   var val = $(this).prop('checked');
-  document.cookie = `darkmode=${val}`;
+  document.cookie = `darkmode=${val}; expires=Fri, 31 Dec 9999 23:59:59 GMT; SameSite=Strict; Secure";`;
   updateDarkMode();
 });
 
