@@ -276,15 +276,15 @@
               <div class="row">
                 <div class="col-6 mb-3">
                   <small class="d-block text-muted mb-0">Status</small>
-                  <span id="rsvtn-panel-status" class="ml-2">
+                  <h4 id="rsvtn-panel-status" class="ml-2">
                     <span class="badge badge-danger">Unpaid</span>
-                  </span>
+                  </h4>
                 </div>
                 <div class="col-6 mb-3">
                   <small class="d-block text-muted mb-0">Room #</small>
-                  <span id="rsvtn-panel-room-num" class="ml-2">
+                  <h5 id="rsvtn-panel-room-num" class="ml-2">
                     n/a
-                  </span>
+                  </h5>
                 </div>
                 <div class="col-12 mb-3">
                   <small class="d-block text-muted mb-0">Booked by</small>
@@ -544,7 +544,7 @@ table_Reservation = $('#table-reservation').DataTable( {
     {orderable: false, targets: 0},
     {"className": "align-middle", "targets": "_all"}
   ],
-  order: [[1, 'asc']]
+  order: [[2, 'desc']]
 });
   //$('.dataTables_length').addClass('bs-select');
 
