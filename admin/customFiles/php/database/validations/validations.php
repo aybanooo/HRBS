@@ -352,10 +352,22 @@ function checkAdminSideAccess() {
 
 function idIsAdmin($id, $die=false) {
   if($id=='admin'){
-    ($die) && die($GLOBALS['output']->setFailed('WOAH! SOMEONE TRIED TO MODIFY THE HTML CODES"'));
+    ($die) && die($GLOBALS['output']->setFailed('WOAH! SOMEONE TRIED TO MODIFY THE HTML CODES'));
     return true;
   }
   return false;
+}
+
+function empIdExist($id, $die=false) {
+  $tempConn = createTempDBConnection();
+  $userID = $id;
+  $exists = mysqli_fetch_all(mysqli_query($tempConn, "SELECT COUNT(DISTINCT empID)=1 from `employee` WHERE empID=$userID;"))[0][0];
+  toPhpBool($exists);
+  mysqli_close($tempConn);
+  if($die && !$exists) {
+    die($GLOBALS['output']->setFailed('Cannot find employee ID'));
+  }
+  return $exists;
 }
 
 //------------------- EMP ACCOUNT/ROLE VALIDATION END-------------------

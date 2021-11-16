@@ -2,17 +2,18 @@
 require_once(dirname(__FILE__,3)."/directories/directories.php");
 require_once __initDB__;
 require_once __F_DB_HANDLER__;
+require_once __F_LOGIN_HANDLER__;
 require_once __F_VALIDATIONS__;
 checkAdminSideAccess();
 
-checkRequiredPOSTval("eID, contactNum, password", true);
+checkRequiredPOSTval("inp-newContact, inp-currPass", true);
 
-$empID = prepareForSQL($conn, $_POST['eID']);
-$contactNum = prepareForSQL($conn, $_POST['contactNum']);
-$password = $_POST['password'];
+$empID = getUserInfoFromToken($_COOKIE['authkn'])->id;
+$contactNum = prepareForSQL($conn, $_POST['inp-newContact']);
+$password = $_POST['inp-currPass'];
 
-validPassword($password, $empID, true);
 idIsAdmin($empID, true);
+validPassword($password, $empID, true);
 
 $sql = "UPDATE `employee` SET `contact`='$contactNum' WHERE `empID`=$empID;";
 
@@ -21,5 +22,5 @@ if(!mysqli_query($conn, $sql)) {
     die();
 }
 
-echo $output->setSuccessful('Contact # has been updated');
+echo $output->setSuccessful('Contact # has been updated. Please login again to display the changes.');
 ?>

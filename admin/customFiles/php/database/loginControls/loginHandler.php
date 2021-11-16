@@ -30,11 +30,14 @@ function isLoginTokenExpired() {
 }
 
 function validPassword($pass, $empID, $die=false) {
+    ($empID==="") && throw new Exception("ID cannot be empty");
+    ($pass==="") && throw new Exception("Password cannot be empty");
     $tempConn = createTempDBConnection();
+    ($empID!='admin') && empIdExist($empID, true);
     $sql =  $empID=='admin' ? "SELECT `value` FROM `settings` WHERE `name` LIKE 'adminPass' LIMIT 1;" : "SELECT `password` FROM `empaccountdetails` WHERE `empID`=$empID LIMIT 1;";
     $fetchedPass = mysqli_fetch_all(mysqli_query($tempConn, $sql))[0][0];
     $validPass = password_verify($pass, $fetchedPass);
-    if($die) {
+    if($die && !$validPass) {
         die($GLOBALS['output']->setFailed('Invalid Password'));
     }
     return $validPass;

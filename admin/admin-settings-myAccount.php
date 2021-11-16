@@ -164,14 +164,14 @@ $resetPassUrl = isAdmin() ? "/admin/customFiles/php/settingsControls/updateDefau
                           </div>
 
                         <div id="collapseTwo" class="collapse fade" aria-labelledby="headingTwo" data-parent="#accordion">
-                          <form>
+                          <form id="form-contact">
                             <br>
                             <br>
                             <div class="form-group">
-                              <input type="password" name="newContact" class="form-control" id="newContact" placeholder="New Contact #">
+                              <input type="tel" class="form-control" id="inp-newContact"  name="inp-newContact" placeholder="New Contact #">
                             </div>
                             <div class="form-group">
-                              <input type="password" name="currPass" class="form-control" id="currPass" placeholder="Current Password">
+                              <input type="password"  class="form-control" id="inp-currPass" name="inp-currPass" placeholder="Current Password">
                             </div>
                             <div class="form-group">
                               <button type="submit" class="btn btn-primary btn-block">Submit</button>
@@ -270,7 +270,7 @@ $("#form-changePass").validate({
   }
 });
 
-$.validator.addMethod("strong_password", function (value, element) {
+  $.validator.addMethod("strong_password", function (value, element) {
     let password = value;
     if (!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_~.])(.{8,20}$)/.test(password))) {
         return false;
@@ -307,6 +307,39 @@ $.validator.addMethod("strong_password", function (value, element) {
     return false;
   });
 
+  $("#form-contact").validate({
+    rules: {
+      "inp-newContact": {
+        required: true
+      },
+      "inp-currPass": {
+        required: true
+      }
+    },
+    errorElement: 'span',
+    errorPlacement: function (error, element) {
+      error.addClass('invalid-feedback');
+      element.closest('.form-group').append(error);
+    },
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass('is-invalid');
+    },
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass('is-invalid');
+    },
+    submitHandler:  (form) => {
+      $.post("customFiles/php/database/employeeAccountControls/changeContact.php", $(form).serialize(),
+        function (response, textStatus, jqXHR) {
+          console.log(response);
+          Toast.fire({
+            icon: response.status,
+            title: response.message,
+          });
+        },
+        "json"
+      )
+    }
+  });
 </script>
 
 <!-- Script to toggle navigation buttons -->
