@@ -350,6 +350,14 @@ function checkAdminSideAccess() {
   }
 } 
 
+function idIsAdmin($id, $die=false) {
+  if($id=='admin'){
+    ($die) && die($GLOBALS['output']->setFailed('WOAH! SOMEONE TRIED TO MODIFY THE HTML CODES"'));
+    return true;
+  }
+  return false;
+}
+
 //------------------- EMP ACCOUNT/ROLE VALIDATION END-------------------
 
 ?>
