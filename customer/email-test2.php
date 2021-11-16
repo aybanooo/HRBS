@@ -15,7 +15,7 @@ $apiKey = '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
     #$mail->addAddress('benjbenito10@gmail.com', 'Benj');
     #$mail->Host = 'smtp.sendgrid.net';
     #$mail->Port = 587;
-
+$subject = "testing 123";
     use PHPMailer\PHPMailer\PHPMailer;
     require 'vendor/autoload.php';
     $mail = new PHPMailer;
@@ -42,7 +42,7 @@ $apiKey = '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
     $message = str_replace('%password%', $password, $message);
     $mail->Subject = 'Testing PHPMailer';     
     $mail->MsgHTML($message);
-    #$mail->Subject = $subject;
+    $mail->Subject = $subject;
     $mail->send();
      
     ?>
