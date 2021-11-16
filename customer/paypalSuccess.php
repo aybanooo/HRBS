@@ -11,11 +11,11 @@ $to = $customerEmail;
 $subject = "Booking Details";
 $message = "PHP mail works just fine";
 $headers = "From:" . $from;
-if(mail($to,$subject,$message, $headers)) {
-echo "The email message was sent.";
-} else {
-echo "The email message was not sent.";
-}
+#if(mail($to,$subject,$message, $headers)) {
+#echo "The email message was sent.";
+#} else {
+#echo "The email message was not sent.";
+#}
 
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
