@@ -40,7 +40,7 @@ $apiKey = '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
     $message = file_get_contents($email_template);
     $message = str_replace('%username%', $username, $message);
     $message = str_replace('%password%', $password, $message);
-         
+    $mail->Subject = 'Testing PHPMailer';     
     $mail->MsgHTML($message);
     $mail->Subject = $subject;
     $mail->send();
