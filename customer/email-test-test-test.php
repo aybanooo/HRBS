@@ -7,7 +7,7 @@
 #$customerEmail = $maxIDRow['maxID'];
 #ini_set( 'display_errors', 1 );
 #error_reporting( E_ALL );
-$apiKey = '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';
+#$apiKey = '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';
     use PHPMailer\PHPMailer\PHPMailer;
     require 'vendor/autoload.php';
     $mail = new PHPMailer;
