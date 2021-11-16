@@ -477,15 +477,15 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								</td>
 							</tr>
 							<tr>
-								<td><input id="senior" type="radio" name="seniorcitizen" value="1" checked>
+								<td><input id="senior" type="radio" name="seniorcitizen" value="radio1">
 									<label for="senior">With Senior Citizen</label>
-									<input id="pwd" type="radio" name="seniorcitizen" value="2">
+									<input id="pwd" type="radio" name="seniorcitizen" value="radio2">
 									<label for="pwd">With PWD</label>
 								</td>
 								<td>
 									<div id="seniorDiv">
 										<div class="form-group">
-											<input id="seniorID" type="text" placeholder="Senior Citizen ID Number" autocomplete="off">
+											<input id="seniorID" type="text" placeholder="Senior Citizen ID Number" autocomplete="off" disabled="true">
 										</div>
 									</div>
 									<div class="d-none" id="pwdDiv">
@@ -607,5 +607,18 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		}
 	})
 </Script>
+<script>
+	$(document).ready(function() {
+		$('input[type=radio][name=seniorcitizen]').click(function() {
+			var related_class = $(this).val();
+			$('.' + related_class).prop('disabled', false);
+
+			$('input[type=radio][name=seniorcitizen]').not(':checked').each(function() {
+				var other_class = $(this).val();
+				$('.' + other_class).prop('disabled', true);
+			});
+		});
+	});
+</script>
 
 </html>
