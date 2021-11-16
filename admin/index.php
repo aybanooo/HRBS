@@ -228,7 +228,7 @@
               <h3 class="card-title">Reservations</h3>
           </div>
           <div class="card-body table-bg p-2">
-            <table id="table-reservation" class="table table-bordered table-striped">
+            <table id="table-reservation" class="table table-striped">
               <thead>
                 <tr>
                   <th></th>
@@ -236,6 +236,7 @@
                   <th>Reservation ID</th>
                   <th>Room #</th>
                   <th>Booked by</th>
+                  <th>Date Created</th>
                   <th>Check-In Date</th>
                   <th>Check-Out Date</th>
                   <th>Check-In Time</th>
@@ -265,7 +266,13 @@
     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="reservationModalTitle"><strong id="rsvtn-panel-id">#</strong> Reservation</h5>
+          <h5 class="modal-title" id="reservationModalTitle">
+            <span class="text-muted">Reservation</span> 
+            <strong id="rsvtn-panel-id" data-index="">#</strong> 
+            <small class="text-muted">created  at 
+              <span id="rsvtn-panel-created-date">n/a</span>
+            </small>
+          </h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -337,7 +344,11 @@
             </div>
           </div>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer d-flex justify-content-between">
+          <span>
+            <button id="btn-modal-rsvtn-prev" type="button" class="btn btn-secondary" onclick="prevRecord()">Prev</button>
+            <button id="btn-modal-rsvtn-next" type="button" class="btn btn-secondary" onclick="nextRecord()">Next</button>
+          </span>
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
         </div>
       </div>
@@ -516,6 +527,8 @@ table_Reservation = $('#table-reservation').DataTable( {
       data: 'Name',
       className: 'None'
     }, {
+      data: 'dateCreated'
+    }, {
       data: 'checkInDate'
     }, {
       data: 'checkOutDate'
@@ -606,8 +619,11 @@ async function updateReservationStats() {
   updateReservationStats();
 });
 
-function updateRsvtnModal(data) {
+function updateRsvtnModal(data, rowIndex) {
   $("#rsvtn-panel-id").html(data.reservationID);
+  $("#rsvtn-panel-id").attr('data-index', rowIndex)
+  let dateCreated = moment(data.dateCreated).format('dddd, MMMM Do YYYY');
+  $("#rsvtn-panel-created-date").html(dateCreated);
   $("#rsvtn-panel-status").html(getReservationStatusBadge(data.reservationStatus));
   $("#rsvtn-panel-room-num").html(data.roomNo);
   $("#rsvtn-panel-bookedby").html(data.Name);
@@ -631,10 +647,42 @@ function updateRsvtnModal(data) {
 $("#table-reservation").on('click', 'tbody td:not(:first-child, .child)', function() {
   let target = $(this).parent();
   let data = table_Reservation.row( target ).data();
-  console.log(data);
-  updateRsvtnModal(data);
+  let max = table_Reservation.rows().data().length;
+  let rowIndex = table_Reservation.rows({ order: 'current' } ).nodes().indexOf(target[0]);
+  console.log(rowIndex);
+  updateRsvtnModal(data, rowIndex);
+  $("#btn-modal-rsvtn-prev").attr('disabled','');
+  $("#btn-modal-rsvtn-next").attr('disabled','');
+  (rowIndex+1<max) &&  $("#btn-modal-rsvtn-next").removeAttr('disabled');
+  (rowIndex-1>=0) &&  $("#btn-modal-rsvtn-prev").removeAttr('disabled');
   $("#reservationModal").modal('toggle');
 });
+
+function nextRecord() {
+  let max = table_Reservation.rows().data().length;
+  let currentIndex = parseInt($("#rsvtn-panel-id").attr('data-index'));
+  $("#btn-modal-rsvtn-prev").removeAttr('disabled');
+  if(currentIndex+2 >= max) {
+    $("#btn-modal-rsvtn-next").attr('disabled','');
+  } else {
+    $("#btn-modal-rsvtn-next").removeAttr('disabled');
+  }
+  let data = table_Reservation.rows().data()[currentIndex+1];
+  updateRsvtnModal(data, currentIndex+1);
+}
+
+function prevRecord() {
+  let max = table_Reservation.rows().data().length;
+  let currentIndex = parseInt($("#rsvtn-panel-id").attr('data-index'));
+  $("#btn-modal-rsvtn-next").removeAttr('disabled');
+  if(currentIndex-1 <= 0) {
+    $("#btn-modal-rsvtn-prev").attr('disabled','');
+  } else {
+    $("#btn-modal-rsvtn-prev").removeAttr('disabled');
+  }
+  let data = table_Reservation.rows().data()[currentIndex-1];
+  updateRsvtnModal(data, currentIndex-1);
+}
 
 </script>
 
