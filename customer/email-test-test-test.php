@@ -1,12 +1,12 @@
 <?php
 
-include('db.php');
-$maxIDQ = "SELECT MAX(email) AS 'maxID',  FROM customer";
-$maxIDRes = mysqli_query($conn, $maxIDQ);
-$maxIDRow = mysqli_fetch_assoc($maxIDRes);
-$customerEmail = $maxIDRow['maxID'];
-ini_set( 'display_errors', 1 );
-error_reporting( E_ALL );
+#include('db.php');
+#$maxIDQ = "SELECT MAX(email) AS 'maxID',  FROM customer";
+#$maxIDRes = mysqli_query($conn, $maxIDQ);
+#$maxIDRow = mysqli_fetch_assoc($maxIDRes);
+#$customerEmail = $maxIDRow['maxID'];
+#ini_set( 'display_errors', 1 );
+#error_reporting( E_ALL );
 use PHPMailer\PHPMailer\PHPMailer;
 require 'vendor/autoload.php';
     $mail = new PHPMailer;
