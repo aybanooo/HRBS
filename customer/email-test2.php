@@ -13,16 +13,35 @@ $apiKey = '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
     $mail = new PHPMailer;
     $mail->isSMTP();
     $mail->SMTPDebug = 2;
-    $mail->Host = 'smtp.hostinger.com';
-    $mail->Port = 465;
+    $mail->Host = 'smtp.sendgrid.net';
+    $mail->Port = 587;
     $mail->SMTPAuth = true;
-    $mail->Username = 'thanoshotelreservation@ghrbs.site';
-    $mail->Password = 'Thanos123';
+    $mail->Username = 'apikey';
+    $mail->Password = $apiKey;
     $mail->setFrom('thanoshotelreservation@ghrbs.site', 'Thanos');
     $mail->addReplyTo('thanoshotelreservation@ghrbs.site', 'Thanos');
     $mail->addAddress('benjbenito10@gmail.com', 'Benj');
     $mail->Subject = 'Testing PHPMailer';
-    $mail->msgHTML(file_get_contents('message.html'), __DIR__);
+    $mail->$htmlContent = ' 
+    <html> 
+    <head> 
+        <title>Welcome to CodexWorld</title> 
+    </head> 
+    <body> 
+        <h1>Thanks you for joining with us!</h1> 
+        <table cellspacing="0" style="border: 2px dashed #FB4314; width: 100%;"> 
+            <tr> 
+                <th>Name:</th><td>CodexWorld</td> 
+            </tr> 
+            <tr style="background-color: #e0e0e0;"> 
+                <th>Email:</th><td>contact@codexworld.com</td> 
+            </tr> 
+            <tr> 
+                <th>Website:</th><td><a href="http://www.codexworld.com">www.codexworld.com</a></td> 
+            </tr> 
+        </table> 
+    </body> 
+    </html>'; 
     $mail->Body = 'This is a plain text message body';
     //$mail->addAttachment('test.txt');
     if (!$mail->send()) {
