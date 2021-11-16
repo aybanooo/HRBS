@@ -8,50 +8,26 @@
 #ini_set( 'display_errors', 1 );
 #error_reporting( E_ALL );
 $apiKey = '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';
-use PHPMailer\PHPMailer\PHPMailer;
-require 'vendor/autoload.php';
+    use PHPMailer\PHPMailer\PHPMailer;
+    require 'vendor/autoload.php';
     $mail = new PHPMailer;
     $mail->isSMTP();
+    $mail->SMTPDebug = 2;
     $mail->Host = 'smtp.sendgrid.net';
     $mail->Port = 587;
     $mail->SMTPAuth = true;
     $mail->Username = 'thanoshotelreservation@ghrbs.site';
     $mail->Password = $apiKey;
-    $mail->setFrom('thanoshotelreservation@ghrbs.site', 'GHRBS-ADMIN');
-    $mail->addAddress('benjbenito10@gmail.com', 'Valued Guest');
-    if ($mail->addReplyTo($_POST['email'], $_POST['name'])) {
-        $mail->Subject = 'PHPMailer contact form';
-        $mail->isHTML(false);
-        $mail->Body = <<<EOT
-Email: {$_POST['email']}
-Name: {$_POST['name']}
-Message: {$_POST['message']}
-EOT;
-        if (!$mail->send()) {
-            $msg = 'Sorry, something went wrong. Please try again later.';
-        } else {
-            $msg = 'Message sent! Thanks for contacting us.';
-        }
+    $mail->setFrom('test@hostinger-tutorials.com', 'Your Name');
+    $mail->addReplyTo('test@hostinger-tutorials.com', 'Your Name');
+    $mail->addAddress('benjbenito10@gmail.com', 'Benj');
+    $mail->Subject = 'Testing PHPMailer';
+    $mail->msgHTML(file_get_contents('message.html'), __DIR__);
+    $mail->Body = 'This is a plain text message body';
+    //$mail->addAttachment('test.txt');
+    if (!$mail->send()) {
+        echo 'Mailer Error: ' . $mail->ErrorInfo;
     } else {
-        $msg = 'Share it with us!';
+        echo 'The email message was sent.';
     }
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Contact form</title>
-</head>
-<body>
-<h1>Do You Have Anything in Mind?</h1>
-<?php if (!empty($msg)) {
-    echo "<h2>$msg</h2>";
-} ?>
-<form method="POST">
-    <label for="name">Name: <input type="text" name="name" id="name"></label><br><br>
-    <label for="email">Email: <input type="email" name="email" id="email"></label><br><br>   
-    <label for="message">Message: <textarea name="message" id="message" rows="8" cols="20"></textarea></label><br><br>
-    <input type="submit" value="Send">
-</form>
-</body>
-</html>
