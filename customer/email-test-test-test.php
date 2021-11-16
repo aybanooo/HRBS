@@ -16,10 +16,9 @@ $apiKey = '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
     $mail->Host = 'smtp.sendgrid.net';
     $mail->Port = 587;
     $mail->SMTPAuth = true;
-    $mail->Username = 'thanoshotelreservation@ghrbs.site';
+    $mail->Username = 'apikey';
     $mail->Password = $apiKey;
-    $mail->setFrom('test@hostinger-tutorials.com', 'Your Name');
-    $mail->addReplyTo('test@hostinger-tutorials.com', 'Your Name');
+    
     $mail->addAddress('benjbenito10@gmail.com', 'Benj');
     $mail->Subject = 'Testing PHPMailer';
     $mail->msgHTML(file_get_contents('message.html'), __DIR__);
