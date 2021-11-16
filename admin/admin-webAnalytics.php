@@ -76,7 +76,7 @@ setupUserSession();
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div class="row">
+        <div class="row d-none">
           <div class="col">
             <!-- LINE CHART -->
             <div class="card card-info">
@@ -143,7 +143,7 @@ setupUserSession();
           <!-- /.col -->
 
           <!-- 2nd col -->
-          <div class="col-12 col-lg-6">
+          <div class="col-12">
             <div class="row">
               <div class="col-6">
                 <!-- small card -->
