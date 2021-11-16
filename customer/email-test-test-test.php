@@ -13,8 +13,8 @@ $apiKey = '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
     $mail = new PHPMailer;
     $mail->isSMTP();
     $mail->SMTPDebug = 2;
-    $mail->Host = 'smtp.sendgrid.net';
-    $mail->Port = 587;
+    $mail->Host = 'smtp.hostinger.com';
+    $mail->Port = 465;
     $mail->SMTPAuth = true;
     $mail->Username = 'apikey';
     $mail->Password = $apiKey;
