@@ -8,7 +8,11 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
 <!DOCTYPE HTML>
 <html lang="en">
-<head>
+<head>	
+    <?php 
+		require_once(dirname(__FILE__, 2)."/public_assets/modules/php/directories/directories.php");
+		include_once(__D_UI__."js/analytics.php"); 
+	?>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
