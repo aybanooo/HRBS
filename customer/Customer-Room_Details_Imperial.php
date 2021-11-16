@@ -10,11 +10,11 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 <!DOCTYPE HTML>
 <html lang="en">
 
-<head>	
-    <?php 
-		require_once(dirname(__FILE__, 2)."/public_assets/modules/php/directories/directories.php");
-		include_once(__D_UI__."js/analytics.php"); 
-	?>
+<head>
+    <?php
+    require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/directories.php");
+    include_once(__D_UI__ . "js/analytics.php");
+    ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo $followingdata['companyName']; ?>| Room Details</title>
@@ -234,19 +234,28 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                         <label>General Information</label>
 
                                                     </div>
+                                                    <?php
+                                                        $queryGuest = "SELECT `maxAdult`, `maxChildren` FROM roomtype;";
+                                                        $result = mysqli_query($conn, $queryGuest) or die(mysqli_error($conn));
+                                                    ?>
                                                     <div class="row mx-1 mx-sm-5 my-sm-2">
                                                         <div class="col-12 ce-limit ce-noenter ce-blankremove">
                                                             <ul class="list-unstyled row gen-info-list">
-                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span>4 Adult</span></li>
-                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span>4  Children</span></li>
-                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span>2 Bedroom</span></li>
-                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span>1  Bathroom</span></li>
-                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span>Aircondition</span></li>
-                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span>Wifi</span></li>
+                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $result["maxAdult"]; ?></span></li>
+                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $result["maxChildren"]; ?></span></li>
+                                                    <?php 
+                                                        $queryGenInfo = "SELECT A.*, B.* FROM roomsec A INNER JOIN roominfo B ON A.`sectionID`=B.`roo­mSecID` WHERE A.`general`=1 && A.`roomTypeID`=38;";
+                                                        $result = mysqli_query($conn, $queryGuest) or die(mysqli_error($conn));
+                                                        while ($rowGenInfo = mysqli_fetch_assoc($result)) {
+                                                    ?>
+                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $rowGenInfo["info"]; ?></span></li>
+                                                    <?php
+                                                    }
+                                                    ?>
+
                                                             </ul>
                                                         </div>
                                                     </div>
-
                                                 </div>
                                             </div>
                                             <!-- Genereal info Tab End-->
