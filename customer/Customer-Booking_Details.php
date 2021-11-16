@@ -1,6 +1,8 @@
 <?php
 include('db.php');
 
+require_once(dirname(__FILE__,2)."/public_assets/modules/php/directories/directories.php");
+
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
@@ -11,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	{
 		$fields_string = '';
 		$fields = array(
-			'secret' => '6LeosxcdAAAAAJlXUFpqxe1Y-VGDCXu5uLxKU9YY',
+			'secret' => parse_ini_file(__CONF_PRIVATE__)['RECAPTCHA_SECRET'],
 			'response' => $user_response
 		);
 		foreach ($fields as $key => $value)
@@ -48,6 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$dateEnd = mysqli_real_escape_string($conn, $_POST['to']);
 	}
 } else {
+	die("PLEASE FINISH THE CAPTCHA");
 }
 
 

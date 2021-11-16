@@ -1,6 +1,6 @@
 <?php
 include('db.php');
-
+require_once(dirname(__FILE__,2)."/public_assets/modules/php/directories/directories.php");
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
@@ -516,7 +516,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							</tr>
 							<tr align="right">
 								<td colspan="2">
-									<div class="g-recaptcha" data-sitekey="6LeosxcdAAAAAJdlUOtkEsqLjbJIrOuty1YYu7OG"></div>
+									<div class="g-recaptcha" data-sitekey="<?php print parse_ini_file(__CONF_PRIVATE__)['RECAPTCHA_SITE_KEY'];?>"></div>
 								</td>
 							</tr>
 							<tr>
