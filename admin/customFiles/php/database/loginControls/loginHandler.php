@@ -2,6 +2,7 @@
 require_once(dirname(__FILE__,3)."/directories/directories.php");
 require_once __AUTOLOAD_PUBLIC__;
 require_once __F_DB_HANDLER__;
+require_once __F_OUTPUT_HANDLER__;
 require_once __F_FORMAT__;
 use \Firebase\JWT\JWT;
 
@@ -26,6 +27,17 @@ function isLoginTokenExpired() {
         return true; 
     }
     return false;
+}
+
+function validPassword($pass, $empID, $die=false) {
+    $tempConn = createTempDBConnection();
+    $sql =  $empID=='admin' ? "SELECT `value` FROM `settings` WHERE `name` LIKE 'adminPass' LIMIT 1;" : "SELECT `password` FROM `empaccountdetails` WHERE `empID`=$empID LIMIT 1;";
+    $fetchedPass = mysqli_fetch_all(mysqli_query($tempConn, $sql))[0][0];
+    $validPass = password_verify($pass, $fetchedPass);
+    if($die) {
+        die($GLOBALS['output']->setFailed('Invalid Password'));
+    }
+    return $validPass;
 }
 
 function isTokenValid() {
