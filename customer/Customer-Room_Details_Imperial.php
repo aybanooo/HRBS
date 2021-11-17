@@ -232,27 +232,19 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                 <div class="container-fluid p-3">
                                                     <div class="row d-flex justify-content-between">
                                                         <label>General Information</label>
-
                                                     </div>
-                                                    <?php
-                                                        $queryGuest = "SELECT `maxAdult`, `maxChildren` FROM roomtype;";
-                                                        $result = mysqli_query($conn, $queryGuest) or die(mysqli_error($conn));
-                                                        $followingdataGuest = $result->fetch_array(MYSQLI_ASSOC);
-                                                    ?>
                                                     <div class="row mx-1 mx-sm-5 my-sm-2">
                                                         <div class="col-12 ce-limit ce-noenter ce-blankremove">
                                                             <ul class="list-unstyled row gen-info-list">
-                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $followingdataGuest["maxAdult"]; ?> Adult</span></li>
-                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $followingdataGuest["maxChildren"]; ?> Children</span></li>
-                                                            <?php 
+                                                                <?php
                                                                 $queryGenInfo = "SELECT A.*, B.* FROM roomsec A INNER JOIN roominfo B ON A.`sectionID`= B.`roomSecID` WHERE A.`general`=1 && A.`roomTypeID`=38;";
                                                                 $result = mysqli_query($conn, $queryGenInfo) or die(mysqli_error($conn));
                                                                 while ($rowGenInfo = mysqli_fetch_assoc($result)) {
-                                                            ?>
-                                                                <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $rowGenInfo["info"]; ?></span></li>
-                                                            <?php
-                                                            }
-                                                            ?>
+                                                                ?>
+                                                                    <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $rowGenInfo["info"]; ?></span></li>
+                                                                <?php
+                                                                }
+                                                                ?>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -343,7 +335,31 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                 </div>
                                 <!-- Row 3 end-->
                             </div>
-
+                            <?php
+                                $queryGuest = "SELECT * FROM roomtype;";
+                                $result = mysqli_query($conn, $queryGuest) or die(mysqli_error($conn));
+                                $followingdataGuest = $result->fetch_array(MYSQLI_ASSOC);
+                            ?>
+                            <div class="card-group">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Rate</h4>
+                                        <p class="card-text"><?php echo $followingdataGuest["rate"]; ?></p>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Adult</h4>
+                                        <p class="card-text"><?php echo $followingdataGuest["maxAdult"]; ?> Adult</p>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Children</h4>
+                                        <p class="card-text"><?php echo $followingdataGuest["maxAdult"]; ?> Children</p>
+                                    </div>
+                                </div>
+                            </div>
 
                             <!-- Review Card -->
                             <div class="card elevation-0">
@@ -363,85 +379,85 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                         <span class="overallRateOutOValue text-secondary">5</span></span>
                                                 </div>
                                             </div>
-                                        <!-- Reviews Row -->
-                                        <div class="row">
-                                            <div class="col">
-                                                <!-- Review Entry Row -->
-                                                <div>
-                                                    <!-- User image -->
-                                                    <img class="img-circle img-sm" src="assets (1)/img (1)/Images/user3-128x128.jpg" alt="User Image">
+                                            <!-- Reviews Row -->
+                                            <div class="row">
+                                                <div class="col">
+                                                    <!-- Review Entry Row -->
+                                                    <div>
+                                                        <!-- User image -->
+                                                        <img class="img-circle img-sm" src="assets (1)/img (1)/Images/user3-128x128.jpg" alt="User Image">
 
-                                                    <div class="m-5">
-                                                        <span class="d-block">
-                                                            <strong class="d-inline-block">Ella Hanging-lubak</strong>
-
-                                                            <div class="btn-group dropleft ml-2 mr-2 float-right">
-                                                                <div class="dropdown-menu" role="menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(68px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                                    <a class="dropdown-item" href="#">Delete</a>
-                                                                </div>
-                                                            </div>
-
-                                                            <span class="text-muted d-block d-sm-inline-block float-sm-right reviewDate">8:03 PM Today</span>
+                                                        <div class="m-5">
                                                             <span class="d-block">
-                                                                <i class="fas fa-star text-warning"></i>
-                                                                <i class="fas fa-star text-warning"></i>
-                                                                <i class="fas fa-star text-warning"></i>
-                                                                <i class="fas fa-star text-warning"></i>
-                                                                <i class="fas fa-star text-warning"></i>
-                                                            </span>
-                                                        </span><!-- /.username block -->
-                                                        The accomodation is good. I love it from the bottom of my heart and through the core of my soul &lt;3.
-                                                    </div>
-                                                    <!-- /.comment-text -->
-                                                </div>
+                                                                <strong class="d-inline-block">Ella Hanging-lubak</strong>
 
-
-                                                <!-- Review Entry Row -->
-                                                <!-- Review Entry Row -->
-                                                <div>
-                                                    <!-- User image -->
-                                                    <img class="img-circle img-sm" src="assets (1)/img (1)/Images/user5-128x128.jpg" alt="User Image">
-
-                                                    <div class="m-5">
-                                                        <span class="d-block">
-                                                            <strong class="d-inline-block">Tonio Batumbakal</strong>
-                                                            <div class="btn-group dropleft ml-2 mr-2 float-right">
-                                                                <div class="dropdown-menu" role="menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(68px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
-                                                                    <a class="dropdown-item" href="#">Delete</a>
+                                                                <div class="btn-group dropleft ml-2 mr-2 float-right">
+                                                                    <div class="dropdown-menu" role="menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(68px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                                        <a class="dropdown-item" href="#">Delete</a>
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                            <span class="text-muted d-block d-sm-inline-block float-sm-right reviewDate">8:03 PM Today</span>
-                                                            <span class="d-block">
-                                                                <i class="fas fa-star text-warning"></i>
-                                                                <i class="fas fa-star text-warning"></i>
-                                                                <i class="fas fa-star text-warning"></i>
-                                                                <i class="fas fa-star text-warning"></i>
-                                                                <i class="fas fa-star text-warning"></i>
-                                                            </span>
-                                                        </span><!-- /.username block -->
-                                                        I am flaberghasted the first time I entered the room. The accomodation is exquisite plus the view is immaculate!
+
+                                                                <span class="text-muted d-block d-sm-inline-block float-sm-right reviewDate">8:03 PM Today</span>
+                                                                <span class="d-block">
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                </span>
+                                                            </span><!-- /.username block -->
+                                                            The accomodation is good. I love it from the bottom of my heart and through the core of my soul &lt;3.
+                                                        </div>
+                                                        <!-- /.comment-text -->
                                                     </div>
-                                                    <!-- /.comment-text -->
+
+
+                                                    <!-- Review Entry Row -->
+                                                    <!-- Review Entry Row -->
+                                                    <div>
+                                                        <!-- User image -->
+                                                        <img class="img-circle img-sm" src="assets (1)/img (1)/Images/user5-128x128.jpg" alt="User Image">
+
+                                                        <div class="m-5">
+                                                            <span class="d-block">
+                                                                <strong class="d-inline-block">Tonio Batumbakal</strong>
+                                                                <div class="btn-group dropleft ml-2 mr-2 float-right">
+                                                                    <div class="dropdown-menu" role="menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(68px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                                        <a class="dropdown-item" href="#">Delete</a>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="text-muted d-block d-sm-inline-block float-sm-right reviewDate">8:03 PM Today</span>
+                                                                <span class="d-block">
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                </span>
+                                                            </span><!-- /.username block -->
+                                                            I am flaberghasted the first time I entered the room. The accomodation is exquisite plus the view is immaculate!
+                                                        </div>
+                                                        <!-- /.comment-text -->
+                                                    </div>
+                                                    <!-- Review Entry Row -->
                                                 </div>
-                                                <!-- Review Entry Row -->
                                             </div>
+                                            <!-- Reviews Row End -->
+
+
                                         </div>
-                                        <!-- Reviews Row End -->
-
-
                                     </div>
                                 </div>
+
+
                             </div>
 
 
+
                         </div>
-
-
-
-                    </div>
-                </div><!-- /.container-fluid -->
+                    </div><!-- /.container-fluid -->
+                </div>
             </div>
-        </div>
 
     </section>
     <?php
