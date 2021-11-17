@@ -7,13 +7,7 @@ $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
-if (isset($_POST['submit'])) {
-    $comments = $_POST['commentsSuggest'];
-    $reservationID = $_POST['reservationID'];
 
-    $queryReviews = "INSERT INTO reviews (reviewID, reservationID, review) VALUES (DEFAULT ,$reservationID, '$comments');";
-    mysqli_query($conn, $queryReviews) or die(mysqli_error($conn));
-}
 ?>
 
 <!DOCTYPE HTML>
@@ -206,7 +200,7 @@ if (isset($_POST['submit'])) {
                         <hr class="new1">
                         <form method="POST" action="">
                             <tr align="left">
-                                <td><input type="text" name="reservationID" required placeholder="Reservation ID"></td>
+                                <td><input type="number" name="reservationID" required placeholder="Reservation ID"></td>
                             </tr>
                             <tr>
                                 <textarea class="form-control" id="exampleFormControlTextarea1" name="commentsSuggest" rows="3" placeholder="Enter Comments/Suggestion and Rating"></textarea>
