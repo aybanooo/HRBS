@@ -350,13 +350,13 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title">Adult</h4>
-                                        <p class="card-text"><?php echo $followingdataGuest["maxAdult"]; ?> Adult</p>
+                                        <p class="card-text"><?php echo $followingdataGuest["maxAdult"]; ?></p>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title">Children</h4>
-                                        <p class="card-text"><?php echo $followingdataGuest["maxAdult"]; ?> Children</p>
+                                        <p class="card-text"><?php echo $followingdataGuest["maxChildren"]; ?></p>
                                     </div>
                                 </div>
                             </div>
