@@ -938,7 +938,7 @@ setupUserSession();
       });
     }
 
-    $("#roomDescription").on('keydown', function (e) {
+    $("#roomDescription").on('focusout', function (e) {
       queries.update.roomInfo["description"] = $(this).val();
       var keyCode = e.keyCode || e.which;
 
