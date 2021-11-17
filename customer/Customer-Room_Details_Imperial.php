@@ -377,7 +377,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                             <div class="row">
                                                 <div class="col">
                                                 <?php
-                                                    $query = "SELECT * FROM reviews";
+                                                    $query = "SELECT * FROM reviews LIMIT 3";
                                                     $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
                                                     if (mysqli_num_rows($result) > 0) {
                                                         while ($row = mysqli_fetch_assoc($result)) {
