@@ -144,6 +144,19 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
      	background: #bf3322;
      	color: #ffffff
  	}
+	.boxinfo1 ::-webkit-scrollbar {
+		width: 7px;
+		height: 10px;
+	}
+
+	.boxinfo1 ::-webkit-scrollbar-thumb {
+		background: rgba(90, 90, 90);
+		border-radius: 10px;
+	}
+
+	.boxinfo1 ::-webkit-scrollbar-track {
+		background: rgba(0, 0, 0, 0);
+	}
 		</style>
 <title>Home</title>
 </head>
@@ -175,8 +188,8 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 					$id = $row['roomTypeID'];
             ?>
 				<div class="boxinfo1" style="height: 300px; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(<?php print "'/public_assets/rooms/$id/$id-cover.jpg'"; ?>) left center / cover no-repeat;">
-					<div class="roomright">
-						<div class="container" id="titleContainer">
+					<div class="roomright w-100 h-100">
+						<div class="container h-100" id="titleContainer">
 							<div class="row">
 								<div class="col-sm-8">
 									<h1><b><?php echo $row["name"]; ?></b></h1>
@@ -185,7 +198,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 									<a href='Customer-Room_Details_Imperial.php?r=<?php echo $tfedID; ?>'><button type="button" class="btn btn-primary" >Book a Room</button></a>
 								</div>
 							</div>	
-								<p><?php echo $row["desc"]; ?></p>
+								<p style="overflow-y: scroll; height: 175px;"><?php echo $row["desc"]; ?></p>
 						</div>
 					</div>
 				</div>
