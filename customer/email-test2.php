@@ -31,8 +31,8 @@ $mail->addReplyTo("thanoshotelreservation@ghrbs.site", "Reply Address");
 $mail->addAddress("benjbenito10@gmail.com"); 
 $mail->Subject  = "Booking Details";
 $mail->isHTML(true);
-$mail->Body = "<html><body><p><b>Booking ID: $bookingID</b></p><pWe look forward to welcoming you to our resort on $checkinDate.</p><br><p>Our professional and friendly staff are committed to ensuring your stay is both enjoyable and comfortable.</p><br><p>Should you have any requests prior to your stay, please do not hesitate to contact us at thanoshotelreservation@ghrbs.site  and we will endeavor to assist you whenever possible.</p><br><br><p>Thanks & Best Regards,</p><br><p>GHRBS team</p></body></html>";
-$mail->AltBody = "Booking ID: $bookingID\n\nWe look forward to welcoming you to our resort on $checkinDate.\n\nOur professional and friendly staff are committed to ensuring your stay is both enjoyable and comfortable.\n\nShould you have any requests prior to your stay, please do not hesitate to contact us at thanoshotelreservation@ghrbs.site  and we will endeavor to assist you whenever possible.\n\nThanks & Best Regards,\n\n
+$mail->Body = "<html><body><p><b>Booking ID: bookingID</b></p><pWe look forward to welcoming you to our resort on $checkinDate.</p><br><p>Our professional and friendly staff are committed to ensuring your stay is both enjoyable and comfortable.</p><br><p>Should you have any requests prior to your stay, please do not hesitate to contact us at thanoshotelreservation@ghrbs.site  and we will endeavor to assist you whenever possible.</p><br><br><p>Thanks & Best Regards,</p><br><p>GHRBS team</p></body></html>";
+$mail->AltBody = "Booking ID: bookingID\n\nWe look forward to welcoming you to our resort on checkinDate.\n\nOur professional and friendly staff are committed to ensuring your stay is both enjoyable and comfortable.\n\nShould you have any requests prior to your stay, please do not hesitate to contact us at thanoshotelreservation@ghrbs.site  and we will endeavor to assist you whenever possible.\n\nThanks & Best Regards,\n\n
 GHRBS team";
 ?>
  
