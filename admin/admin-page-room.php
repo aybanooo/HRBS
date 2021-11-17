@@ -43,6 +43,22 @@ setupUserSession();
   <link rel="stylesheet" href="customFiles/specialStyle.css">
   <link rel="stylesheet" href="customFiles/loader.css">
 
+  <style>
+    #roomTable ::-webkit-scrollbar {
+      width: 7px;
+      height: 10px;
+    }
+
+    #roomTable ::-webkit-scrollbar-thumb {
+      background: rgba(90, 90, 90);
+      border-radius: 10px;
+    }
+
+    #roomTable ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0);
+    }
+  </style>
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed light-mode">
 <div class="wrapper">

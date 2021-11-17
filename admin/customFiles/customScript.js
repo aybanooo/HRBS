@@ -327,7 +327,7 @@ function addRoomEntry(roomID , roomName, roomDescription = "Description of the r
   var bodyRow = document.createElement('div');
   bodyRow.className = 'row p-3l mx-3';
   bodyRow.style.height = '200px';
-  bodyRow.style.overflowY = 'scroll';
+  bodyRow.style.overflowY = 'auto';
   bodyRow.style.textOverflow = 'ellipse';
 
   var p = document.createElement('div');
