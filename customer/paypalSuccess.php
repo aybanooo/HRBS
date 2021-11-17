@@ -4,8 +4,7 @@ include('db.php');
 #$maxIDRes = mysqli_query($conn, $maxIDQ);
 #$maxIDRow = mysqli_fetch_assoc($maxIDRes);
 #$customerEmail = $maxIDRow['maxID'];
-$query = "SELECT email FROM customer 
- WHERE email = :email";
+$query = "SELECT email FROM customer";
  $statement = $connect->prepare($query);
  $statement->execute(
   array(
