@@ -4,8 +4,7 @@ include('db.php');
 #$maxIDRes = mysqli_query($conn, $maxIDQ);
 #$maxIDRow = mysqli_fetch_assoc($maxIDRes);
 #$customerEmail = $maxIDRow['maxID'];
-$query = "SELECT email FROM customer";
-$customerEmail = ($_POST['email']);
+$result = mysqli_query($conn,"SELECT * FROM customers WHERE email='" . $_POST['email'] . "'");
 
 
 ini_set( 'display_errors', 1 );
@@ -23,7 +22,7 @@ $apiKey = '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
     $mail->Password = $apiKey;
     $mail->setFrom('thanoshotelreservation@ghrbs.site', 'Thanos');
     $mail->addReplyTo('thanoshotelreservation@ghrbs.site', 'Thanos');
-    $mail->addAddress($customerEmail, 'Valued Guest');
+    $mail->addAddress($result, 'Valued Guest');
     $mail->Subject = 'GHRBS booking details';
     
     $mail->Body = 'This is a plain text message body';
