@@ -72,7 +72,7 @@ $customerID = mysqli_insert_id($conn);
 
 $customerQuery1 = ("INSERT INTO reservation 
 	( roomNo, customerID, numberOfNightstay, adults, children, checkInDate, checkOutDate, checkInTime, checkOutTime, dateCreated) 
-	VALUES ('0', $customerID, '$days', 'none', 'none' ,'$dateStartFinal', '$dateEndFinal', NULL, NULL, NOW()) LIMIT 1;");
+	VALUES ('0', $customerID, '$days', 'none', 'none' ,'$date1', '$date2', NULL, NULL, NOW()) LIMIT 1;");
 
 mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 
