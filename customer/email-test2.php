@@ -1,6 +1,6 @@
 <?php
 
-#include('db.php');
+include('db.php');
 #$maxIDQ = "SELECT MAX(email) AS 'maxID',  FROM customer";
 #$maxIDRes = mysqli_query($conn, $maxIDQ);
 #$maxIDRow = mysqli_fetch_assoc($maxIDRes);
@@ -23,26 +23,28 @@ $subject = "testing 123";
     $mail->IsSMTP(true);
     $mail->CharSet = "utf-8";
     // Gmail
-    $mail->SMTPAuth = true; // enable SMTP authentication
-    $mail->SMTPSecure = "tls"; // sets the prefix to the servier
-    $mail->Host = "smtp.sendgrid.net"; 
-    $mail->Port = 587; // set the SMTP port for the GMAIL server
-    $mail->Username = 'apikey'; // GMAIL username
-    $mail->Password = "$apiKey"; // GMAIL password
+   $base_url = "http://localhost/tutorial/email-address-verification-script-using-php/";
+   $mail_body = "";
+   require 'class/class.phpmailer.php';
+   $mail = new PHPMailer;
+   $mail->IsSMTP();        //Sets Mailer to send message using SMTP
+   $mail->Host = 'smtp.sendgrid.net';  //Sets the SMTP hosts of your Email hosting, this for Godaddy
+   $mail->Port = '587';        //Sets the default SMTP server port
+   $mail->SMTPAuth = true;       //Sets SMTP authentication. Utilizes the Username and Password variables
+   $mail->Username = 'apikey';     //Sets SMTP username
+   $mail->Password = $apiKey;     //Sets SMTP password
+   $mail->SMTPSecure = 'tls';       //Sets connection prefix. Options are "", "ssl" or "tls"
+   $mail->From = 'thanoshotelreservation@ghrbs.site';   //Sets the From email address for the message
+   $mail->FromName = 'GHRBS';     //Sets the From name of the message
+   $mail->AddAddress(/*$_POST['user_email']*/'benjbenito10@gmail.com',);  //Adds a "To" address   
+   $mail->IsHTML(true);       //Sets message type to HTML    
+   $mail->Subject = 'Email Verification';   //Sets the Subject of the message
+   $mail->Body = $mail_body;       //An HTML or plain text message body
+  
+ 
+
+
+?>
+ 
      
-    $mail->From = 'thanoshotelreservation@ghrbs.site';
-    $mail->FromName   = 'GHRBS';
-    $email_template = 'email-template.html';
-     
-    $username = 'goocoder';
-    $password = 'password';
-     
-    $message = file_get_contents($email_template);
-    $message = str_replace('%username%', $username, $message);
-    $message = str_replace('%password%', $password, $message);
-    $mail->Subject = 'Testing PHPMailer';     
-    $mail->MsgHTML($message);
-    $mail->Subject = $subject;
-    $mail->send();
-     
-    ?>
+   
