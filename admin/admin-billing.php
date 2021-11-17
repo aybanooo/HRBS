@@ -3,6 +3,7 @@
 require_once("customFiles/php/directories/directories.php");
 require_once __initDB__;
 require_once __F_LOGIN_HANDLER__;
+require_once __F_DB_HANDLER__;
 
 // Redirect to login page if token is invalid
 if (!isTokenValid()) {
@@ -12,6 +13,14 @@ if (!isTokenValid()) {
 checkUserExistence();
 session_start();
 setupUserSession();
+
+$conn_displayable_data = createTempDBConnection();
+$result = mysqli_query($conn_displayable_data, "SELECT * FROM `settings` WHERE `name` in('tax', 'serviceCharge');");
+$displayable_data = [];
+while($r = mysqli_fetch_assoc($result))
+  $displayable_data[$r['name']] = $r['value'];  
+mysqli_close($conn_displayable_data);
+unset($result, $conn_displayable_data);
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +49,7 @@ setupUserSession();
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Special Style-->
-  <!-- <link rel="stylesheet" href="customFiles/specialStyle.css"> -->  
+  <link rel="stylesheet" href="customFiles/specialStyle.css">
   <link rel="stylesheet" href="customFiles/appearance.css">
   <link rel="stylesheet" href="customFiles/codeMirror/lib/codemirror.css">
 </head>
@@ -81,7 +90,7 @@ setupUserSession();
             <div class="row mt-3 mt-sm-0 ">
               <div class="col-6"></div>
               <div class="col-6">
-                <a href="javascript: void(0)"><button type="submit" class="btn btn-success btn-block">Save</button></a>
+                <a href="javascript: void(0)"><button type="submit" class="btn btn-success btn-block" onclick="save(this)">Save</button></a>
               </div>
             </div>
           </div>
@@ -98,7 +107,16 @@ setupUserSession();
                 <div class="form-group">
                   <label for="inp-tax">Tax <small class="text-muted">(in percentage)</small></label>
                   <div class="input-group">
-                    <input type="number" min="0" class="form-control" id="inp-tax" placeholder="Tax rate">
+                    <input type="number" min="0" max="100" class="form-control" id="inp-tax" placeholder="Tax rate" pattern="^[1-9]$" value="<?php print $displayable_data['tax']; ?>">
+                    <div class="input-group-append">
+                      <span class="input-group-text">%</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inp-tax">Service Charge <small class="text-muted">(in percentage)</small></label>
+                  <div class="input-group">
+                    <input type="number" min="0" max="100" class="form-control" id="inp-srvc_charge" placeholder="Service charge rate" pattern="^[1-9]$" value="<?php print $displayable_data['serviceCharge']; ?>" > 
                     <div class="input-group-append">
                       <span class="input-group-text">%</span>
                     </div>
@@ -198,6 +216,8 @@ setupUserSession();
 <script src="plugins/jquery-validation/additional-methods.min.js"></script>
 <!-- Special Script-->
 <script src="customFiles/customScript.js"></script>
+<script src="customFiles/initialize Toastr.js"></script>
+<script src="customFiles/buttonDisabler.js"></script>
 <script src="customFiles/codeMirror/lib/codemirror.js"></script>
 <script src="customFiles/codeMirror/mode/css/css.js"></script>
 <script src="customFiles/billing.js"></script>
@@ -315,6 +335,31 @@ $('#loc').on('input', function() {
 $("#loc").focus(function(){
   origText = $(this).val();
 });
+
+$(".content-wrapper input").focusout(function(){
+  let inputNode = this;
+  let id = inputNode.id;
+  let value = inputNode.value;
+  modifiedInputs[id] = value;
+  //console.log(modifiedInputs);
+});
+
+function save(e) {
+  toggleButtonDisabled(e, undefined, "Saving...");
+  $.post("customFiles/php/database/billingControls/saveBilling.php", modifiedInputs,
+    function (data, textStatus, jqXHR) {
+      //console.log(data);
+       toggleButtonDisabled(e, undefined, "Saving...");
+      Toast.fire({
+        icon: data.status,
+        title: data.message
+      });
+    },
+    "json"
+  );
+}
+
+let modifiedInputs = {};
 
 </script>
 
