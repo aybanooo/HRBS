@@ -12,7 +12,7 @@
  $mail->Host = "smtp.sendgrid.net"; 
  $mail->Port = 587; // set the SMTP port for the GMAIL server
  $mail->Username = 'apikey'; // GMAIL username
- $mail->Password = "$apiKey'; // GMAIL password
+ $mail->Password = '$apiKey'; // GMAIL password
   
  $mail->From = 'thanoshotelreservation@ghrbs.site';
  $mail->FromName   = 'GHRBS';
