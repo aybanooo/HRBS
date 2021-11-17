@@ -491,7 +491,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								</td>
 							</tr>
 							<tr>
-								<td><input id="senior" type="radio" name="seniorcitizen" value="1" checked>
+								<td><input id="senior" type="radio" name="seniorcitizen" value="1">
 									<label for="senior">With Senior Citizen</label>
 									<input id="pwd" type="radio" name="seniorcitizen" value="2">
 									<label for="pwd">With PWD</label>
@@ -523,7 +523,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<td><br></td>
 							</tr>
 							<tr align="right">
-
 								<td colspan="2"><button type="submit" name="submit" id="submit" class="btn btn-success">Proceed to Payment</button></td>
 							</tr>
 					</form>
