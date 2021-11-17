@@ -158,15 +158,15 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         </div>
     </nav>
 
-    <section class="content m-5">
+    <section class="content my-5 mx-0 mx-md-5">
         <?php
         $query = "SELECT * FROM roomtype WHERE roomTypeID = 38";
         $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
         $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         ?>
-        <div class="row">
-            <div class="col">
-                <div class="container-fluid roomDetails editRoom-container">
+        <div class="row mx-0 mx-lg-5">
+            <div class="col mx-0 mx-md-5">
+                <div class="container-fluid">
                     <div class="card roomdetail">
                         <div class="card-header d-flex p-0">
                             <div class="container-fluid ce-noblank ce-noenter">
