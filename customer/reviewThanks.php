@@ -158,6 +158,8 @@ if (isset($_POST['submit'])) {
     ?>
     <div class="boxinfo">
         <h1>Thank you for your comment and suggestion</h1>
+        <br />
+        <p>We will improve our services to satisfy our future customers.</p>
     </div>
     <div class="footer">
         <div class="row">
