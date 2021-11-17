@@ -79,7 +79,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             background-color: black;
             color: rgba(255, 255, 255, .8);
             padding: 1%;
-            bottom: 0;
             position: absolute;
             width: 100%;
             text-align: center;
