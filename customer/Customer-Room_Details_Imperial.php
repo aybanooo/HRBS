@@ -382,6 +382,12 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                         <div class="row">
                                             <div class="row">
                                                 <div class="col">
+                                                <?php
+                                                    $query = "SELECT * FROM reviews";
+                                                    $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+                                                    if (mysqli_num_rows($result) > 0) {
+                                                        while ($row = mysqli_fetch_assoc($result)) {
+                                                ?>
                                                     <div>
                                                         <img class="img-circle img-sm" src="assets (1)/img (1)/Images/user5-128x128.jpg" alt="User Image">
                                                         <!-- Review Entry Row -->
@@ -392,15 +398,15 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                             <?php echo $row['review']; ?>
                                                         </div>
                                                     </div>
+                                                    <?php
+                                                        }
+                                                    }
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            <?php
-                                }
-                            }
-                            ?>
                             </div>
                         </div>
                     </div>
