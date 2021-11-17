@@ -11,11 +11,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         $comments = $_POST['commentsSuggest']; 
         $reservationID = $_POST['reservationID'];
 
-        $queryReviews = "INSERT INTO reviews (reviewID, reservationID, review) VALUES (0,$reservationID, '$comments');";
-        echo"success";
-    }
-    else{
-        echo"fail";
+        $queryReviews = "INSERT INTO reviews (reviewID, reservationID, review) VALUES ($reviewID,$reservationID, '$comments');";
     }
 ?>
 
