@@ -84,6 +84,7 @@ $customerEmail = mysqli_fetch_all(mysqli_query($connForEmail, "SELECT `email` fr
 
 <form action="paypalSuccess.php" method="POST" style="display: none;">
   <input type="text" name="inp-email" value="<?php print $customerEmail; ?>">
+  <input type="text" name="inp-cid" value="<?php print $customerID;?>">
   <input id="btn-submit" type="submit" value="submit">
 </form>
 <script>

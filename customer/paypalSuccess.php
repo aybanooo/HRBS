@@ -6,6 +6,22 @@ include('db.php');
 #$customerEmail = $maxIDRow['maxID'];
 (!isset($_POST['inp-email'])) && header("Location: /");
 $customerEmail = $_POST['inp-email'];
+$cID = intval(mysqli_real_escape_string($conn, $_POST['inp-cid']));
+
+
+// This variable ($bookingID) is required for the template
+$result = mysqli_fetch_all(mysqli_query($conn, "SELECT `checkInDate`, `fname`, `lname`, `reservationID` FROM `reservation` A INNER JOIN `customer` B ON A.`customerID`=B.`customerID` WHERE A.`customerID`=$cID LIMIT 1;"), MYSQLI_ASSOC)[0];
+$name = $result['fname']." ".$result['lname'];
+$bookingID = $result['reservationID'];
+$checkInDate = $result['checkInDate'];
+$checkInDate = date("F j, Y", strtotime($checkInDate)); // formats the checkin date
+
+ob_start();
+include "email-template.php";
+$template = ob_get_contents();  
+ob_end_clean();
+
+unset($name, $bookingID);
 
 ini_set( 'display_errors', 1 );
 error_reporting( E_ALL );
@@ -24,7 +40,8 @@ $apiKey = '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
     $mail->addReplyTo('thanoshotelreservation@ghrbs.site', 'Thanos');
     $mail->addAddress($customerEmail, 'Valued Guest');
     $mail->Subject = 'GHRBS booking details';
-    $mail->Body = "<html><body><p><b>Booking ID: bookingID</b></p><p>We look forward to welcoming you to our resort on checkinDate.</p><br>Our professional and friendly staff are committed to ensuring your stay is both enjoyable and comfortable.</p><br><p>Should you have any requests prior to your stay, please do not hesitate to contact us at thanoshotelreservation@ghrbs.site and we will endeavor to assist you whenever possible.<br><p>Thanks & Best Regards,</p><<p>GHRBS team</p></body></html>";
+    $mail->Body = $template;
+    $mail->IsHTML(true); 
     $mail->AltBody = "Booking ID: bookingID\n\nWe look forward to welcoming you to our resort on checkinDate.\n\nOur professional and friendly staff are committed to ensuring your stay is both enjoyable and comfortable.\n\nShould you have any requests prior to your stay, please do not hesitate to contact us at thanoshotelreservation@ghrbs.site  and we will endeavor to assist you whenever possible.\n\nThanks & Best Regards,\n\n
     GHRBS team";
     //$mail->addAttachment('test.txt');
@@ -33,7 +50,6 @@ $apiKey = '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
     } else {
         //echo 'The email message was sent.';
     }
-
 
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));

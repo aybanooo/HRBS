@@ -154,7 +154,7 @@
 																			style="margin: 0; font-size: 12px; mso-line-height-alt: 24px;">
 																			<span style="font-size:16px;"><strong><span
 																						style="font-size:16px;">Dear
-																						[guest_name]</span></strong></span>
+																						<?php print  $name;?></span></strong></span>
 																		</p>
 																		<p
 																			style="margin: 0; font-size: 12px; mso-line-height-alt: 24px;">
@@ -183,12 +183,12 @@
 																		<p
 																			style="margin: 0; font-size: 12px; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">Booking ID:
-																				$bookingID</span></p>
+																				<?php print $bookingID ?? "Invalid booking id. Please contact us."; ?></span></p>
 																		<p
 																			style="margin: 0; font-size: 12px; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">We look
 																				forward to welcoming you to our resort
-																				on $checkinDate.</span></p>
+																				on <?php print $checkInDate; ?></span></p>
 																		<p
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">Our
