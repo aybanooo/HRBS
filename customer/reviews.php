@@ -109,6 +109,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             width: 100%;
             text-align: center;
             position: absolute;
+            bottom: 0;
         }
 
         textarea {
