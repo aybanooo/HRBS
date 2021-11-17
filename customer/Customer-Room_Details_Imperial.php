@@ -368,7 +368,8 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                             <?php
                             $query = "SELECT * FROM reviews";
                             $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-                            $followingdata = $result->fetch_array(MYSQLI_ASSOC);
+                            if (mysqli_num_rows($result) > 0) {
+                                while ($row = mysqli_fetch_assoc($result)) {
                             ?>
                             <!-- Review Card -->
                             <div class="card elevation-0">
@@ -385,9 +386,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                         <!-- Review Entry Row -->
                                                         <div class="m-5">
                                                             <span class="d-block">
-                                                                <strong class="d-inline-block">Customer<?php echo $followingdata['reservationID']; ?></strong>
+                                                                <strong class="d-inline-block">Customer <?php echo $row['reservationID']; ?></strong>
                                                             </span><!-- /.username block -->
-                                                            <?php echo $followingdata['review']; ?>
+                                                            <?php echo $row['review']; ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -396,6 +397,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                     </div>
                                 </div>
                             </div>
+                            <?php
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
