@@ -50,6 +50,10 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             font-size: 2em;
         }
 
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
+
         .loginForm {
             background-color: white;
             color: black;
@@ -62,7 +66,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         }
 
         input[type=text],
-        input[type=password] {
+        input[type=number] {
 
             border: 1px solid #c1c1c1;
             background-color: #eee;
