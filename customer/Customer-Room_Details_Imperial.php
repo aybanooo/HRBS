@@ -376,22 +376,22 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                         <div class="row">
                                             <div class="row">
                                                 <div class="col">
-                                                <?php
-                                                    $query = "SELECT * FROM reviews LIMIT 3";
+                                                    <?php
+                                                    $query = "SELECT * FROM reviews ORDER BY reviewID DESC LIMIT 3";
                                                     $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
                                                     if (mysqli_num_rows($result) > 0) {
                                                         while ($row = mysqli_fetch_assoc($result)) {
-                                                ?>
-                                                    <div>
-                                                        <img class="img-circle img-sm" src="assets (1)/img (1)/Images/user5-128x128.jpg" alt="User Image">
-                                                        <!-- Review Entry Row -->
-                                                        <div class="m-5">
-                                                            <span class="d-block">
-                                                                <strong class="d-inline-block">Customer <?php echo $row['reservationID']; ?></strong>
-                                                            </span><!-- /.username block -->
-                                                            <?php echo $row['review']; ?>
-                                                        </div>
-                                                    </div>
+                                                    ?>
+                                                            <div>
+                                                                <img class="img-circle img-sm" src="assets (1)/img (1)/Images/user5-128x128.jpg" alt="User Image">
+                                                                <!-- Review Entry Row -->
+                                                                <div class="m-5">
+                                                                    <span class="d-block">
+                                                                        <strong class="d-inline-block">Customer <?php echo $row['reservationID']; ?></strong>
+                                                                    </span><!-- /.username block -->
+                                                                    <?php echo $row['review']; ?>
+                                                                </div>
+                                                            </div>
                                                     <?php
                                                         }
                                                     }
