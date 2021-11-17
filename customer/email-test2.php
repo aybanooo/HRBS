@@ -38,7 +38,11 @@ $subject = "testing 123";
    $mail->IsHTML(true);       //Sets message type to HTML    
    $mail->Subject = 'Email Verification';   //Sets the Subject of the message
    $mail->Body = $mail_body;       //An HTML or plain text message body
-  
+   if (!$mail->send()) {
+    echo 'Mailer Error: ' . $mail->ErrorInfo;
+} else {
+    echo 'The email message was sent.';
+}
  
 
 
