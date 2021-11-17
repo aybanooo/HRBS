@@ -364,7 +364,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
                                 </div>
                                 <!-- Row 3 end-->
-                            </div>]
+                            </div>
 
                             <!-- Review Card -->
                             <div class="card elevation-0">
