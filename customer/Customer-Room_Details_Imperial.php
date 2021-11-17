@@ -343,20 +343,20 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                             <div class="card-group">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="card-title">Rate</h4>
+                                        <h4 class="card-title"><b>Rate</b></h4>
                                         <p class="card-text"><?php echo $followingdataGuest["rate"]; ?></p>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="card-title">Adult</h4>
-                                        <p class="card-text"><?php echo $followingdataGuest["maxAdult"]; ?> Adult</p>
+                                        <h4 class="card-title"><b>Adult</b></h4>
+                                        <p class="card-text"><?php echo $followingdataGuest["maxAdult"]; ?></p>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="card-title">Children</h4>
-                                        <p class="card-text"><?php echo $followingdataGuest["maxAdult"]; ?> Children</p>
+                                        <h4 class="card-title"><b>Children</b></h4>
+                                        <p class="card-text"><?php echo $followingdataGuest["maxChildren"]; ?> </p>
                                     </div>
                                 </div>
                             </div>
