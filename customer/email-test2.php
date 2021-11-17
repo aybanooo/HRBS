@@ -21,6 +21,7 @@ $subject = "testing 123";
     $mail = new PHPMailer;
     $mail->IsHTML(true);
     $mail->IsSMTP(true);
+    $mail->SMTPDebug = 2;
     $mail->CharSet = "utf-8";
     // Gmail
    $base_url = "http://localhost/tutorial/email-address-verification-script-using-php/";
