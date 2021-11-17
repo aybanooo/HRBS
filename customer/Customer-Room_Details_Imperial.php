@@ -141,6 +141,10 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             background: #bf3322;
             color: #ffffff
         }
+
+        .gallery-row .card {
+            cursor: pointer;
+        }
     </style>
     <title>Room Details</title>
 </head>
@@ -291,13 +295,13 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                 <div class="container-fluid p-3">
 
                                                     <div class="row d-flex justify-content-between">
-                                                        <label><?php print $val['sectionName'] ?> Info</label>
+                                                        <label><?php print $val['sectionName']; ?> Info</label>
                                                     </div>
                                                     <div class="row mx-1 mx-sm-5 my-sm-2">
                                                         <div class="col-12 ce-limit ce-noenter ce-blankremove">
                                                             <ul class="list-unstyled row gen-info-list">
                                                             <?php
-                                                            foreach($val['items'] as $val) {
+                                                            foreach($val['items'] as $info) {
                                                             ?>
                                                             <li class="list-item col-6 col-md-3">
                                                                 <div class="row">
@@ -305,7 +309,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                                         <i class="fas fa-check mx-1"></i>
                                                                     </div>
                                                                     <div class="col">
-                                                                        <span><?php print $val; ?></span>
+                                                                        <span><?php print $info; ?></span>
                                                                     </div>
                                                                 </div>
                                                             </li>
@@ -320,6 +324,32 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                     <div class="row d-flex justify-content-between">
                                                         <label>Gallery</label>
                                                     </div>
+
+
+                                                    <div class="row gallery-row">
+                                                        <?php
+                                                        foreach($val['gallery'] as $gallery_item) {
+                                                        ?>
+                                                        <div class="col-md-12 col-lg-6 col-xl-4">
+                                                            <div class="card mb-2">
+                                                                <img id="22" class="card-img-top rounded" src="/public_assets/rooms/<?php print $unwtfedID;?>/<?php print $gallery_item['pictureName'];?>.jpg">
+                                                                <div class="card-img-overlay p-0">
+                                                                    <?php 
+                                                                    if($gallery_item['is360']=="1") {
+                                                                    ?>
+                                                                    <div class="bannerContainer m-2">
+                                                                        <span class="badge badge-secondary ">360°</span>
+                                                                    </div>
+                                                                    <?php }?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <?php 
+                                                        }
+                                                        ?>
+                                                    </div>
+
+
 
                                                 </div>
                                             </div>
@@ -435,6 +465,24 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                 </div>
             </div>
 
+            
+    <!-- Modal 360 -->
+    <div class="modal fade" id="modalFor360" tabindex="-1" role="dialog" aria-labelledby="modalFor360"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body d-flex p-0 justify-content-center align-content-center">
+                <div class="embed-responsive embed-responsive-16by9 rounded" id="360div">
+                    <iframe frameborder="0" id="360frame" class="embed-responsive-item"
+                    src="360view.html"></iframe>
+                </div>
+                <img src="assets/images/defaults/default-image-landscape.png" id="normalImg"
+                    class="img-fluid rounded d-none" alt="Responsive image">
+            </div>
+        </div>
+        </div>
+    </div>
+
     </section>
     <?php
     $query = "SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
@@ -472,6 +520,25 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     <script src="js (1)/adminlte/adminlte.min.js"></script>
     <!-- Custom Script -->
     <script src="js/compare.js"></script>
+    <!-- Page Script -->
+    <script>
+        $(".gallery-row .card").click(function() {
+            let imageSrc = $(this).find('img').attr('src' );
+            let is360 = $(this).find('.bannerContainer').length!=0;
+            console.log(is360);
+            if(is360) {
+                $("#360div").removeClass('d-none');
+                ($("#normalImg").hasClass('d-none')) || $("#normalImg").addClass('d-none');
+                $("#360div > iframe").attr('src', '360view.html?image='+imageSrc);
+            } else {
+                $("#360div").addClass('d-none');
+                $("#normalImg").removeClass('d-none');
+                ($("#normalImg").hasClass('d-none')) || $("#normalImg").removeClass('d-none');
+                $("#normalImg").attr('src', imageSrc);
+            }
+            $("#modalFor360").modal('toggle');
+        });
+    </script>
 
 </body>
 
