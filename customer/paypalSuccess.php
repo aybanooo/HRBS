@@ -23,7 +23,7 @@ $apiKey = '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
     $mail->Password = $apiKey;
     $mail->setFrom('thanoshotelreservation@ghrbs.site', 'Thanos');
     $mail->addReplyTo('thanoshotelreservation@ghrbs.site', 'Thanos');
-    $mail->addAddress(($_POST['email']), 'Valued Guest');
+    $mail->addAddress($customerEmail, 'Valued Guest');
     $mail->Subject = 'GHRBS booking details';
     
     $mail->Body = 'This is a plain text message body';
