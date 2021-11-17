@@ -1,8 +1,13 @@
 <?php
 include('db.php');
 
+require_once(dirname(__FILE__,2)."/public_assets/modules/php/directories/directories.php");
+require_once __F_DB_HANDLER__;
+require_once __F_OUTPUT_HANDLER__;
+require_once __F_VALIDATIONS__;
 require_once "../public_assets/modules/php/database/roomControls/getRoomData.php";
 
+$unwtfedID = tonotwtf($_GET['r'],3);
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
@@ -191,7 +196,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                             <div class="row">
                                 <div class="col">
                                     <div class="card mb-2 bg-gradient-dark roomImageCard">
-                                        <img class="card-img-top" src="assets (1)/img (1)/Images/imperial-suite.jpg" alt="Dist Photo 1">
+                                        <img class="card-img-top" src="/public_assets/rooms/<?php print $unwtfedID; ?>/<?php print $unwtfedID; ?>-cover.jpg" alt="Dist Photo 1">
                                         <div class="card-img-overlay d-flex flex-column justify-content-end">
 
                                         </div>
