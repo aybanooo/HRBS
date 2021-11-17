@@ -6,6 +6,9 @@
 RewriteEngine On
 RewriteBase /
 
+# Redirects customer side favicon
+RewriteRule ^favicon\.ico$ /public_assets/images/favicon.png [NC,L]
+
 RewriteCond %{REQUEST_URI} \.(jpg|jpeg|gif|png|ico)$ [NC]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
