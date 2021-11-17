@@ -491,9 +491,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								</td>
 							</tr>
 							<tr>
-								<td><input id="senior" type="radio" name="seniorcitizen" value="1">
+								<td><input id="senior" type="checkbox" name="seniorcitizen" value="1">
 									<label for="senior">With Senior Citizen</label>
-									<input id="pwd" type="radio" name="seniorcitizen" value="2">
+									<input id="pwd" type="checkbox" name="seniorcitizen" value="2">
 									<label for="pwd">With PWD</label>
 								</td>
 								<td>
@@ -619,6 +619,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			$('#seniorDiv').removeClass('d-none').addClass('d-none');
 		}
 	})
+	$('input[type="checkbox"]').on('change', function() {
+    	$('input[name="' + this.name + '"]').not(this).prop('checked', false);
+	});
 </Script>
 
 </html>
