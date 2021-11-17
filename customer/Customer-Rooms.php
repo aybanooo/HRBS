@@ -1,4 +1,6 @@
 <?php
+require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/directories.php");
+require_once __F_FORMAT__;
 include('db.php');
 
 $query="SELECT companyName FROM companyinfo";
@@ -165,12 +167,14 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
         <section id="rooms">
             <?php
-                $query="SELECT `name`, `desc`, `url` FROM roomtype;";
+                $query="SELECT `name`, `desc`, `roomTypeID` FROM roomtype;";
                 $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
                 if (mysqli_num_rows($result)>0) {
                     while($row=mysqli_fetch_assoc($result)){
+					$tfedID = towtf($row['roomTypeID'], 3);
+					$id = $row['roomTypeID'];
             ?>
-				<div class="boxinfo1">
+				<div class="boxinfo1" style="height: 300px; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(<?php print "'/public_assets/rooms/$id/$id-cover.jpg'"; ?>) left center / cover no-repeat;">
 					<div class="roomright">
 						<div class="container" id="titleContainer">
 							<div class="row">
@@ -178,7 +182,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 									<h1><b><?php echo $row["name"]; ?></b></h1>
 								</div>
 								<div class="col-sm-4">
-									<a href="<?php echo $row["url"]; ?>"><button type="button" class="btn btn-primary" >Book a Room</button></a>
+									<a href='Customer-Room_Details_Imperial.php?r=<?php echo $tfedID; ?>'><button type="button" class="btn btn-primary" >Book a Room</button></a>
 								</div>
 							</div>	
 								<p><?php echo $row["desc"]; ?></p>
