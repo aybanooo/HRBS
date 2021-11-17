@@ -4,6 +4,12 @@ include('db.php');
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
+
+    if(isset($_POST['submit'])){ 
+        $comments = $_POST['commentsSuggest']; 
+        $reservationID = $_POST['reservationID'];
+    }
+
 ?>
 
 <!DOCTYPE HTML>
@@ -191,15 +197,15 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                             <td><input type="text" name="reservationID" required placeholder="Reservation ID"></td>
                         </tr>
                         <tr>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Enter Comments/Suggestion and Rating"></textarea>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" name="commentsSuggest" rows="3" placeholder="Enter Comments/Suggestion and Rating"></textarea>
                         </tr>
                         <tr>
                             <td class="sign" align="center" align="right"><input type="submit" value="Send Review" name="submit"></td>
                         </tr>
                     </form>
+                    </div>
                 </div>
             </div>
-        </div>
         </div>
     </section>
     </form>
