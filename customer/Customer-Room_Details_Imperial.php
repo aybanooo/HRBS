@@ -371,12 +371,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                 <div class="card-header">
                                     <h5 class="text-left">Customer Reviews</h5>
                                 </div>
-                                <?php
-                                    $query = "SELECT * FROM reviews";
-                                    $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-                                    if (mysqli_num_rows($result) > 0) {
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                ?>
                                 <div class="card-body">
                                     <div class="container">
                                         <div class="row">
