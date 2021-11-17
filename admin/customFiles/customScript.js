@@ -261,10 +261,10 @@ function addRoomEntry(roomID , roomName, roomDescription = "Description of the r
   mainDiv.style = 'background: url(\'/public_assets/rooms/'+roomID+'/'+roomID+'-cover.jpg\') no-repeat left center /cover';
 
   var mainRow = document.createElement('div');
-  mainRow.className = 'row';
+  mainRow.className = 'row h-100';
 
   var mainCol = document.createElement('div');
-  mainCol.className = 'col-12 bg-fadegray';
+  mainCol.className = 'col-12 bg-fadegray h-100';
 
 // Head Row
   var headRow = document.createElement('div')
@@ -325,7 +325,10 @@ function addRoomEntry(roomID , roomName, roomDescription = "Description of the r
 
 // Body Row
   var bodyRow = document.createElement('div');
-  bodyRow.className = 'row p-3 ellips';
+  bodyRow.className = 'row p-3l mx-3';
+  bodyRow.style.height = '200px';
+  bodyRow.style.overflowY = 'scroll';
+  bodyRow.style.textOverflow = 'ellipse';
 
   var p = document.createElement('div');
   p.innerText = roomDescription;
