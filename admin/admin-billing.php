@@ -354,6 +354,8 @@ function save(e) {
         icon: data.status,
         title: data.message
       });
+      if(data.isSuccessful) 
+        modifiedInputs = {};
     },
     "json"
   );
