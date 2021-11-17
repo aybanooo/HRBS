@@ -1,13 +1,13 @@
 <?php
 include('db.php');
 
-require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/directories.php");
+require_once(dirname(__FILE__,2)."/public_assets/modules/php/directories/directories.php");
 require_once __F_DB_HANDLER__;
 require_once __F_OUTPUT_HANDLER__;
 require_once __F_VALIDATIONS__;
 require_once "../public_assets/modules/php/database/roomControls/getRoomData.php";
 
-$unwtfedID = tonotwtf($_GET['r'], 3);
+$unwtfedID = tonotwtf($_GET['r'],3);
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
@@ -217,9 +217,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                             </div>
                             <!-- Row 2 end-->
                             <?php
-                            $queryGuest = "SELECT * FROM roomtype;";
-                            $result = mysqli_query($conn, $queryGuest) or die(mysqli_error($conn));
-                            $followingdataGuest = $result->fetch_array(MYSQLI_ASSOC);
+                                $queryGuest = "SELECT * FROM roomtype;";
+                                $result = mysqli_query($conn, $queryGuest) or die(mysqli_error($conn));
+                                $followingdataGuest = $result->fetch_array(MYSQLI_ASSOC);
                             ?>
                             <div class="card-group">
                                 <div class="card">
@@ -253,13 +253,13 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                 </a>
                                             </li>
                                             <?php
-                                            foreach ($full_room_data['sections'] as $key => $val) {
-                                            ?>
-                                                <li class="nav-item">
-                                                    <a class="nav-link hoverable-fas-icon" id="roomSection-<?php print $key; ?>-tab" data-toggle="pill" href="#roomSection-<?php print $key; ?>" role="tab" aria-controls="roomSection-<?php print $key; ?>" aria-selected="false"><i class="<?php print $val['sectionIcon']; ?> fa-2x"></i></a>
-                                                </li>
-                                            <?php
-                                            }
+                                                foreach($full_room_data['sections'] as $key => $val ) {
+                                                ?>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link hoverable-fas-icon" id="roomSection-<?php print $key; ?>-tab" data-toggle="pill" href="#roomSection-<?php print $key; ?>" role="tab" aria-controls="roomSection-<?php print $key; ?>" aria-selected="false"><i class="<?php print $val['sectionIcon']; ?> fa-2x"></i></a>
+                                                    </li>
+                                                <?php
+                                                }
                                             ?>
                                         </ul>
                                         <div class="tab-content" id="roomSection-tabContent">
@@ -287,74 +287,74 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                 </div>
                                             </div>
                                             <!-- Genereal info Tab End-->
-
+                                            
                                             <?php
-                                            foreach ($full_room_data['sections'] as $key => $val) {
-                                            ?>
-                                                <div class="tab-pane fade" id="roomSection-<?php print $key; ?>" role="tabpanel" aria-labelledby="roomSection-<?php print $key; ?>-tab">
-                                                    <div class="container-fluid p-3">
+                                                foreach($full_room_data['sections'] as $key => $val ) {
+                                                ?>
+                                            <div class="tab-pane fade" id="roomSection-<?php print $key; ?>" role="tabpanel" aria-labelledby="roomSection-<?php print $key; ?>-tab">
+                                                <div class="container-fluid p-3">
 
-                                                        <div class="row d-flex justify-content-between">
-                                                            <label><?php print $val['sectionName']; ?> Info</label>
-                                                        </div>
-                                                        <div class="row mx-1 mx-sm-5 my-sm-2">
-                                                            <div class="col-12 ce-limit ce-noenter ce-blankremove">
-                                                                <ul class="list-unstyled row gen-info-list">
-                                                                    <?php
-                                                                    foreach ($val['items'] as $info) {
-                                                                    ?>
-                                                                        <li class="list-item col-6 col-md-3">
-                                                                            <div class="row">
-                                                                                <div class="col-auto p-0">
-                                                                                    <i class="fas fa-check mx-1"></i>
-                                                                                </div>
-                                                                                <div class="col">
-                                                                                    <span><?php print $info; ?></span>
-                                                                                </div>
-                                                                            </div>
-                                                                        </li>
-                                                                    <?php
-                                                                    }
-                                                                    ?>
-
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="row d-flex justify-content-between">
-                                                            <label>Gallery</label>
-                                                        </div>
-
-
-                                                        <div class="row gallery-row">
+                                                    <div class="row d-flex justify-content-between">
+                                                        <label><?php print $val['sectionName']; ?> Info</label>
+                                                    </div>
+                                                    <div class="row mx-1 mx-sm-5 my-sm-2">
+                                                        <div class="col-12 ce-limit ce-noenter ce-blankremove">
+                                                            <ul class="list-unstyled row gen-info-list">
                                                             <?php
-                                                            foreach ($val['gallery'] as $gallery_item) {
+                                                            foreach($val['items'] as $info) {
                                                             ?>
-                                                                <div class="col-md-12 col-lg-6 col-xl-4">
-                                                                    <div class="card mb-2">
-                                                                        <img id="22" class="card-img-top rounded" src="/public_assets/rooms/<?php print $unwtfedID; ?>/<?php print $gallery_item['pictureName']; ?>.jpg">
-                                                                        <div class="card-img-overlay p-0">
-                                                                            <?php
-                                                                            if ($gallery_item['is360'] == "1") {
-                                                                            ?>
-                                                                                <div class="bannerContainer m-2">
-                                                                                    <span class="badge badge-secondary ">360°</span>
-                                                                                </div>
-                                                                            <?php } ?>
-                                                                        </div>
+                                                            <li class="list-item col-6 col-md-3">
+                                                                <div class="row">
+                                                                    <div class="col-auto p-0">
+                                                                        <i class="fas fa-check mx-1"></i>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <span><?php print $info; ?></span>
                                                                     </div>
                                                                 </div>
+                                                            </li>
                                                             <?php
                                                             }
                                                             ?>
+
+                                                            </ul>
                                                         </div>
-
-
-
                                                     </div>
+
+                                                    <div class="row d-flex justify-content-between">
+                                                        <label>Gallery</label>
+                                                    </div>
+
+
+                                                    <div class="row gallery-row">
+                                                        <?php
+                                                        foreach($val['gallery'] as $gallery_item) {
+                                                        ?>
+                                                        <div class="col-md-12 col-lg-6 col-xl-4">
+                                                            <div class="card mb-2">
+                                                                <img id="22" class="card-img-top rounded" src="/public_assets/rooms/<?php print $unwtfedID;?>/<?php print $gallery_item['pictureName'];?>.jpg">
+                                                                <div class="card-img-overlay p-0">
+                                                                    <?php 
+                                                                    if($gallery_item['is360']=="1") {
+                                                                    ?>
+                                                                    <div class="bannerContainer m-2">
+                                                                        <span class="badge badge-secondary ">360°</span>
+                                                                    </div>
+                                                                    <?php }?>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <?php 
+                                                        }
+                                                        ?>
+                                                    </div>
+
+
+
                                                 </div>
+                                            </div>
                                             <?php
-                                            }
+                                                }
                                             ?>
 
                                         </div>
@@ -365,10 +365,10 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                 </div>
                                 <!-- Row 3 end-->
                             </div>]
-                            <?php
-                            $query = "SELECT * FROM reviews";
-                            $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-                            $followingdata = $result->fetch_array(MYSQLI_ASSOC);
+                            <?php 
+                                $query = "SELECT * FROM reviews";
+                                $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+                                $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                             ?>
 
                             <!-- Review Card -->
@@ -382,6 +382,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                             <!-- Reviews Row -->
                                             <div class="row">
                                                 <div class="col">
+                                                <img class="img-circle img-sm" src="assets (1)/img (1)/Images/user5-128x128.jpg" alt="User Image">
                                                     <!-- Review Entry Row -->
                                                     <div>
                                                         <div class="m-5">
@@ -390,33 +391,74 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                             </span><!-- /.username block -->
                                                             <?php echo $followingdata['review']; ?>
                                                         </div>
+                                                        <!-- /.comment-text -->
                                                     </div>
+
+
+                                                    <!-- Review Entry Row -->
+                                                    <!-- Review Entry Row -->
+                                                    <div>
+                                                        <!-- User image -->
+                                                        <img class="img-circle img-sm" src="assets (1)/img (1)/Images/user5-128x128.jpg" alt="User Image">
+
+                                                        <div class="m-5">
+                                                            <span class="d-block">
+                                                                <strong class="d-inline-block">Tonio Batumbakal</strong>
+                                                                <div class="btn-group dropleft ml-2 mr-2 float-right">
+                                                                    <div class="dropdown-menu" role="menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(68px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                                                                        <a class="dropdown-item" href="#">Delete</a>
+                                                                    </div>
+                                                                </div>
+                                                                <span class="text-muted d-block d-sm-inline-block float-sm-right reviewDate">8:03 PM Today</span>
+                                                                <span class="d-block">
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                    <i class="fas fa-star text-warning"></i>
+                                                                </span>
+                                                            </span><!-- /.username block -->
+                                                            I am flaberghasted the first time I entered the room. The accomodation is exquisite plus the view is immaculate!
+                                                        </div>
+                                                        <!-- /.comment-text -->
+                                                    </div>
+                                                    <!-- Review Entry Row -->
                                                 </div>
                                             </div>
+                                            <!-- Reviews Row End -->
+
+
                                         </div>
                                     </div>
                                 </div>
+
+
                             </div>
-                        </div>
-                    </div>
-                </div><!-- /.container-fluid -->
-            </div>
-        </div>
 
 
-        <!-- Modal 360 -->
-        <div class="modal fade" id="modalFor360" tabindex="-1" role="dialog" aria-labelledby="modalFor360" aria-hidden="true">
-            <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-body d-flex p-0 justify-content-center align-content-center">
-                        <div class="embed-responsive embed-responsive-16by9 rounded" id="360div">
-                            <iframe frameborder="0" id="360frame" class="embed-responsive-item" src="360view.html"></iframe>
+
                         </div>
-                        <img src="assets/images/defaults/default-image-landscape.png" id="normalImg" class="img-fluid rounded d-none" alt="Responsive image">
-                    </div>
+                    </div><!-- /.container-fluid -->
                 </div>
             </div>
+
+            
+    <!-- Modal 360 -->
+    <div class="modal fade" id="modalFor360" tabindex="-1" role="dialog" aria-labelledby="modalFor360"
+        aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body d-flex p-0 justify-content-center align-content-center">
+                <div class="embed-responsive embed-responsive-16by9 rounded" id="360div">
+                    <iframe frameborder="0" id="360frame" class="embed-responsive-item"
+                    src="360view.html"></iframe>
+                </div>
+                <img src="assets/images/defaults/default-image-landscape.png" id="normalImg"
+                    class="img-fluid rounded d-none" alt="Responsive image">
+            </div>
         </div>
+        </div>
+    </div>
 
     </section>
     <?php
@@ -458,13 +500,13 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     <!-- Page Script -->
     <script>
         $(".gallery-row .card").click(function() {
-            let imageSrc = $(this).find('img').attr('src');
-            let is360 = $(this).find('.bannerContainer').length != 0;
+            let imageSrc = $(this).find('img').attr('src' );
+            let is360 = $(this).find('.bannerContainer').length!=0;
             console.log(is360);
-            if (is360) {
+            if(is360) {
                 $("#360div").removeClass('d-none');
                 ($("#normalImg").hasClass('d-none')) || $("#normalImg").addClass('d-none');
-                $("#360div > iframe").attr('src', '360view.html?image=' + imageSrc);
+                $("#360div > iframe").attr('src', '360view.html?image='+imageSrc);
             } else {
                 $("#360div").addClass('d-none');
                 $("#normalImg").removeClass('d-none');
