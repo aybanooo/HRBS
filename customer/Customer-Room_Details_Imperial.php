@@ -245,7 +245,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                                 <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $followingdataGuest["maxAdult"]; ?> Adult</span></li>
                                                                 <li class="list-item col-4 col-md-4"><i class="fas fa-check mx-1"></i><span><?php echo $followingdataGuest["maxChildren"]; ?> Children</span></li>
                                                             <?php 
-                                                                $queryGenInfo = "SELECT A.*, B.* FROM roomsec A INNER JOIN roominfo B ON A.`sectionID`=B.`roo­mSecID` WHERE A.`general`=1 && A.`roomTypeID`=45;";
+                                                                $queryGenInfo = "SELECT A.*, B.* FROM roomsec A INNER JOIN roominfo B ON A.`sectionID`=B.`roomSecID` WHERE A.`general`=1 && A.`roomTypeID`=38;";
                                                                 $result = mysqli_query($conn, $queryGenInfo) or die(mysqli_error($conn));
                                                                 while ($rowGenInfo = mysqli_fetch_assoc($result)) {
                                                             ?>
@@ -348,7 +348,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                             <!-- Review Card -->
                             <div class="card elevation-0">
                                 <div class="card-header">
-                                    <h5 class="text-left">Ratings</h5>
+                                    <h5 class="text-left">Customer Reviews</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="container">
@@ -362,62 +362,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                     <span class="overallRateOutOf text-secondary">/
                                                         <span class="overallRateOutOValue text-secondary">5</span></span>
                                                 </div>
-                                                <div class="row d-flex justify-content-center">
-                                                    <span class="overallRateStars">
-                                                        <i class="fas fa-star text-warning"></i>
-                                                        <i class="fas fa-star text-warning"></i>
-                                                        <i class="fas fa-star text-warning"></i>
-                                                        <i class="fas fa-star text-warning"></i>
-                                                        <i class="fas fa-star text-warning"></i>
-                                                    </span>
-                                                </div>
                                             </div>
-                                            <div class="col-12 col-md-6 col-lg-6 col-xl-3">
-                                                <div class="row">
-                                                    <h6><i class="fas fa-align-left pr-2 text-info"></i>Rating Breakdown </h6>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col">
-                                                        <span class="progress-label">5<i class="fas fa-star text-warning ml-1 mr-2"></i></span>
-                                                        <div class="progress rateProgress">
-                                                            <div class="progress-bar bg-warning" style="width: 100%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col">
-                                                        <span class="progress-label">4<i class="fas fa-star text-warning ml-1 mr-2"></i></span>
-                                                        <div class="progress rateProgress">
-                                                            <div class="progress-bar bg-warning" style="width: 0%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col">
-                                                        <span class="progress-label">3<i class="fas fa-star text-warning ml-1 mr-2"></i></span>
-                                                        <div class="progress rateProgress">
-                                                            <div class="progress-bar bg-warning" style="width: 0%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col">
-                                                        <span class="progress-label">2<i class="fas fa-star text-warning ml-1 mr-2"></i></span>
-                                                        <div class="progress rateProgress">
-                                                            <div class="progress-bar bg-warning" style="width: 0%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row mt-2">
-                                                    <div class="col">
-                                                        <span class="progress-label">1<i class="fas fa-star text-warning ml-1 mr-2"></i></span>
-                                                        <div class="progress rateProgress">
-                                                            <div class="progress-bar bg-warning" style="width: 0%"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                         <!-- Reviews Row -->
                                         <div class="row">
                                             <div class="col">
