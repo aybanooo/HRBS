@@ -398,6 +398,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                 </div>
                             </div>
                             <?php
+                                }
                             }
                             ?>
                         </div>
