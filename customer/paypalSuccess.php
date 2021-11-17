@@ -1,6 +1,6 @@
 <?php
 include('db.php');
-$maxIDQ = "SELECT MAX(email) AS 'maxID' FROM customer";
+$maxIDQ = "SELECT MAX(customerID) AS 'maxID' FROM customer";
 $maxIDRes = mysqli_query($conn, $maxIDQ);
 $maxIDRow = mysqli_fetch_assoc($maxIDRes);
 $customerEmail = $maxIDRow['maxID'];
