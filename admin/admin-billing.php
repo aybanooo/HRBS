@@ -108,7 +108,7 @@ setupUserSession();
             </div>
           </div>
         </div>
-        <div class="row">
+        <div class="row d-none">
             <div class="col-12 col-sm-6">
             <div class="card">
               <div class="card-header">
