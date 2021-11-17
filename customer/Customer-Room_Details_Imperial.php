@@ -1,6 +1,8 @@
 <?php
 include('db.php');
 
+require_once "../public_assets/modules/php/database/roomControls/getRoomData.php";
+
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
@@ -241,14 +243,15 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                     <i class="fas fa-info fa-2x"></i>
                                                 </a>
                                             </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link hoverable-fas-icon" id="roomSection-living_room-tab" data-toggle="pill" href="#roomSection-living_room" role="tab" aria-controls="roomSection-living_room" aria-selected="false">
-                                                    <i class="fas fa-couch fa-2x"></i>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link hoverable-fas-icon" id="roomSection-bed_room-tab" data-toggle="pill" href="#roomSection-bed_room" role="tab" aria-controls="roomSection-bed_room" aria-selected="false"><i class="fas fa-bed fa-2x"></i></a>
-                                            </li>
+                                            <?php
+                                                foreach($full_room_data['sections'] as $key => $val ) {
+                                                ?>
+                                                    <li class="nav-item">
+                                                        <a class="nav-link hoverable-fas-icon" id="roomSection-<?php print $key; ?>-tab" data-toggle="pill" href="#roomSection-<?php print $key; ?>" role="tab" aria-controls="roomSection-<?php print $key; ?>" aria-selected="false"><i class="<?php print $val['sectionIcon']; ?> fa-2x"></i></a>
+                                                    </li>
+                                                <?php
+                                                }
+                                            ?>
                                         </ul>
                                         <div class="tab-content" id="roomSection-tabContent">
                                             <!-- Genereal info Tab-->
@@ -275,19 +278,36 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                 </div>
                                             </div>
                                             <!-- Genereal info Tab End-->
-
-                                            <!-- Living Room Tab-->
-                                            <div class="tab-pane fade" id="roomSection-living_room" role="tabpanel" aria-labelledby="roomSection-living_room-tab">
+                                            
+                                            <?php
+                                                foreach($full_room_data['sections'] as $key => $val ) {
+                                                ?>
+                                            <div class="tab-pane fade" id="roomSection-<?php print $key; ?>" role="tabpanel" aria-labelledby="roomSection-<?php print $key; ?>-tab">
                                                 <div class="container-fluid p-3">
 
                                                     <div class="row d-flex justify-content-between">
-                                                        <label>Living Room Info</label>
+                                                        <label><?php print $val['sectionName'] ?> Info</label>
                                                     </div>
                                                     <div class="row mx-1 mx-sm-5 my-sm-2">
                                                         <div class="col-12 ce-limit ce-noenter ce-blankremove">
                                                             <ul class="list-unstyled row gen-info-list">
-                                                                <li class="list-item col-6 col-md-3"><i class="fas fa-check mx-1"></i><span>55" Television</span></li>
-                                                                <li class="list-item col-6 col-md-3"><i class="fas fa-check mx-1"></i><span>Playstation Console</span></li>
+                                                            <?php
+                                                            foreach($val['items'] as $val) {
+                                                            ?>
+                                                            <li class="list-item col-6 col-md-3">
+                                                                <div class="row">
+                                                                    <div class="col-auto p-0">
+                                                                        <i class="fas fa-check mx-1"></i>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <span><?php print $val; ?></span>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                            <?php
+                                                            }
+                                                            ?>
+
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -295,63 +315,14 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                                     <div class="row d-flex justify-content-between">
                                                         <label>Gallery</label>
                                                     </div>
-                                                    <!-- Image Row -->
-                                                    <div class="row gallery-row">
-                                                        <div class="col-md-12 col-lg-6 col-xl-4">
-                                                            <div class="card mb-2">
-                                                                <img class="card-img-top" src="assets (1)/img (1)/Images/imperial-suite.jpg" alt="Dist Photo 3">
-                                                                <div class="card-img-overlay">
 
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Image Row End -->
-
-                                                    </div>
-                                                </div>
-                                                <!-- Living Room Tab End-->
-
-
-                                            </div>
-
-                                            <!-- BedRoom Tab-->
-                                            <div class="tab-pane fade" id="roomSection-bed_room" role="tabpanel" aria-labelledby="roomSection-bed_room-tab">
-                                                <div class="container-fluid p-3">
-
-                                                    <div class="row d-flex justify-content-between">
-                                                        <label>Bedroom Info</label>
-                                                    </div>
-                                                    <div class="row mx-1 mx-sm-5 my-sm-2">
-                                                        <div class="col-12 ce-limit ce-noenter ce-blankremove">
-                                                            <ul class="list-unstyled row gen-info-list">
-                                                                <li class="list-item col-6 col-md-3"><i class="fas fa-check mx-1"></i><span>1 bathroom</span></li>
-                                                                <li class="list-item col-6 col-md-3"><i class="fas fa-check mx-1"></i><span>1 Kitchen</span></li>
-                                                                <li class="list-item col-6 col-md-3"><i class="fas fa-check mx-1"></i><span>Wifi</span></li>
-                                                                <li class="list-item col-6 col-md-3"><i class="fas fa-check mx-1"></i><span>Airconditioned</span></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="row d-flex justify-content-between">
-                                                        <label>Gallery</label>
-                                                    </div>
-                                                    <!-- Image Row -->
-                                                    <div class="row gallery-row">
-                                                        <div class="col-md-12 col-lg-6 col-xl-4">
-                                                            <div class="card mb-2">
-                                                                <img class="card-img-top" src="assets (1)/img (1)/Images/imperial-suite-2.jpg" alt="Dist Photo 3">
-                                                                <div class="card-img-overlay">
-
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Image Row End -->
-
-                                                    </div>
                                                 </div>
                                             </div>
+                                            <?php
+                                                }
+                                            ?>
+
                                         </div>
-                                        <!-- Bed Room Tab End-->
                                     </div>
 
                                     <!-- Container Fluid end -->

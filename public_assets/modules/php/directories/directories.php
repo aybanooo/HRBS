@@ -27,6 +27,7 @@ define('__F_OUTPUT_HANDLER__', __D_PUBLIC_PHP__.'outputHandler/outputHandler.php
 define('__F_FORMAT_INPUT__', __D_PUBLIC_PHP__.'format/formatInput.php');
 define('__F_FORMAT__', __D_PUBLIC_PHP__.'format/format.php');
 define('__F_FORMAT_IMAGE__', __D_PUBLIC_PHP__.'format/formatImage.php');
+define('__F_VALIDATIONS__', __D_PUBLIC_PHP__.'database/validations/validations.php');
 
 //----- UI constants --------
 
