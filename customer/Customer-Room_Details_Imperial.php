@@ -205,7 +205,31 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                 </div>
                             </div>
                             <!-- Row 2 end-->
-
+                            <?php
+                                $queryGuest = "SELECT * FROM roomtype;";
+                                $result = mysqli_query($conn, $queryGuest) or die(mysqli_error($conn));
+                                $followingdataGuest = $result->fetch_array(MYSQLI_ASSOC);
+                            ?>
+                            <div class="card-group">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title"><b>Rate</b></h4>
+                                        <p class="card-text"><?php echo $followingdataGuest["rate"]; ?></p>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title"><b>Adult</b></h4>
+                                        <p class="card-text"><?php echo $followingdataGuest["maxAdult"]; ?></p>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title"><b>Children</b></h4>
+                                        <p class="card-text"><?php echo $followingdataGuest["maxChildren"]; ?> </p>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- Row 3 -->
                             <div class="row mt-4">
                                 <div class="col">
@@ -335,31 +359,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                 </div>
                                 <!-- Row 3 end-->
                             </div>
-                            <?php
-                                $queryGuest = "SELECT * FROM roomtype;";
-                                $result = mysqli_query($conn, $queryGuest) or die(mysqli_error($conn));
-                                $followingdataGuest = $result->fetch_array(MYSQLI_ASSOC);
-                            ?>
-                            <div class="card-group">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title"><b>Rate</b></h4>
-                                        <p class="card-text"><?php echo $followingdataGuest["rate"]; ?></p>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title"><b>Adult</b></h4>
-                                        <p class="card-text"><?php echo $followingdataGuest["maxAdult"]; ?></p>
-                                    </div>
-                                </div>
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title"><b>Children</b></h4>
-                                        <p class="card-text"><?php echo $followingdataGuest["maxChildren"]; ?> </p>
-                                    </div>
-                                </div>
-                            </div>
+
 
                             <!-- Review Card -->
                             <div class="card elevation-0">
