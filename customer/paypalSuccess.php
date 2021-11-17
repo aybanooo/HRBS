@@ -5,9 +5,8 @@ include('db.php');
 #$maxIDRow = mysqli_fetch_assoc($maxIDRes);
 #$customerEmail = $maxIDRow['maxID'];
 $query = "SELECT email FROM customer";
- $statement->execute(
-  array(
-   ':email' => $_POST['email']));
+$customerEmail = ($_POST['email']);
+
 
 ini_set( 'display_errors', 1 );
 error_reporting( E_ALL );
