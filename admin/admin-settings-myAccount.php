@@ -164,7 +164,7 @@ $resetPassUrl = isAdmin() ? "/admin/customFiles/php/settingsControls/updateDefau
                           </div>
 
                         <div id="collapseTwo" class="collapse fade" aria-labelledby="headingTwo" data-parent="#accordion">
-                          <form id="form-contact">
+                          <form class="<?php print $_SESSION['userInfo']->first_name==="admin" ? "d-none" : ""; ?>" id="form-contact">
                             <br>
                             <br>
                             <div class="form-group">
