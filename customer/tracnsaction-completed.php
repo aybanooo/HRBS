@@ -2,11 +2,14 @@
 
 namespace Sample;
 
+require_once(dirname(__FILE__,2)."/public_assets/modules/php/directories/directories.php");
+require_once __F_DB_HANDLER__;
 require __DIR__ . '/vendor/autoload.php';
 //1. Import the PayPal SDK client that was created in `Set up Server-Side SDK`.
 use Sample\PayPalClient;
 use PayPalCheckoutSdk\Orders\OrdersGetRequest;
 require 'paypalClient.php';
+(empty($_GET['customerID'])) && die("No customer");
 $orderID = $_GET['orderID'];
 
 class GetOrder
@@ -28,19 +31,17 @@ class GetOrder
     //insert details to database
     include('db.php'); //eto yung conmnection ng database
     //prepare and bind 
-    $maxIDQ = "SELECT MAX(customerID) AS 'maxID' FROM customer";
-    $maxIDRes = mysqli_query($conn, $maxIDQ);
-    $maxIDRow = mysqli_fetch_assoc($maxIDRes);
-    $customerID = $maxIDRow['maxID'];
+    $customerID = $_GET['customerID'];
     $stmt = "UPDATE reservation SET reservationStatus = '1' WHERE reservationID = '$customerID'";
     
     if (!$stmt) {
         echo 'There was a problem on your code' .mysqli_error($conn);
     }
     else{
-      echo '<script>window.location.href="paypalSuccess.php";</script>';
-      mysqli_query($conn, $stmt) or die('Error: ' . mysqli_error($conn));
-    }
+      #echo '<script>window.location.href="paypalSuccess.php";</script>';
+      if(!mysqli_query($conn, $stmt)){
+          die("Failed to update reservation status");
+      }
     /**
      *Enable the following line to print complete response as JSON.
      */
@@ -61,6 +62,7 @@ class GetOrder
     // echo json_encode($response->result, JSON_PRETTY_PRINT);
   }
 }
+}
 
 /**
  *This driver function invokes the getOrder function to retrieve
@@ -73,4 +75,17 @@ if (!count(debug_backtrace()))
 {
   GetOrder::getOrder($orderID, true);
 }
+
+$customerID = $_GET['customerID'];
+$connForEmail = createTempDBConnection();
+$customerEmail = mysqli_fetch_all(mysqli_query($connForEmail, "SELECT `email` from `customer` WHERE `customerID`=$customerID LIMIT 1;"))[0][0];
+
 ?>
+
+<form action="paypalSuccess.php" method="POST" style="display: none;">
+  <input type="text" name="inp-email" value="<?php print $customerEmail; ?>">
+  <input id="btn-submit" type="submit" value="submit">
+</form>
+<script>
+  document.getElementById('btn-submit').click();
+</script>
