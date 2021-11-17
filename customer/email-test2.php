@@ -25,7 +25,8 @@ $subject = "testing 123";
     $mail->CharSet = "utf-8";
     // Gmail
    $base_url = "http://localhost/tutorial/email-address-verification-script-using-php/";
-   $mail_body = "";       //Sets Mailer to send message using SMTP
+   
+   $mail_body = "dsfsfdfsdfsdfsf";       //Sets Mailer to send message using SMTP
    $mail->Host = 'smtp.sendgrid.net';  //Sets the SMTP hosts of your Email hosting, this for Godaddy
    $mail->Port = '587';        //Sets the default SMTP server port
    $mail->SMTPAuth = true;       //Sets SMTP authentication. Utilizes the Username and Password variables
