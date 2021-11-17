@@ -382,9 +382,10 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                             <!-- Reviews Row -->
                                             <div class="row">
                                                 <div class="col">
-                                                <img class="img-circle img-sm" src="assets (1)/img (1)/Images/user5-128x128.jpg" alt="User Image">
-                                                    <!-- Review Entry Row -->
+                                                
                                                     <div>
+                                                    <img class="img-circle img-sm" src="assets (1)/img (1)/Images/user5-128x128.jpg" alt="User Image">
+                                                    <!-- Review Entry Row -->
                                                         <div class="m-5">
                                                             <span class="d-block">
                                                                 <strong class="d-inline-block">Customer<?php echo $followingdata['reservationID']; ?></strong>
