@@ -1,9 +1,18 @@
 <?php
 include('db.php');
-$maxIDQ = "SELECT MAX(customerID) AS 'maxID' FROM customer";
-$maxIDRes = mysqli_query($conn, $maxIDQ);
-$maxIDRow = mysqli_fetch_assoc($maxIDRes);
-$customerEmail = $maxIDRow['maxID'];
+#$maxIDQ = "SELECT MAX(customerID) AS 'maxID' FROM customer";
+#$maxIDRes = mysqli_query($conn, $maxIDQ);
+#$maxIDRow = mysqli_fetch_assoc($maxIDRes);
+#$customerEmail = $maxIDRow['maxID'];
+$query = "
+ SELECT * FROM customer 
+ WHERE email = :email
+ ";
+ $statement = $connect->prepare($query);
+ $statement->execute(
+  array(
+   ':email' => $_POST['email']));
+
 ini_set( 'display_errors', 1 );
 error_reporting( E_ALL );
 $apiKey = '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';
@@ -19,7 +28,7 @@ $apiKey = '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
     $mail->Password = $apiKey;
     $mail->setFrom('thanoshotelreservation@ghrbs.site', 'Thanos');
     $mail->addReplyTo('thanoshotelreservation@ghrbs.site', 'Thanos');
-    $mail->addAddress($customerEmail, 'Valued Guest');
+    $mail->addAddress(($_POST['email']), 'Valued Guest');
     $mail->Subject = 'GHRBS booking details';
     
     $mail->Body = 'This is a plain text message body';
