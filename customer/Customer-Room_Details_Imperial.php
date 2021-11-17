@@ -340,6 +340,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                 $result = mysqli_query($conn, $queryGuest) or die(mysqli_error($conn));
                                 $followingdataGuest = $result->fetch_array(MYSQLI_ASSOC);
                             ?>
+                            <div class="card-group">
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title">Rate</h4>
@@ -358,6 +359,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                         <p class="card-text"><?php echo $followingdataGuest["maxChildren"]; ?></p>
                                     </div>
                                 </div>
+                            </div>
 
                             <!-- Review Card -->
                             <div class="card elevation-0">
