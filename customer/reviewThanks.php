@@ -1,9 +1,18 @@
 <?php
 include('db.php');
-
+require_once(dirname(__FILE__, 2)."/public_assets/modules/php/directories/directories.php");
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
+
+
+if (isset($_POST['submit'])) {
+    $comments = $_POST['commentsSuggest'];
+    $reservationID = $_POST['reservationID'];
+
+    $queryReviews = "INSERT INTO reviews (reviewID, reservationID, review) VALUES (DEFAULT ,$reservationID, '$comments');";
+    mysqli_query($conn, $queryReviews) or die(mysqli_error($conn));
+}
 ?>
 
 

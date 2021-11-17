@@ -1,19 +1,19 @@
 <?php
 include('db.php');
 
-require_once(dirname(__FILE__,2)."/public_assets/modules/php/directories/directories.php");
+require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/directories.php");
 
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
-    if(isset($_POST['submit'])){ 
-        $comments = $_POST['commentsSuggest']; 
-        $reservationID = $_POST['reservationID'];
+if (isset($_POST['submit'])) {
+    $comments = $_POST['commentsSuggest'];
+    $reservationID = $_POST['reservationID'];
 
-        $queryReviews = "INSERT INTO reviews (reviewID, reservationID, review) VALUES (DEFAULT ,$reservationID, '$comments');";
-        mysqli_query($conn, $queryReviews) or die(mysqli_error($conn));
-    }
+    $queryReviews = "INSERT INTO reviews (reviewID, reservationID, review) VALUES (DEFAULT ,$reservationID, '$comments');";
+    mysqli_query($conn, $queryReviews) or die(mysqli_error($conn));
+}
 ?>
 
 <!DOCTYPE HTML>
@@ -35,22 +35,27 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             padding-top: 65px;
             background-color: #F2F2F3;
         }
+
         #mainNav .navbar-brand {
             color: rgba(255, 255, 255, 1);
         }
+
         #mainNav .nav-link {
             color: rgba(255, 255, 255, 1);
         }
+
         nav#mainNav {
             background-color: black;
             position: fixed;
         }
+
         .loginForm h1 {
             text-align: center;
             padding-top: 2%;
             padding-bottom: 2%;
             font-size: 2em;
         }
+
         .loginForm {
             background-color: white;
             color: black;
@@ -79,10 +84,12 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             font-size: 1em;
             text-align: center;
         }
-        textarea#exampleFormControlTextarea1{
+
+        textarea#exampleFormControlTextarea1 {
             width: 75%;
             margin: auto;
         }
+
         input[type=submit] {
             border: none;
             outline: 0;
@@ -191,28 +198,28 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         </div>
     </nav>
     <form action="reviewThanks.php" method="POST">
-    <section id="login">
-        <div class="loginForm">
-            <div class="row">
-                <div class="col-lg-12 mx-auto">
-                    <h1><b>Comments and Suggestions</b></h1>
-                    <hr class="new1">
-                    <form method="POST" action="">
-                        <tr align="left">
-                            <td><input type="text" name="reservationID" required placeholder="Reservation ID"></td>
-                        </tr>
-                        <tr>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" name="commentsSuggest" rows="3" placeholder="Enter Comments/Suggestion and Rating"></textarea>
-                        </tr>
-                        <tr>
-                            <td class="sign" align="center" align="right"><input type="submit" value="Send Review" name="submit"></td>
-                        </tr>
-                    </form>
+        <section id="login">
+            <div class="loginForm">
+                <div class="row">
+                    <div class="col-lg-12 mx-auto">
+                        <h1><b>Comments and Suggestions</b></h1>
+                        <hr class="new1">
+                        <form method="POST" action="">
+                            <tr align="left">
+                                <td><input type="text" name="reservationID" required placeholder="Reservation ID"></td>
+                            </tr>
+                            <tr>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" name="commentsSuggest" rows="3" placeholder="Enter Comments/Suggestion and Rating"></textarea>
+                            </tr>
+                            <tr>
+                                <td class="sign" align="center" align="right"><input type="submit" value="Send Review" name="submit"></td>
+                            </tr>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+            </div>
+        </section>
     </form>
     <?php
     $query = "SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
@@ -239,4 +246,5 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         </div>
     </div>
 </body>
+
 </html>
