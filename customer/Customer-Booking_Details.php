@@ -45,16 +45,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$lastName = mysqli_real_escape_string($conn, $_POST['lname']);
 		$contact = mysqli_real_escape_string($conn, $_POST['cnumber']);
 		$email = mysqli_real_escape_string($conn, $_POST['email']);
-		$roomName = mysqli_real_escape_string($conn, $_POST['roomName']);
+		$roomName = mysqli_real_escape_string($conn, $_POST['name']);
 		$dateStart = mysqli_real_escape_string($conn, $_POST['from']);
 		$dateEnd = mysqli_real_escape_string($conn, $_POST['to']);
-		$discount = $_POST['seniorcitizen'];
+		
 	}
 } else {
 	die("PLEASE FINISH THE CAPTCHA");
 }
 
-
+$discount = $_POST['seniorcitizen'];
 $var1 = strtr($dateStart, '/', '-');
 $dateStartFinal = date("Y-m-d", strtotime($var1));
 
@@ -350,11 +350,11 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 						</tr>
 						<tr align="right">
 							<th>Room:</th>
-							<td><?php echo $roomName; ?></td>
+							<td><?php echo $name; ?></td>
 						</tr>
 						<tr align="right">
 							<?php
-							$query = "SELECT * FROM roomtype WHERE `name`='$roomName'";
+							$query = "SELECT * FROM roomtype WHERE `name`='$name'";
 							$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							$totalPersons = $adult['maxAdult'] + $children['maxChildren'];
