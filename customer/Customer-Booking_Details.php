@@ -45,7 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$lastName = mysqli_real_escape_string($conn, $_POST['lname']);
 		$contact = mysqli_real_escape_string($conn, $_POST['cnumber']);
 		$email = mysqli_real_escape_string($conn, $_POST['email']);
-		$roomName = mysqli_real_escape_string($conn, $_POST['name']);
+		$roomName = mysqli_real_escape_string($conn, $_POST['roomName']);
 		$dateStart = mysqli_real_escape_string($conn, $_POST['from']);
 		$dateEnd = mysqli_real_escape_string($conn, $_POST['to']);
 		
