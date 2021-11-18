@@ -357,7 +357,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 							$query = "SELECT * FROM roomtype WHERE `name`='$roomName'";
 							$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
-							$totalPersons = $adult['maxAdult'] + $children['maxChildren'];
+							$totalPersons = $followingdata['maxAdult'] + $followingdata['maxChildren'];
 
 							if($discount = 1 || $discount = 2){
 								$dividedRate = $totalPersons / $followingdata['rate'];
