@@ -388,7 +388,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 						</tr>
 						<tr align="right">
 							<td colspan="2">
-								<hr /><?php echo $discount;  ?>
+								<?php echo $discount;  ?>
 							</td>
 						</tr>
 						<tr align="right">
