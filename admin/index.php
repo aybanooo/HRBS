@@ -41,6 +41,8 @@
   <link rel="stylesheet" href="plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
+  <!-- Tempus Dominus -->
+  <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.css">
   <!-- Special Style-->
   <link rel="stylesheet" href="customFiles/specialStyle.css">
   <link rel="stylesheet" href="customFiles/overrideStyle.css">
@@ -56,6 +58,35 @@
     #table-reservation tbody > tr:not(.child):hover {
       color: var(--primary);
     }
+
+    body .bootstrap-datetimepicker-widget.dropdown-menu.float-right:after {
+      border-bottom-color: var(--light) !important;
+    }
+
+    body.dark-mode .bootstrap-datetimepicker-widget.dropdown-menu.float-right:after {
+      border-bottom-color: var(--dark) !important;
+    }
+
+    .hoverable_row {
+      transition-duration: 0.4s;
+    }
+    .hoverable_row:hover{
+      cursor: pointer;
+      transform: scale(1.1);
+    }
+
+    .background-darker {
+      background-color: rgba(0, 0, 0, 0.025);
+    }
+
+    body.dark-mode .background-darker {
+      background-color: rgba(0, 0, 0, 0.1);
+    }
+
+    .cursor-pointer {
+      cursor: pointer;
+    }
+
   </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed light-mode">
@@ -293,6 +324,8 @@
                     n/a
                   </h5>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-12 mb-3">
                   <small class="d-block text-muted mb-0">Booked by</small>
                   <h5 id="rsvtn-panel-bookedby" class="ml-2 mb-0">
@@ -300,6 +333,8 @@
                   </h5>
                   <small class="d-block text-muted mb-0 ml-2">For <strong><span id="rsvtn-panel-stay-count">n</span> nights</strong></small>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-12 mb-3">
                   <small class="d-block text-muted mb-0">Number of guest</small>
                   <span id="rsvtn-panel-guest-total" class="ml-2">
@@ -307,6 +342,8 @@
                   </span>
                   <small class="d-block text-muted mb-0 ml-2"><strong id="rsvtn-panel-guest-adult">n</strong> Adults, <strong id="rsvtn-panel-guest-children">n</strong> Children </small>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-12 mb-3">
                   <small class="d-block text-muted mb-0">Contact</small>
                   <span id="rsvtn-panel-contact-num" class="ml-2 d-block">
@@ -316,6 +353,8 @@
                     n/a
                   </span>
                 </div>
+              </div>
+              <div class="row">
                 <div class="col-6 col-md-6 mb-3">
                   <small class="d-block text-muted mb-0">Check-In Date</small>
                   <span id="rsvtn-panel-check-in-date" class="ml-2 d-block">
@@ -328,9 +367,11 @@
                     n/a
                   </span>
                 </div>
+              </div>
+              <div class="row hoverable_row">
                 <div class="col-6 col-md-6 mb-3">
                   <small class="d-block text-muted mb-0">Check-In Time</small>
-                  <span id="rsvtn-panel-check-in-time" class="ml-2">
+                  <span id="rsvtn-panel-check-in-time" class="ml-2 d-block">
                     n/a
                   </span>
                 </div>
@@ -339,6 +380,52 @@
                   <span id="rsvtn-panel-check-in-time" class="ml-2">
                     n/a
                   </span>
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-lg-6">
+              <div class="row">
+                <div class="col">
+                  <div class="card card collapsed-card shadow-none">
+                    <div class="card-header cursor-pointer border-bottom" data-card-widget="collapse">
+                      <h4 class="card-title">Check In/Out</h4>
+                      <div class="card-tools">
+                        <i class="fas fa-chevron-down"></i>
+                      </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body background-darker">
+                      <div class="row">
+                        <div class='col-12 col-xl-6'>
+                          <div class="form-group">
+                            <small class="d-block text-muted mb-0">Check-In Time</small>
+                            <div class="input-group date" id="input-datetime-checkIn" data-target-input="nearest">
+                              <input placeholder="Click the calendar button" type="text" class="form-control datetimepicker-input"
+                                data-target="#input-datetime-checkIn"/>
+                              <div id="test" class="input-group-append" data-target="#input-datetime-checkIn"
+                                data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='col-12 col-xl-6'>
+                          <div class="form-group">
+                            <small class="d-block text-muted mb-0">Check-Out Time</small>
+                            <div class="input-group date" id="input-datetime-checkOut" data-target-input="nearest">
+                              <input placeholder="Click the calendar button" type="text" class="form-control datetimepicker-input"
+                                data-target="#input-datetime-checkOut" />
+                              <div class="input-group-append" data-target="#input-datetime-checkOut"
+                                data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
                 </div>
               </div>
             </div>
@@ -390,6 +477,8 @@
 <script src="plugins/toastr/toastr.min.js"></script>
 <!-- Moment -->
 <script src="plugins/moment/moment.min.js"></script>
+<!-- Tempus Dominus -->
+<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.js"></script>
 <!-- DataTables  & Plugins -->
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -410,6 +499,47 @@
 
 <script>
 $(function () {
+
+  $('#input-datetime-checkIn').datetimepicker({
+      sideBySide: true,
+      ignoreReadonly: true,
+  });
+  $('#input-datetime-checkIn input').attr('readonly', 'readonly');
+  $('#input-datetime-checkOut').datetimepicker({
+      icons: { time: 'far fa-clock' },
+      useCurrent: false
+  });
+  $('#input-datetime-checkOut input').attr('readonly', 'readonly');
+  $("#input-datetime-checkIn").on("change.datetimepicker", function (e) {
+      $('#input-datetime-checkOut').datetimepicker('minDate', e.date);
+  });
+  $("#input-datetime-checkOut").on("change.datetimepicker", function (e) {
+      $('#input-datetime-checkIn').datetimepicker('maxDate', e.date);
+  });
+  $('#input-datetime-checkIn').on("hide.datetimepicker", ({date, oldDate}) => {
+    let i = $("#rsvtn-panel-id").attr('data-index');
+    let d = table_Reservation.rows().data()[i];
+    $.post("customFiles/php/database/reservationControls/setCheckInTime.php", {"date-checkIn": date.utc().format('YYYY-MM-DD HH:mm'), rsvid: d.reservationID},
+      function (response, textStatus, jqXHR) {
+        console.log(response);        
+        Toast.fire({
+          icon: response.status,
+          title: response.message
+        });
+        if(response.isSuccessful) {
+          let target = table_Reservation.row("#"+d.reservationID);
+          target.data().checkInTime = date.format('YYYY-MM-DD HH:mm').toString();
+          target.invalidate();
+          $("#rsvtn-panel-check-in-time").html(date.format("h:mm a[<small class='d-block text-muted mb-0'>]MMM D YYYY [</small>]").toString());
+        }
+      },
+      "json"
+    );
+  });
+  $('#input-datetime-checkOut').on("change.datetimepicker", ({date, oldDate}) => {  
+    
+  });
+
   /* ChartJS
     * -------
     * Here we will create a few charts using ChartJS
@@ -495,6 +625,7 @@ $(function () {
 table_Reservation = $('#table-reservation').DataTable( {
   ajax: "customFiles/php/database/reservationControls/getReservations.php",
   dataSrc: 'data',
+  rowId: 'reservationID',
   responsive: {
     details: {
       type: 'column',
@@ -533,7 +664,10 @@ table_Reservation = $('#table-reservation').DataTable( {
     }, {
       data: 'checkOutDate'
     }, {
-      data: 'checkInTime'
+      data: 'checkInTime',
+      render:(data, type, row, meta) => {
+        return moment.utc(data  ).local().format('YYYY-MM-DD HH:mm');
+      }
     }, {
       data: 'checkOutTime'
     }, {
@@ -641,6 +775,8 @@ function updateRsvtnModal(data, rowIndex) {
   //checkin related updates
   $("#rsvtn-panel-check-in-date").html(moment(data.checkInDate).format("MMMM Do YYYY [<small class='d-block text-muted mb-0'>]dddd[</small>]").toString());
   $("#rsvtn-panel-check-out-date").html(moment(data.checkOutDate).format("MMMM Do YYYY [<small class='d-block text-muted mb-0'>]dddd[</small>]").toString());
+
+  $("#rsvtn-panel-check-in-time").html(moment.utc(data.checkInTime).format("h:mm a[<small class='d-block text-muted mb-0'>]MMM D YYYY [</small>]").toString());
 
 }
 
