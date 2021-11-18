@@ -377,7 +377,7 @@
                 </div>
                 <div class="col-6 col-md-6 mb-3">
                   <small class="d-block text-muted mb-0">Check-Out Time</small>
-                  <span id="rsvtn-panel-check-in-time" class="ml-2">
+                  <span id="rsvtn-panel-check-out-time" class="ml-2 d-block">
                     n/a
                   </span>
                 </div>
@@ -398,9 +398,9 @@
                       <div class="row">
                         <div class='col-12 col-xl-6'>
                           <div class="form-group">
-                            <small class="d-block text-muted mb-0">Check-In Time</small>
+                            <small class="d-block text-muted mb-0">Check-In Time <a href="javascript:void(0)" class="p-0 d-inline d-none" onclick="alert('reset')">Reset</a></small>
                             <div class="input-group date" id="input-datetime-checkIn" data-target-input="nearest">
-                              <input placeholder="Click the calendar button" type="text" class="form-control datetimepicker-input"
+                              <input readonly placeholder="Click the calendar button" type="text" class="form-control datetimepicker-input"
                                 data-target="#input-datetime-checkIn"/>
                               <div id="test" class="input-group-append" data-target="#input-datetime-checkIn"
                                 data-toggle="datetimepicker">
@@ -504,41 +504,74 @@ $(function () {
       sideBySide: true,
       ignoreReadonly: true,
   });
-  $('#input-datetime-checkIn input').attr('readonly', 'readonly');
+  $('#input-datetime-checkIn input').attr('readonly', true);
   $('#input-datetime-checkOut').datetimepicker({
       icons: { time: 'far fa-clock' },
+      sideBySide: true,
+      ignoreReadonly: true,
       useCurrent: false
   });
+
   $('#input-datetime-checkOut input').attr('readonly', 'readonly');
+
   $("#input-datetime-checkIn").on("change.datetimepicker", function (e) {
       $('#input-datetime-checkOut').datetimepicker('minDate', e.date);
   });
   $("#input-datetime-checkOut").on("change.datetimepicker", function (e) {
       $('#input-datetime-checkIn').datetimepicker('maxDate', e.date);
   });
+
+  $("#input-datetime-checkIn").on("show.datetimepicker", function (e) {
+    let i = $("#rsvtn-panel-id").attr('data-index');
+    let d = table_Reservation.rows().data()[i];
+    //console.log(d);
+    $('#input-datetime-checkIn').datetimepicker('minDate', moment.utc(d.checkInDate));
+  });
+
   $('#input-datetime-checkIn').on("hide.datetimepicker", ({date, oldDate}) => {
     let i = $("#rsvtn-panel-id").attr('data-index');
     let d = table_Reservation.rows().data()[i];
-    $.post("customFiles/php/database/reservationControls/setCheckInTime.php", {"date-checkIn": date.utc().format('YYYY-MM-DD HH:mm'), rsvid: d.reservationID},
+    $.post("customFiles/php/database/reservationControls/setCheckInTime.php", {"date-checkIn": moment.utc(date).format('YYYY-MM-DD HH:mm'), rsvid: d.reservationID},
       function (response, textStatus, jqXHR) {
-        console.log(response);        
+        //console.log(response);        
         Toast.fire({
           icon: response.status,
           title: response.message
         });
         if(response.isSuccessful) {
           let target = table_Reservation.row("#"+d.reservationID);
-          target.data().checkInTime = date.format('YYYY-MM-DD HH:mm').toString();
+          target.data().checkInTime = moment.utc(date).format('YYYY-MM-DD HH:mm').toString();
           target.invalidate();
+          console.log(date.format("MMM D YYYY h:mm a").toString());        
           $("#rsvtn-panel-check-in-time").html(date.format("h:mm a[<small class='d-block text-muted mb-0'>]MMM D YYYY [</small>]").toString());
         }
       },
       "json"
     );
   });
-  $('#input-datetime-checkOut').on("change.datetimepicker", ({date, oldDate}) => {  
-    
+
+  $('#input-datetime-checkOut').on("hide.datetimepicker", ({date, oldDate}) => {  
+    let i = $("#rsvtn-panel-id").attr('data-index');
+    let d = table_Reservation.rows().data()[i];
+    if(date==null) return;
+    $.post("customFiles/php/database/reservationControls/setcheckOutTime.php", {"date-checkOut": moment.utc(date).format('YYYY-MM-DD HH:mm'), rsvid: d.reservationID},
+      function (response, textStatus, jqXHR) {
+        //console.log(response);        
+        Toast.fire({
+          icon: response.status,
+          title: response.message
+        });
+        if(response.isSuccessful) {
+          let target = table_Reservation.row("#"+d.reservationID);
+          target.data().checkOutTime = moment.utc(date).format('YYYY-MM-DD HH:mm').toString();
+          target.invalidate();
+          $("#rsvtn-panel-check-out-time").html(date.format("h:mm a[<small class='d-block text-muted mb-0'>]MMM D YYYY [</small>]").toString());
+        }
+      },
+      "json"
+    );
   });
+
 
   /* ChartJS
     * -------
@@ -616,7 +649,43 @@ $(function () {
     data: lineChartData,
     options: lineChartOptions
   })
-})
+});
+
+const resetCheckIn = () => {
+    let i = $("#rsvtn-panel-id").attr('data-index');
+    let d = table_Reservation.rows().data()[i];
+    $.post("customFiles/php/database/reservationControls/removeCheckInTime.php", {rsvid: d.reservationID},
+      function (response, textStatus, jqXHR) {
+        console.log(response);
+        if(response.isSuccessful){
+          let target = table_Reservation.row("#"+d.reservationID);
+          target.data().checkInTime = "";
+          target.invalidate();
+          $("#rsvtn-panel-check-out-time").html('N/a');
+          $("#input-datetime-checkIn").datetimepicker('clear');
+        }
+      },
+      "json"
+    );
+  }
+  
+const resetCheckOut = () => {
+    let i = $("#rsvtn-panel-id").attr('data-index');
+    let d = table_Reservation.rows().data()[i];
+    $.post("customFiles/php/database/reservationControls/removeCheckOutTime.php", {rsvid: d.reservationID},
+      function (response, textStatus, jqXHR) {
+        console.log(response);
+        if(response.isSuccessful){
+          let target = table_Reservation.row("#"+d.reservationID);
+          target.data().checkOutTime = "";
+          target.invalidate();
+          $("#rsvtn-panel-check-out-time").html('N/a');
+        }
+      },
+      "json"
+    );
+  }
+
 </script>
 
 <!-- Table script -->
@@ -666,10 +735,15 @@ table_Reservation = $('#table-reservation').DataTable( {
     }, {
       data: 'checkInTime',
       render:(data, type, row, meta) => {
-        return moment.utc(data  ).local().format('YYYY-MM-DD HH:mm');
+        let valid = moment.utc(data).isValid();
+        return valid ? moment.utc(data).local().format('YYYY-MM-DD HH:mm') : "";
       }
     }, {
-      data: 'checkOutTime'
+      data: 'checkOutTime',
+      render:(data, type, row, meta) => {
+        let valid = moment.utc(data).isValid();
+        return valid ? moment.utc(data).local().format('YYYY-MM-DD HH:mm') : "";
+      }
     }, {
       data: 'numberOfNightstay',
       className: 'none'
@@ -776,8 +850,15 @@ function updateRsvtnModal(data, rowIndex) {
   $("#rsvtn-panel-check-in-date").html(moment(data.checkInDate).format("MMMM Do YYYY [<small class='d-block text-muted mb-0'>]dddd[</small>]").toString());
   $("#rsvtn-panel-check-out-date").html(moment(data.checkOutDate).format("MMMM Do YYYY [<small class='d-block text-muted mb-0'>]dddd[</small>]").toString());
 
-  $("#rsvtn-panel-check-in-time").html(moment.utc(data.checkInTime).format("h:mm a[<small class='d-block text-muted mb-0'>]MMM D YYYY [</small>]").toString());
+  if(moment.utc(data.checkInTime).isValid())
+    $("#rsvtn-panel-check-in-time").html(moment.utc(data.checkInTime).local().format("h:mm a[<small class='d-block text-muted mb-0'>]MMM D YYYY [</small>]").toString());
+  else
+    $("#rsvtn-panel-check-in-time").html("N/a");
 
+  if(moment.utc(data.checkOutTime).isValid())
+    $("#rsvtn-panel-check-out-time").html(moment.utc(data.checkOutTime).local().format("h:mm a[<small class='d-block text-muted mb-0'>]MMM D YYYY [</small>]").toString());
+  else
+    $("#rsvtn-panel-check-out-time").html("N/a");
 }
 
 $("#table-reservation").on('click', 'tbody td:not(:first-child, .child)', function() {
