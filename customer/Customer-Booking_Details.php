@@ -360,7 +360,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 							$totalPersons = $followingdata['maxAdult'] + $followingdata['maxChildren'];
 							if($_POST['seniorcitizen'] = 1 || $$_POST['seniorcitizen'] = 2){
 								$dividedRate = $totalPersons / $followingdata['rate'];
-								$dividedRateVat =  $dividedRate % 0.12;
+								$dividedRateVat =  $dividedRate / 0.12;
 								$dividedRateVatTotal = $dividedRateVat * 0.2;
 								$totalPrice = $dividedRateVat - $dividedRateVatTotal;
 							} else {
