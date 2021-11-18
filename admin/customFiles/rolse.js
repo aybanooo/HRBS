@@ -114,7 +114,7 @@ function updateRoleName(form) {
         data: {
             acid: acid,
             newRoleName: form[1].value,
-            pass: form[2].value
+            password: form[2].value
         },
         dataType: 'json',
         success: function (response) {

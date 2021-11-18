@@ -6,7 +6,10 @@ require_once __F_PERMISSION_HANDLER__;
 require_once(__F_VALIDATIONS__);
 checkAdminSideAccess();
 
-checkRequiredPOSTval("newAccessID, empID");
+checkRequiredPOSTval("newAccessID, empID, password");
+$password = $_POST["password"];
+$tokenID = getUserInfoFromToken($_COOKIE['authkn'])->id;
+validPassword($password, $tokenID, true);
 
 $newAcid = prepareForSQL($conn, $_POST["newAccessID"], 1);
 $empID = prepareForSQL($conn, $_POST["empID"], 1);

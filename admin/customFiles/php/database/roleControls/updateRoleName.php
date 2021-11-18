@@ -8,8 +8,11 @@ checkAdminSideAccess();
 
 checkPermission(__V_P_ROLES_MANAGE__, true);
 
+checkRequiredPOSTval("acid, newRoleName, password");
 
-checkRequiredPOSTval("acid, newRoleName");
+$password = $_POST["password"];
+$tokenID = getUserInfoFromToken($_COOKIE['authkn'])->id;
+validPassword($password, $tokenID, true);
 
 $newRoleName = prepareForSQL($conn, $_POST["newRoleName"]);
 $acid = prepareForSQL($conn, $_POST['acid']);

@@ -29,8 +29,8 @@ $roleName = getNewUniqueName();
 //insert new role name to access table
 if (mysqli_query($conn, "INSERT INTO access (accessname) VALUES ('$roleName');") === TRUE) {
   $insertID = mysqli_insert_id($conn);
-  $output->setSuccessful("New role have been successfuly created.");
 } else {
+  die($output->setFailed("Something went wrong while creating a role"));
   #echo "Error in sql: " . $sql . "<br>" . $conn->error;
   #$conn->close();
 }

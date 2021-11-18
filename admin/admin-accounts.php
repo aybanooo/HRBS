@@ -522,7 +522,9 @@ setupUserSession();
     });
     table.buttons().container().appendTo('#accountTable_wrapper .col-md-6:eq(0)');
 
-
+    $(function () {
+      setInterval(updateRolesCount(table),1000);
+    });
 
   var checkbox = String.raw` <div class="form-check">
                         <input type="checkbox" class="form-check-input">
@@ -610,16 +612,20 @@ $('#resetPassForm').validate({
         type: 'post',
         url: 'customFiles/php/database/userControls/resetPassword.php',
         data: {
-          empID: $("#inputResetPasswordID").val()
+          empID: $("#inputResetPasswordID").val(),
+          password: $("#inputResetPassword").val()
         },
         dataType: 'json',
         success: function (response){
+          //console.log(response);return;
           Toast.fire({
             icon: response.status,
             title: response.message
           });
-          $('#resetPassModal').click();
-          $('#resetPassForm').trigger('reset');
+          if(response.isSuccessful) {
+            $('#resetPassModal').click();
+            $('#resetPassForm').trigger('reset');
+          }
           toggleButtonDisabled($(form).find('button[type="submit"]'), "#resetPassForm", "");
         },
         error: function(XMLHttpRequest, textStatus, errorThrown) {
@@ -670,13 +676,16 @@ $('#changeAccRoleForm').validate({
         },
         dataType: "json",
         success: function (response){
-          console.log(response);
+          //console.log(response);
           table.ajax.reload();
           Toast.fire({
             icon: response.status,
             title: response.message
           });
-          $("#changeAccRoleModal").modal('hide');
+          if(response.isSuccessful) {
+            $("#changeAccRoleModal").modal('hide');
+            $('#changeAccRoleForm').trigger('reset');
+          }
           toggleButtonDisabled("#changeAccRoleForm button[type='submit']", "#changeAccRoleForm", "Saving...");
         }
       });

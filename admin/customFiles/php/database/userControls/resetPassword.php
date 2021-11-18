@@ -9,6 +9,11 @@ checkAdminSideAccess();
 
 checkPermission(__V_P_ACCOUNT_RESET_PASS__, true);
 
+checkRequiredPOSTval("empID, password");
+$password = $_POST["password"];
+$tokenID = getUserInfoFromToken($_COOKIE['authkn'])->id;
+validPassword($password, $tokenID, true);
+
 $empID = prepareForSQL($conn, $_POST['empID']);
 
 if(mysqli_num_rows($result = mysqli_query($conn, "SELECT `empID` from `empaccountdetails` LIMIT 1;")) == 0) {

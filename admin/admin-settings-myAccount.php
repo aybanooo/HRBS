@@ -1,6 +1,7 @@
 <?php
 
 require_once "customFiles/php/directories/directories.php";
+require_once __F_DB_HANDLER__;
 require_once __F_LOGIN_HANDLER__;
 
 // Redirect to login page if token is invalid
@@ -13,6 +14,29 @@ session_start();
 setupUserSession();
 
 $resetPassUrl = isAdmin() ? "/admin/customFiles/php/settingsControls/updateDefaultPassword_admin.php" : "/admin/customFiles/php/database/employeeAccountControls/changePassword.php";
+
+$tempConn = createTempDBConnection();
+$currEmpID = getUserInfoFromToken($_COOKIE['authkn'])->id;
+$currEmpID = prepareForSQL($tempConn, $currEmpID);
+if(!isAdmin()) {
+  $data = mysqli_fetch_all(mysqli_query($tempConn, "SELECT A.`contact`, B.`accessname` from `employee` A INNER JOIN `access` B ON A.`accessID`=B.`accessID` WHERE A.`empID`=$currEmpID LIMIT 1;"), MYSQLI_ASSOC)[0] ?? false;
+  if($data) {
+    $data = [
+      "acname" => $data['accessname'], 
+      "contact_number" => $data['contact']
+    ];
+  } else {
+    $data = [
+      "acname" => 'N/a', 
+      "contact_number" => 'N/a'
+    ];
+  }
+} else {
+  $data = [
+    "acname" => 'admin', 
+    "contact_number" => 'admin'
+  ];
+}
 ?>
 
 <!DOCTYPE html>
@@ -91,7 +115,7 @@ $resetPassUrl = isAdmin() ? "/admin/customFiles/php/settingsControls/updateDefau
               <!-- Add the bg color to the header using any of the bg-* classes -->
               <div class="widget-user-header bg-info">
                 <h3 class="widget-user-username"><?php print "{$_SESSION['userInfo']->first_name} {$_SESSION['userInfo']->last_name}";  ?></h3>
-                <h5 class="widget-user-desc"><?php print "{$_SESSION['userInfo']->acname}" ;?></h5>
+                <h5 class="widget-user-desc"><?php print $data['acname'];?></h5>
               </div>
               <div class="widget-user-image">
                 <img class="img-circle elevation-2" src="/admin/assets/images/profilePictures/<?php print $_SESSION['userInfo']->id.".jpg?".time() ?>" alt="User Avatar">
@@ -101,8 +125,8 @@ $resetPassUrl = isAdmin() ? "/admin/customFiles/php/settingsControls/updateDefau
                   <div class="col-4 border-right">
                     <div class="description-block">
                       <h5 class="description-header">
-                        <a class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        <?php print $_SESSION['userInfo']->contact_number;  ?>
+                        <a  id="contactNumber" class="collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        <?php print $data['contact_number'];  ?>
                         </a>
                       </h5>
                       <span class="description-text">Contact #</span>
@@ -328,9 +352,15 @@ $("#form-changePass").validate({
       $(element).removeClass('is-invalid');
     },
     submitHandler:  (form) => {
+      toggleButtonDisabled("#form-contact button[type='submit']", "#form-contact", "");
       $.post("customFiles/php/database/employeeAccountControls/changeContact.php", $(form).serialize(),
         function (response, textStatus, jqXHR) {
-          console.log(response);
+          //console.log(response);
+          toggleButtonDisabled("#form-contact button[type='submit']", "#form-contact", "");
+          if(response.isSuccessful) {
+            $("#contactNumber").html($("#inp-newContact").val());
+            $("#form-contact").trigger('reset');
+          }
           Toast.fire({
             icon: response.status,
             title: response.message,
