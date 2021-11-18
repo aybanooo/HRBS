@@ -54,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	die("PLEASE FINISH THE CAPTCHA");
 }
 
-$discount = $_POST['seniorcitizen'];
+
 $var1 = strtr($dateStart, '/', '-');
 $dateStartFinal = date("Y-m-d", strtotime($var1));
 
@@ -358,8 +358,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 							$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							$totalPersons = $followingdata['maxAdult'] + $followingdata['maxChildren'];
-
-							if($discount = 1 || $discount = 2){
+							if($_POST['seniorcitizen'] = 1 || $$_POST['seniorcitizen'] = 2){
 								$dividedRate = $totalPersons / $followingdata['rate'];
 								$dividedRateVat =  $dividedRate % 0.12;
 								$dividedRateVatTotal = $dividedRateVat * 0.2;
