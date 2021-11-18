@@ -354,7 +354,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 						</tr>
 						<tr align="right">
 							<?php
-							$query = "SELECT * FROM roomtype WHERE `name`='$name'";
+							$query = "SELECT * FROM roomtype WHERE `name`='$roomName'";
 							$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							$totalPersons = $adult['maxAdult'] + $children['maxChildren'];
