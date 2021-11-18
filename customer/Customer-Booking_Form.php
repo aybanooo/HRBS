@@ -499,12 +499,12 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<td>
 									<div id="seniorDiv">
 										<div class="form-group">
-											<input id="seniorID" type="text" placeholder="Senior Citizen ID Number" autocomplete="off">
+											<input id="discount" type="text" placeholder="Senior Citizen ID Number" autocomplete="off">
 										</div>
 									</div>
 									<div class="d-none" id="pwdDiv">
 										<div class="form-group">
-											<input id="pwdID" type="text" placeholder="PWD ID Number" autocomplete="off">
+											<input id="discount" type="text" placeholder="PWD ID Number" autocomplete="off">
 										</div>
 									</div>
 								</td>
