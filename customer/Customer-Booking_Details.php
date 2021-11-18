@@ -354,14 +354,22 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 						</tr>
 						<tr align="right">
 							<?php
-							$query = "SELECT rate FROM roomtype WHERE `name`='$roomName'";
+							$query = "SELECT * FROM roomtype WHERE `name`='$roomName'";
 							$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
+							$totalPersons = $adult['maxAdult'] + $children['maxChildren'];
 
-							$vat = $followingdata['rate'] * 0.12;
-							$serviceCharge = $followingdata['rate'] * 0.10;
-							$totalRoomRate = $days * $followingdata['rate'];
-							$totalPriceWServiceCharge = $vat + $serviceCharge + $totalRoomRate;
+							if($discount = 1 || $discount = 2){
+								$dividedRate = $totalPersons / $followingdata['rate'];
+								$dividedRateVat =  $dividedRate % 0.12;
+								$dividedRateVatTotal = $dividedRateVat * 0.2;
+								$totalPrice = $dividedRateVat - $dividedRateVatTotal;
+							} else {
+								$vat = $followingdata['rate'] * 0.12;
+								$serviceCharge = $followingdata['rate'] * 0.10;
+								$totalRoomRate = $days * $followingdata['rate'];
+								$totalPrice = $vat + $serviceCharge + $totalRoomRate;
+							}
 							?>
 							<th>Rate:</th>
 							<td><?php echo number_format($followingdata['rate'], 2,  '.', ','); ?></td>
@@ -455,7 +463,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 								</td>
 							</tr>
 							<tr align="right">
-								<td colspan="2"><input class="form-control-plaintext" type="number" value="<?php echo number_format($totalPriceWServiceCharge, 2, '.', ''); ?>" id="total" readonly="readonly" lang="en-150" /></td>
+								<td colspan="2"><input class="form-control-plaintext" type="number" value="<?php echo number_format($totalPrice, 2, '.', ''); ?>" id="total" readonly="readonly" lang="en-150" /></td>
 							</tr>
 							<tr align="right">
 								<td colspan="2">
