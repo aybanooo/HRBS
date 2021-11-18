@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$roomName = mysqli_real_escape_string($conn, $_POST['roomName']);
 		$dateStart = mysqli_real_escape_string($conn, $_POST['from']);
 		$dateEnd = mysqli_real_escape_string($conn, $_POST['to']);
-		$discount = $_POST['discount'];
+		$discount = $_POST['seniorcitizen'];
 	}
 } else {
 	die("PLEASE FINISH THE CAPTCHA");
