@@ -365,7 +365,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 								$dividedRate = $totalPersons / $followingdata['rate'];
 								$dividedRateVat =  $dividedRate / 0.12;
 								$dividedRateVatTotal = $dividedRateVat * 0.2;
-								$totalPrice = $dividedRateVat - $dividedRateVatTotal;
+								$totalPriceDiscounted = $dividedRateVat - $dividedRateVatTotal;
 							} else {
 								$totalRoomRate = $days * $followingdata['rate'];
 								$vat = $totalRoomRate * 0.12;
@@ -465,7 +465,12 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 								</td>
 							</tr>
 							<tr align="right">
-								<td colspan="2"><input class="form-control-plaintext" type="number" value="<?php echo number_format($totalPrice, 2, '.', ''); ?>" id="total" readonly="readonly" lang="en-150" /></td>
+								<td colspan="2"><input class="form-control-plaintext" type="number" value="<?php
+								if($_POST['seniorcitizen'] = 1 || $$_POST['seniorcitizen'] = 2){ 
+									echo number_format($totalPriceDiscounted, 2, '.', ''); 
+								} else { 
+									echo number_format($totalPrice, 2, '.', '');
+								}?>" id="total" readonly="readonly" lang="en-150" /></td>
 							</tr>
 							<tr align="right">
 								<td colspan="2">
