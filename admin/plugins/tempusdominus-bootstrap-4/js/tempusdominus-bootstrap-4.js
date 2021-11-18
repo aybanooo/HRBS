@@ -2251,7 +2251,7 @@ var TempusDominusBootstrap4 = function ($) {
       }
 
       if (this.input !== undefined && this.input.prop('readonly') || this._options.readonly) {
-        template.addClass('bootstrap-datetimepicker-widget-readonly');
+        //template.addClass('bootstrap-datetimepicker-widget-readonly');
       }
 
       if (this._isEnabled('s') && !this.use24Hours) {
