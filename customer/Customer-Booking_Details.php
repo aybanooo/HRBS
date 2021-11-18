@@ -360,16 +360,16 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 							$totalPersons = $followingdata['maxAdult'] + $followingdata['maxChildren'];
 							if($_POST['seniorcitizen'] = 1 || $$_POST['seniorcitizen'] = 2){
 								$totalRoomRate = $days * $followingdata['rate'];
-								$vat = $followingdata['rate'] * 0.12;
-								$serviceCharge = $followingdata['rate'] * 0.10;
+								$vat = $totalRoomRate * 0.12;
+								$serviceCharge =  $totalRoomRate * 0.10;
 								$dividedRate = $totalPersons / $followingdata['rate'];
 								$dividedRateVat =  $dividedRate / 0.12;
 								$dividedRateVatTotal = $dividedRateVat * 0.2;
 								$totalPrice = $dividedRateVat - $dividedRateVatTotal;
 							} else {
-								$vat = $followingdata['rate'] * 0.12;
-								$serviceCharge = $followingdata['rate'] * 0.10;
 								$totalRoomRate = $days * $followingdata['rate'];
+								$vat = $totalRoomRate * 0.12;
+								$serviceCharge =  $totalRoomRate * 0.10;	
 								$totalPrice = $vat + $serviceCharge + $totalRoomRate;
 							}
 							?>
