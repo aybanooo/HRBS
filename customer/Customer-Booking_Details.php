@@ -48,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$roomName = mysqli_real_escape_string($conn, $_POST['roomName']);
 		$dateStart = mysqli_real_escape_string($conn, $_POST['from']);
 		$dateEnd = mysqli_real_escape_string($conn, $_POST['to']);
+		$discount = $_POST['discount'];
 	}
 } else {
 	die("PLEASE FINISH THE CAPTCHA");
@@ -387,7 +388,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 						</tr>
 						<tr align="right">
 							<td colspan="2">
-								<hr />
+								<hr /><?php echo $discount;  ?>
 							</td>
 						</tr>
 						<tr align="right">
@@ -440,7 +441,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 								</td>
 							</tr>
 							<tr align="right">
-								<td>Incidental Charges</td>
+								<td>Senior Citizen/PWD Discount</td>
 								<td></td>
 							</tr>
 							<tr align="right">
