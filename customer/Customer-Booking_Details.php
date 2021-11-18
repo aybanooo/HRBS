@@ -350,7 +350,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 						</tr>
 						<tr align="right">
 							<th>Room:</th>
-							<td><?php echo $name; ?></td>
+							<td><?php echo $roomName; ?></td>
 						</tr>
 						<tr align="right">
 							<?php
