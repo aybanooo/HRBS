@@ -148,7 +148,6 @@ if(!roomExist($roomTypeID)) {
     header("Location: /rooms");
     die();
 }
-echo "gege";
 //echo $output->getOutputAsHTML();
 $full_room_data = getRoomAsAssoc($roomTypeID);
 //Etong part na to nagdidisplay ng HTML
