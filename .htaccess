@@ -33,7 +33,7 @@ RewriteRule ^amenities$ customer/Customer-Amenities.php [NC,L]
 
 RewriteRule ^compare$ customer/Customer-Compare.php [NC,L]
 
-RewriteRule ^rooms/(.*)$ Customer-Room_Details_Imperial.php?r=$1 [NC,L]
+RewriteRule ^rooms/(.*)$ customer/Customer-Room_Details_Imperial.php?r=$1 [NC,L]
 RewriteCond %{REQUEST_URI} ^(?!\/(admin|customer|public_assets|testing_area)\/).*
 RewriteRule ^(.+) customer/$1 [NC,L]
 
