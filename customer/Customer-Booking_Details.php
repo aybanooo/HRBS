@@ -366,7 +366,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 								//senior discount computation
 								$dividedRate =  $totalRoomRate / $totalPersons;
 								$RateofVat =  $dividedRate * 0.12;
-								$rateMinusVat = $dividedRate - $rateMinusVat;
+								$rateMinusVat = $dividedRate - $RateofVat;
 								$rateDiscount = $rateMinusVat * 0.2;
 								$rateDiscounted = $rateMinusVat - $rateDiscount;
 								$totalPrice = $totalPrice - $rateDiscounted;
