@@ -358,14 +358,16 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 							$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							$totalPersons = $followingdata['maxAdult'] + $followingdata['maxChildren'];
-							if($_POST['seniorcitizen'] = 1 || $$_POST['seniorcitizen'] = 2){
+							if($_POST['seniorcitizen'] == 1 || $_POST['seniorcitizen'] == 2){
 								$totalRoomRate = $days * $followingdata['rate'];
 								$vat = $totalRoomRate * 0.12;
 								$serviceCharge =  $totalRoomRate * 0.10;
-								$dividedRate = $totalPersons / $followingdata['rate'];
-								$dividedRateVat =  $dividedRate / 0.12;
-								$dividedRateVatTotal = $dividedRateVat * 0.2;
-								$totalPriceDiscounted = $dividedRateVat - $dividedRateVatTotal;
+								//senior discount computation
+								$dividedRate =  $totalRoomRate / $totalPersons;
+								$RateofVat =  $dividedRate * 0.12;
+								$rateMinusVat = $dividedRate - $RateMinusVat;
+								$rateDiscount = $rateMinusVat * 0.2;
+								$rateDiscounted = $rateMinusVat - $rateDiscount;
 							} else {
 								$totalRoomRate = $days * $followingdata['rate'];
 								$vat = $totalRoomRate * 0.12;
@@ -466,8 +468,8 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 							</tr>
 							<tr align="right">
 								<td colspan="2"><input class="form-control-plaintext" type="number" value="<?php
-								if($_POST['seniorcitizen'] = 1 || $$_POST['seniorcitizen'] = 2){ 
-									echo number_format($totalPriceDiscounted, 2, '.', ''); 
+								if($_POST['seniorcitizen'] == 1 || $$_POST['seniorcitizen'] == 2){ 
+									echo number_format($rateDiscounted, 2, '.', ''); 
 								} else { 
 									echo number_format($totalPrice, 2, '.', '');
 								}?>" id="total" readonly="readonly" lang="en-150" /></td>
