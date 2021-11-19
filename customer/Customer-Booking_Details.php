@@ -472,14 +472,11 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 								</td>
 							</tr>
 							<tr align="right">
-								<td colspan="2"><input class="form-control-plaintext" type="number" value="
-								<?php
-								if($seniorCitizen == 1 || $seniorCitizen == 2){ 
+								<td colspan="2"><input class="form-control-plaintext" type="number" value="<?php if($seniorCitizen == 1 || $seniorCitizen == 2){ 
 									echo number_format($totalPriceWithDiscount, 2, '.', ''); 
 								} else { 
 									echo number_format($totalPriceNoDiscount, 2, '.', '');
-								}?>
-								" id="total" readonly="readonly" lang="en-150" /></td>
+								}?>" id="total" readonly="readonly" lang="en-150" /></td>
 							</tr>
 							<tr align="right">
 								<td colspan="2">
