@@ -362,12 +362,14 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 								$totalRoomRate = $days * $followingdata['rate'];
 								$vat = $totalRoomRate * 0.12;
 								$serviceCharge =  $totalRoomRate * 0.10;
+								$totalPrice = $vat + $serviceCharge + $totalRoomRate;
 								//senior discount computation
 								$dividedRate =  $totalRoomRate / $totalPersons;
 								$RateofVat =  $dividedRate * 0.12;
-								$rateMinusVat = $dividedRate - $RateMinusVat;
+								$rateMinusVat = $dividedRate - $rateMinusVat;
 								$rateDiscount = $rateMinusVat * 0.2;
 								$rateDiscounted = $rateMinusVat - $rateDiscount;
+								$totalPrice = $totalPrice - $rateDiscounted;
 							} else {
 								$totalRoomRate = $days * $followingdata['rate'];
 								$vat = $totalRoomRate * 0.12;
@@ -454,7 +456,9 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 							</tr>
 							<tr align="right">
 								<td>Senior Citizen/PWD Discount</td>
-								<td></td>
+								<td><?php if($_POST['seniorcitizen'] == 1 || $$_POST['seniorcitizen'] == 2){ 
+									echo number_format($rateDiscounted, 2, '.', ''); ?>
+								}</td>
 							</tr>
 							<tr align="right">
 								<td colspan="2">
@@ -467,12 +471,14 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 								</td>
 							</tr>
 							<tr align="right">
-								<td colspan="2"><input class="form-control-plaintext" type="number" value="<?php
+								<td colspan="2"><input class="form-control-plaintext" type="number" value="
+								<?php
 								if($_POST['seniorcitizen'] == 1 || $$_POST['seniorcitizen'] == 2){ 
 									echo number_format($rateDiscounted, 2, '.', ''); 
 								} else { 
 									echo number_format($totalPrice, 2, '.', '');
-								}?>" id="total" readonly="readonly" lang="en-150" /></td>
+								}?>
+								" id="total" readonly="readonly" lang="en-150" /></td>
 							</tr>
 							<tr align="right">
 								<td colspan="2">
