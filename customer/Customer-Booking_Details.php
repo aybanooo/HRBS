@@ -402,6 +402,14 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 							<td>7:00 AM</td><!-- kukunin sa database -->
 						</tr>
 						<tr align="right">
+							<th>No of Adults:</th>
+							<td><?php echo $followingdata['maxAdult']; ?></td>
+						</tr>
+						<tr align="right">
+							<th>No of Childrens:</th>
+							<td><?php echo $followingdata['maxChildren']; ?></td>
+						</tr>
+						<tr align="right">
 							<td colspan="2">
 								<hr/>
 							</td>
