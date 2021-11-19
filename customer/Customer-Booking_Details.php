@@ -1,7 +1,7 @@
 <?php
 include('db.php');
 
-require_once(dirname(__FILE__,2)."/public_assets/modules/php/directories/directories.php");
+require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/directories.php");
 
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
@@ -48,43 +48,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$roomName = mysqli_real_escape_string($conn, $_POST['roomName']);
 		$dateStart = mysqli_real_escape_string($conn, $_POST['from']);
 		$dateEnd = mysqli_real_escape_string($conn, $_POST['to']);
-		
+
+		$var1 = strtr($dateStart, '/', '-');
+		$dateStartFinal = date("Y-m-d", strtotime($var1));
+
+		$var2 = strtr($dateEnd, '/', '-');
+		$dateEndFinal = date("Y-m-d", strtotime($var2));
+
+		$date1 = date_create($dateStartFinal);
+		$date2 = date_create($dateEndFinal);
+		$diff = date_diff($date1, $date2);
+		$days = $diff->format("%a");
+
+		$customerQuery = "INSERT INTO customer (fname, lname, contact, email, verified, verification) VALUES ('$firstName', '$lastName', '$contact', '$email', 'None', 'None') LIMIT 1;";
+		mysqli_query($conn, $customerQuery) or die(mysqli_error($conn));
+
+		$customerID = mysqli_insert_id($conn);
+
+		$customerQuery1 = ("INSERT INTO reservation 
+	( roomNo, customerID, numberOfNightstay, adults, children, checkInDate, checkOutDate, checkInTime, checkOutTime, dateCreated) 
+	VALUES ('0', $customerID, '$days', 'none', 'none' ,'$dateStartFinal', '$dateEndFinal', NULL, NULL, NOW()) LIMIT 1;");
+
+		mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 	}
 } else {
 	die("PLEASE FINISH THE CAPTCHA");
 }
 
-
-$var1 = strtr($dateStart, '/', '-');
-$dateStartFinal = date("Y-m-d", strtotime($var1));
-
-$var2 = strtr($dateEnd, '/', '-');
-$dateEndFinal = date("Y-m-d", strtotime($var2));
-
-$date1 = date_create($dateStartFinal);
-$date2 = date_create($dateEndFinal);
-$diff = date_diff($date1, $date2);
-$days = $diff->format("%a");
-
-$customerQuery = "INSERT INTO customer (fname, lname, contact, email, verified, verification) VALUES ('$firstName', '$lastName', '$contact', '$email', 'None', 'None') LIMIT 1;";
-mysqli_query($conn, $customerQuery) or die(mysqli_error($conn));
-
-$customerID = mysqli_insert_id($conn);
-
-$customerQuery1 = ("INSERT INTO reservation 
-	( roomNo, customerID, numberOfNightstay, adults, children, checkInDate, checkOutDate, checkInTime, checkOutTime, dateCreated) 
-	VALUES ('0', $customerID, '$days', 'none', 'none' ,'$dateStartFinal', '$dateEndFinal', NULL, NULL, NOW()) LIMIT 1;");
-
-mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
-
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
 
-<head>	
-    <?php 
-		require_once(dirname(__FILE__, 2)."/public_assets/modules/php/directories/directories.php");
-		include_once(__D_UI__."js/analytics.php"); 
+<head>
+	<?php
+	require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/directories.php");
+	include_once(__D_UI__ . "js/analytics.php");
 	?>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -358,8 +356,8 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 							$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							$totalPersons = $followingdata['maxAdult'] + $followingdata['maxChildren'];
-							$seniorCitizen = isset($_POST['seniorcitizen'])?$_POST['seniorcitizen']:""; 
-							if($seniorCitizen == 1 || $seniorCitizen == 2){
+							$seniorCitizen = isset($_POST['seniorcitizen']) ? $_POST['seniorcitizen'] : "";
+							if ($seniorCitizen == 1 || $seniorCitizen == 2) {
 								$totalRoomRate = $days * $followingdata['rate'];
 								$vat = $totalRoomRate * 0.12;
 								$serviceCharge =  $totalRoomRate * 0.10;
@@ -374,7 +372,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 							} else {
 								$totalRoomRate = $days * $followingdata['rate'];
 								$vat = $totalRoomRate * 0.12;
-								$serviceCharge =  $totalRoomRate * 0.10;	
+								$serviceCharge =  $totalRoomRate * 0.10;
 								$totalPriceNoDiscount = $vat + $serviceCharge + $totalRoomRate;
 							}
 							?>
@@ -411,7 +409,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 						</tr>
 						<tr align="right">
 							<td colspan="2">
-								<hr/>
+								<hr />
 							</td>
 						</tr>
 						<tr align="right">
@@ -465,9 +463,9 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 							</tr>
 							<tr align="right">
 								<td>Senior Citizen/PWD Discount</td>
-								<td><?php if($seniorCitizen == 1 || $seniorCitizen == 2){ 
-									echo number_format($rateDiscounted, 2, '.', ''); 
-								} ?> </td>
+								<td><?php if ($seniorCitizen == 1 || $seniorCitizen == 2) {
+										echo number_format($rateDiscounted, 2, '.', '');
+									} ?> </td>
 							</tr>
 							<tr align="right">
 								<td colspan="2">
@@ -480,11 +478,11 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 								</td>
 							</tr>
 							<tr align="right">
-								<td colspan="2"><input class="form-control-plaintext" type="number" value="<?php if($seniorCitizen == 1 || $seniorCitizen == 2){ 
-									echo number_format($totalPriceWithDiscount, 2, '.', ''); 
-								} else { 
-									echo number_format($totalPriceNoDiscount, 2, '.', '');
-								}?>" id="total" readonly="readonly" lang="en-150" /></td>
+								<td colspan="2"><input class="form-control-plaintext" type="number" value="<?php if ($seniorCitizen == 1 || $seniorCitizen == 2) {
+																												echo number_format($totalPriceWithDiscount, 2, '.', '');
+																											} else {
+																												echo number_format($totalPriceNoDiscount, 2, '.', '');
+																											} ?>" id="total" readonly="readonly" lang="en-150" /></td>
 							</tr>
 							<tr align="right">
 								<td colspan="2">
