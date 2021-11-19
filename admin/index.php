@@ -398,7 +398,7 @@
                       <div class="row">
                         <div class='col-12 col-xl-6'>
                           <div class="form-group">
-                            <small class="d-block text-muted mb-0">Check-In Time <a href="javascript:void(0)" class="p-0 d-inline d-none" onclick="alert('reset')">Reset</a></small>
+                            <small class="d-block text-muted mb-0">Check-In Time <a href="javascript:void(0)" class="p-0 d-inline d-none" onclick="resetCheckIn()">Reset</a></small>
                             <div class="input-group date" id="input-datetime-checkIn" data-target-input="nearest">
                               <input readonly placeholder="Click the calendar button" type="text" class="form-control datetimepicker-input"
                                 data-target="#input-datetime-checkIn"/>
@@ -411,7 +411,7 @@
                         </div>
                         <div class='col-12 col-xl-6'>
                           <div class="form-group">
-                            <small class="d-block text-muted mb-0">Check-Out Time</small>
+                            <small class="d-block text-muted mb-0">Check-Out Time <a href="javascript:void(0)" class="p-0 d-inline d-none" onclick="resetCheckOut()">Reset</a></small>
                             <div class="input-group date" id="input-datetime-checkOut" data-target-input="nearest">
                               <input placeholder="Click the calendar button" type="text" class="form-control datetimepicker-input"
                                 data-target="#input-datetime-checkOut" />
@@ -503,6 +503,7 @@ $(function () {
   $('#input-datetime-checkIn').datetimepicker({
       sideBySide: true,
       ignoreReadonly: true,
+      useCurrent: false
   });
   $('#input-datetime-checkIn input').attr('readonly', true);
   $('#input-datetime-checkOut').datetimepicker({
@@ -524,13 +525,38 @@ $(function () {
   $("#input-datetime-checkIn").on("show.datetimepicker", function (e) {
     let i = $("#rsvtn-panel-id").attr('data-index');
     let d = table_Reservation.rows().data()[i];
+    console.log(moment().isSameOrAfter(moment(d.checkInDate)));
+    if(moment().isSameOrAfter(moment(d.checkInDate))) {
+      $('#input-datetime-checkIn').data('datetimepicker').date(moment());
+    } else {
+      console.log("pasok");
+      $('#input-datetime-checkIn').data('datetimepicker').date(moment(d.checkInDate));
+    }
+    if(d)
+    $('#input-datetime-checkIn').datetimepicker('minDate', moment(d.checkInDate));
+  });
+
+  $("#input-datetime-checkOut").on("show.datetimepicker", function (e) {
+    let i = $("#rsvtn-panel-id").attr('data-index');
+    let d = table_Reservation.rows().data()[i];
     //console.log(d);
-    $('#input-datetime-checkIn').datetimepicker('minDate', moment.utc(d.checkInDate));
+    let checkInHaveVal = $('#input-datetime-checkIn').data('datetimepicker').date() != null;
+    if(checkInHaveVal) {
+      console.log(">>", moment.utc(d.checkInTime).toString());
+      if(moment().isSameOrAfter( $('#input-datetime-checkIn').data('datetimepicker').date() ))
+        $('#input-datetime-checkOut').data('datetimepicker').date(moment());
+      else
+        $('#input-datetime-checkOut').data('datetimepicker').date( $('#input-datetime-checkIn').data('datetimepicker').date() );
+    } else {
+      $('#input-datetime-checkOut').data('datetimepicker').date(moment(d.checkOutDate));
+    }
   });
 
   $('#input-datetime-checkIn').on("hide.datetimepicker", ({date, oldDate}) => {
     let i = $("#rsvtn-panel-id").attr('data-index');
     let d = table_Reservation.rows().data()[i];
+    if(date==null) return;
+    if(date.isSame(moment.utc(d.checkInTime))) return;
     $.post("customFiles/php/database/reservationControls/setCheckInTime.php", {"date-checkIn": moment.utc(date).format('YYYY-MM-DD HH:mm'), rsvid: d.reservationID},
       function (response, textStatus, jqXHR) {
         //console.log(response);        
@@ -554,6 +580,7 @@ $(function () {
     let i = $("#rsvtn-panel-id").attr('data-index');
     let d = table_Reservation.rows().data()[i];
     if(date==null) return;
+    if(date.isSame(moment.utc(d.checkOutTime))) return;
     $.post("customFiles/php/database/reservationControls/setcheckOutTime.php", {"date-checkOut": moment.utc(date).format('YYYY-MM-DD HH:mm'), rsvid: d.reservationID},
       function (response, textStatus, jqXHR) {
         //console.log(response);        
@@ -651,18 +678,37 @@ $(function () {
   })
 });
 
+const resetCheckInOutPicker = (option = 0) => {
+  switch (option) {
+    case 1:
+      $('#input-datetime-checkIn').datetimepicker('clear');
+      break;
+    case 2:
+      $('#input-datetime-checkOut').datetimepicker('clear');
+      break;
+    default:
+      $('#input-datetime-checkIn').datetimepicker('clear');
+      $('#input-datetime-checkOut').datetimepicker('clear');
+      break;
+  }
+}
+
 const resetCheckIn = () => {
     let i = $("#rsvtn-panel-id").attr('data-index');
     let d = table_Reservation.rows().data()[i];
     $.post("customFiles/php/database/reservationControls/removeCheckInTime.php", {rsvid: d.reservationID},
       function (response, textStatus, jqXHR) {
         console.log(response);
+        Toast.fire({
+          icon: response.status,
+          title: response.message
+        });
         if(response.isSuccessful){
           let target = table_Reservation.row("#"+d.reservationID);
           target.data().checkInTime = "";
           target.invalidate();
-          $("#rsvtn-panel-check-out-time").html('N/a');
-          $("#input-datetime-checkIn").datetimepicker('clear');
+          $("#rsvtn-panel-check-in-time").html('N/a');
+          resetCheckInOutPicker(1);
         }
       },
       "json"
@@ -675,11 +721,16 @@ const resetCheckOut = () => {
     $.post("customFiles/php/database/reservationControls/removeCheckOutTime.php", {rsvid: d.reservationID},
       function (response, textStatus, jqXHR) {
         console.log(response);
+        Toast.fire({
+          icon: response.status,
+          title: response.message
+        });
         if(response.isSuccessful){
           let target = table_Reservation.row("#"+d.reservationID);
           target.data().checkOutTime = "";
           target.invalidate();
           $("#rsvtn-panel-check-out-time").html('N/a');
+          resetCheckInOutPicker(2);
         }
       },
       "json"
@@ -859,6 +910,15 @@ function updateRsvtnModal(data, rowIndex) {
     $("#rsvtn-panel-check-out-time").html(moment.utc(data.checkOutTime).local().format("h:mm a[<small class='d-block text-muted mb-0'>]MMM D YYYY [</small>]").toString());
   else
     $("#rsvtn-panel-check-out-time").html("N/a");
+  console.log(data);
+  if(data.checkInTime!="")
+    $('#input-datetime-checkIn').data('datetimepicker').date(moment.utc(data.checkInTime).local());
+  else
+    resetCheckInOutPicker();
+  if(data.checkOutTime!="")
+    $('#input-datetime-checkOut').data('datetimepicker').date(moment.utc(data.checkOutTime).local());
+  else
+    resetCheckInOutPicker();
 }
 
 $("#table-reservation").on('click', 'tbody td:not(:first-child, .child)', function() {
@@ -866,7 +926,6 @@ $("#table-reservation").on('click', 'tbody td:not(:first-child, .child)', functi
   let data = table_Reservation.row( target ).data();
   let max = table_Reservation.rows().data().length;
   let rowIndex = table_Reservation.rows({ order: 'current' } ).nodes().indexOf(target[0]);
-  console.log(rowIndex);
   updateRsvtnModal(data, rowIndex);
   $("#btn-modal-rsvtn-prev").attr('disabled','');
   $("#btn-modal-rsvtn-next").attr('disabled','');
@@ -885,6 +944,7 @@ function nextRecord() {
     $("#btn-modal-rsvtn-next").removeAttr('disabled');
   }
   let data = table_Reservation.rows().data()[currentIndex+1];
+  resetCheckInOutPicker();
   updateRsvtnModal(data, currentIndex+1);
 }
 
@@ -898,6 +958,7 @@ function prevRecord() {
     $("#btn-modal-rsvtn-prev").removeAttr('disabled');
   }
   let data = table_Reservation.rows().data()[currentIndex-1];
+  resetCheckInOutPicker();
   updateRsvtnModal(data, currentIndex-1);
 }
 
