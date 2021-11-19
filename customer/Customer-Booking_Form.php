@@ -291,16 +291,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			-o-transform: translate(-50%, 0);
 			transform: translate(-50%, 0%) !important;
 		}
-
-		div#ui-datepicker-div {
-			color: #000000;
-		}
-
-		a.ui-state-default {
-			color: #000000;
-			background-color: #ffffff;
-			;
-		}
 	</style>
 
 	<title>Booking Details</title>
@@ -316,7 +306,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			</button>
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
-					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare.html">Compare</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare.php">Compare</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Rooms.php">Rooms</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Amenities.php">Amenities</a></li>
 				</ul>
@@ -328,7 +318,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		<div class="bookForm">
 			<div class="row">
 				<div class="col-lg-3 mx-auto">
-					<a class="return" href="Customer-Room_Details_Imperial.html">
+					<a class="return" href="Customer-Rooms.php">
 						< Back to Room</a>
 				</div>
 				<div class="col-lg-6 mx-auto">
@@ -349,18 +339,18 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								</td>
 							</tr>
 							<tr align="right">
-								<th><label for="date">Check In Date:</label></th>
+								<th>Check In Date:</th>
 								<td>
 									<div class="form-group">
-										<input type="text" name="date_picker1" id="date_picker1" required>
+										<input type="text" name="from" id="from" required autocomplete="off" placeholder="DD-MM-YY">
 									</div>
 								</td>
 							</tr>
 							<tr align="right">
-								<th><label for="date">Check Out Date:</label></th>
+								<th>Check Out Date:</th>
 								<td>
 									<div class="form-group">
-										<input type="text" name="date_picker2" id="date_picker2" required>
+										<input type="text" name="to" id="to" required autocomplete="off" placeholder="DD-MM-YY">
 									</div>
 								</td>
 							</tr>
@@ -437,9 +427,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<?php
 								if (isset($_POST['fname'])) {
 									$firstname = $_POST['fname'];
-									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" value="' . $firstname . '"></td>';
+									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" value="' . $firstname . '" autocomplete="off"></td>';
 								} else {
-									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" required></td>';
+									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" required autocomplete="off"></td>';
 								}
 								?>
 							</tr>
@@ -448,9 +438,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<?php
 								if (isset($_POST['lname'])) {
 									$lastname = $_POST['lname'];
-									echo '<td><input id="lname" type="text" name="lname" placeholder="Last Name" value="' . $lastname . '"></td>';
+									echo '<td><input id="lname" type="text" name="lname" placeholder="Last Name" value="' . $lastname . '" autocomplete="off"></td>';
 								} else {
-									echo '<td><input id="lname" type="text" name="lname" placeholder="Last Name" required></td>';
+									echo '<td><input id="lname" type="text" name="lname" placeholder="Last Name" required autocomplete="off"></td>';
 								}
 								?>
 							</tr>
@@ -459,9 +449,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<?php
 								if (isset($_POST['cnumber'])) {
 									$contact = $_POST['cnumber'];
-									echo '<td><input id="cnumber" type="text" name="cnumber" placeholder="Contact Number" value="' . $contact . '"></td>';
+									echo '<td><input id="cnumber" type="text" name="cnumber" placeholder="Contact Number" value="' . $contact . '" autocomplete="off"></td>';
 								} else {
-									echo '<td><input id="cnumber" type="text" name="cnumber" placeholder="Contact Number" required></td>';
+									echo '<td><input id="cnumber" type="text" name="cnumber" placeholder="Contact Number" required autocomplete="off"></td>';
 								}
 								?>
 							</tr>
@@ -470,14 +460,45 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<?php
 								if (isset($_POST['email'])) {
 									$email = $_POST['email'];
-									echo '<td><input id="email" type="email" name="email" placeholder="Email Address" value="' . $email . '"></td>';
+									echo '<td><input id="email" type="email" name="email" placeholder="Email Address" value="' . $email . '" autocomplete="off"></td>';
 								} else {
-									echo '<td><input id="email" type="email" name="email" placeholder="Email Address" required></td>';
+									echo '<td><input id="email" type="email" name="email" placeholder="Email Address" required autocomplete="off"></td>';
 								}
 								?>
 							</tr>
 							<tr>
-								<td><br></td>
+								<td colspan="2">
+									<hr>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<h4><b>Senior Citizen and Person with Disability (Optional)</b></h4>
+								</td>
+							</tr>
+							<tr>
+								<td><input id="senior" type="radio" name="seniorcitizen" value="radio1">
+									<label for="senior">With Senior Citizen</label>
+									<input id="pwd" type="radio" name="seniorcitizen" value="radio2">
+									<label for="pwd">With PWD</label>
+								</td>
+								<td>
+									<div id="seniorDiv">
+										<div class="form-group">
+											<input id="seniorID" type="text" placeholder="Senior Citizen ID Number" autocomplete="off" disabled="true">
+										</div>
+									</div>
+									<div class="d-none" id="pwdDiv">
+										<div class="form-group">
+											<input id="pwdID" type="text" placeholder="PWD ID Number" autocomplete="off">
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<br>
+								</td>
 							</tr>
 							<tr align="right">
 								<td colspan="2">
@@ -556,28 +577,48 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	}
 </script>
 <script>
-	$(document).ready(function() {
-		var startDate;
-		var endDate;
-		$("#date_picker1").datepicker({
+	$(function() {
+		let $dt1 = $("#from").datepicker({
+			changeMonth: true,
+			numberOfMonths: 1,
+			minDate: +2,
 			dateFormat: 'dd-mm-yy',
-			maxDate: '365',
-			minDate: '+5'
-		})
-		$("#date_picker2").datepicker({
-			dateFormat: 'dd-mm-yy',
-			maxDate: '365',
-			minDate: '+5'
+
+			onSelect: function(dateString, instance) {
+				let date = $dt1.datepicker('getDate');
+				date.setDate(date.getDate() + 1)
+				$dt2.datepicker('option', 'minDate', date);
+			}
 		});
-		$('#date_picker1').change(function() {
-			startDate = $(this).datepicker('getDate');
-			$("#date_picker1").datepicker("option", "minDate", startDate);
-		})
-		$('#date_picker2').change(function() {
-			endDate = $(this).datepicker('getDate');
-			$("#date_picker2").datepicker("option", "maxDate", endDate);
-		})
+		var $dt2 = $("#to").datepicker({
+			dateFormat: 'dd-mm-yy',
+		});
+	});
+</script>
+<Script>
+	$(`input[type="radio"][name="seniorcitizen"]`).on('click', function() {
+		if ($(this).val() == 1) {
+			$('#seniorDiv').removeClass('d-none');
+			$('#pwdDiv').removeClass('d-none').addClass('d-none');
+
+		} else {
+			$('#pwdDiv').removeClass('d-none');
+			$('#seniorDiv').removeClass('d-none').addClass('d-none');
+		}
 	})
+</Script>
+<script>
+	$(document).ready(function() {
+		$('input[type=radio][name=seniorcitizen]').click(function() {
+			var related_class = $(this).val();
+			$('.' + related_class).prop('disabled', false);
+
+			$('input[type=radio][name=seniorcitizen]').not(':checked').each(function() {
+				var other_class = $(this).val();
+				$('.' + other_class).prop('disabled', true);
+			});
+		});
+	});
 </script>
 
 </html>

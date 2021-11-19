@@ -21,7 +21,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="css/styles.css" rel="stylesheet" />
-    <link rel="stylesheet" href="dist/simplepicker.css">
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/cupertino/jquery-ui.css">
 
 
     <style type="text/css">
@@ -102,6 +102,19 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             white-space: pre;
         }
 
+        input#from,
+        input#to {
+            width: 100%;
+            font-size: 1.25rem;
+            outline-color: #999;
+            border: #999;
+            background-color: #E5E8E8;
+            border-radius: 3px;
+            text-align: center;
+            margin: 0 auto;
+            display: block;
+        }
+
         .btndate {
             border: none;
             background: white;
@@ -132,6 +145,10 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             text-align: center;
         }
 
+        .form-group {
+            margin: 1% 1%;
+        }
+
         input[type=submit] {
             border: none;
             outline: 0;
@@ -153,6 +170,16 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             background-color: #2471A3;
             transition: 0.3s;
             transform: scale(1.005);
+        }
+
+        div#ui-datepicker-div {
+            color: #000000;
+        }
+
+        a.ui-state-default {
+            color: #000000;
+            background-color: #ffffff;
+            ;
         }
     </style>
 </head>
@@ -193,17 +220,16 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                     <h2 class="text-white mb-4">Check Available Dates</h2>
                     <div class="timefeature">
                         <div class="timebox">
-                            <button class="btndate button-1">&#128197 </button><input type="text" disabled placeholder="Check-in" id="test1" />
-                            <div class="picker-1 picker"></div>
+                            <div class="form-group">
+                                <input type="text" name="from" id="from" required="" autocomplete="off" placeholder="DD-MM-YY">
+                            </div>
+
                             <br>
-
-                            <button class="btndate button-2">&#128197 </button><input type="text" disabled placeholder="Check-out" id="test2" />
-                            <div class="picker-2 picker"></div>
-
-                            <input type="text" placeholder="Promo code" />
+                            <div class="form-group">
+                                <input type="text" name="to" id="to" required autocomplete="off" placeholder="DD-MM-YY">
+                            </div>
                         </div>
-
-                        <a class="btn btn-primary js-scroll-trigger" href="A.0-Customer-Rooms.html">Book A Room</a>
+                        <a class="btn btn-primary js-scroll-trigger" href="Customer-Rooms.php">Book A Room</a>
                     </div>
                 </div>
             </div>
@@ -271,7 +297,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             <div class="row">
                 <div class="col-md-10 col-lg-8 mx-auto text-center">
                     <div id="map"></div>
-                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIwzALxUPNbatRBj3Xi1Uhp0fFzwWNBkE&callback=initMap&libraries=&v=weekly" async></script>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&callback=initMap&libraries=&v=weekly&channel=2" async></script>
                 </div>
             </div>
         </div>
@@ -301,59 +327,67 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             </div>
         </div>
     </div>
-    <!-- Bootstrap core JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Third party plugin JS-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <!-- Core theme JS-->
-    <script src="js/scripts.js"></script>
 </body>
+<!-- Bootstrap core JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Third party plugin JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+<!--daterange-->
+<script src="/public_assets/modules/libraries/daterangepicker/daterangepicker.js"></script>
+<!--moments-->
+<script src="/public_assets/modules/libraries/moment/moment.min.js"></script>
+<script src="/public_assets/modules/libraries/moment/locales.js"></script>
+<script src="/public_assets/modules/libraries/moment/moment-timezone.js"></script>
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-</html>
-<script src="dist/simplepicker.js"></script>
+
 <script>
-    let simplepicker1 = new SimplePicker(".picker-1", {
-        zIndex: 10
-    });
+    $(function() {
+        let $dt1 = $("#from").datepicker({
+            changeMonth: true,
+            numberOfMonths: 1,
+            minDate: +2,
+            dateFormat: 'dd-mm-yy',
 
-    let simplepicker2 = new SimplePicker(".picker-2", {
-        zIndex: 10
-    });
-
-    const $button1 = document.querySelector('.button-1');
-    $button1.addEventListener('click', (e) => {
-        simplepicker1.open();
-    });
-
-    simplepicker1.on("submit", function(date, readableDate) {
-        var input = document.querySelector('#test1');
-        input.value = readableDate;
-    });
-
-    const $button2 = document.querySelector('.button-2');
-    $button2.addEventListener('click', (e) => {
-        simplepicker2.open();
-    });
-
-    simplepicker2.on("submit", function(date, readableDate) {
-        var input = document.querySelector('#test2');
-        input.value = readableDate;
+            onSelect: function(dateString, instance) {
+                let date = $dt1.datepicker('getDate');
+                date.setDate(date.getDate() + 1)
+                $dt2.datepicker('option', 'minDate', date);
+            }
+        });
+        var $dt2 = $("#to").datepicker({
+            dateFormat: 'dd-mm-yy',
+        });
     });
 </script>
 <script>
     function initMap() {
-        const uluru = {
-            lat: <?php echo $followingdata['latitude']; ?> ,
+        // The location of Uluru
+        /*const uluru = {
+            lat: <?php echo $followingdata['latitude']; ?>,
             lng: <?php echo $followingdata['longitude']; ?>
-        };
+        };*/
+        const uluru = { lat: -25.362, lng: 131.526 };
+        
+        // The map, centered at Uluru
         const map = new google.maps.Map(document.getElementById("map"), {
             zoom: 15,
             center: uluru,
         });
+        // The marker, positioned at Uluru
         const marker = new google.maps.Marker({
             position: uluru,
             map: map,
         });
     }
 </script>
+
+</html>
