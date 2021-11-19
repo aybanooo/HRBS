@@ -457,8 +457,8 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 							<tr align="right">
 								<td>Senior Citizen/PWD Discount</td>
 								<td><?php if($_POST['seniorcitizen'] == 1 || $$_POST['seniorcitizen'] == 2){ 
-									echo number_format($rateDiscounted, 2, '.', ''); ?>
-								}</td>
+									echo number_format($rateDiscounted, 2, '.', ''); 
+								} ?> </td>
 							</tr>
 							<tr align="right">
 								<td colspan="2">
