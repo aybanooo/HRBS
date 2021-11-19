@@ -397,35 +397,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<th><label>Price:</label></th>
 								<td id="ans"></td>
 							</tr>
-							<tr align="right">
-								<th></th>
-								<td class="d-flex justify-content-center">
-									<div class="btn-group">
-										<button class="btn btn-default d-block m-2" style="padding: 5px;" data-toggle="dropdown">Add another room</button>
-										<ul class="dropdown-menu dropdown-menu-center" style="width: max-content;">
-											<div class="container" id="addRoomDiv">
-												<?php
-												$query = "SELECT * FROM roomtype;";
-												$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-												while ($row = mysqli_fetch_assoc($result)) {
-												?>
-													<div class="row">
-														<div class="col">
-															<div class="d-flex justify-content-between">
-																<a class="d-inline-block mr-2" href="javascript: void(0)">
-																	<h5 class="m-0" style="line-height: 29.2px;"><?php echo $row["name"]; ?></h5>
-																</a>
-															</div>
-														</div>
-													</div>
-												<?php
-												}
-												?>
-											</div>
-										</ul>
-									</div>
-								</td>
-							</tr>
 							<tr>
 								<td colspan="2">
 									<hr>
