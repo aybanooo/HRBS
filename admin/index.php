@@ -911,11 +911,11 @@ function updateRsvtnModal(data, rowIndex) {
   else
     $("#rsvtn-panel-check-out-time").html("N/a");
   console.log(data);
-  if(data.checkInTime!="")
+  if(data.checkInTime!="" && data.checkInTime!=null)
     $('#input-datetime-checkIn').data('datetimepicker').date(moment.utc(data.checkInTime).local());
   else
     resetCheckInOutPicker();
-  if(data.checkOutTime!="")
+  if(data.checkOutTime!="" && data.checkInTime!=null)
     $('#input-datetime-checkOut').data('datetimepicker').date(moment.utc(data.checkOutTime).local());
   else
     resetCheckInOutPicker();
