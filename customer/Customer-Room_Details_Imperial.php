@@ -186,7 +186,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                     </div>
                                     <div class="col-lg-4 mx-auto">
 
-                                        <h3 id="name" class="p-3"><?php echo $followingdata['name']; ?></h3>
+                                        <h3 id="name" class="p-3"><?php print $full_room_data['basicInfo']['name']; ?></h3>
                                     </div>
                                     <div class="col-lg-4 mx-auto">
                                         <a href="Customer-Booking_Form.php"><button type="button" class="btn btn-success">Book Now</button></a>
@@ -212,7 +212,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                             <div class="row mt-4">
                                 <div class="col">
                                     <label>Description</label>
-                                    <p rows="3 style=" resize: none; margin-top: 0px; margin-bottom: 0px; height: 100px;"><?php echo $followingdata['desc']; ?></p>
+                                    <p rows="3 style=" resize: none; margin-top: 0px; margin-bottom: 0px; height: 100px;"><?php print $full_room_data['basicInfo']['desc']; ?></p>
                                 </div>
                             </div>
                             <!-- Row 2 end-->
@@ -225,19 +225,19 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title"><b>Rate</b></h4>
-                                        <p class="card-text"><?php echo $followingdataGuest["rate"]; ?></p>
+                                        <p class="card-text"><?php print $full_room_data['basicInfo']['rate']; ?></p>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title"><b>Adult</b></h4>
-                                        <p class="card-text"><?php echo $followingdataGuest["maxAdult"]; ?></p>
+                                        <p class="card-text"><?php print $full_room_data['basicInfo']['maxAdult']; ?></p>
                                     </div>
                                 </div>
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="card-title"><b>Children</b></h4>
-                                        <p class="card-text"><?php echo $followingdataGuest["maxChildren"]; ?> </p>
+                                        <p class="card-text"><?php print $full_room_data['basicInfo']['maxChildren']; ?> </p>
                                     </div>
                                 </div>
                             </div>
