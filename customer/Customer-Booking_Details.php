@@ -358,7 +358,8 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 							$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							$totalPersons = $followingdata['maxAdult'] + $followingdata['maxChildren'];
-							if($_POST['seniorcitizen'] == 1 || $_POST['seniorcitizen'] == 2){
+							$seniorCitizen = isset($_POST['seniorcitizen'])?$_POST['seniorcitizen']:""; 
+							if($seniorCitizen == 1 || $seniorCitizen == 2){
 								$totalRoomRate = $days * $followingdata['rate'];
 								$vat = $totalRoomRate * 0.12;
 								$serviceCharge =  $totalRoomRate * 0.10;
@@ -456,7 +457,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 							</tr>
 							<tr align="right">
 								<td>Senior Citizen/PWD Discount</td>
-								<td><?php if($_POST['seniorcitizen'] == 1 || $$_POST['seniorcitizen'] == 2){ 
+								<td><?php if($seniorCitizen == 1 || $seniorCitizen == 2){ 
 									echo number_format($rateDiscounted, 2, '.', ''); 
 								} ?> </td>
 							</tr>
@@ -473,7 +474,7 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 							<tr align="right">
 								<td colspan="2"><input class="form-control-plaintext" type="number" value="
 								<?php
-								if($_POST['seniorcitizen'] == 1 || $$_POST['seniorcitizen'] == 2){ 
+								if($seniorCitizen == 1 || $seniorCitizen == 2){ 
 									echo number_format($rateDiscounted, 2, '.', ''); 
 								} else { 
 									echo number_format($totalPrice, 2, '.', '');
