@@ -3,7 +3,7 @@ public_assets/rooms/*
 public_assets/amenities/*
 public_assets/images/*
 !public_assets/defaults/
-testing_area/
+Testing Area/
 .vscode
 admin/assets/images/profilePictures/*
 <<<<<<< HEAD
