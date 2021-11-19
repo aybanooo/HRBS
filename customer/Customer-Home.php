@@ -198,9 +198,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare.php">Compare</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Rooms.php">Rooms</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Amenities.php">Amenities</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/compare">Compare</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/rooms">Rooms</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/amenities">Amenities</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#map">Location</a></li>
                 </ul>
             </div>
@@ -237,7 +237,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                 <input type="text" name="to" id="to" required autocomplete="off" placeholder="DD-MM-YY">
                             </div>
                         </div>
-                        <a class="btn btn-primary js-scroll-trigger" href="Customer-Rooms.php">Book A Room</a>
+                        <a class="btn btn-primary js-scroll-trigger" href="/rooms">Book A Room</a>
                     </div>
                 </div>
             </div>

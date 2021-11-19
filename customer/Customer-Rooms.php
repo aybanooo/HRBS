@@ -163,16 +163,16 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 <body>
 		<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="Customer-Home.php"><?php echo $followingdata['companyName']; ?></a>
+                <a class="navbar-brand js-scroll-trigger" href="/"><?php echo $followingdata['companyName']; ?></a>
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare.php">Compare</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/compare">Compare</a></li>
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="#rooms">Rooms</a></li>
-                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Amenities.php">Amenities</a></li>
+                        <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/amenities">Amenities</a></li>
                     </ul>
                 </div>
             </div>
@@ -195,7 +195,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 									<h1><b><?php echo $row["name"]; ?></b></h1>
 								</div>
 								<div class="col-sm-4">
-									<a href='Customer-Room_Details_Imperial.php?r=<?php echo $tfedID; ?>'><button type="button" class="btn btn-primary" >Book a Room</button></a>
+									<a href='/rooms/<?php echo $tfedID; ?>'><button type="button" class="btn btn-primary" >Book a Room</button></a>
 								</div>
 							</div>	
 								<p style="overflow-y: scroll; height: 175px;"><?php echo $row["desc"]; ?></p>

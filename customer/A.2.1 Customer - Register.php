@@ -197,7 +197,7 @@ $queryFooter="SELECT * FROM socialMedias";
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="compare.html">Compare</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="A.0-Customer-Rooms.html">Rooms</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/rooms">Rooms</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger" href="A.1 Customer - Amenities.html">Amenities</a></li>
                     <li class="nav-item"><a class="nav-link js-scroll-trigger active" href="A.2 Customer - Logina.html">Login</a></li>
                 </ul>

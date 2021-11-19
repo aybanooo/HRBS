@@ -392,8 +392,8 @@
 																	<tr>
 																		<td
 																			style="padding-bottom:20px;padding-top:20px;text-align:left;">
-																			<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://ghrbs.site/customer/Customer-Rooms.php" style="height:42px;width:150px;v-text-anchor:middle;" arcsize="10%" stroke="false" fillcolor="#3AAEE0"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#FFFFFF; font-family:Arial, sans-serif; font-size:14px"><![endif]--><a
-																				href="https://ghrbs.site/customer/Customer-Rooms.php"
+																			<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://ghrbs.site/rooms" style="height:42px;width:150px;v-text-anchor:middle;" arcsize="10%" stroke="false" fillcolor="#3AAEE0"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#FFFFFF; font-family:Arial, sans-serif; font-size:14px"><![endif]--><a
+																				href="https://ghrbs.site/rooms"
 																				target="_blank"
 																				style="text-decoration:none;display:inline-block;color:#FFFFFF;background-color:#3AAEE0;border-radius:4px;width:auto;border-top:1px solid #3AAEE0;border-right:1px solid #3AAEE0;border-bottom:1px solid #3AAEE0;border-left:1px solid #3AAEE0;padding-top:5px;padding-bottom:5px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;"><span
 																					style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;letter-spacing:normal;"><span
@@ -497,8 +497,8 @@
 																	<tr>
 																		<td
 																			style="padding-bottom:20px;padding-top:20px;text-align:left;">
-																			<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://ghrbs.site/customer/Customer-Amenities.php" style="height:42px;width:150px;v-text-anchor:middle;" arcsize="10%" stroke="false" fillcolor="#3AAEE0"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#FFFFFF; font-family:Arial, sans-serif; font-size:14px"><![endif]--><a
-																				href="https://ghrbs.site/customer/Customer-Amenities.php"
+																			<!--[if mso]><v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word" href="https://ghrbs.site/amenities" style="height:42px;width:150px;v-text-anchor:middle;" arcsize="10%" stroke="false" fillcolor="#3AAEE0"><w:anchorlock/><v:textbox inset="0px,0px,0px,0px"><center style="color:#FFFFFF; font-family:Arial, sans-serif; font-size:14px"><![endif]--><a
+																				href="https://ghrbs.site/amenities"
 																				target="_blank"
 																				style="text-decoration:none;display:inline-block;color:#FFFFFF;background-color:#3AAEE0;border-radius:4px;width:auto;border-top:1px solid #3AAEE0;border-right:1px solid #3AAEE0;border-bottom:1px solid #3AAEE0;border-left:1px solid #3AAEE0;padding-top:5px;padding-bottom:5px;font-family:Arial, Helvetica Neue, Helvetica, sans-serif;text-align:center;mso-border-alt:none;word-break:keep-all;"><span
 																					style="padding-left:20px;padding-right:20px;font-size:14px;display:inline-block;letter-spacing:normal;"><span

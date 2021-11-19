@@ -4,6 +4,7 @@ require_once(dirname(__FILE__,3)."/directories/directories.php");
 require_once __F_DB_HANDLER__;
 require_once __F_OUTPUT_HANDLER__;
 require_once __F_VALIDATIONS__;
+require_once __F_FORMAT__;
 
 /*
 if( !isset($_GET["roomTypeID"]) || empty(trim($_GET["roomTypeID"]))) {
@@ -16,6 +17,7 @@ if( !isset($_GET["roomTypeID"]) || empty(trim($_GET["roomTypeID"]))) {
 
 $roomTypeID = trim($_GET["r"]);
 $roomTypeID = tonotwtf($roomTypeID, 3);
+
 
 function getGeneralInfoItems(&$id, &$conn, &$output) {
     $sql = "SELECT A.sectionID, B.roomInfoID, B.info FROM roomsec A LEFT JOIN roominfo B ON A.sectionID=B.roomSecID WHERE roomTypeID=".$id." AND general=1;";
@@ -120,6 +122,13 @@ function getRoomAsAssoc(&$id) {
     return $room;
 }
 
+function roomExist($id) {
+    $sql = "SELECT COUNT(*) FROM `roomtype` WHERE `roomTypeID`=$id LIMIT 1;";
+    $tempConn = createTempDBConnection();
+    $exist = mysqli_fetch_all(mysqli_query($tempConn, $sql))[0][0];
+    return intval($exist);
+}
+
 $conn = createTempDBConnection();
 #echo $output->output["data"] =  json_encode(getRoomAsAssoc($roomTypeID, $conn, $output));
 //echo "JSON.parse(`".addslashes("Wowit@&#039;&quot;${}")."`);";
@@ -128,10 +137,21 @@ $conn = createTempDBConnection();
 //echo str_replace("\"", "\\\\\"" , "Wowit'\"");
 //die();
 
+prepareForSQL($conn, $roomTypeID, 1);
+
+if($roomTypeID==="") {
+    header("Location: /rooms");
+    die();
+}
+
+if(!roomExist($roomTypeID)) {
+    header("Location: /rooms");
+    die();
+}
+echo "gege";
 //echo $output->getOutputAsHTML();
 $full_room_data = getRoomAsAssoc($roomTypeID);
 //Etong part na to nagdidisplay ng HTML
-
 
 
 // eto yung nagpapasa ng variable na may laman ng room data para sa HTML
@@ -139,5 +159,4 @@ $full_room_data = getRoomAsAssoc($roomTypeID);
 // may special chars (ewan ko kung bakit) inalis ko na lang yung parse
 //echo "<script>xyzroominfocba = JSON.parse(`".json_encode(getRoomAsAssoc($roomTypeID, $conn, $output))."`);</script>";
 print "<script>xyzroominfocba = ".json_encode($full_room_data).";</script>";
-    
 ?>

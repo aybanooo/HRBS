@@ -26,6 +26,15 @@ RewriteRule .*$ public_assets/defaults/default-image-landscape.jpg [L]
 
 #custom Urls
 RewriteRule ^$ customer/Customer-Home.php [NC,L]
+
+RewriteRule ^rooms$ Customer-Rooms.php [NC,L]
+
+RewriteRule ^amenities$ Customer-Amenities.php [NC,L]
+
+RewriteRule ^Compare$ Customer-Compare.php [NC,L]
+RewriteRule ^Compare$ Customer-Compare.php [NC,L]
+
+RewriteRule ^rooms/(.*)$ Customer-Room_Details_Imperial.php?r=$1 [NC,L]
 RewriteCond %{REQUEST_URI} ^(?!\/(admin|customer|public_assets|testing_area)\/).*
 RewriteRule ^(.+) customer/$1 [NC,L]
 

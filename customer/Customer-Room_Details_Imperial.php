@@ -5,6 +5,12 @@ require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/dire
 require_once __F_DB_HANDLER__;
 require_once __F_OUTPUT_HANDLER__;
 require_once __F_VALIDATIONS__;
+
+if($_GET['r']=="") {
+    header("Location: /rooms");
+    die();
+}
+
 require_once "../public_assets/modules/php/database/roomControls/getRoomData.php";
 
 $unwtfedID = tonotwtf($_GET['r'], 3);
@@ -21,6 +27,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     <?php
     require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/directories.php");
     include_once(__D_UI__ . "js/analytics.php");
+    print __F_BASE_CUSTOMER__;
     ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -152,16 +159,16 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
-            <a class="navbar-brand js-scroll-trigger" href="Customer-Home.php"><?php echo $followingdata['companyName']; ?></a>
+            <a class="navbar-brand js-scroll-trigger" href="/"><?php echo $followingdata['companyName']; ?></a>
             <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 Menu
                 <i class="fas fa-bars"></i>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare.php">Compare</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Rooms.php">Rooms</a></li>
-                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Amenities.php">Amenities</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/compare">Compare</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/rooms">Rooms</a></li>
+                    <li class="nav-item"><a class="nav-link js-scroll-trigger" href="/amenities">Amenities</a></li>
                 </ul>
             </div>
         </div>
@@ -181,7 +188,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                             <div class="container-fluid ce-noblank ce-noenter">
                                 <div class="row">
                                     <div class="col-lg-4 mx-auto">
-                                        <a class="roomBack" href="Customer-Rooms.php">
+                                        <a class="roomBack" href="/rooms">
                                             < Back to Rooms</a>
                                     </div>
                                     <div class="col-lg-4 mx-auto">

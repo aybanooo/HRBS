@@ -182,8 +182,8 @@ $queryCustomer="SELECT email FROM customer";
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ml-auto">
                       	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Compare_Rooms.html">Compare</a></li>
-                    	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Rooms.html">Rooms</a></li>
-                    	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="Customer-Amenities.html">Amenities</a></li>
+                    	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/rooms">Rooms</a></li>
+                    	<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/amenities">Amenities</a></li>
                     	<li class="nav-item"><a class="nav-link js-scroll-trigger active" href="Customer-Login.html">Login</a></li>
                     </ul>
                 </div>
