@@ -370,12 +370,12 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 								$rateMinusVat = $dividedRate - $RateofVat;
 								$rateDiscount = $rateMinusVat * 0.2;
 								$rateDiscounted = $rateMinusVat - $rateDiscount;
-								$totalPrice = $totalPrice - $rateDiscounted;
+								$totalPriceWithDiscount = $totalPrice - $rateDiscounted;
 							} else {
 								$totalRoomRate = $days * $followingdata['rate'];
 								$vat = $totalRoomRate * 0.12;
 								$serviceCharge =  $totalRoomRate * 0.10;	
-								$totalPrice = $vat + $serviceCharge + $totalRoomRate;
+								$totalPriceNoDiscount = $vat + $serviceCharge + $totalRoomRate;
 							}
 							?>
 							<th>Rate:</th>
@@ -475,9 +475,9 @@ mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 								<td colspan="2"><input class="form-control-plaintext" type="number" value="
 								<?php
 								if($seniorCitizen == 1 || $seniorCitizen == 2){ 
-									echo number_format($rateDiscounted, 2, '.', ''); 
+									echo number_format($totalPriceWithDiscount, 2, '.', ''); 
 								} else { 
-									echo number_format($totalPrice, 2, '.', '');
+									echo number_format($totalPriceNoDiscount, 2, '.', '');
 								}?>
 								" id="total" readonly="readonly" lang="en-150" /></td>
 							</tr>
