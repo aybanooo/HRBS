@@ -209,17 +209,15 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                     <div class="col-lg-12 mx-auto">
                         <h1><b>Comments and Suggestions</b></h1>
                         <hr class="new1">
-                        <form method="POST" action="">
-                            <tr align="left">
-                                <td><input type="number" name="reservationID" required placeholder="Reservation ID"></td>
-                            </tr>
-                            <tr>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" name="commentsSuggest" rows="3" placeholder="Enter Comments/Suggestion and Rating"></textarea>
-                            </tr>
-                            <tr>
-                                <td class="sign" align="center" align="right"><input type="submit" value="Send Review" name="submit"></td>
-                            </tr>
-                        </form>
+                        <tr align="left">
+                            <td><input type="number" name="reservationID" required placeholder="Reservation ID"></td>
+                        </tr>
+                        <tr>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" name="commentsSuggest" rows="3" placeholder="Enter Comments/Suggestion and Rating"></textarea>
+                        </tr>
+                        <tr>
+                            <td class="sign" align="center" align="right"><input type="submit" value="Send Review" name="submit"></td>
+                        </tr>
                     </div>
                 </div>
             </div>

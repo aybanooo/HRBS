@@ -357,22 +357,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							$totalPersons = $followingdata['maxAdult'] + $followingdata['maxChildren'];
 							$seniorCitizen = isset($_POST['seniorcitizen']) ? $_POST['seniorcitizen'] : "";
+							$queryTax = "SELECT `name`, `value` FROM `settings` WHERE `name` = `tax` && `name` = `serviceCharge`";
+							$result = mysqli_query($conn, $queryTax) or die(mysqli_error($conn));
+							$followingdataSettings = $result->fetch_array(MYSQLI_ASSOC);
 							if ($seniorCitizen == 1 || $seniorCitizen == 2) {
 								$totalRoomRate = $days * $followingdata['rate'];
-								$vat = $totalRoomRate * 0.12;
-								$serviceCharge =  $totalRoomRate * 0.10;
+								$vat = $totalRoomRate * $followingdataSettings['tax'];
+								$serviceCharge =  $totalRoomRate *  $followingdataSettings['serviceCharge'];
 								$totalPrice = $vat + $serviceCharge + $totalRoomRate;
 								//senior discount computation
 								$dividedRate =  $totalRoomRate / $totalPersons;
-								$RateofVat =  $dividedRate * 0.12;
+								$RateofVat =  $dividedRate * $followingdataSettings['tax'];
 								$rateMinusVat = $dividedRate - $RateofVat;
 								$rateDiscount = $rateMinusVat * 0.2;
 								$rateDiscounted = $rateMinusVat - $rateDiscount;
-								$totalPriceWithDiscount = $totalPrice - $rateDiscounted;
+								$totalDiscount = $dividedRate - $rateDiscounted;
+								$totalPriceWithDiscount = $totalPrice - $totalDiscount;
 							} else {
 								$totalRoomRate = $days * $followingdata['rate'];
-								$vat = $totalRoomRate * 0.12;
-								$serviceCharge =  $totalRoomRate * 0.10;
+								$vat = $totalRoomRate * $followingdataSettings['tax'];
+								$serviceCharge =  $totalRoomRate * $followingdataSettings['serviceCharge'];
 								$totalPriceNoDiscount = $vat + $serviceCharge + $totalRoomRate;
 							}
 							?>
@@ -423,7 +427,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						</tr>
 						<tr align="right">
 							<td><input type="hidden" value="
-							<?php if ($seniorCitizen == 1 || $seniorCitizen == 2) {		
+							<?php if ($seniorCitizen == 1 || $seniorCitizen == 2) {
 								echo number_format($totalPriceWithDiscount, 2, '.', '');
 							} else {
 								echo number_format($totalPriceNoDiscount, 2, '.', '');
@@ -469,7 +473,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							<tr align="right">
 								<td>Senior Citizen/PWD Discount</td>
 								<td><?php if ($seniorCitizen == 1 || $seniorCitizen == 2) {
-										echo number_format($rateDiscount, 2, '.', '');
+										echo number_format($totalDiscount, 2, '.', '');
 									} ?> </td>
 							</tr>
 							<tr align="right">
@@ -492,7 +496,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							<tr align="right">
 								<td colspan="2">
 									<div class="form-check">
-									<input type="checkbox" onchange="document.getElementById('buttonbooknow').disabled = !this.checked" required class="form-check-input" id="agree" required>
+										<input type="checkbox" onchange="document.getElementById('buttonbooknow').disabled = !this.checked" required class="form-check-input" id="agree" required>
 										<label for="agree">I understand the<a href="#" class="fst-italic link-primary" data-bs-toggle="modal" data-bs-target="#agreeModal"> terms and agreements</a></label>
 									</div>
 								</td>
@@ -574,7 +578,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			</div>
 		</div>
 	</div>
-	
+
 </body>
 <script>
 	$(document).ready(function() {
