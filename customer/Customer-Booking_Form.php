@@ -487,14 +487,14 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							</tr>
 							<tr align="right">
 								<td colspan="2">
-									<div class="g-recaptcha" data-sitekey="<?php print parse_ini_file(__CONF_PRIVATE__)['RECAPTCHA_SITE_KEY'];?>"></div>
+									<div onchange = "document.getElementById('submit').disabled = !this.checked" class="g-recaptcha" data-sitekey="<?php print parse_ini_file(__CONF_PRIVATE__)['RECAPTCHA_SITE_KEY'];?>"></div>
 								</td>
 							</tr>
 							<tr>
 								<td><br></td>
 							</tr>
 							<tr align="right">
-								<td colspan="2"><button type="submit" name="submit" id="submit" class="btn btn-success">Proceed to Payment</button></td>
+								<td colspan="2"><button disabled type="submit" name="submit" id="submit" class="btn btn-success">Proceed to Payment</button></td>
 							</tr>
 					</form>
 					</table>
@@ -580,7 +580,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	});
 </script>
 <Script>
-	$(`input[type="radio"][name="seniorcitizen"]`).on('click', function() {
+	$(`input[type="checkbox	"][name="seniorcitizen"]`).on('click', function() {
 		if ($(this).val() == 1) {
 			$('#seniorDiv').removeClass('d-none');
 			$('#pwdDiv').removeClass('d-none').addClass('d-none');
@@ -594,5 +594,12 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     	$('input[name="' + this.name + '"]').not(this).prop('checked', false);
 	});
 </Script>
+<script>
+
+    function enableBtn(){
+        document.getElementById("submit").disabled = false;
+    }
+
+</script>
 
 </html>
