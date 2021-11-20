@@ -56,6 +56,7 @@ define('__CONF_GAPI_CRDS__', __PRVT_F_ROOT__."thesis-331607-94c600763d0c.json");
 define('__F_LOGIN_HANDLER__', __D_LOGIN_CONTORLS__."loginHandler.php");
 define('__F_DB_HANDLER__', __D_DB_CONTORLS__."dbHandler.php");
 define('__F_PERMISSION_HANDLER__', __D_PERMISSION_CONTROLS__."permissionHandler.php");
+define('__F_UI_HANDLER__', __D_UI__."uiHandler.php");
 
 //----- Autoload -----
 define('__AUTOLOAD_PUBLIC__', __D_PUBLIC_ASSETS__.'vendor/autoload.php'); 
