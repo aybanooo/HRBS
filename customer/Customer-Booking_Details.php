@@ -358,7 +358,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							$totalPersons = $followingdata['maxAdult'] + $followingdata['maxChildren'];
 							$seniorCitizen = isset($_POST['seniorcitizen']) ? $_POST['seniorcitizen'] : "";
 							#Fetch Vat tac and service charge
-							$queryTax = "SELECT `name`, `value` FROM `settings` WHERE `name` = 'tax' && `name` = 'serviceCharge'";
+							$queryTax = "SELECT * FROM `settings` WHERE `name` in ('tax', 'serviceCharge');";
 							$result = mysqli_query($conn, $queryTax) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							if ($seniorCitizen == 1 || $seniorCitizen == 2) {
