@@ -361,7 +361,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							#"SELECT * FROM `settings` WHERE `name` in('tax', 'serviceCharge');"
 							$query = "SELECT * FROM `settings` WHERE `name` in('tax', 'serviceCharge');";
 							$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-							#$followingdata = $result->fetch_array(MYSQLI_ASSOC);
+							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
 							#$queryTax = "SELECT `name`, `value` FROM `settings` WHERE `name` = 'tax' && `name` = 'serviceCharge'";
 							#$result = mysqli_query($conn, $queryTax) or die(mysqli_error($conn));
