@@ -72,6 +72,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             color: black;
             width: 70%;
         }
+        h3{
+            text-align: center;
+        }
 
         a {
             color: #64a19d;
@@ -192,7 +195,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                             < Back to Rooms</a>
                                     </div>
                                     <div class="col-lg-4 mx-auto">
-
                                         <h3 id="name" class="p-3"><?php print $full_room_data['basicInfo']['name']; ?></h3>
                                     </div>
                                     <div class="col-lg-4 mx-auto">
