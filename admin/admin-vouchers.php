@@ -4,6 +4,7 @@ require_once(__F_VALIDATIONS__);
 require_once(__F_OUTPUT_HANDLER__);
 require_once __F_LOGIN_HANDLER__;
 require_once __F_PERMISSION_HANDLER__;
+require_once __F_UI_HANDLER__;
 
 // Redirect to login page if token is invalid
 if (!isTokenValid()) {
@@ -196,7 +197,7 @@ setupUserSession();
                 </div>
                 <div class="input-group my-3 ">
                   <div class="input-group-prepend">
-                    <span class="input-group-text">Php</span>
+                    <span class="input-group-text"><?php echo getCurrency(); ?></span>
                   </div>
                   <input type="number" class="form-control" name="value" id="value" min="1" placeholder="Value">
                 </div>
@@ -205,7 +206,7 @@ setupUserSession();
                   <div class="col">
                     <div class="input-group">
                       <div class="input-group-prepend">
-                        <span class="input-group-text">Php</span>
+                        <span class="input-group-text"><?php echo getCurrency(); ?></span>
                       </div>
                       <input type="number" class="form-control" name="minSpend" id="minSpend" min="0" placeholder="Minimum Spend">
                     </div>
@@ -213,7 +214,7 @@ setupUserSession();
                   <div class="col">
                     <div class="input-group">
                       <div class="input-group-prepend">
-                        <span class="input-group-text">Php</span>
+                        <span class="input-group-text"><?php echo getCurrency(); ?></span>
                       </div>
                       <input type="number" class="form-control" name="maxSpend" id="maxSpend" min="0" placeholder="Maximum Spend">
                     </div>
