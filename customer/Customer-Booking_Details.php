@@ -361,6 +361,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							$queryTax = "SELECT * FROM `settings` WHERE `name` in ('tax', 'serviceCharge');";
 							$result = mysqli_query($conn, $queryTax) or die(mysqli_error($conn));
 							$tempSettings = mysqli_fetch_all($result, MYSQLI_ASSOC);
+							$followingdatatax = $result->fetch_array(MYSQLI_ASSOC);
 							$taxserviceCharge = $tempSettings[0]['value'];
 							$tax = $tempSettings[1]['value'];
 							unset($tempSettings);
@@ -368,7 +369,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							if ($seniorCitizen == 1 || $seniorCitizen == 2) {
 								$totalRoomRate = $days * $followingdata['rate'];
 								$vat = $totalRoomRate * ($followingdatatax['tax'] / 100);
-								$serviceCharge =  $totalRoomRate *  ($followingdatatax['serviceCharge'] / 100);
+								$serviceCharge =  $totalRoomRate *  ($followingdatatxax['serviceCharge'] / 100);
 								$totalPrice = $vat + $serviceCharge + $totalRoomRate;
 								//senior discount computation
 								$dividedRate =  $totalRoomRate / $totalPersons;
