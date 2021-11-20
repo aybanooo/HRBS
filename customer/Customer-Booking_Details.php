@@ -365,7 +365,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							$taxserviceCharge = $tempSettings[0]['value'];
 							$tax = $tempSettings[1]['value'];
 							unset($tempSettings);
-							$followingdatatax = $result->fetch_array(MYSQLI_ASSOC);
 							if ($seniorCitizen == 1 || $seniorCitizen == 2) {
 								$totalRoomRate = $days * $followingdata['rate'];
 								$vat = $totalRoomRate * ($followingdatatax['tax'] / 100);
