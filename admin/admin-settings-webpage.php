@@ -324,7 +324,7 @@ setupUserSession();
                         <option value="XPT">Platinum Ounces</option>
                       </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group d-none">
                       <label for="inp-footer-r">Footer Right Text</label>
                       <input type="text" class="form-control form-control-border border-width-2" id="inp-footer-r" name="inp-footer-r" placeholder="Enter any text here e.g Copyright">
                     </div>
