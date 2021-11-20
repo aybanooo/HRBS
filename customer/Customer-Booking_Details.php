@@ -373,7 +373,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 								$totalPrice = $vat + $serviceCharge + $totalRoomRate;
 								//senior discount computation
 								$dividedRate =  $totalRoomRate / $totalPersons;
-								$RateofVat =  $dividedRate * ($followingdatatax['tax'] / 100);
+								$RateofVat =  $dividedRate * ($followingdatatax["tax"] / 100);
 								$rateMinusVat = $dividedRate - $RateofVat;
 								$rateDiscount = $rateMinusVat * 0.2;
 								$rateDiscounted = $rateMinusVat - $rateDiscount;
