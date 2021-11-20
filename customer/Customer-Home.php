@@ -270,12 +270,12 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             ?>
             <div class="row justify-content-center no-gutters mb-5 mb-lg-0" id="amenities">
                 <?php
-                $query = "SELECT amenityName, amenityDesc FROM amenities;";
+                $query = "SELECT * FROM amenities;";
                 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                 ?>
-                        <div class="col-lg-6"><img class="img-fluid" src="https://cf.bstatic.com/data/xphoto/1182x887/217/21775845.jpg?size=S" alt="" /></div>
+                        <div class="col-lg-6"><img class="img-fluid" src="/public_assets/amenities/<?php echo $row["amenityID"]; ?>/image.jpeg" alt="<?php echo $row["amenityName"]." image"; ?>"/></div>
                         <div class="col-lg-6">
                             <div class="bg-black text-center h-100 project">
                                 <div class="d-flex h-100">
