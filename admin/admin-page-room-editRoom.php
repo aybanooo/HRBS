@@ -2,6 +2,7 @@
 
 require_once("customFiles/php/directories/directories.php");
 require_once __F_LOGIN_HANDLER__;
+require_once __F_UI_HANDLER__;
 
 // Redirect to login page if token is invalid
 if (!isTokenValid()) {
@@ -347,7 +348,7 @@ setupUserSession();
                             <div class="col-4">
                               <div class="input-group">
                                 <div class="input-group-prepend">
-                                  <span class="input-group-text">$</span>
+                                  <span class="input-group-text"><?php echo getCurrency(); ?></span>
                                 </div>
                                 <input type="text" id="roomRate" min="0" class="form-control">
                               </div>
