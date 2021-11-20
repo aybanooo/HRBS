@@ -5,7 +5,11 @@ require_once __F_OUTPUT_HANDLER__;
 require_once __F_VALIDATIONS__;
 require_once __F_DB_HANDLER__;
 require_once __F_FORMAT__;
+require_once __F_PERMISSION_HANDLER__;
+
 checkAdminSideAccess();
+
+checkPermission(__V_P_RSVTN_MANAGE__, 1);
 
 $tempConn = createTempDBConnection();
 
