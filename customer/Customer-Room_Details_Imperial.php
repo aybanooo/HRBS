@@ -6,7 +6,7 @@ require_once __F_DB_HANDLER__;
 require_once __F_OUTPUT_HANDLER__;
 require_once __F_VALIDATIONS__;
 
-if($_GET['r']=="") {
+if ($_GET['r'] == "") {
     header("Location: /rooms");
     die();
 }
@@ -34,7 +34,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     <title><?php echo $followingdata['companyName']; ?>| Room Details</title>
 
     <link href="https://fonts.googleapis.com/css?family=CenturyGothic" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=CenturyGothic:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet" />
     <link href="css (1)/styles (1).css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="css (1)/fontawesome-free/css/all.min.css">
@@ -72,7 +71,8 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             color: black;
             width: 70%;
         }
-        h3{
+
+        h3 {
             text-align: center;
         }
 
