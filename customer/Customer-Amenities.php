@@ -130,7 +130,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
     <section id="amenities">
 		<?php
-			$query="SELECT amenityName, amenityDesc FROM amenities;";
+			$query="SELECT * FROM amenities;";
 			$result=mysqli_query($conn, $query) or die(mysqli_error($conn));
 			if (mysqli_num_rows($result)>0) {
 				while($row=mysqli_fetch_assoc($result)){
@@ -142,7 +142,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 						<div id="carouselExampleIndicators" class="carousel slide pointer-event" data-ride="carousel">
 							<div class="carousel-inner" role="listbox">
 								<div class="carousel-item active">
-									<img class="d-block w-100" src="https://cf.bstatic.com/data/xphoto/1182x887/217/21775845.jpg?size=S" data-src="holder.js/900x400?theme=social" alt="900x400" data-holder-rendered="true">
+									<img class="d-block w-100" src="/public_assets/amenities/<?php echo $row["amenityID"]; ?>/image.jpeg" alt="<?php echo $row["amenityName"]." image"; ?>" data-holder-rendered="true">
 									<div class="carousel-caption d-none d-md-block">
 									<h3><?php echo $row["amenityName"]; ?></h3>
 									<p><?php echo $row["amenityDesc"]; ?></p>
