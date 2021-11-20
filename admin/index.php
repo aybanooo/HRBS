@@ -541,6 +541,7 @@
 <!-- Special Script-->
 <script src="customFiles/initialize Toastr.js"></script>
 <script src="customFiles/reservation_incidentals.js"></script>
+<script src="customFiles/buttonDisabler.js"></script>
 <script src="customFiles/customScript.js"></script>
 
 <script>
@@ -792,6 +793,21 @@ table_Reservation = $('#table-reservation').DataTable( {
   ajax: "customFiles/php/database/reservationControls/getReservations.php",
   dataSrc: 'data',
   rowId: 'reservationID',
+  dom: "<'row mb-2' <'col'B>><'row'<'col'l><'col'f>>rtip",
+  buttons: [
+    {
+        text: 'Refresh',
+        action: function ( e, dt, node, config ) {
+          toggleButtonDisabled("#btn-rsv-refresh", "#table-reservation_wrapper", "");
+          dt.ajax.reload(()=>{          
+            toggleButtonDisabled("#btn-rsv-refresh", "#table-reservation_wrapper", "");
+          });
+        },
+        attr: {
+          id: 'btn-rsv-refresh'
+        }
+    }
+  ],
   responsive: {
     details: {
       type: 'column',
