@@ -242,7 +242,7 @@ setupUserSession();
                   <div class="card-body">
                     <div class="form-group">
                       <label>Currency</label>
-                      <select class="custom-select">
+                      <select class="custom-select" name="select-currency" id="select-currency">
                         <option value="USD" selected="selected">United States Dollars</option>
                         <option value="EUR">Euro</option>
                         <option value="GBP">United Kingdom Pounds</option>
@@ -708,8 +708,11 @@ function saveData(el) {
     contentType: false,
     processData: false,
     cache: false,
-    dataType: 'json',
+    //dataType: 'json',
     success: function (response) {
+      console.log(response);
+      toggleButtonDisabled(el, ".content-header", "Saving...")
+      return;
       //*
       Toast.fire({
         icon: response.status,
@@ -721,8 +724,6 @@ function saveData(el) {
         delete savedPageCover;
       }
       
-      console.log(response);
-      toggleButtonDisabled(el, ".content-header", "Saving...")
     }
   });
 }
@@ -746,6 +747,9 @@ function loadData() {
       $("#inp-socmed-1").val(response.data['socialInstagram']);
       $("#inp-socmed-2").val(response.data['socialFB']);
       $("#inp-socmed-3").val(response.data['socialTwitter']);
+      let currency = response.data['currency'];
+      let currencyIndex = $("#select-currency").find(`option[value='${currency}']`).index();
+      $("#select-currency")[0].selectedIndex = currencyIndex;
     }
   });
 }

@@ -11,6 +11,43 @@ checkAdminSideAccess();
 checkPermission(__V_P_HOTEL_INFO_MANAGE__, true);
 
 //print_r($_FILES);
+$currencyList = [
+    'USD', 'EUR', 'GBP', 'DZD', 'ARP', 'AUD', 
+    'ATS', 'BSD', 'BBD', 'BEF', 'BMD', 'BRR', 
+    'BGL', 'CAD', 'CLP', 'CNY', 'CYP', 'CSK', 
+    'DKK', 'NLG', 'XCD', 'EGP', 'FJD', 'FIM', 
+    'FRF', 'DEM', 'XAU', 'GRD', 'HKD', 'HUF', 
+    'ISK', 'INR', 'IDR', 'IEP', 'ILS', 'ITL', 
+    'JMD', 'JPY', 'JOD', 'KRW', 'LBP', 'LUF', 
+    'MYR', 'MXP', 'NLG', 'NZD', 'NOK', 'PKR', 
+    'XPD', 'PHP', 'XPT', 'PLZ', 'PTE', 'ROL', 
+    'RUR', 'SAR', 'XAG', 'SGD', 'SKK', 'ZAR', 
+    'KRW', 'ESP', 'XDR', 'SDD', 'SEK', 'CHF', 
+    'TWD', 'THB', 'TTD', 'TRL', 'VEB', 'ZMK', 
+    'EUR', 'XCD', 'XDR', 'XAG', 'XAU', 'XPD', 
+    'XPT'
+];
+
+function isCurrency($currency) {
+    global $currencyList;
+    return in_array($currency, $currencyList);
+}
+
+function updateCurrency($currency) {
+    $tempConn = createTempDBConnection();
+    prepareForSQL($tempConn, $currency);
+    $sql = "REPLACE INTO `settings` VALUE('currency', '$currency', 3);";
+    if(!mysqli_query($tempConn, $sql))
+        die($GLOBALS['output']->setFailed('Something went wrong while updating currency', getConnError($tempConn)));
+    mysqli_close($tempConn);
+}
+
+if(!isCurrency($_POST['select-currency']))
+    die($output->setFailed('Invalid currency'));
+
+$i = array_search($_POST['select-currency'], $currencyList);
+$currency = $currencyList[$i];
+updateCurrency($currency);
 
 if(isset($_FILES['pageCover'])) {
     if (check_file_type($_FILES['pageCover']['type'], 'image/jpeg')) {
