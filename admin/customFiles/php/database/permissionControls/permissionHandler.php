@@ -67,6 +67,10 @@ define('__V_P_HOTEL_INFO_MANAGE__', explode(',',
 // Billing permission
 define('__V_P_BILLING_MANAGE__', explode(',',
 '2' ));
+
+// Reservation permission
+define('__V_P_RSVTN_MANAGE__', explode(',',
+'21' ));
 //--------------- PERMISSION LIST END ---------------
 
 function checkPermission($permissionList, $dieResponse = false) {
