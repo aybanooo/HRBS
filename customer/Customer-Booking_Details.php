@@ -604,7 +604,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						$('#result').val('');
 					} else {
 						var json = JSON.parse(data);
-						$('#result').html(Math.round(parseFloat(json.value)));
+						$('#result').val(Math.round(parseFloat(json.value)));
 						$('#total').val(Math.round((parseFloat(json.price)) * 100) / 100);
 					}
 				});
