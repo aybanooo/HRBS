@@ -87,6 +87,14 @@
       cursor: pointer;
     }
 
+    .custom-btn-group-toggle {
+      transition-duration: 0.4s;
+    }
+
+    .custom-btn-group-toggle > label.btn:not(.active) {
+      opacity: 20%;
+    }
+
   </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed light-mode">
@@ -293,14 +301,15 @@
   <!-- /.content-wrapper -->
 
   <!-- Reservation view modal -->
-  <div class="modal fade" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="reservationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="reservationModalTitle">
-            <span class="text-muted">Reservation</span> 
-            <strong id="rsvtn-panel-id" data-index="">#</strong> 
-            <small class="text-muted">created  at 
+            <span class="text-muted">Reservation</span>
+            <strong id="rsvtn-panel-id" data-index="">#</strong>
+            <small class="text-muted">created at
               <span id="rsvtn-panel-created-date">n/a</span>
             </small>
           </h5>
@@ -331,7 +340,8 @@
                   <h5 id="rsvtn-panel-bookedby" class="ml-2 mb-0">
                     N/A
                   </h5>
-                  <small class="d-block text-muted mb-0 ml-2">For <strong><span id="rsvtn-panel-stay-count">n</span> nights</strong></small>
+                  <small class="d-block text-muted mb-0 ml-2">For <strong><span id="rsvtn-panel-stay-count">n</span>
+                      nights</strong></small>
                 </div>
               </div>
               <div class="row">
@@ -340,7 +350,8 @@
                   <span id="rsvtn-panel-guest-total" class="ml-2">
                     n/a
                   </span>
-                  <small class="d-block text-muted mb-0 ml-2"><strong id="rsvtn-panel-guest-adult">n</strong> Adults, <strong id="rsvtn-panel-guest-children">n</strong> Children </small>
+                  <small class="d-block text-muted mb-0 ml-2"><strong id="rsvtn-panel-guest-adult">n</strong> Adults,
+                    <strong id="rsvtn-panel-guest-children">n</strong> Children </small>
                 </div>
               </div>
               <div class="row">
@@ -398,10 +409,11 @@
                       <div class="row">
                         <div class='col-12 col-xl-6'>
                           <div class="form-group">
-                            <small class="d-block text-muted mb-0">Check-In Time <a href="javascript:void(0)" class="p-0 d-inline d-none" onclick="resetCheckIn()">Reset</a></small>
+                            <small class="d-block text-muted mb-0">Check-In Time <a href="javascript:void(0)"
+                                class="p-0 d-inline d-none" onclick="resetCheckIn()">Reset</a></small>
                             <div class="input-group date" id="input-datetime-checkIn" data-target-input="nearest">
-                              <input readonly placeholder="Click the calendar button" type="text" class="form-control datetimepicker-input"
-                                data-target="#input-datetime-checkIn"/>
+                              <input readonly placeholder="Click the calendar button" type="text"
+                                class="form-control datetimepicker-input" data-target="#input-datetime-checkIn" />
                               <div id="test" class="input-group-append" data-target="#input-datetime-checkIn"
                                 data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -411,10 +423,11 @@
                         </div>
                         <div class='col-12 col-xl-6'>
                           <div class="form-group">
-                            <small class="d-block text-muted mb-0">Check-Out Time <a href="javascript:void(0)" class="p-0 d-inline d-none" onclick="resetCheckOut()">Reset</a></small>
+                            <small class="d-block text-muted mb-0">Check-Out Time <a href="javascript:void(0)"
+                                class="p-0 d-inline d-none" onclick="resetCheckOut()">Reset</a></small>
                             <div class="input-group date" id="input-datetime-checkOut" data-target-input="nearest">
-                              <input placeholder="Click the calendar button" type="text" class="form-control datetimepicker-input"
-                                data-target="#input-datetime-checkOut" />
+                              <input placeholder="Click the calendar button" type="text"
+                                class="form-control datetimepicker-input" data-target="#input-datetime-checkOut" />
                               <div class="input-group-append" data-target="#input-datetime-checkOut"
                                 data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
@@ -428,15 +441,48 @@
                   </div>
                 </div>
               </div>
+              <div class="row">
+                <div class="col">
+                  <div class="card card collapsed-card shadow-none">
+                    <div class="card-header cursor-pointer border-bottom" data-card-widget="collapse">
+                      <h4 class="card-title">Status</h4>
+                      <div class="card-tools">
+                        <i class="fas fa-chevron-down"></i>
+                      </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body background-darker">
+                      <div class="row">
+                        <div class='col-12'>
+                            <div class="btn-group custom-btn-group-toggle w-100">
+                              <button type="button" class="btn btn-secondary" onclick="setPaid()">Paid</button>
+                              <button type="button" class="btn btn-secondary" onclick="setUnpaid()">Unpaid</button>
+                            </div>
+                        </div>
+                      </div>
+                      <!-- /.card-body -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <button type="button" class="btn btn-outline-danger float-right" onclick="setCancelled()">
+                    Cancel Reservation
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer d-flex justify-content-between">
-          <span>
-            <button id="btn-modal-rsvtn-prev" type="button" class="btn btn-secondary" onclick="prevRecord()">Prev</button>
-            <button id="btn-modal-rsvtn-next" type="button" class="btn btn-secondary" onclick="nextRecord()">Next</button>
-          </span>
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <div class="modal-footer d-flex justify-content-between">
+            <span>
+              <button id="btn-modal-rsvtn-prev" type="button" class="btn btn-secondary"
+                onclick="prevRecord()">Prev</button>
+              <button id="btn-modal-rsvtn-next" type="button" class="btn btn-secondary"
+                onclick="nextRecord()">Next</button>
+            </span>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
         </div>
       </div>
     </div>
@@ -831,7 +877,7 @@ function getReservationStatusBadge(value) {
       break;
     case 2:
       statusText = "Cancelled";
-      badgeColor = "information";
+      badgeColor = "warning";
       break;
     default:
       statusText = "Unpaid";
@@ -961,6 +1007,111 @@ function prevRecord() {
   resetCheckInOutPicker();
   updateRsvtnModal(data, currentIndex-1);
 }
+
+function setPaid() {
+  Swal.fire({
+  title: 'Are you sure you want to update this reservation?',
+  text: 'You are updating the status to paid',
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes',
+  cancelButtonText: 'No'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      let i = $("#rsvtn-panel-id").attr('data-index');
+      let d = table_Reservation.rows().data()[i];
+      let rsvID = d.reservationID;
+      //console.log(rsvID );
+      $.post("/admin/customFiles/php/database/reservationControls/setPaidStatus.php", {rsvid: rsvID},
+        function (response, textStatus, jqXHR) {
+          console.log(response);
+          setTimeout(Toast.fire({
+            icon: response.status,
+            title: response.message
+          }),1000);
+          if(response.isSuccessful) {
+            let target = table_Reservation.row("#"+d.reservationID);
+            //console.log(">>>", target);
+            target.data().reservationStatus = "1";
+            target.invalidate();
+            $("#rsvtn-panel-status").html(getReservationStatusBadge(1));
+          }
+        },
+        "json"
+      );
+    }
+  });
+};
+
+function setUnpaid() {
+  Swal.fire({
+  title: 'Are you sure you want to update this reservation?',
+  text: 'You are updating the status to unpaid',
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes',
+  cancelButtonText: 'No'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      let i = $("#rsvtn-panel-id").attr('data-index');
+      let d = table_Reservation.rows().data()[i];
+      let rsvID = d.reservationID;
+      //console.log(rsvID );
+      $.post("/admin/customFiles/php/database/reservationControls/setUnPaidStatus.php", {rsvid: rsvID},
+        function (response, textStatus, jqXHR) {
+          console.log(response);
+          setTimeout(Toast.fire({
+            icon: response.status,
+            title: response.message
+          }),1000);
+          if(response.isSuccessful) {
+            let target = table_Reservation.row("#"+d.reservationID);
+            //console.log(">>>", target);
+            target.data().reservationStatus = "0";
+            target.invalidate();
+            $("#rsvtn-panel-status").html(getReservationStatusBadge(0));
+          }
+        },
+        "json"
+      );
+    }
+  });
+};
+
+function setCancelled() {
+  Swal.fire({
+  title: 'Are you sure you want to cancel this reservation?',
+  text: 'The status will change to "cancelled"',
+  icon: 'warning',
+  showCancelButton: true,
+  confirmButtonText: 'Yes',
+  cancelButtonText: 'No'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      let i = $("#rsvtn-panel-id").attr('data-index');
+      let d = table_Reservation.rows().data()[i];
+      let rsvID = d.reservationID;
+      //console.log(rsvID );
+      $.post("/admin/customFiles/php/database/reservationControls/setCancelStatus.php", {rsvid: rsvID},
+        function (response, textStatus, jqXHR) {
+          console.log(response);
+          setTimeout(Toast.fire({
+            icon: response.status,
+            title: response.message
+          }),1000);
+          if(response.isSuccessful) {
+            let target = table_Reservation.row("#"+d.reservationID);
+            //console.log(">>>", target);
+            target.data().reservationStatus = "2";
+            target.invalidate();
+            $("#rsvtn-panel-status").html(getReservationStatusBadge(2));
+          }
+        },
+        "json"
+      );
+    }
+  });
+};
 
 </script>
 
