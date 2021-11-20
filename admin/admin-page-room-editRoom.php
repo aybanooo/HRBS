@@ -183,14 +183,14 @@ setupUserSession();
                                   <div class="form-group">
                                     <label for="sectionName">Section Name</label>
                                     <input type="text" class="form-control form-control-border border-width-2"
-                                      id="sectionName" name="sectionName" placeholder="Enter the section name">
+                                      id="sectionName" name="sectionName" placeholder="Enter the section name" maxlength="30">
                                   </div>
                                 </div>
                                 <div class="col-6">
                                   <div class="form-group">
                                     <label for="iconName">Icon name</label>
                                     <div class="input-group">
-                                      <input id="iconName" type="text" name="iconName" class="form-control" readonly>
+                                      <input maxlength="30" id="iconName" type="text" name="iconName" class="form-control" readonly>
                                       <div class="input-group-append">
                                         <span id="iconListDropdown" class="input-group-text"
                                           onclick="$('#iconMainCard').toggleClass('d-none')"><i
@@ -631,7 +631,14 @@ setupUserSession();
           validIcon: true
         },
         sectionName: {
-          required: true
+          required: true,
+          maxlength: 30,
+          regex: "^[0-9A-Za-z-() ]{1,30}$"
+        }
+      },
+      messages: {
+        sectionName: {
+          regex: "Must only contains atleast 30 characters from A-z, 0-9, -, (, and )"
         }
       },
       errorElement: 'span',
@@ -654,6 +661,15 @@ setupUserSession();
         //$(form).submit();
       }
     });
+
+    $.validator.addMethod(
+  "regex",
+  function(value, element, regexp) {
+    var re = new RegExp(regexp);
+    return this.optional(element) || re.test(value);
+  },
+  "Please check your input."
+);
 
     jQuery.validator.addMethod("validIcon", function (value, element) {
       return solid.includes(value.substr(7)) || regular.includes(value.substr(7));
