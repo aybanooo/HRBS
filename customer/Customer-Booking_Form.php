@@ -487,7 +487,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							</tr>
 							<tr align="right">
 								<td colspan="2">
-									<div onchange = "document.getElementById('submit').disabled = !this.checked" class="g-recaptcha" data-sitekey="<?php print parse_ini_file(__CONF_PRIVATE__)['RECAPTCHA_SITE_KEY'];?>"></div>
+									<div onchange="document.getElementById('submit').disabled = !this.checked" data-callback="enableBtn"class="g-recaptcha" data-sitekey="<?php print parse_ini_file(__CONF_PRIVATE__)['RECAPTCHA_SITE_KEY'];?>"></div>
 								</td>
 							</tr>
 							<tr>
@@ -595,7 +595,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	});
 </Script>
 <script>
-
     function enableBtn(){
         document.getElementById("submit").disabled = false;
     }
