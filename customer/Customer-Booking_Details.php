@@ -422,7 +422,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							<td><input class="form-control" type="text" id="coupon" name="coupon" placeholder="Code (Optional)" /></input></td>
 						</tr>
 						<tr align="right">
-							<td><input type="number" value="
+							<td><input type="hidden" value="
 							<?php if ($seniorCitizen == 1 || $seniorCitizen == 2) {		
 								echo number_format($totalPriceWithDiscount, 2, '.', '');
 							} else {
@@ -533,7 +533,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		</div>
 	</div>
 
-	<!--<div class="modal fade" id="agreeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal fade" id="agreeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog modal-dialog-scrollable modal-lg modal-dialog-center">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -574,16 +574,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			</div>
 		</div>
 	</div>
-	-->
+	
 </body>
-<!--<script>
-$('input[type="checkbox"]').on('change', function(e){
-   if(e.target.checked){
-     $('#myModal').data();
-   }
-});
-</script>
--->
 <script>
 	$(document).ready(function() {
 		$('#activate').on('click', function() {
