@@ -127,6 +127,8 @@ function updateRoleName(form) {
                 target.text(form[1].value);
                 $('#changeRoleNameForm').trigger('reset');
                 $('#changeRoleNameModal').modal('toggle');
+                getRoleSelectNodes();
+                updateRolesCount(table);
             }
             table.ajax.reload(null, false);
             toggleButtonDisabled($("#changeRoleNameForm button[type='submit']"), "#changeRoleNameForm", "");
@@ -150,10 +152,10 @@ async function newRole(e) {
                     title: response.message
                 });               
                 if(response.isSuccessful) {
-                    console.log("naAdd na sa DB");
+                    //console.log("naAdd na sa DB");
                     $("#rolesBody").append(response.data);
                     getRoleSelectNodes();
-                    console.log("naAdd na sa page");
+                    //console.log("naAdd na sa page");
                     updateRolesCount(table);
                 }
             }
@@ -184,6 +186,7 @@ function updateRolesCount(api) {
 }
 
 function getRoleSelectNodes() {
+    console.log("getting role nodes");
     $.ajax({
         type: 'get',
         url: 'customFiles/php/database/roleControls/generateRoleSelectNode.php',
