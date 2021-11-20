@@ -11,8 +11,7 @@ include('db.php');
 
 
 	 	if($count > 0){
-			$discount = $fetch['value'];
-			$total = $price - $discount;
+			$total = $price - $fetch['value'];
 			
 			echo json_encode($total);
 			
