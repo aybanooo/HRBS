@@ -20,4 +20,7 @@ if ($conn->connect_error) {
     die();
 }
 
+if(!mysqli_query($conn, "SET time_zone = '+08:00';")) {
+    die("Something went wrong while updating the timezone");
+}
 ?>
