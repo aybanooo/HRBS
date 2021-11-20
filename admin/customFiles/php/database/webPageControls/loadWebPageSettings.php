@@ -55,6 +55,8 @@ if(mysqli_num_rows($result = mysqli_query($conn, "SELECT `value` from `settings`
 
 $socialMedias = mysqli_fetch_all(mysqli_query($conn, "SElECT * FROM `socialmedias` LIMIT 1;"), MYSQLI_ASSOC)[0];
 
+$currency = mysqli_fetch_all(mysqli_query($conn, "SELECT `value` FROM `settings` WHERE `name` like 'currency' LIMIT 1;"))[0][0];
+$output->output['data']['currency'] = $currency;
 
 $output->output['data'] = array_merge($output->output['data'], $socialMedias);
 echo $output->setSuccessful();
@@ -64,5 +66,6 @@ exit;
 <pre>
     <?php
         echo $output->setSuccessful();
+        #echo $currency;
     ?>
 </pre>

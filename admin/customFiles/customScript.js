@@ -437,4 +437,8 @@ const updateDarkMode = () => {
   var mainsidebarClass =  $('nav.main-header').attr('class').replace(oppositeVal, val);
   $('nav.main-header').attr('class', mainsidebarClass);
 }
-updateDarkMode();
+try {
+  updateDarkMode();
+} catch(e) {
+  
+}

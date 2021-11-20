@@ -242,7 +242,7 @@ setupUserSession();
                   <div class="card-body">
                     <div class="form-group">
                       <label>Currency</label>
-                      <select class="custom-select">
+                      <select class="custom-select" name="select-currency" id="select-currency">
                         <option value="USD" selected="selected">United States Dollars</option>
                         <option value="EUR">Euro</option>
                         <option value="GBP">United Kingdom Pounds</option>
@@ -324,7 +324,7 @@ setupUserSession();
                         <option value="XPT">Platinum Ounces</option>
                       </select>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group d-none">
                       <label for="inp-footer-r">Footer Right Text</label>
                       <input type="text" class="form-control form-control-border border-width-2" id="inp-footer-r" name="inp-footer-r" placeholder="Enter any text here e.g Copyright">
                     </div>
@@ -365,14 +365,7 @@ setupUserSession();
   <!-- /.content-wrapper -->
 
   <!-- Main Footer -->
-  <footer class="main-footer">
-    <!-- To the right -->
-    <div class="float-right d-none d-sm-inline">
-      Anything you want
-    </div>
-    <!-- Default to the left -->
-    <strong>Copyright &copy; 2020-2021 <a href="#">Link Here</a>.</strong> All rights reserved.
-  </footer>
+  <?php include(__F_MAIN_FOOTER__); ?>
 </div>
 <!-- ./wrapper -->
 
@@ -715,8 +708,11 @@ function saveData(el) {
     contentType: false,
     processData: false,
     cache: false,
-    dataType: 'json',
+    //dataType: 'json',
     success: function (response) {
+      console.log(response);
+      toggleButtonDisabled(el, ".content-header", "Saving...")
+      return;
       //*
       Toast.fire({
         icon: response.status,
@@ -728,8 +724,6 @@ function saveData(el) {
         delete savedPageCover;
       }
       
-      console.log(response);
-      toggleButtonDisabled(el, ".content-header", "Saving...")
     }
   });
 }
@@ -753,6 +747,9 @@ function loadData() {
       $("#inp-socmed-1").val(response.data['socialInstagram']);
       $("#inp-socmed-2").val(response.data['socialFB']);
       $("#inp-socmed-3").val(response.data['socialTwitter']);
+      let currency = response.data['currency'];
+      let currencyIndex = $("#select-currency").find(`option[value='${currency}']`).index();
+      $("#select-currency")[0].selectedIndex = currencyIndex;
     }
   });
 }
