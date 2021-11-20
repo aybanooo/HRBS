@@ -368,7 +368,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 								$rateMinusVat = $dividedRate - $RateofVat;
 								$rateDiscount = $rateMinusVat * 0.2;
 								$rateDiscounted = $rateMinusVat - $rateDiscount;
-								$rateDiscountAdd = $rateMinusVat + $rateDiscount;
 								$totalPriceWithDiscount = $totalPrice - $rateDiscounted;
 							} else {
 								$totalRoomRate = $days * $followingdata['rate'];
@@ -470,7 +469,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							<tr align="right">
 								<td>Senior Citizen/PWD Discount</td>
 								<td><?php if ($seniorCitizen == 1 || $seniorCitizen == 2) {
-										echo number_format($rateDiscountAdd, 2, '.', '');
+										echo number_format($rateDiscount, 2, '.', '');
 									} ?> </td>
 							</tr>
 							<tr align="right">
