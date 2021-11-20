@@ -89,7 +89,6 @@ ob_end_clean();
             background-color: black;
             color: rgba(255, 255, 255, .8);
             padding: 1%;
-            position: absolute;
             bottom: 0;
             width: 100%;
             text-align: center;
@@ -149,7 +148,7 @@ ob_end_clean();
     <title>Compare Rooms</title>
 </head>
 
-<body>
+<body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <div class="container">
             <a class="navbar-brand js-scroll-trigger" href="/"><?php echo $followingdata['companyName']; ?></a>
@@ -167,7 +166,7 @@ ob_end_clean();
         </div>
     </nav>
 
-    <section class="content m-5">
+    <content class="wrapper flex-grow-1 my-5">
 
         <div class="row">
             <div class="col">
@@ -291,7 +290,7 @@ ob_end_clean();
             </div>
         </div>
 
-    </section>
+    </content>
 
     <?php
     $query = "SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
@@ -300,7 +299,7 @@ ob_end_clean();
     $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     ?>
 
-    <div class="footer">
+    <footer class="footer">
         <div class="row">
             <div class="col-lg-4 mx-auto">
                 <p><b>Contact us</b></p>
@@ -317,7 +316,7 @@ ob_end_clean();
                 <p><?php echo $followingdata["footerRight"]; ?></p>
             </div>
         </div>
-    </div>
+    </footer>
 
 
     <!-- REQUIRED SCRIPTS -->
