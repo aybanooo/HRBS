@@ -357,7 +357,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							$totalPersons = $followingdata['maxAdult'] + $followingdata['maxChildren'];
 							$seniorCitizen = isset($_POST['seniorcitizen']) ? $_POST['seniorcitizen'] : "";
-							$queryTax = "SELECT `name`, `value` FROM `settings` WHERE `name` = `tax` && `name` = `serviceCharge`";
+							$queryTax = "SELECT `name`, `value` FROM `settings` WHERE `name` = 'tax' && `name` = 'serviceCharge'";
 							$result = mysqli_query($conn, $queryTax) or die(mysqli_error($conn));
 							$followingdataSettings = $result->fetch_array(MYSQLI_ASSOC);
 							if ($seniorCitizen == 1 || $seniorCitizen == 2) {
