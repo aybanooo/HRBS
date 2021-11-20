@@ -2,6 +2,7 @@
 require_once("../../directories/directories.php");
 require_once(__initDB__);
 require_once(__F_VALIDATIONS__);
+require_once(__F_DB_HANDLER__);
 require_once(__F_FORMAT__);
 require_once(__F_FORMAT_IMAGE__);
 require_once(__F_PERMISSION_HANDLER__);
@@ -10,7 +11,6 @@ checkAdminSideAccess();
 checkPermission(__V_P_HOTEL_INFO_MANAGE__, true);
 
 //print_r($_FILES);
-
 
 if(isset($_FILES['pageCover'])) {
     if (check_file_type($_FILES['pageCover']['type'], 'image/jpeg')) {
@@ -28,6 +28,14 @@ if(isset($_FILES['logo'])) {
     move_uploaded_file($_FILES['logo']['tmp_name'], __D_PUBLIC_IMAGES__."logo.png");
     resizer(__D_PUBLIC_IMAGES__."logo.png", __D_PUBLIC_IMAGES__."logo_100x100.png", 128, 128);
     resizer(__D_PUBLIC_IMAGES__."logo.png", __D_PUBLIC_IMAGES__."favicon.png", 32, 32);
+}
+
+function saveSocialMedias($fb, $twitter, $insta) {
+    $tempConn = createTempDBConnection();
+    $sql = "UPDATE `socialmedias` SET `socialFB`='$fb', `socialTwitter`='$twitter', `socialInstagram`='$insta' LIMIT 1;";
+    if(!mysqli_query($tempConn, $sql)) {
+        $GLOBALS['output']->setFailed('Something went wrong while saving social medias');
+    }
 }
 
 /*
@@ -49,6 +57,8 @@ $socmed_1 = isset($_POST['inp-socmed-1']) ? prepareForSQL($conn, $_POST['inp-soc
 $socmed_2 = isset($_POST['inp-socmed-2']) ? prepareForSQL($conn, $_POST['inp-socmed-2']) : "";
 $socmed_3 = isset($_POST['inp-socmed-3']) ? prepareForSQL($conn, $_POST['inp-socmed-3']) : "";
 $showLogoInAdmin = isset($_POST['inp-logo-showLogoInAdmin']) ? prepareForSQL($conn, $_POST['inp-logo-showLogoInAdmin'], 0) : "0";
+
+saveSocialMedias($socmed_2, $socmed_3, $socmed_1);
 
 // checks company name value then fail if empty
 varsHaveEmpty([$companyName], true) && die($output->setFailed("Company name cannot be empty"));

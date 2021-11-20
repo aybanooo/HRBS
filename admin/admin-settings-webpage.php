@@ -172,7 +172,7 @@ setupUserSession();
                           <button type="button" class="btn btn-block btn-default">Remove</button>
                         </div>
                       </div>
-                      <div class="row">
+                      <div class="row d-none">
                         <div class="col">
                           <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" id="inp-logo-showLogoInAdmin" name="inp-logo-showLogoInAdmin">
@@ -750,6 +750,9 @@ function loadData() {
       $("#map").attr('src', `https://www.google.com/maps/embed/v1/place?key=AIzaSyANA3u1iWaTsQ1tbJsEyzhKhZ8JZXb3XMg
                       &q=${response.data["latitude"]}${( (/\S/.test(response.data["longitude"])) ? "," : "")}${response.data["longitude"]}`)
       //console.log( data["companyName"] );
+      $("#inp-socmed-1").val(response.data['socialInstagram']);
+      $("#inp-socmed-2").val(response.data['socialFB']);
+      $("#inp-socmed-3").val(response.data['socialTwitter']);
     }
   });
 }
