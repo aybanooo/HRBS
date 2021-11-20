@@ -487,7 +487,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							<tr align="right">
 								<td colspan="2">
 									<div class="form-check">
-									<input type="checkbox" onchange = "document.getElementById('buttonbooknow').disabled = !this.checked" required class="form-check-input" id="agree" required>
+									<input type="checkbox" onchange="document.getElementById('buttonbooknow').disabled = !this.checked" required class="form-check-input" id="agree" required>
 										<label for="agree">I understand the<a href="#" class="fst-italic link-primary" data-bs-toggle="modal" data-bs-target="#agreeModal"> terms and agreements</a></label>
 									</div>
 								</td>
