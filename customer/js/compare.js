@@ -44,18 +44,19 @@ function updateDisplay(col) {
     if (Object.keys(compare_data[col].genInfo).length>0)
         for (let item of Object.values(compare_data[col].genInfo))
             element_general = element_general.concat(`<li>${item}</li>`);
-    console.log(element_general);
+    //console.log(element_general);
     $("#compare-row-genInfo div").eq(col+1).html(`<ul>${element_general}</ul>`);
 
     for (const [key, value] of Object.entries(compare_data[col].sections)) {
-        
-        let sectionExist = $(`#compare-row-section-${key}`).length != 0;
+        let validID = key.replace(/\s+|\(+|\)+/g,"_");
+        let sectionExist = $(`#compare-row-section-${validID}`).length != 0;
         if(sectionExist) {
             let sectionData = getListFromSection(value);
-            $(`#compare-row-section-${key} div`).eq(col+1).html(sectionData);
+            console.log($(`#compare-row-section-${validID} div`).eq(col+1).html());
+            $(`#compare-row-section-${validID} div`).eq(col+1).html(sectionData);
         } else {
             let sectionTemplate = `
-            <div id="compare-row-section-${key}" class="row" data-section-name="${key}" ><div class="col-3"><h4 class="text-center">${key}</h4></div>
+            <div id="compare-row-section-${validID}" class="row" data-section-name="${validID}" ><div class="col-3"><h4 class="text-center">${key}</h4></div>
                 <div class="col-3">
                     
                 </div>
@@ -68,8 +69,8 @@ function updateDisplay(col) {
             </div>`;
             $("#appendRoomInfoHere").append(sectionTemplate);
             let sectionData = getListFromSection(value);
-            //console.log(sectionData);
-            $(`#compare-row-section-${key} div`).eq(col+1).html(sectionData);
+            console.log(sectionData, validID);
+            $(`#compare-row-section-${validID} div`).eq(col+1).html(sectionData);
         }
     }
 
@@ -78,16 +79,35 @@ function updateDisplay(col) {
         return name;
     }).get();
 
+    /* OLD
     let validSections = new Set($.map(compare_data, (el)=>{
         return Object.keys(el.sections);
     }));
+    */
+    //console.log(compare_data);
+    let validSections = new Set($.map(compare_data, (el) => {
+        if(typeof el != 'undefined')
+        return $.map(Object.keys(el.sections), name => {
+            return name.replace(/\s+|\(+|\)+/g, "_");
+        });
+    }));
+
+    let thisRoomValidSection =  new Set($.map(Object.keys(compare_data[col].sections), name => {
+        return name.replace(/\s+|\(+|\)+/g, "_");
+    }));
+
+   // console.log(thisRoomValidSection);
 
     displayedList.forEach(element => {
         if(!compare_data[col].sections[element])
-            console.log(`#compare-row-section-${element} div`, $(`#compare-row-section-${element} div`).eq(col+1).html(''));
-        console.log(element, validSections);
+            //console.log(`#compare-row-section-${element} div`, $(`#compare-row-section-${element} div`).eq(col+1).html(''));
+        //console.log(element, validSections);
         if(!validSections.has(element))
             $(`#compare-row-section-${element}`).remove();
+            
+        if(!thisRoomValidSection.has(element))
+            console.log($(`#compare-row-section-${element} div`).eq(col+1).html(''));
+        //$(`#compare-row-section-${element} div`).eq(col).html('');
     });
     
 
