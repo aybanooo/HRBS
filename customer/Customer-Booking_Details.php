@@ -348,7 +348,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						</tr>
 						<tr align="right">
 							<th>Room:</th>
-							<td><?php echo $roomName; ?></td>
+							<td id="roomName"><?php echo $roomName; ?></td>
 						</tr>
 						<tr align="right">
 							<?php
