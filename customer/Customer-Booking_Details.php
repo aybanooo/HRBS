@@ -493,7 +493,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 								</td>
 							</tr>
 							<tr align="right">
-								<td colspan="2"><button id="buttonbooknow" type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModalCenter">Book Now</button></td>
+								<td colspan="2"><button id="buttonbooknow" type="button" class="btn btn-success" disabled data-toggle="modal" data-target="#exampleModalCenter">Book Now</button></td>
 							</tr>
 					</table>
 				</div>
