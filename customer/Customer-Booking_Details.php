@@ -422,11 +422,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							<td><input class="form-control" type="text" id="coupon" name="coupon" placeholder="Code (Optional)" /></input></td>
 						</tr>
 						<tr align="right">
-							<td><input type="hidden" value="<?php if ($seniorCitizen == 1 || $seniorCitizen == 2) {
-																												echo number_format($totalPriceWithDiscount, 2, '.', '');
-																											} else {
-																												echo number_format($totalPriceNoDiscount, 2, '.', '');
-																											} ?>" id="price" name="price" />
+							<td><input type="number" value="
+							<?php if ($seniorCitizen == 1 || $seniorCitizen == 2) {		
+								echo number_format($totalPriceWithDiscount, 2, '.', '');
+							} else {
+								echo number_format($totalPriceNoDiscount, 2, '.', '');
+							} ?>" id="price" name="price" />
 							<td>
 						</tr>
 						<tr align="right">
