@@ -199,7 +199,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			padding: 0;
 		}
 
-		.btn.btn-info {
+		button#activate {
 			border-radius: 10px;
 			background-color: #45b6fe;
 			color: #ffffff;
@@ -208,7 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			font-size: 80%;
 		}
 
-		.btn.btn-success {
+		button#buttonbooknow {
 			border-radius: 10px;
 			box-shadow: 0 0.1875rem 0.1875rem;
 			font-size: 80%;
