@@ -34,8 +34,10 @@ function saveSocialMedias($fb, $twitter, $insta) {
     $tempConn = createTempDBConnection();
     $sql = "UPDATE `socialmedias` SET `socialFB`='$fb', `socialTwitter`='$twitter', `socialInstagram`='$insta' LIMIT 1;";
     if(!mysqli_query($tempConn, $sql)) {
-        $GLOBALS['output']->setFailed('Something went wrong while saving social medias');
+        echo $GLOBALS['output']->setFailed('Something went wrong while saving social medias');
+        die;
     }
+    mysqli_close($tempConn);
 }
 
 /*
