@@ -368,12 +368,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 							if ($seniorCitizen == 1 || $seniorCitizen == 2) {
 								$totalRoomRate = $days * $followingdata['rate'];
-								$vat = $totalRoomRate * ($followingdatatax['tax'] / 100);
-								$serviceCharge =  $totalRoomRate *  ($followingdatatxax['taxserviceCharge'] / 100);
+								$vat = $totalRoomRate * ($tax / 100);
+								$serviceCharge =  $totalRoomRate *  ($taxserviceCharge / 100);
 								$totalPrice = $vat + $serviceCharge + $totalRoomRate;
 								//senior discount computation
 								$dividedRate =  $totalRoomRate / $totalPersons;
-								$RateofVat =  $dividedRate * ($followingdatatax["tax"] / 100);
+								$RateofVat =  $dividedRate * ($tax / 100);
 								$rateMinusVat = $dividedRate - $RateofVat;
 								$rateDiscount = $rateMinusVat * 0.2;
 								$rateDiscounted = $rateMinusVat - $rateDiscount;
@@ -381,8 +381,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 								$totalPriceWithDiscount = $totalPrice - $totalDiscount;
 							} else {
 								$totalRoomRate = $days * $followingdata['rate'];
-								$vat = $totalRoomRate * ($followingdatatax['tax'] / 100);
-								$serviceCharge =  $totalRoomRate * ($followingdatatax['taxserviceCharge'] / 100);
+								$vat = $totalRoomRate * ($tax / 100);
+								$serviceCharge =  $totalRoomRate * ($taxserviceCharge / 100);
 								$totalPriceNoDiscount = $vat + $serviceCharge + $totalRoomRate;
 							}
 							?>
