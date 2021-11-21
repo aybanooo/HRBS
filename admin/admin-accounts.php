@@ -203,7 +203,7 @@ setupUserSession();
                     </div>
                   </div>
                   <div class="form-group">
-                      <input type="text" name="empID" class="form-control" id="inputEmpID" placeholder="Employee ID">
+                      <input type="number" name="empID" class="form-control" id="inputEmpID" placeholder="Employee ID">
                   </div>
                   <div class="form-group">
                       <input type="text" name="fname" class="form-control" id="inputFname" placeholder="First Name">
