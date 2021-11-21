@@ -321,13 +321,13 @@
           <div class="row m-3">
             <div class="col-12 col-lg-6">
               <div class="row">
-                <div class="col-6 mb-3">
+                <div class="col-12 mb-3">
                   <small class="d-block text-muted mb-0">Status</small>
                   <h4 id="rsvtn-panel-status" class="ml-2">
                     <span class="badge badge-danger">Unpaid</span>
                   </h4>
                 </div>
-                <div class="col-6 mb-3">
+                <div class="col-6 mb-3 d-none">
                   <small class="d-block text-muted mb-0">Room #</small>
                   <h5 id="rsvtn-panel-room-num" class="ml-2">
                     n/a
