@@ -273,7 +273,7 @@
                   <th></th>
                   <th>Status</th>
                   <th>Reservation ID</th>
-                  <th>Room #</th>
+                  <!-- <th>Room #</th> -->
                   <th>Booked by</th>
                   <th>Date Created</th>
                   <th>Check-In Date</th>
@@ -866,9 +866,6 @@ table_Reservation = $('#table-reservation').DataTable( {
         return data;
       }
     }, {
-      data: 'roomNo',
-      "visible": false
-    }, {
       data: 'Name',
       className: 'None'
     }, {
@@ -978,7 +975,7 @@ function updateRsvtnModal(data, rowIndex) {
   let dateCreated = moment(data.dateCreated).format('dddd, MMMM Do YYYY');
   $("#rsvtn-panel-created-date").html(dateCreated);
   $("#rsvtn-panel-status").html(getReservationStatusBadge(data.reservationStatus));
-  $("#rsvtn-panel-room-num").html(data.roomNo);
+  //$("#rsvtn-panel-room-num").html(data.roomNo);
   $("#rsvtn-panel-bookedby").html(data.Name);
   (data.Name.trim()==="") && $("#rsvtn-panel-bookedby").html("How is this possible????");
   $("#rsvtn-panel-stay-count").html(data.numberOfNightstay);
