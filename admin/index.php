@@ -799,7 +799,46 @@ table_Reservation = $('#table-reservation').DataTable( {
         attr: {
           id: 'btn-rsv-refresh'
         }
-    }
+    },  {
+            extend: 'collection',
+            text: 'Export',
+            attr: {
+                class: "btn btn-default dropdown-toggle"
+            },
+            buttons: [
+                {
+                    extend: "copyHtml5",
+                    text: "Copy",
+                    exportOptions: {
+                        columns: [":not(:last-child)"]  
+                    }
+                }, {
+                    extend: "print",
+                    text: "Print",
+                    exportOptions: {
+                        columns: [":not(:last-child)"]
+                    }
+                }, {
+                    extend: "excelHtml5",
+                    text: "Excel",
+                    exportOptions: {
+                        columns: [":not(:last-child)"]
+                    }
+                }, {
+                    extend: "csvHtml5",
+                    text: "CSV",
+                    exportOptions: {
+                        columns: [":not(:last-child)"]
+                    }
+                }, {
+                    extend: "pdfHtml5",
+                    text: "PDF",
+                    exportOptions: {
+                        columns: [":not(:last-child)"]
+                    }
+                }
+            ]
+        }
   ],
   responsive: {
     details: {
