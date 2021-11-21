@@ -10,7 +10,7 @@ async function setTimelyWebAnalytics() {
     });
     // 5d
     console.log("Fetching (5 days ago)");
-    $.getJSON("customFiles/php/google/getWebAnalytics_timely.php?range=1", null,
+    await $.getJSON("customFiles/php/google/getWebAnalytics_timely.php?range=1", null,
     function (data, textStatus, jqXHR) {
         displayTimelyWebAnalytics(data, 1);
         console.group("5 days");
@@ -19,7 +19,7 @@ async function setTimelyWebAnalytics() {
     });
     // 1m
     console.log("Fetching (1 month ago)");
-    $.getJSON("customFiles/php/google/getWebAnalytics_timely.php?range=2", null,
+    await $.getJSON("customFiles/php/google/getWebAnalytics_timely.php?range=2", null,
     function (data, textStatus, jqXHR) {
         displayTimelyWebAnalytics(data, 2);
         console.group("1 Month");
@@ -57,15 +57,20 @@ function displayTimelyWebAnalytics(data, tabIndex = 0) {
     //console.log(analytics_user);
     $(content_analytics_session).html(data['ga:sessions']);
     let avgSessionDuration = parseFloat(data['ga:avgSessionDuration'])/60;
-    console.log()
     avgSessionDuration = Math.round((avgSessionDuration + Number.EPSILON) * 100) / 100
     $(content_analytics_session_average).html(avgSessionDuration);
 
     $(content_analytics_user).html(data['ga:users']);
     $(content_analytics_user_new).html(data['ga:newUsers']);
     $(content_analytics_user_new).html(data['ga:newUsers']);
-    $(content_analytics_bounce_rate).html(data['ga:bounceRate']);
-    $(analytics_page_views_per_session).html(data['ga:pageviewsPerSession']);
+
+    let bounceRate = parseFloat(data['ga:bounceRate']);
+    bounceRate  = Math.round((bounceRate + Number.EPSILON) * 100) / 100
+    $(content_analytics_bounce_rate).html(bounceRate);
+    
+    let pageviewsPerSession = parseFloat(data['ga:pageviewsPerSession']);
+    pageviewsPerSession  = Math.round((pageviewsPerSession + Number.EPSILON) * 100) / 100
+    $(analytics_page_views_per_session).html(parseInt(pageviewsPerSession));
 }
 
 $(function () {
