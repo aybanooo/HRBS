@@ -2,6 +2,7 @@
 include('db.php');
 
 require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/directories.php");
+require_once __F_DB_HANDLER__;
 
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
@@ -45,7 +46,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$lastName = mysqli_real_escape_string($conn, $_POST['lname']);
 		$contact = mysqli_real_escape_string($conn, $_POST['cnumber']);
 		$email = mysqli_real_escape_string($conn, $_POST['email']);
-		$roomName = mysqli_real_escape_string($conn, $_POST['roomName']);
+
+		$roomID = mysqli_real_escape_string($conn, $_POST['roomName']);
+		$concon = createTempDBConnection();
+		$tempRoom = mysqli_fetch_all(mysqli_query($concon, "select * from roomtype WHERE `roomTypeID`=$roomID LIMIT 1;"), MYSQLI_ASSOC)[0];
+		$adult = $tempRoom['maxAdult'];
+		$child = $tempRoom['maxChildren'];
+		$roomName = mysqli_real_escape_string($concon, $tempRoom['name']);
+		mysqli_close($concon);
 		$dateStart = mysqli_real_escape_string($conn, $_POST['from']);
 		$dateEnd = mysqli_real_escape_string($conn, $_POST['to']);
 
@@ -67,8 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		$customerQuery1 = ("INSERT INTO reservation 
 	( roomNo, customerID, numberOfNightstay, adults, children, checkInDate, checkOutDate, checkInTime, checkOutTime, dateCreated) 
-	VALUES ('0', $customerID, '$days', 'none', 'none' ,'$dateStartFinal', '$dateEndFinal', NULL, NULL, NOW()) LIMIT 1;");
-
+	VALUES ('0', $customerID, '$days', $adult, $child ,'$dateStartFinal', '$dateEndFinal', NULL, NULL, NOW()) LIMIT 1;");
 		mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 	}
 } else {
