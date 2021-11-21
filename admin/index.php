@@ -621,7 +621,7 @@ $(function () {
     let d = table_Reservation.rows().data()[i];
     if(date==null) return;
     if(date.isSame(moment.utc(d.checkOutTime))) return;
-    $.post("customFiles/php/database/reservationControls/setcheckOutTime.php", {"date-checkOut": moment.utc(date).format('YYYY-MM-DD HH:mm'), rsvid: d.reservationID},
+    $.post("customFiles/php/database/reservationControls/setCheckOutTime.php", {"date-checkOut": moment.utc(date).format('YYYY-MM-DD HH:mm'), rsvid: d.reservationID},
       function (response, textStatus, jqXHR) {
         //console.log(response);        
         Toast.fire({
