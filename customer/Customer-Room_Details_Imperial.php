@@ -11,6 +11,16 @@ if ($_GET['r'] == "") {
     die();
 }
 
+if($_GET['d']!= "") {
+    $d = $_GET['d'];
+    $d_urlDecoded = urldecode($d);
+    $d_base64Decoded = base64_decode($d_urlDecoded);
+    $date = json_decode($d_base64Decoded);
+    (!is_null($date) && count($date)==2) || die("Invalid Date");
+    (validateDate($date[0]) && validateDate($date[1])) || die("Invalid Date");
+    $checkIn = $date[0];
+    $checkOut = $date[1];
+}
 require_once "../public_assets/modules/php/database/roomControls/getRoomData.php";
 
 $unwtfedID = tonotwtf($_GET['r'], 3);
