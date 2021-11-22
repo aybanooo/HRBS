@@ -1,6 +1,7 @@
 <?php
 require_once("../../directories/directories.php");
 require_once(__initDB__);
+require_once __F_DB_HANDLER__;
 require_once __F_PERMISSION_HANDLER__;
 require_once __F_VALIDATIONS__;
 checkAdminSideAccess();
@@ -17,12 +18,12 @@ $roomNoArray = implode(", ", $_POST["roomNoArray"]);
 
 $sql = "DELETE FROM room where roomNo in ($roomNoArray);";
 
-if (mysqli_query($conn, $sql) == TRUE) {
-    $output->setSuccessful("Selected room # have been deleted.");
-    echo $output->getOutput(1);
+if (mysqli_query($conn, $sql)) {
+    echo $output->setSuccessful("Selected room # have been deleted.");
+    die;
 } else {
-    $output->setFailed("Something went wrong while deleting the records.");
-    echo $output->getOutput(1);
+    echo $output->setFailed("Something went wrong while deleting the records.".getConnError($conn));
+    die;
 }
 
 ?>
