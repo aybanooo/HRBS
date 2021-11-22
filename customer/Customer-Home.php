@@ -222,23 +222,23 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             <div class="row">
                 <div class="col-lg-8 mx-auto">
                     <h2 class="text-white mb-4">Check Available Dates</h2>
-                    <div class="timefeature">
+                    <form id="form-checkAvailableRooms" class="timefeature">
                         <div class="timebox">
                             <div class="form-group">
                                 <h6>Check - in Date</h6>
                                 <br>
-                                <input type="text" name="from" id="from" required="" autocomplete="off" placeholder="DD-MM-YY">
+                                <input type="text" name="from" id="from" autocomplete="off" placeholder="YYYY-MM-DD">
                             </div>
 
                             <br>
                             <div class="form-group">
-                            <h6>Check - out Date</h6>
-                            <br>
-                                <input type="text" name="to" id="to" required autocomplete="off" placeholder="DD-MM-YY">
+                                <h6>Check - out Date</h6>
+                                <br>
+                                <input type="text" name="to" id="to" autocomplete="off" placeholder="YYYY-MM-DD">
                             </div>
                         </div>
-                        <a class="btn btn-primary js-scroll-trigger" href="/rooms">Book A Room</a>
-                    </div>
+                        <button type="submit" class="btn btn-primary js-scroll-trigger">Check Available Rooms</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -355,6 +355,51 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<!-- Jquery Validation -->
+<script src="/public_assets/modules/libraries/jquery-validation/jquery.validate.js"></script>
+<script src="/public_assets/modules/libraries/jquery-validation/additional-methods.js"></script>
+
+<!-- Script for validation -->
+<script>
+    $("#form-checkAvailableRooms").validate({
+        rules: {
+            to: {
+                required: true,
+                regex: "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$"
+            },
+            from: {
+                required: true,
+                regex: "^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$"
+            },
+        },
+        errorElement: 'span',
+        errorPlacement: function (error, element) {
+            error.addClass('invalid-feedback');
+            element.closest('.form-group').append(error);
+        },
+        highlight: function (element, errorClass, validClass) {
+            $(element).addClass('is-invalid');
+        },
+        unhighlight: function (element, errorClass, validClass) {
+            $(element).removeClass('is-invalid');
+        },
+        submitHandler: function (form, e) {
+            // alert("submited");
+            let h = window.location.host;
+            let data = JSON.stringify([$("#from").val(),$("#to").val()]);
+            let encodedData = encodeURIComponent(btoa(data));
+            let url = `/available/${encodedData}`;
+            window.location.href = url ;
+        }
+    });
+    $.validator.addMethod(
+        "regex",
+        function(value, element, regexp) {
+            var re = new RegExp(regexp, 'g');
+            return this.optional(element) || re.test(value);
+        }, "Date format must be YYYY-MM-DD"
+    );
+</script>
 
 
 <script>
@@ -363,7 +408,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             changeMonth: true,
             numberOfMonths: 1,
             minDate: +2,
-            dateFormat: 'dd-mm-yy',
+            dateFormat: 'yy-mm-dd',
 
             onSelect: function(dateString, instance) {
                 let date = $dt1.datepicker('getDate');
@@ -372,7 +417,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             }
         });
         var $dt2 = $("#to").datepicker({
-            dateFormat: 'dd-mm-yy',
+            dateFormat: 'yy-mm-dd',
         });
     });
 </script>
