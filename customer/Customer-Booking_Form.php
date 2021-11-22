@@ -1,6 +1,6 @@
 <?php
 include('db.php');
-require_once(dirname(__FILE__,2)."/public_assets/modules/php/directories/directories.php");
+require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/directories.php");
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
@@ -9,10 +9,10 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 <!DOCTYPE HTML>
 <html lang="en">
 
-<head>	
-    <?php 
-		require_once(dirname(__FILE__, 2)."/public_assets/modules/php/directories/directories.php");
-		include_once(__D_UI__."js/analytics.php"); 
+<head>
+	<?php
+	require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/directories.php");
+	include_once(__D_UI__ . "js/analytics.php");
 	?>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -305,16 +305,17 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			background-color: #ffffff;
 			;
 		}
-		input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
-        }
 
-        /* Firefox */
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+			margin: 0;
+		}
+
+		/* Firefox */
+		input[type=number] {
+			-moz-appearance: textfield;
+		}
 	</style>
 
 	<title>Booking Details</title>
@@ -524,7 +525,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							</tr>
 							<tr align="right">
 								<td colspan="2">
-									<div onchange="document.getElementById('submit').disabled = !this.checked" data-callback="enableBtn"class="g-recaptcha" data-sitekey="<?php print parse_ini_file(__CONF_PRIVATE__)['RECAPTCHA_SITE_KEY'];?>"></div>
+									<div onchange="document.getElementById('submit').disabled = !this.checked" data-callback="enableBtn" class="g-recaptcha" data-sitekey="<?php print parse_ini_file(__CONF_PRIVATE__)['RECAPTCHA_SITE_KEY']; ?>"></div>
 								</td>
 							</tr>
 							<tr>
@@ -628,14 +629,24 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		}
 	})
 	$('input[type="checkbox"]').on('change', function() {
-    	$('input[name="' + this.name + '"]').not(this).prop('checked', false);
+		$('input[name="' + this.name + '"]').not(this).prop('checked', false);
 	});
 </Script>
 <script>
-    function enableBtn(){
-        document.getElementById("submit").disabled = false;
-    }
+	function enableBtn() {
+		document.getElementById("submit").disabled = false;
+	}
+</script>]
+<script>
+	var number = document.getElementById("children", "adults");
 
+	number.onkeydown = function(e) {
+		if (!((e.keyCode > 95 && e.keyCode < 106) ||
+				(e.keyCode > 47 && e.keyCode < 58) ||
+				e.keyCode == 8)) {
+			return false;
+		}
+	}
 </script>
 
 </html>
