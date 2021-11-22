@@ -434,9 +434,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<?php
 								if (isset($_POST['cnumber'])) {
 									$contact = $_POST['cnumber'];
-									echo '<td><input id="cnumber" type="text" name="cnumber" placeholder="Contact Number" value="' . $contact . '" autocomplete="off"></td>';
+									echo '<td><input id="cnumber" type="number" name="cnumber" placeholder="Contact Number" value="' . $contact . '" autocomplete="off"></td>';
 								} else {
-									echo '<td><input id="cnumber" type="text" name="cnumber" placeholder="Contact Number" required autocomplete="off"></td>';
+									echo '<td><input id="cnumber" type="number" name="cnumber" placeholder="Contact Number" required autocomplete="off"></td>';
 								}
 								?>
 							</tr>
@@ -448,6 +448,33 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 									echo '<td><input id="email" type="email" name="email" placeholder="Email Address" value="' . $email . '" autocomplete="off"></td>';
 								} else {
 									echo '<td><input id="email" type="email" name="email" placeholder="Email Address" required autocomplete="off"></td>';
+								}
+								?>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<h4><b>No. of Guest</b></h4>
+								</td>
+							</tr>
+							<tr align="right">
+								<th><label for="adults">Adults:</label></th>
+								<?php
+								if (isset($_POST['adults'])) {
+									$adults = $_POST['adults'];
+									echo '<td><input id="adults" type="number" name="number" placeholder="No. of Adults" value="' . $adults . '" autocomplete="off"></td>';
+								} else {
+									echo '<td><input id="adults" type="number" name="number" placeholder="No. of Adults" required autocomplete="off"></td>';
+								}
+								?>
+							</tr>
+							<tr align="right">
+								<th><label for="children">Children:</label></th>
+								<?php
+								if (isset($_POST['children'])) {
+									$children = $_POST['children'];
+									echo '<td><input id="children" type="number" name="children" placeholder="No. of Childrens" value="' . $children . '" autocomplete="off"></td>';
+								} else {
+									echo '<td><input id="children" type="number" name="children" placeholder="No. of Childrens" required autocomplete="off"></td>';
 								}
 								?>
 							</tr>
