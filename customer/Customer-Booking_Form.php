@@ -358,7 +358,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<th><label for="date">Check In Date:</label></th>
 								<td>
 									<div class="form-group">
-										<input type="text" name="from" id="from" required autocomplete="off" placeholder="DD-MM-YY">
+										<input type="text" name="from" id="from" required autocomplete="off" placeholder="YYYY-MM-DD">
 									</div>
 								</td>
 							</tr>
@@ -366,7 +366,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<th><label for="date">Check Out Date:</label></th>
 								<td>
 									<div class="form-group">
-										<input type="text" name="to" id="to" required autocomplete="off" placeholder="DD-MM-YY">
+										<input type="text" name="to" id="to" required autocomplete="off" placeholder="YYYY-MM-DD">
 									</div>
 								</td>
 							</tr>
@@ -383,16 +383,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
 							<tr align="right" class="roomEntry">
 								<th>Room:</th>
-								<td><select id="nameRoom" name="roomName" name="pickRoom" onchange="selectRate()">
-										<?php
-										$query = "SELECT `roomTypeID`, `name` FROM roomtype;";
-										$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-										while ($row = mysqli_fetch_assoc($result)) {
-										?>
-											<option value="<?php echo $row["roomTypeID"]; ?>"><?php echo $row["name"]; ?></option>
-										<?php
-										}
-										?>
+								<td>
+									<select id="nameRoom" name="roomName" name="pickRoom" onchange="selectRate()">
+									</select>
 								</td>
 							</tr>
 							<tr align="right" class="roomEntryRate">
@@ -589,16 +582,22 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			changeMonth: true,
 			numberOfMonths: 1,
 			minDate: +2,
-			dateFormat: 'dd-mm-yy',
+			dateFormat: 'yy-mm-dd',
 
 			onSelect: function(dateString, instance) {
 				let date = $dt1.datepicker('getDate');
 				date.setDate(date.getDate() + 1)
 				$dt2.datepicker('option', 'minDate', date);
+				refreshSelectNode();
+				console.log("changed");
 			}
 		});
 		var $dt2 = $("#to").datepicker({
-			dateFormat: 'dd-mm-yy',
+			dateFormat: 'yy-mm-dd',
+			onSelect: function(dateString, instance) {
+				refreshSelectNode();
+				console.log("changed");
+			}
 		});
 	});
 </script>
@@ -632,6 +631,61 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			return false;
 		}
 	}
+</script>
+
+
+<!-- For updating select node -->
+<script>
+	selectNodeIsUpdating = false;
+        function refreshSelectNode() {
+		if(selectNodeIsUpdating) {
+			// console.log("still updating");
+			return;
+		};
+		// console.log("pasok");
+        let date = [$("#from").val(), $("#to").val()];
+        if(!moment(date[0], 'YYYY-MM-DD', true).isValid() || !moment(date[0], 'YYYY-MM-DD', true).isValid()) {
+            $("#nameRoom").html(`<select id="nameRoom" name="roomName" name="pickRoom" onchange="selectRate()"></select>`);
+            return;
+        }
+        let reg = new RegExp('^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$', 'g');
+        if(!reg.test(date[0]) && !reg.test(date[0])) return;
+        let filteredDate = [
+            moment(date[0], 'YYYY-MM-DD', true).format('YYYY-MM-DD'), 
+            moment(date[1], 'YYYY-MM-DD', true).format('YYYY-MM-DD')
+        ];
+        let uriDate = encodeURIComponent(btoa(JSON.stringify(filteredDate)));
+        // console.log(filteredDate);
+		selectNodeIsUpdating = true;
+        $.get("/public_assets/modules/php/database/reservationControls/getAvailableRoomsAsSelect.php", {d: uriDate},
+            function (data, textStatus, jqXHR) {
+				selectNodeIsUpdating = false;
+                // console.log("done");
+                let target = $("#nameRoom").get(0);
+                if(!$(data).get(0).isEqualNode(target)) {
+                    console.log("New room list");
+                    $("#nameRoom").html($(data).html());
+                }
+            },
+            "html"
+        );
+    }
+
+    const runSelectUpdateInterval = () => {
+        var i = 0;
+        var intervalId = setInterval(function () {
+            // if (i === 100) {
+            //     clearInterval(intervalId);
+            // }
+            refreshSelectNode();
+            console.log(i);
+            i+=5;
+        }, 5000);
+    };
+
+    $(function () {
+        runSelectUpdateInterval()
+    });
 </script>
 
 </html>
