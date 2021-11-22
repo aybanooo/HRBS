@@ -2,7 +2,6 @@
 include('db.php');
 
 require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/directories.php");
-require_once __F_DB_HANDLER__;
 
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
@@ -46,13 +45,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$lastName = mysqli_real_escape_string($conn, $_POST['lname']);
 		$contact = mysqli_real_escape_string($conn, $_POST['cnumber']);
 		$email = mysqli_real_escape_string($conn, $_POST['email']);
-		$roomID = mysqli_real_escape_string($conn, $_POST['roomName']);
-		$adult = mysqli_real_escape_string($conn, $_POST['adults']);
-		$children = mysqli_real_escape_string($conn, $_POST['children']);
-		$concon = createTempDBConnection();
-		$tempRoom = mysqli_fetch_all(mysqli_query($concon, "select * from roomtype WHERE `roomTypeID`=$roomID LIMIT 1;"), MYSQLI_ASSOC)[0];
-		$roomName = mysqli_real_escape_string($concon, $tempRoom['name']);
-		mysqli_close($concon);
+		$roomName = mysqli_real_escape_string($conn, $_POST['roomName']);
 		$dateStart = mysqli_real_escape_string($conn, $_POST['from']);
 		$dateEnd = mysqli_real_escape_string($conn, $_POST['to']);
 
@@ -74,7 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		$customerQuery1 = ("INSERT INTO reservation 
 	( roomNo, customerID, numberOfNightstay, adults, children, checkInDate, checkOutDate, checkInTime, checkOutTime, dateCreated) 
-	VALUES ('0', $customerID, '$days', $adult, $children ,'$dateStartFinal', '$dateEndFinal', NULL, NULL, NOW()) LIMIT 1;");
+	VALUES ('0', $customerID, '$days', 'none', 'none' ,'$dateStartFinal', '$dateEndFinal', NULL, NULL, NOW()) LIMIT 1;");
+
 		mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 	}
 } else {
@@ -361,7 +355,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							$query = "SELECT * FROM roomtype WHERE `name`='$roomName'";
 							$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
-							$totalPersons = $adult + $children;
+							$totalPersons = $followingdata['maxAdult'] + $followingdata['maxChildren'];
 							$seniorCitizen = isset($_POST['seniorcitizen']) ? $_POST['seniorcitizen'] : "";
 							#Fetch Vat tac and service charge !!! GETS GETS HAHAHA gawin muna variable
 							$queryTax = "SELECT * FROM `settings` WHERE `name` in ('tax', 'serviceCharge');";
@@ -371,15 +365,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							$taxserviceCharge = $tempSettings[0]['value'];
 							$tax = $tempSettings[1]['value'];
 							unset($tempSettings);
-
 							if ($seniorCitizen == 1 || $seniorCitizen == 2) {
 								$totalRoomRate = $days * $followingdata['rate'];
-								$vat = $totalRoomRate * ($tax / 100);
-								$serviceCharge =  $totalRoomRate *  ($taxserviceCharge / 100);
+								$vat = $totalRoomRate * ($followingdatatax['tax'] / 100);
+								$serviceCharge =  $totalRoomRate *  ($followingdatatxax['serviceCharge'] / 100);
 								$totalPrice = $vat + $serviceCharge + $totalRoomRate;
 								//senior discount computation
 								$dividedRate =  $totalRoomRate / $totalPersons;
-								$RateofVat =  $dividedRate * ($tax / 100);
+								$RateofVat =  $dividedRate * ($followingdatatax['tax'] / 100);
 								$rateMinusVat = $dividedRate - $RateofVat;
 								$rateDiscount = $rateMinusVat * 0.2;
 								$rateDiscounted = $rateMinusVat - $rateDiscount;
@@ -387,8 +380,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 								$totalPriceWithDiscount = $totalPrice - $totalDiscount;
 							} else {
 								$totalRoomRate = $days * $followingdata['rate'];
-								$vat = $totalRoomRate * ($tax / 100);
-								$serviceCharge =  $totalRoomRate * ($taxserviceCharge / 100);
+								$vat = $totalRoomRate * ($followingdatatax['tax'] / 100);
+								$serviceCharge =  $totalRoomRate * ($followingdatatax['serviceCharge'] / 100);
 								$totalPriceNoDiscount = $vat + $serviceCharge + $totalRoomRate;
 							}
 							?>
@@ -417,11 +410,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						</tr>
 						<tr align="right">
 							<th>No of Adults:</th>
-							<td><?php echo htmlspecialchars($adult); ?></td>
+							<td><?php echo $followingdata['maxAdult']; ?></td>
 						</tr>
 						<tr align="right">
 							<th>No of Childrens:</th>
-							<td><?php echo htmlspecialchars($children); ?></td>
+							<td><?php echo $followingdata['maxChildren']; ?></td>
 						</tr>
 						<tr align="right">
 							<td colspan="2">
@@ -610,7 +603,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						$('#result').val('');
 					} else {
 						var json = JSON.parse(data);
-						$('#result').html(+json.value + ".00");
+						$('#result').html(+json.value + " Off");
 						$('#total').val(Math.round((parseFloat(json.price)) * 100) / 100);
 					}
 				});
@@ -634,7 +627,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		// Finalize the transaction after payer approval
 		onApprove: function(data, actions) {
 			return actions.order.capture().then(function() {
-				console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
 				window.location = "tracnsaction-completed.php?&orderID=" + data.orderID + "&customerID=" + '<?php print $customerID; ?>';
 				//window.location = "paypalSuccess.php?&customerID=" + data.customerID;
 			});
