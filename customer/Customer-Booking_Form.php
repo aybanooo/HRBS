@@ -461,9 +461,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<?php
 								if (isset($_POST['adults'])) {
 									$adults = $_POST['adults'];
-									echo '<td><input id="adults" type="number" name="number" placeholder="No. of Adults" value="' . $adults . '" autocomplete="off" min="0"></td>';
+									echo '<td><input id="noGuest" type="number" name="number" placeholder="No. of Adults" value="' . $adults . '" autocomplete="off" min="0"></td>';
 								} else {
-									echo '<td><input id="adults" type="number" name="number" placeholder="No. of Adults" required autocomplete="off" min="0"></td>';
+									echo '<td><input id="noGuest" type="number" name="number" placeholder="No. of Adults" required autocomplete="off" min="0"></td>';
 								}
 								?>
 							</tr>
@@ -472,9 +472,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<?php
 								if (isset($_POST['children'])) {
 									$children = $_POST['children'];
-									echo '<td><input id="children" type="number" name="children" placeholder="No. of Childrens" value="' . $children . '" autocomplete="off" min="0"></td>';
+									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" value="' . $children . '" autocomplete="off" min="0"></td>';
 								} else {
-									echo '<td><input id="children" type="number" name="children" placeholder="No. of Childrens" required autocomplete="off" min="0"></td>';
+									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" required autocomplete="off" min="0"></td>';
 								}
 								?>
 							</tr>
@@ -627,7 +627,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	}
 </script>]
 <script>
-	var number = document.getElementById("children", "adults");
+	var number = document.getElementById("noGuest");
 
 	number.onkeydown = function(e) {
 		if (!((e.keyCode > 95 && e.keyCode < 106) ||
