@@ -1,9 +1,19 @@
 <?php
 include('db.php');
 require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/directories.php");
+require_once __F_RSV_HANDLER__;
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
+
+$date = ["", ""];
+
+if(isset($_GET['d']) && $_GET['d'] != "") {
+	$tempDate = decodeCheckinoutDate($_GET['d']);
+	if($tempDate)
+		$date = $tempDate;
+}
+
 ?>
 
 <!DOCTYPE HTML>
@@ -358,7 +368,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<th><label for="date">Check In Date:</label></th>
 								<td>
 									<div class="form-group">
-										<input type="text" name="from" id="from" required autocomplete="off" placeholder="YYYY-MM-DD">
+										<input type="text" name="from" id="from" required autocomplete="off" placeholder="YYYY-MM-DD" value="<?php print $date[0]; ?>">
 									</div>
 								</td>
 							</tr>
@@ -366,7 +376,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<th><label for="date">Check Out Date:</label></th>
 								<td>
 									<div class="form-group">
-										<input type="text" name="to" id="to" required autocomplete="off" placeholder="YYYY-MM-DD">
+										<input type="text" name="to" id="to" required autocomplete="off" placeholder="YYYY-MM-DD" value="<?php print $date[1]; ?>">
 									</div>
 								</td>
 							</tr>
@@ -578,27 +588,33 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 </script>
 <script>
 	$(function() {
-		let $dt1 = $("#from").datepicker({
+		$dt1 = $("#from").datepicker({
 			changeMonth: true,
 			numberOfMonths: 1,
 			minDate: +2,
 			dateFormat: 'yy-mm-dd',
-
 			onSelect: function(dateString, instance) {
+				console.log(dateString);
 				let date = $dt1.datepicker('getDate');
-				date.setDate(date.getDate() + 1)
-				$dt2.datepicker('option', 'minDate', date);
+				let dateLimit = moment(dateString).add(1, 'days').format('YYYY-MM-DD');
+				$dt2.datepicker('option', 'minDate', dateLimit);
 				refreshSelectNode();
 				console.log("changed");
 			}
 		});
-		var $dt2 = $("#to").datepicker({
+		$dt2 = $("#to").datepicker({
 			dateFormat: 'yy-mm-dd',
 			onSelect: function(dateString, instance) {
+				let dateLimit = moment(dateString).subtract(1, 'days').format('YYYY-MM-DD');
+				$dt1.datepicker('option', 'maxDate', dateLimit);
 				refreshSelectNode();
 				console.log("changed");
 			}
 		});
+		<?php if($date[1]!= "") { ?>
+			$dt1.datepicker('option', 'maxDate', '<?php print $date[1]; ?>');
+			$dt2.datepicker('option', 'minDate', '<?php print $date[1]; ?>');
+		<?php } ?>
 	});
 </script>
 <Script>
@@ -611,7 +627,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			$('#pwdDiv').removeClass('d-none');
 			$('#seniorDiv').removeClass('d-none').addClass('d-none');
 		}
-	})
+	});
 	$('input[type="checkbox"]').on('change', function() {
 		$('input[name="' + this.name + '"]').not(this).prop('checked', false);
 	});
