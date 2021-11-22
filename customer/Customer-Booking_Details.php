@@ -46,12 +46,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$lastName = mysqli_real_escape_string($conn, $_POST['lname']);
 		$contact = mysqli_real_escape_string($conn, $_POST['cnumber']);
 		$email = mysqli_real_escape_string($conn, $_POST['email']);
-
 		$roomID = mysqli_real_escape_string($conn, $_POST['roomName']);
+		$adult = mysqli_real_escape_string($conn, $_POST['adults']);
+		$children = mysqli_real_escape_string($conn, $_POST['children']);
 		$concon = createTempDBConnection();
 		$tempRoom = mysqli_fetch_all(mysqli_query($concon, "select * from roomtype WHERE `roomTypeID`=$roomID LIMIT 1;"), MYSQLI_ASSOC)[0];
-		$adult = $tempRoom['maxAdult'];
-		$child = $tempRoom['maxChildren'];
 		$roomName = mysqli_real_escape_string($concon, $tempRoom['name']);
 		mysqli_close($concon);
 		$dateStart = mysqli_real_escape_string($conn, $_POST['from']);
@@ -362,7 +361,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							$query = "SELECT * FROM roomtype WHERE `name`='$roomName'";
 							$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
-							$totalPersons = $followingdata['maxAdult'] + $followingdata['maxChildren'];
+							$totalPersons = $adult + $children;
 							$seniorCitizen = isset($_POST['seniorcitizen']) ? $_POST['seniorcitizen'] : "";
 							#Fetch Vat tac and service charge !!! GETS GETS HAHAHA gawin muna variable
 							$queryTax = "SELECT * FROM `settings` WHERE `name` in ('tax', 'serviceCharge');";
@@ -418,11 +417,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 						</tr>
 						<tr align="right">
 							<th>No of Adults:</th>
-							<td><?php echo $followingdata['maxAdult']; ?></td>
+							<td><?php echo htmlspecialchars($adult); ?></td>
 						</tr>
 						<tr align="right">
 							<th>No of Childrens:</th>
-							<td><?php echo $followingdata['maxChildren']; ?></td>
+							<td><?php echo htmlspecialchars($children); ?></td>
 						</tr>
 						<tr align="right">
 							<td colspan="2">
