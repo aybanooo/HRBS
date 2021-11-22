@@ -10,8 +10,8 @@ if ($_GET['r'] == "") {
     header("Location: /rooms");
     die();
 }
-
-if($_GET['d']!= "") {
+$validCheckinOutDate = isset($_GET['d']) && $_GET['d']!= "";
+if($validCheckinOutDate) {
     $d = $_GET['d'];
     $d_urlDecoded = urldecode($d);
     $d_base64Decoded = base64_decode($d_urlDecoded);
@@ -27,6 +27,11 @@ $unwtfedID = tonotwtf($_GET['r'], 3);
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
+
+if(isset($_GET['r']) && isset($_GET['d'])) {
+    $appendToBookNow = "?r={$_GET['r']}&d={$_GET['d']}";
+}
+
 ?>
 
 
@@ -165,6 +170,14 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         .gallery-row .card {
             cursor: pointer;
         }
+
+        #floatinglabel-checkinout {
+            position: fixed;
+            bottom: 0;
+            width: 100vw;
+            z-index: 2;
+        }
+
     </style>
     <title>Room Details</title>
 </head>
@@ -187,6 +200,30 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         </div>
     </nav>
 
+<?php
+if($validCheckinOutDate) {
+?>
+	<div id="floatinglabel-checkinout" class="container-fluid">
+		<div class="row d-flex justify-content-center">
+			<div class="col-11 col-md-6">
+				<div class="card text-white bg-white shadow-lg">
+					<div class="card-body p-3">
+						<div class="row">
+							<div id="float-checkIn" class="col-12 col-sm-6 text-center text-black">
+								<small class="text-muted d-block text-left">Check-in</small>
+							</div>
+							<div id="float-checkOut" class="col-12 col-sm-6 text-center text-black">
+								<small class="text-muted d-block text-left">Check-out</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<?php
+}
+?>
     <section class="content my-5 mx-0 mx-md-5">
         <?php
         $query = "SELECT * FROM roomtype WHERE roomTypeID = 38";
@@ -208,7 +245,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                                         <h3 id="name" class="p-3"><?php print $full_room_data['basicInfo']['name']; ?></h3>
                                     </div>
                                     <div class="col-lg-4 mx-auto">
-                                        <a href="Customer-Booking_Form.php"><button type="button" class="btn btn-success">Book Now</button></a>
+                                        <a href="Customer-Booking_Form.php<?php print $appendToBookNow; ?>"><button type="button" class="btn btn-success">Book Now</button></a>
                                     </div>
                                 </div>
                             </div>
@@ -448,7 +485,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
     $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     ?>
-    <div class="footer">
+    <div class="footer" <?php print $validCheckinOutDate? 'style="overflow-x: hidden; padding-bottom: 125px;"' : ""; ?> >
         <div class="row">
             <div class="col-lg-4 mx-auto">
                 <p><b>Contact us</b></p>
@@ -476,6 +513,8 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     <script src="js (1)/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
     <script src="js (1)/adminlte/adminlte.min.js"></script>
+    <!-- Moment -->
+    <script src="/public_assets/modules/libraries/moment/moment.min.js"></script>
     <!-- Custom Script -->
     <script src="js/compare.js"></script>
     <!-- Page Script -->
@@ -497,6 +536,17 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             $("#modalFor360").modal('toggle');
         });
     </script>
+
+<?php
+if($validCheckinOutDate){
+?>
+<script>
+    $("#float-checkIn").append(moment('<?php print $date[0]; ?>').format('dddd, MMM D YYYY'));
+    $("#float-checkOut").append(moment('<?php print $date[1]; ?>').format('dddd, MMM D YYYY'));
+</script>
+<?php
+}
+?>
 
 </body>
 

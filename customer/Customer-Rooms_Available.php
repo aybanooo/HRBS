@@ -9,16 +9,17 @@ $query="SELECT companyName FROM companyinfo";
 $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
-
-$d = $_GET['d'];
-$d_urlDecoded = urldecode($d);
-$d_base64Decoded = base64_decode($d_urlDecoded);
-$date = json_decode($d_base64Decoded);
-(!is_null($date) && count($date)==2) || die("Invalid Date");
-(validateDate($date[0]) && validateDate($date[1])) || die("Invalid Date");
-$checkIn = $date[0];
-$checkOut = $date[1];
-
+$validCheckinOutDate = isset($_GET['d']) && $_GET['d'] != "";
+if($validCheckinOutDate) {
+	$d = $_GET['d'];
+	$d_urlDecoded = urldecode($d);
+	$d_base64Decoded = base64_decode($d_urlDecoded);
+	$date = json_decode($d_base64Decoded);
+	(!is_null($date) && count($date)==2) || die("Invalid Date");
+	(validateDate($date[0]) && validateDate($date[1])) || die("Invalid Date");
+	$checkIn = $date[0];
+	$checkOut = $date[1];
+}
 
 $roomsID = getBookableRoomsID($checkIn, $checkOut);
 #echo json_encode( getBookableRoomsID("2021-11-29", "2021-11-30") );
@@ -30,23 +31,31 @@ if(!empty($rooms))
 
 // echo base64_decode("eyJjaGVja0luRGF0ZSI6IjIwMjEtMTEtMjkiLCJjaGVja091dERhdGUiOiIyMDIxLTExLTA1In0='");
 ?>
-
 <!DOCTYPE HTML>
 <html lang="en">
 
 <head>
-	<?php 
-		require_once(dirname(__FILE__, 2)."/public_assets/modules/php/directories/directories.php");
-		include_once(__D_UI__."js/analytics.php"); 
-		print __F_BASE_CUSTOMER__;
-	?>
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<?php
+    require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/directories.php");
+    include_once(__D_UI__ . "js/analytics.php");
+    print __F_BASE_CUSTOMER__;
+    ?>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title><?php echo $followingdata['companyName']; ?> | Available Rooms</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-		integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<link href="css/styles.css" rel="stylesheet" />
+
+	<link href="https://fonts.googleapis.com/css?family=CenturyGothic" rel="stylesheet" />
+	<link href="css (1)/styles (1).css" rel="stylesheet" />
+	<!-- Font Awesome Icons -->
+	<link rel="stylesheet" href="css (1)/fontawesome-free/css/all.min.css">
+	<!-- Ion Icons -->
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+	<!-- Theme style -->
+	<link rel="stylesheet" href="css (1)/adminlte/adminlte.min.css">
+	<!-- Special Style-->
+	<link rel="stylesheet" href="css (1)/specialSyle.css">
+    <link href="css/styles.css" rel="stylesheet"/>
+	<link rel="icon" type="image/x-icon" href="" />
 
 	<style type="text/css">
 		body {
@@ -206,10 +215,17 @@ if(!empty($rooms))
 		.boxinfo1 ::-webkit-scrollbar-track {
 			background: rgba(0, 0, 0, 0);
 		}
+
+		#floatinglabel-checkinout {
+			position: fixed;
+			bottom: 0;
+			width: 100vw;
+			z-index: 2;
+		}
 	</style>
 </head>
 
-<body>
+<body class="100vh">
 	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
 		<div class="container">
 			<a class="navbar-brand js-scroll-trigger" href="/"><?php echo $followingdata['companyName']; ?></a>
@@ -222,16 +238,41 @@ if(!empty($rooms))
 			<div class="collapse navbar-collapse" id="navbarResponsive">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/compare">Compare</a></li>
-					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="#rooms">Rooms</a></li>
+					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/rooms">Rooms</a></li>
 					<li class="nav-item"><a class="nav-link js-scroll-trigger" href="/amenities">Amenities</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 
-	<section id="rooms">
+	<?php
+if($validCheckinOutDate) {
+?>
+	<div id="floatinglabel-checkinout" class="container-fluid">
+		<div class="row d-flex justify-content-center">
+			<div class="col-11 col-md-6">
+				<div class="card text-white bg-white shadow-lg">
+					<div class="card-body p-3">
+						<div class="row">
+							<div id="float-checkIn" class="col-12 col-sm-6 text-center text-black">
+								<small class="text-muted d-block text-left">Check-in</small>
+							</div>
+							<div id="float-checkOut" class="col-12 col-sm-6 text-center text-black">
+								<small class="text-muted d-block text-left">Check-out</small>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<?php
+}
+?>
+	<section id="rooms" class="content my-5 mx-0 mx-md-5" style="margin-bottom: 100px !important;">
+	<h1>Available rooms</h1>
 		<?php
-			if(is_array($rooms))
+			if(is_array($rooms) && true)
 			foreach($rooms as $roomDetails){
 				$tfedID = towtf($roomDetails['roomTypeID'], 3);
 				$id = $roomDetails['roomTypeID'];
@@ -245,7 +286,8 @@ if(!empty($rooms))
 							<h1><b><?php echo $roomDetails["name"]; ?></b></h1>
 						</div>
 						<div class="col-sm-4">
-							<a href='/rooms/<?php echo $tfedID."/".$_GET['d']; ?>'><button type="button" class="btn btn-primary">Book a
+							<a href='/rooms/<?php echo $tfedID."/".$_GET['d']; ?>'><button type="button"
+									class="btn btn-primary m-0">Book a
 									Room</button></a>
 						</div>
 					</div>
@@ -261,14 +303,13 @@ if(!empty($rooms))
 
 		</div>
 	</section>
-
 	<?php
-        $query="SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
+    $query = "SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
         FROM socialmedias, companyinfo";
-        $result=mysqli_query($conn, $query) or die(mysqli_error($conn));
-        $followingdata = $result->fetch_array(MYSQLI_ASSOC);
+    $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+    $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     ?>
-	<div class="footer">
+	<div class="footer" style="overflow-x: hidden; padding-bottom: 125px;">
 		<div class="row">
 			<div class="col-lg-4 mx-auto">
 				<p><b>Contact us</b></p>
@@ -290,6 +331,31 @@ if(!empty($rooms))
 			</div>
 		</div>
 	</div>
+
+
+	<!-- REQUIRED SCRIPTS -->
+
+	<!-- jQuery -->
+	<script src="js (1)/jquery/jquery.min.js"></script>
+	<!-- Bootstrap 4 -->
+	<script src="js (1)/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- AdminLTE App -->
+	<script src="js (1)/adminlte/adminlte.min.js"></script>
+	<!-- Moment -->
+	<script src="/public_assets/modules/libraries/moment/moment.min.js"></script>
+
+
+	<?php
+if($validCheckinOutDate){
+?>
+	<script>
+		$("#float-checkIn").append(moment('<?php print $date[0]; ?>').format('dddd, MMM D YYYY'));
+		$("#float-checkOut").append(moment('<?php print $date[1]; ?>').format('dddd, MMM D YYYY'));
+	</script>
+	<?php
+}
+?>
+
 </body>
 
 </html>
