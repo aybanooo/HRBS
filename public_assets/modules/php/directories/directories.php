@@ -17,10 +17,12 @@ define('__D_PUBLIC_IMAGES__', __D_PUBLIC_ASSETS__.'images/');
 define('__D_PUBLIC_DEFAULTS__', __D_PUBLIC_ASSETS__.'defaults/');
 define('__D_PUBLIC_PHP__', __D_PUBLIC_ASSETS__.'modules/php/');
 define('__D_DB_CONTORLS__', __D_PUBLIC_PHP__.'database/dbControls/');
+define('__D_RSV_CONTORLS__', __D_PUBLIC_PHP__.'database/reservationControls/');
 define('__D_UI__', __D_PUBLIC_PHP__.'UI/');
 
 //----- Handlers -----
 define('__F_DB_HANDLER__', __D_DB_CONTORLS__."dbHandler.php");
+define('__F_RSV_HANDLER__', __D_RSV_CONTORLS__."reservationHandler.php");
 
 //----- I/O constants --------
 define('__F_OUTPUT_HANDLER__', __D_PUBLIC_PHP__.'outputHandler/outputHandler.php');
