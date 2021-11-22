@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		$customerQuery1 = ("INSERT INTO reservation 
 	( roomNo, customerID, numberOfNightstay, adults, children, checkInDate, checkOutDate, checkInTime, checkOutTime, dateCreated) 
-	VALUES ('0', $customerID, '$days', $adult, $child ,'$dateStartFinal', '$dateEndFinal', NULL, NULL, NOW()) LIMIT 1;");
+	VALUES ('0', $customerID, '$days', $adult, $children ,'$dateStartFinal', '$dateEndFinal', NULL, NULL, NOW()) LIMIT 1;");
 		mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
 	}
 } else {
