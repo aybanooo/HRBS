@@ -305,17 +305,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 			background-color: #ffffff;
 			;
 		}
-
-		input::-webkit-outer-spin-button,
-		input::-webkit-inner-spin-button {
-			-webkit-appearance: none;
-			margin: 0;
-		}
-
-		/* Firefox */
-		input[type=number] {
-			-moz-appearance: textfield;
-		}
 	</style>
 
 	<title>Booking Details</title>
