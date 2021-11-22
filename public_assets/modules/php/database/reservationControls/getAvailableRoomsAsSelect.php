@@ -12,12 +12,18 @@ $date = decodeCheckinoutDate($_GET['d']);
 if(!$date) die;
 
 $roomIDs = getBookableRoomsID($date[0], $date[1]);
-
+if(!empty($roomIDs))
 $rooms = getRoomDetails($roomIDs);
 ?>
 
 <select id="nameRoom" name="roomName" name="pickRoom" onchange="selectRate()">
-<?php foreach($rooms as $room) { ?>
+<?php 
+
+if(!empty($roomIDs))
+foreach($rooms as $room) { ?>
     <option value="<?php print $room['roomTypeID'];?>"><?php print $room['name'];?></option>
-<?php } ?>
+<?php }
+else
+    echo '<option value="">No rooms available</option>';
+?>
 </select>
