@@ -22,7 +22,7 @@ function getBookableRooms(string $checkInDate, string $checkOutDate, int $roomTy
         (isValidRoomTypeID($roomTypeID)) || throw new Exception("Room type ID not found");
         $roomtypeCondition = "&& RM.`roomTypeID`=$roomTypeID";
     }
-    $sql = "SELECT * FROM ROOM RM  INNER JOIN `roomstatus` RS ON RM.`roomStatusID`=RS.`roomStatusID` WHERE RM.`roomNo` NOT IN (SELECT `roomNo` FROM `reservation` WHERE 
+    $sql = "SELECT * FROM `room` RM  INNER JOIN `roomstatus` RS ON RM.`roomStatusID`=RS.`roomStatusID` WHERE RM.`roomNo` NOT IN (SELECT `roomNo` FROM `reservation` WHERE 
     (`checkInDate` > '$checkInDate' AND `checkInDate` < '$checkOutDate') OR
     (`checkOutDate` > '$checkInDate' AND `checkOutDate` < '$checkOutDate') OR
     ('$checkInDate' > `checkInDate` AND '$checkInDate' < `checkOutDate`) OR
