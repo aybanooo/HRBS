@@ -621,7 +621,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 	function enableBtn() {
 		document.getElementById("submit").disabled = false;
 	}
-</script>]
+</script>
 <script>
 	var number = document.getElementById("noGuest");
 

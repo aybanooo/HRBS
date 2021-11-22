@@ -634,6 +634,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		// Finalize the transaction after payer approval
 		onApprove: function(data, actions) {
 			return actions.order.capture().then(function() {
+				console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
 				window.location = "tracnsaction-completed.php?&orderID=" + data.orderID + "&customerID=" + '<?php print $customerID; ?>';
 				//window.location = "paypalSuccess.php?&customerID=" + data.customerID;
 			});
