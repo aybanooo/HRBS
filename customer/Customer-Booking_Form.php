@@ -79,7 +79,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 		}
 
 		table input[type=text],
-		input[type=email] {
+		input[type=email], 
+		input[type=number],
+		input[type=tel] {
 			width: 100%;
 			font-size: 1.25rem;
 			outline-color: #999;
