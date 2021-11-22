@@ -4,6 +4,7 @@
    <title>International telephone input</title>
    <meta name="viewport" content="width=device-width, initial-scale=1" />
    <link rel="stylesheet" href="styles.css" />
+   <link rel="stylesheet" href="build/css/intlTelInput.css">
    <link
      rel="stylesheet"
      href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
@@ -70,6 +71,16 @@
 </head>
  <body>
     <script>
+        // Vanilla Javascript
+var input = document.querySelector("#telephone");
+window.intlTelInput(input,({
+  // options here
+}));
+
+// jQuery 
+$("#telephone").intlTelInput({
+  // options here
+});
         const phoneInputField = document.querySelector("#phone");
         const phoneInput = window.intlTelInput(phoneInputField, {
           utilsScript:
@@ -79,9 +90,17 @@
     <div class="container">
         <form id="login" onsubmit="process(event)">
           <p>Enter your phone number:</p>
-          <input id="phone" type="tel" name="phone" />
+          <input type="tel" id="demo" placeholder="" id="telephone">
+
           <input type="submit" class="btn" value="Verify" />
         </form>
        </div>
+       <!-- Use as a Vanilla JS plugin -->
+
+<script src="build/js/intlTelInput.min.js"></script>
+<!-- Use as a jQuery plugin -->
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="build/js/intlTelInput-jquery.min.js"></script>
+
  </body>
 </html>
