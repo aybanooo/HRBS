@@ -5,6 +5,7 @@ use phpseclib3\Crypt\EC;
 require_once(dirname(__FILE__, 3)."/directories/directories.php");
 require_once __F_DB_HANDLER__;
 require_once __F_OUTPUT_HANDLER__;
+require_once __F_VALIDATIONS__;
 
 function getBookableRooms(string $checkInDate, string $checkOutDate, int $roomTypeID = null) {
     $origInDate = $checkInDate;
@@ -80,6 +81,17 @@ function getRoomDetails(array|int $roomTypeID = null) {
     $tempConn = createTempDBConnection();
     $result = doQuery_fetchAll($tempConn, $sql, MYSQLI_ASSOC);
     return $result;
+}
+
+function decodeCheckinoutDate(string $encodedDate) {
+	$d_urlDecoded = urldecode($encodedDate);
+	$d_base64Decoded = base64_decode($d_urlDecoded);
+	$date = json_decode($d_base64Decoded);
+	if(is_null($date)) return false;;
+    if(!is_array($date)) return false;
+    if(!count($date)==2) return false;
+	if(!validateDate($date[0]) && !validateDate($date[1])) return false;
+	return $date;
 }
 
 return;
