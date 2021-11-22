@@ -17,7 +17,7 @@ const toggleButtonDisabled = (selector = null, disableBtnScopeSelector = "*", di
       selector.append('<span class="disabledText ml-2">'+disabledText+'</span>');
       selector.prepend(`<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>`);
     } else {
-      $("#btn-changeSelection").attr('disabled', '');
+      // $("#btn-changeSelection").attr('disabled', '');
       selector.find(".spinner-border").remove();
       selector.find(".disabledText").remove();
       selector.find("*").removeClass('d-none');
