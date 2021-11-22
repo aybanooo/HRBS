@@ -463,9 +463,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<?php
 								if (isset($_POST['adults'])) {
 									$adults = $_POST['adults'];
-									echo '<td><input id="noGuest" type="number" name="number" placeholder="No. of Adults" value="' . $adults . '" autocomplete="off" min="0"></td>';
+									echo '<td><input id="noGuest" type="number" name="number" placeholder="No. of Adults" value="' . $adults . '" autocomplete="off" min="0" required></td>';
 								} else {
-									echo '<td><input id="noGuest" type="number" name="number" placeholder="No. of Adults" required autocomplete="off" min="0"></td>';
+									echo '<td><input id="noGuest" type="number" name="number" placeholder="No. of Adults" required autocomplete="off" min="0" required></td>';
 								}
 								?>
 							</tr>
@@ -474,9 +474,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<?php
 								if (isset($_POST['children'])) {
 									$children = $_POST['children'];
-									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" value="' . $children . '" autocomplete="off" min="0"></td>';
+									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" value="' . $children . '" autocomplete="off" min="0" required></td>';
 								} else {
-									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" required autocomplete="off" min="0"></td>';
+									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" required autocomplete="off" min="0" required></td>';
 								}
 								?>
 							</tr>
