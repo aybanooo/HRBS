@@ -212,12 +212,12 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             <div class="mx-auto text-center">
                 <h1 class="mx-auto my-0 text-uppercase"><?php echo $followingdata["companyName"]; ?></h1>
                 <h2 class="text-white-50 mx-auto mt-2 mb-5"><?php echo $followingdata['companyDesc']; ?></h2>
-                <a class="btn btn-primary js-scroll-trigger" href="#about">Check Available Dates</a>
+                <a class="btn btn-primary js-scroll-trigger" href="#check-available-rooms">Check Available Dates</a>
             </div>
         </div>
     </header>
     <!-- About-->
-    <section class="about-section text-center" id="about">
+    <section class="about-section text-center" id="check-available-rooms">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
