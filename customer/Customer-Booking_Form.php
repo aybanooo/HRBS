@@ -434,9 +434,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 								<?php
 								if (isset($_POST['cnumber'])) {
 									$contact = $_POST['cnumber'];
-									echo '<td><input id="cnumber" type="number" name="cnumber" placeholder="Contact Number" value="' . $contact . '" autocomplete="off"></td>';
+									echo '<td><input id="cnumber" type="tel" name="cnumber" placeholder="Contact Number" value="' . $contact . '" autocomplete="off" pattern="[0-9]{4}[0-9]{3}[0-9]{4}"></td>';
 								} else {
-									echo '<td><input id="cnumber" type="number" name="cnumber" placeholder="Contact Number" required autocomplete="off"></td>';
+									echo '<td><input id="cnumber" type="tel" name="cnumber" placeholder="Contact Number" required autocomplete="off" pattern="[0-9]{4}[0-9]{3}[0-9]{4}"></td>';
 								}
 								?>
 							</tr>
