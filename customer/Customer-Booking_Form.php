@@ -573,12 +573,12 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 <script src="/public_assets/modules/libraries/daterangepicker/daterangepicker.js"></script>
 <script>
 	function selectRate() {
-		var roomName = document.getElementById("nameRoom").value;
+		var roomID = document.getElementById("nameRoom").value;
 		$.ajax({
 			url: "showETC.php",
 			method: "POST",
 			data: {
-				id: roomName
+				id: roomID
 			},
 			success: function(data) {
 				$("#ans").html(data);
@@ -612,8 +612,8 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 			}
 		});
 		<?php if($date[1]!= "") { ?>
-			$dt1.datepicker('option', 'maxDate', '<?php print $date[1]; ?>');
-			$dt2.datepicker('option', 'minDate', '<?php print $date[1]; ?>');
+			$dt1.datepicker('option', 'maxDate', moment('<?php print $date[1]; ?>').subtract(1, 'days').format('YYYY-MM-DD'));
+			$dt2.datepicker('option', 'minDate', moment('<?php print $date[0]; ?>').add(1, 'days').format('YYYY-MM-DD'));
 		<?php } ?>
 	});
 </script>
@@ -681,6 +681,7 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
                 if(!$(data).get(0).isEqualNode(target)) {
                     console.log("New room list");
                     $("#nameRoom").html($(data).html());
+					selectRate();
                 }
             },
             "html"
@@ -700,7 +701,9 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
     };
 
     $(function () {
-        runSelectUpdateInterval()
+		refreshSelectNode();
+        runSelectUpdateInterval();
+		console.log("Finish");
     });
 </script>
 
