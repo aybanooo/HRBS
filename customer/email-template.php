@@ -208,22 +208,6 @@
 																		</p>
 																		<p
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
-																			<span style="font-size:14px;">Should you
-																				have any requests prior to your stay,
-																				please do not hesitate to contact us at
-																				thanoshotelreservation@ghrbs.site&nbsp;
-																				and we will endeavor to assist you
-																				whenever possible.</span></p>
-																		<p
-																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
-																			<span style="font-size:14px;">&nbsp;</span>
-																		</p>
-																		<p
-																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
-																			<span style="font-size:14px;">&nbsp;</span>
-																		</p>
-																		<p
-																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">Billing information:</span></p>
 																			<div align:right;>
 																			<table class="tg">
@@ -265,6 +249,23 @@
 																					</tbody>
 																					</table>
 																			</div>
+																		<p
+																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
+																			<span style="font-size:14px;">Should you
+																				have any requests prior to your stay,
+																				please do not hesitate to contact us at
+																				thanoshotelreservation@ghrbs.site&nbsp;
+																				and we will endeavor to assist you
+																				whenever possible.</span></p>
+																		<p
+																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
+																			<span style="font-size:14px;">&nbsp;</span>
+																		</p>
+																		<p
+																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
+																			<span style="font-size:14px;">&nbsp;</span>
+																		</p>
+																		
 																		<p
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">&nbsp;</span>
