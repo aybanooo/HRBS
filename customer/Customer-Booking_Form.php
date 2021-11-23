@@ -516,7 +516,7 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 								<td><br></td>
 							</tr>
 							<tr align="right">
-								<td colspan="2"><button disabled type="submit" name="submit" id="submit" class="btn btn-success">Proceed to Payment</button></td>
+								<td colspan="2"><button type="submit" name="submit" id="submit" class="btn btn-success">Proceed to Payment</button></td>
 							</tr>
 					</form>
 					</table>
@@ -627,11 +627,7 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 		$('input[name="' + this.name + '"]').not(this).prop('checked', false);
 	});
 </Script>
-<script>
-	function enableBtn() {
-		document.getElementById("submit").disabled = false;
-	}
-</script>
+
 <script>
 	var number = document.getElementById("noGuest");
 
