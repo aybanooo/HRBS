@@ -54,7 +54,8 @@ $email = mysqli_real_escape_string($conn, $_POST['email']);
 $roomName = mysqli_real_escape_string($conn, $_POST['roomName']);
 $dateStart = mysqli_real_escape_string($conn, $_POST['from']);
 $dateEnd = mysqli_real_escape_string($conn, $_POST['to']);
-
+$adults =  mysqli_real_escape_string($conn, $_POST['adults']);
+$child =  mysqli_real_escape_string($conn, $_POST['children']);
 $var1 = strtr($dateStart, '/', '-');
 $dateStartFinal = date("Y-m-d", strtotime($var1));
 
@@ -357,7 +358,7 @@ $customerID = mysqli_insert_id($conn);
 							$query = "SELECT * FROM roomtype WHERE `name`='$roomName'";
 							$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
-							$totalPersons = $followingdata['maxAdult'] + $followingdata['maxChildren'];
+							$totalPersons = $adult + $child;
 							$seniorCitizen = isset($_POST['seniorcitizen']) ? $_POST['seniorcitizen'] : "";
 							#Fetch Vat tac and service charge !!! GETS GETS HAHAHA gawin muna variable
 							$queryTax = "SELECT * FROM `settings` WHERE `name` in ('tax', 'serviceCharge');";
