@@ -419,7 +419,7 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 									$firstname = $_POST['fname'];
 									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" value="' . $firstname . '" ></td>';
 								} else {
-									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" required autocomplete="off"></td>';
+									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" required></td>';
 								}
 								?>
 							</tr>
@@ -430,7 +430,7 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 									$lastname = $_POST['lname'];
 									echo '<td><input id="lname" type="text" name="lname" placeholder="Last Name" value="' . $lastname . '" ></td>';
 								} else {
-									echo '<td><input id="lname" type="text" name="lname" placeholder="Last Name" required autocomplete="off"></td>';
+									echo '<td><input id="lname" type="text" name="lname" placeholder="Last Name" required></td>';
 								}
 								?>
 							</tr>
@@ -441,7 +441,7 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 									$contact = $_POST['cnumber'];
 									echo '<td><input id="cnumber" type="tel" name="cnumber" placeholder="(09*********)" value="' . $contact . '"  pattern="[0-9]{11}"></td>';
 								} else {
-									echo '<td><input id="cnumber" type="tel" name="cnumber" placeholder="(09*********)" required autocomplete="off" pattern="[0-9]{11}"></td>';
+									echo '<td><input id="cnumber" type="tel" name="cnumber" placeholder="(09*********)" required pattern="[0-9]{11}"></td>';
 								}
 								?>
 							</tr>
@@ -452,7 +452,7 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 									$email = $_POST['email'];
 									echo '<td><input id="email" type="email" name="email" placeholder="Email Address" value="' . $email . '" ></td>';
 								} else {
-									echo '<td><input id="email" type="email" name="email" placeholder="Email Address" required autocomplete="off"></td>';
+									echo '<td><input id="email" type="email" name="email" placeholder="Email Address" required></td>';
 								}
 								?>
 							</tr>
@@ -479,7 +479,7 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 									$children = $_POST['children'];
 									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" value="' . $children . '"  min="0" required></td>';
 								} else {
-									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" required autocomplete="off" min="0" required></td>';
+									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" required min="0" required></td>';
 								}
 								?>
 							</tr>
@@ -510,11 +510,6 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 							<tr>
 								<td colspan="2">
 									<br>
-								</td>
-							</tr>
-							<tr align="right">
-								<td colspan="2">
-									<div onchange="document.getElementById('submit').disabled = !this.checked" data-callback="enableBtn" class="g-recaptcha" data-sitekey="<?php print parse_ini_file(__CONF_PRIVATE__)['RECAPTCHA_SITE_KEY']; ?>"></div>
 								</td>
 							</tr>
 							<tr>

@@ -500,6 +500,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 							</tr>
 							<tr align="right">
 								<td colspan="2">
+									<div onchange="document.getElementById('submit').disabled = !this.checked" data-callback="enableBtn" class="g-recaptcha" data-sitekey="<?php print parse_ini_file(__CONF_PRIVATE__)['RECAPTCHA_SITE_KEY']; ?>"></div>
+								</td>
+							</tr>
+							<tr align="right">
+								<td colspan="2">
 									<div class="form-check">
 										<input type="checkbox" onchange="document.getElementById('buttonbooknow').disabled = !this.checked" required class="form-check-input" id="agree" required>
 										<label for="agree">I understand the<a href="#" class="fst-italic link-primary" data-bs-toggle="modal" data-bs-target="#agreeModal"> terms and agreements</a></label>
@@ -632,6 +637,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 			});
 		}
 	}).render('#paypal-button-container');
+</script>
+<script>
+	function enableBtn() {
+		document.getElementById("submit").disabled = false;
+	}
 </script>
 
 </html>
