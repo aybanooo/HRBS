@@ -234,28 +234,28 @@
 																					</thead>
 																					<tbody>
 																					<tr>
-																						<td class="tg-zv4m">ddddd</td>
-																						<td class="tg-zv4m">dd</td>
-																					</tr>
-																					<tr>
-																						<td class="tg-zv4m">dd</td>
-																						<td class="tg-zv4m">ddd</td>
-																					</tr>
-																					<tr>
-																						<td class="tg-zv4m"></td>
+																						<td class="tg-zv4m">Room rate: </td>
 																						<td class="tg-zv4m"></td>
 																					</tr>
 																					<tr>
-																						<td class="tg-zv4m"></td>
-																						<td class="tg-zv4m"></td>
+																						<td class="tg-zv4m">VAT (12%): </td>
+																						<td class="tg-zv4m"><!--insert VAT here--></td>
 																					</tr>
 																					<tr>
-																						<td class="tg-zv4m"></td>
-																						<td class="tg-zv4m"></td>
+																						<td class="tg-zv4m">Service Charge:</td>
+																						<td class="tg-zv4m"><!--insert Service charge here--></td>
 																					</tr>
 																					<tr>
-																						<td class="tg-zv4m"></td>
-																						<td class="tg-zv4m"></td>
+																						<td class="tg-zv4m">Voucher Discount: </td>
+																						<td class="tg-zv4m"><!--insert voucher here--></td>
+																					</tr>
+																					<tr>
+																						<td class="tg-zv4m">Senior Citizen/PWD Discount	</td>
+																						<td class="tg-zv4m"><!--insert Senior/PWD discount here--></td>
+																					</tr>
+																					<tr>
+																						<td class="tg-zv4m"><b>Total</b></td>
+																						<td class="tg-zv4m"><b><!--insert total here--></b></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m"></td>
