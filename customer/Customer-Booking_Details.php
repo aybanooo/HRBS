@@ -358,7 +358,7 @@ $customerID = mysqli_insert_id($conn);
 							$query = "SELECT * FROM roomtype WHERE `name`='$roomName'";
 							$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
-							$totalPersons = $adult + $child;
+							$totalPersons = $adults + $child;
 							$seniorCitizen = isset($_POST['seniorcitizen']) ? $_POST['seniorcitizen'] : "";
 							#Fetch Vat tac and service charge !!! GETS GETS HAHAHA gawin muna variable
 							$queryTax = "SELECT * FROM `settings` WHERE `name` in ('tax', 'serviceCharge');";
@@ -370,12 +370,12 @@ $customerID = mysqli_insert_id($conn);
 							unset($tempSettings);
 							if ($seniorCitizen == 1 || $seniorCitizen == 2) {
 								$totalRoomRate = $days * $followingdata['rate'];
-								$vat = $totalRoomRate * ($followingdatatax['tax'] / 100);
-								$serviceCharge =  $totalRoomRate *  ($followingdatatxax['serviceCharge'] / 100);
+								$vat = $totalRoomRate * ($tax / 100);
+								$serviceCharge =  $totalRoomRate *  ($taxserviceCharge / 100);
 								$totalPrice = $vat + $serviceCharge + $totalRoomRate;
 								//senior discount computation
 								$dividedRate =  $totalRoomRate / $totalPersons;
-								$RateofVat =  $dividedRate * ($followingdatatax['tax'] / 100);
+								$RateofVat =  $dividedRate * ($tax / 100);
 								$rateMinusVat = $dividedRate - $RateofVat;
 								$rateDiscount = $rateMinusVat * 0.2;
 								$rateDiscounted = $rateMinusVat - $rateDiscount;
@@ -383,8 +383,8 @@ $customerID = mysqli_insert_id($conn);
 								$totalPriceWithDiscount = $totalPrice - $totalDiscount;
 							} else {
 								$totalRoomRate = $days * $followingdata['rate'];
-								$vat = $totalRoomRate * ($followingdatatax['tax'] / 100);
-								$serviceCharge =  $totalRoomRate * ($followingdatatax['serviceCharge'] / 100);
+								$vat = $totalRoomRate * ($tax / 100);
+								$serviceCharge =  $totalRoomRate * ($taxserviceCharge / 100);
 								$totalPriceNoDiscount = $vat + $serviceCharge + $totalRoomRate;
 							}
 							?>
