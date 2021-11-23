@@ -8,7 +8,7 @@ $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
 // Checks if form has been submitted
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+/*if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	function post_captcha($user_response)
 	{
 		$fields_string = '';
@@ -41,39 +41,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	} else {
 		// If CAPTCHA is successfully completed...
 
-		$firstName = mysqli_real_escape_string($conn, $_POST['fname']);
-		$lastName = mysqli_real_escape_string($conn, $_POST['lname']);
-		$contact = mysqli_real_escape_string($conn, $_POST['cnumber']);
-		$email = mysqli_real_escape_string($conn, $_POST['email']);
-		$roomName = mysqli_real_escape_string($conn, $_POST['roomName']);
-		$dateStart = mysqli_real_escape_string($conn, $_POST['from']);
-		$dateEnd = mysqli_real_escape_string($conn, $_POST['to']);
 
-		$var1 = strtr($dateStart, '/', '-');
-		$dateStartFinal = date("Y-m-d", strtotime($var1));
-
-		$var2 = strtr($dateEnd, '/', '-');
-		$dateEndFinal = date("Y-m-d", strtotime($var2));
-
-		$date1 = date_create($dateStartFinal);
-		$date2 = date_create($dateEndFinal);
-		$diff = date_diff($date1, $date2);
-		$days = $diff->format("%a");
-
-		$customerQuery = "INSERT INTO customer (fname, lname, contact, email, verified, verification) VALUES ('$firstName', '$lastName', '$contact', '$email', 'None', 'None') LIMIT 1;";
-		mysqli_query($conn, $customerQuery) or die(mysqli_error($conn));
-
-		$customerID = mysqli_insert_id($conn);
-
-		/*$customerQuery1 = ("INSERT INTO reservation 
-	( roomNo, customerID, numberOfNightstay, adults, children, checkInDate, checkOutDate, checkInTime, checkOutTime, dateCreated) 
-	VALUES ('0', $customerID, '$days', 'none', 'none' ,'$dateStartFinal', '$dateEndFinal', NULL, NULL, NOW()) LIMIT 1;");
-
-		mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));*/
 	}
 } else {
 	die("PLEASE FINISH THE CAPTCHA");
 }
+*/
+$firstName = mysqli_real_escape_string($conn, $_POST['fname']);
+$lastName = mysqli_real_escape_string($conn, $_POST['lname']);
+$contact = mysqli_real_escape_string($conn, $_POST['cnumber']);
+$email = mysqli_real_escape_string($conn, $_POST['email']);
+$roomName = mysqli_real_escape_string($conn, $_POST['roomName']);
+$dateStart = mysqli_real_escape_string($conn, $_POST['from']);
+$dateEnd = mysqli_real_escape_string($conn, $_POST['to']);
+
+$var1 = strtr($dateStart, '/', '-');
+$dateStartFinal = date("Y-m-d", strtotime($var1));
+
+$var2 = strtr($dateEnd, '/', '-');
+$dateEndFinal = date("Y-m-d", strtotime($var2));
+
+$date1 = date_create($dateStartFinal);
+$date2 = date_create($dateEndFinal);
+$diff = date_diff($date1, $date2);
+$days = $diff->format("%a");
+
+$customerQuery = "INSERT INTO customer (fname, lname, contact, email, verified, verification) VALUES ('$firstName', '$lastName', '$contact', '$email', 'None', 'None') LIMIT 1;";
+mysqli_query($conn, $customerQuery) or die(mysqli_error($conn));
+
+$customerID = mysqli_insert_id($conn);
+
+/*$customerQuery1 = ("INSERT INTO reservation 
+	( roomNo, customerID, numberOfNightstay, adults, children, checkInDate, checkOutDate, checkInTime, checkOutTime, dateCreated) 
+	VALUES ('0', $customerID, '$days', 'none', 'none' ,'$dateStartFinal', '$dateEndFinal', NULL, NULL, NOW()) LIMIT 1;");
+
+		mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));*/
 
 ?>
 <!DOCTYPE HTML>
