@@ -621,6 +621,7 @@ $bp_details = $bp->getBookingDetails();
 </body>
 <script>
 	$(document).ready(function() {
+		universal_voucher = '';
 		$('#activate').on('click', function() {
 			universal_coupon = $('#coupon').val();
 			// var price = $('#price').val();
@@ -665,14 +666,14 @@ $bp_details = $bp->getBookingDetails();
     paypal.Buttons({
         createOrder: function() {
             ijkBPnml = null;
-            return fetch('create-paypal-transaction.php', {
+            return fetch('/public_assets/modules/php/paypal/create-paypal-transaction.php', {
                 method: 'post',
                 headers: {
                 'content-type': 'application/json'
                 },
                 body: JSON.stringify({
-                    form: form,
-                    voucher: universal_voucher
+                    form: xyzFORMcba,
+                    voucher: universal_coupon
                 })
             }).then(function(res) {
                 return res.json();
@@ -684,7 +685,7 @@ $bp_details = $bp->getBookingDetails();
         },
         onApprove: function(data) {
             console.log(">>>>", data);
-            return fetch('capture-paypal-transaction.php', {
+            return fetch('/public_assets/modules/php/paypal/capture-paypal-transaction.php', {
                 method: "post",
                 headers: {
                 'content-type': 'application/json'
