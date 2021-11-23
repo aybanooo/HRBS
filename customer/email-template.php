@@ -228,8 +228,8 @@
 																			<table class="tg">
 																					<thead>
 																					<tr>
-																						<th class="tg-zv4m">d</th>
-																						<th class="tg-zv4m">d</th>
+																						<th class="tg-zv4m">Description</th>
+																						<th class="tg-zv4m">Amount</th>
 																					</tr>
 																					</thead>
 																					<tbody>
