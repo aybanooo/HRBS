@@ -44,7 +44,7 @@
 				display: block;
 			}
 		}
-		.tg  {border-collapse:collapse;border-spacing:0;}
+		.tg  {border-collapse:collapse;border-spacing:1;}
 		.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
   		overflow:hidden;padding:0px 20px;word-break:normal;}
 		.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
