@@ -44,6 +44,12 @@
 				display: block;
 			}
 		}
+		.tg  {border-collapse:collapse;border-spacing:0;}
+		.tg td{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  		overflow:hidden;padding:0px 20px;word-break:normal;}
+		.tg th{border-color:black;border-style:solid;border-width:1px;font-family:Arial, sans-serif;font-size:14px;
+  		font-weight:normal;overflow:hidden;padding:0px 20px;word-break:normal;}
+		.tg .tg-zv4m{border-color:#ffffff;text-align:left;vertical-align:top}
 	</style>
 </head>
 
@@ -218,7 +224,45 @@
 																		</p>
 																		<p
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
-																			<span style="font-size:14px;">TESTING123</span></p>
+																			<span style="font-size:14px;">Billing information:</span></p>
+																			<table class="tg">
+																					<thead>
+																					<tr>
+																						<th class="tg-zv4m"></th>
+																						<th class="tg-zv4m"></th>
+																					</tr>
+																					</thead>
+																					<tbody>
+																					<tr>
+																						<td class="tg-zv4m"></td>
+																						<td class="tg-zv4m"></td>
+																					</tr>
+																					<tr>
+																						<td class="tg-zv4m"></td>
+																						<td class="tg-zv4m"></td>
+																					</tr>
+																					<tr>
+																						<td class="tg-zv4m"></td>
+																						<td class="tg-zv4m"></td>
+																					</tr>
+																					<tr>
+																						<td class="tg-zv4m"></td>
+																						<td class="tg-zv4m"></td>
+																					</tr>
+																					<tr>
+																						<td class="tg-zv4m"></td>
+																						<td class="tg-zv4m"></td>
+																					</tr>
+																					<tr>
+																						<td class="tg-zv4m"></td>
+																						<td class="tg-zv4m"></td>
+																					</tr>
+																					<tr>
+																						<td class="tg-zv4m"></td>
+																						<td class="tg-zv4m"></td>
+																					</tr>
+																					</tbody>
+																					</table>
 																		<p
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">&nbsp;</span>
