@@ -273,7 +273,7 @@
                   <th></th>
                   <th>Status</th>
                   <th>Reservation ID</th>
-                  <!-- <th>Room #</th> -->
+                  <th>Room #</th>
                   <th>Booked by</th>
                   <th>Date Created</th>
                   <th>Check-In Date</th>
@@ -321,13 +321,13 @@
           <div class="row m-3">
             <div class="col-12 col-lg-6">
               <div class="row">
-                <div class="col-12 mb-3">
+                <div class="col-6 mb-3">
                   <small class="d-block text-muted mb-0">Status</small>
                   <h4 id="rsvtn-panel-status" class="ml-2">
                     <span class="badge badge-danger">Unpaid</span>
                   </h4>
                 </div>
-                <div class="col-6 mb-3 d-none">
+                <div class="col-6 mb-3">
                   <small class="d-block text-muted mb-0">Room #</small>
                   <h5 id="rsvtn-panel-room-num" class="ml-2">
                     n/a
@@ -441,7 +441,7 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="row d-none">
                 <div class="col">
                   <div class="card card collapsed-card shadow-none">
                     <div class="card-header cursor-pointer border-bottom" data-card-widget="collapse">
@@ -866,6 +866,9 @@ table_Reservation = $('#table-reservation').DataTable( {
         return data;
       }
     }, {
+      data: 'roomNo',
+      className: 'None'
+    }, {
       data: 'Name',
       className: 'None'
     }, {
@@ -975,7 +978,7 @@ function updateRsvtnModal(data, rowIndex) {
   let dateCreated = moment(data.dateCreated).format('dddd, MMMM Do YYYY');
   $("#rsvtn-panel-created-date").html(dateCreated);
   $("#rsvtn-panel-status").html(getReservationStatusBadge(data.reservationStatus));
-  //$("#rsvtn-panel-room-num").html(data.roomNo);
+  $("#rsvtn-panel-room-num").html(data.roomNo);
   $("#rsvtn-panel-bookedby").html(data.Name);
   (data.Name.trim()==="") && $("#rsvtn-panel-bookedby").html("How is this possible????");
   $("#rsvtn-panel-stay-count").html(data.numberOfNightstay);

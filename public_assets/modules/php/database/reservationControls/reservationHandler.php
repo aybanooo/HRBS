@@ -7,6 +7,55 @@ require_once __F_DB_HANDLER__;
 require_once __F_OUTPUT_HANDLER__;
 require_once __F_VALIDATIONS__;
 
+function createPaypalPaymentEntry(array|object $result, int|string $reservationID) {
+    $xID = $result->purchase_units[0]->payments->captures[0]->id;
+    $amount = $result->purchase_units[0]->payments->captures[0]->amount->value;
+    $currency = $result->purchase_units[0]->payments->captures[0]->amount->currency_code;
+    $sql = "INSERT INTO `paypalpayment`(
+            `reservationID`, `orderID`, 
+            `payedValue`, `currency`) 
+            VALUES (
+                $reservationID,'$xID',
+                $amount, '$currency');";
+    $tempConn = createTempDBConnection();
+    mysqli_query($tempConn, $sql);
+    mysqli_close($tempConn);
+}
+
+function updateReservationAmountTable(array|object &$bp_data, int|string $reservationID) {
+    $bp_details = &$bp_data->bp_details;
+    $voucher = $bp_details->details->voucher->code;
+
+    $tax_rate = $bp_details->details->tax;
+    $PoS_rate = $bp_details->details->DISCOUNT_PWDorSENIOR;
+    $serviceCharge_rate = $bp_details->details->serviceCharge;
+
+    $subtotal = $bp_details->amount->subtotal;
+    $PoS_discount = $bp_details->amount->PoS_discount;
+    $voucher_discount = $bp_details->amount->voucher_discount;
+    $initialRoomRate = $subtotal + $voucher_discount;
+    $vat = $bp_details->amount->VAT;
+    $ServiceCharge = $bp_details->amount->ServiceCharge;
+    $total = $bp_details->amount->total;
+
+    $sql = "INSERT INTO `reservation_amount`(
+                `reservationID`, `roomRate`, 
+                `voucher_value`, `vat_rate`, 
+                `serviceCharge_rate`, `vat_value`, 
+                `serviceCharge_value`, `total`, 
+                `PoS_value`) 
+            VALUES (
+                $reservationID, $subtotal,
+                $voucher_discount, $tax_rate,
+                $serviceCharge_rate, $vat,
+                $ServiceCharge, $total,
+                $PoS_discount);";
+
+    $tempConn = createTempDBConnection();
+    mysqli_query($tempConn, $sql);
+    mysqli_close($tempConn);
+}
+
 function updateToPaid(int $reservationID) {
     $sql = "UPDATE `reservation` SET `reservationStatus`=1 WHERE `reservationID`=$reservationID LIMIT 1;";
     $tempConn = createTempDBConnection();
@@ -21,6 +70,7 @@ function reserve_bp(array|object &$bp_data) {
     $roomTypeID = $bp_details->details->room->roomTypeID;
     $bookableRoomNo = getBookableRooms($checkIn, $checkOut, $roomTypeID);
     $voucher = $bp_details->details->voucher->code;
+    $PoS_ID = $bp_details->details->PoS_ID;
 
     // guest
     $adult = $bp_details->details->guest->adult;
@@ -45,14 +95,13 @@ function reserve_bp(array|object &$bp_data) {
     $sql = "INSERT INTO `reservation`(
         `roomNo`, `customerID`, `numberOfNightstay`, 
         `adults`, `children`, `dateCreated`, `checkInDate`, 
-        `checkOutDate`, `checkInTime`, `checkOutTime`, `reservationStatus`) 
+        `checkOutDate`, `checkInTime`, `checkOutTime`, `reservationStatus`, `voucher_code`, `PoS_ID`) 
         VALUES (
             {$mappedRoomNo[0]}, $id,
             '$nights', $adult,
             $child, NOW(),
             '$checkIn','$checkOut',
-            null, null,
-            0);";
+            null, null, 0, '$voucher', '$PoS_ID');";
     $tempConn = createTempDBConnection();
     if(!mysqli_query($tempConn, $sql)) throw new Exception("Something went wrong while creating reservation");
     $reservationID = mysqli_insert_id($tempConn);
@@ -114,7 +163,7 @@ function getBookableRooms(string $checkInDate, string $checkOutDate, int $roomTy
     (`checkOutDate` > '$checkInDate' AND `checkOutDate` < '$checkOutDate') OR
     ('$checkInDate' > `checkInDate` AND '$checkInDate' < `checkOutDate`) OR
     ('$checkOutDate' > `checkInDate` AND '$checkOutDate' < `checkOutDate`) OR
-    ('$checkInDate' = `checkInDate` AND '$checkOutDate' = `checkOutDate`)
+    ('$checkInDate' = `checkInDate` AND '$checkOutDate' = `checkOutDate`) && `reservationStatus` IN (0,1)
     )  && RS.`bookable`=1 $roomtypeCondition;";
     $tempConn = createTempDBConnection();
     $result = doQuery_fetchAll($tempConn, $sql, MYSQLI_ASSOC);

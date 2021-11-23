@@ -95,9 +95,14 @@ $voucher = '';
 $date_checkIn = DateTime::createFromFormat('Y-m-d', $str_checkIn);
 $date_checkOut = DateTime::createFromFormat('Y-m-d', $str_checkOut);
 
-$bp = new bookingPayment($date_checkIn, $date_checkOut, $rid, $PWDorSENIOR_ID, $guest);
-
-
+try {
+	if($rid!="")
+		$bp = new bookingPayment($date_checkIn, $date_checkOut, $rid, $PWDorSENIOR_ID, $guest);
+	else
+		die("Incomplete form");
+} catch(\Exception $e) {
+	die("Please complete the form");
+}
 $bp_details = $bp->getBookingDetails();
 // exit;
 ?>
@@ -699,6 +704,7 @@ $bp_details = $bp->getBookingDetails();
                 return res.json();
             }).then(function(details) {
                 console.log("details >>>", details);
+				
                 //alert('Transaction funds captured from ' + details.payer_given_name);
             })
         },
