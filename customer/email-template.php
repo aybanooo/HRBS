@@ -265,11 +265,6 @@
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">&nbsp;</span>
 																		</p>
-																		
-																		<p
-																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
-																			<span style="font-size:14px;">&nbsp;</span>
-																		</p>
 																		<p
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">Thanks &amp;
