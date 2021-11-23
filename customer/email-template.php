@@ -235,11 +235,11 @@
 																						<td class="tg-zv4m"><!--insert voucher here--></td>
 																					</tr>
 																					<tr>
-																						<td class="tg-zv4m">Senior Citizen/PWD Discount	</td>
+																						<td class="tg-zv4m">Senior Citizen/PWD Discount: </td>
 																						<td class="tg-zv4m"><!--insert Senior/PWD discount here--></td>
 																					</tr>
 																					<tr>
-																						<td class="tg-zv4m"><b>Total</b></td>
+																						<td class="tg-zv4m"><b>Total:</b></td>
 																						<td class="tg-zv4m"><b><!--insert total here--></b></td>
 																					</tr>
 																					<tr>
