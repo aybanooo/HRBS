@@ -166,7 +166,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     <div class="boxinfo">
         <h1>Sorry, the room is not available right now. </h1>
         <br />
-        <p>Please bear with us and try to browse our other rooms. <br />If you have any concern. Dont hesitate to contact us at <b><?php echo $followingdata["contact"]; ?></b> or email us at <b><?php echo $followingdata["email"]; ?></b></p>
+        <p>Please bear with us and try to browse our other <a href="https://ghrbs.site/rooms">rooms</a>. <br />If you have any concern. Dont hesitate to contact us at <b><?php echo $followingdata["contact"]; ?></b> or email us at <b><?php echo $followingdata["email"]; ?></b></p>
     </div>
     </div>
     <div class="footer">
