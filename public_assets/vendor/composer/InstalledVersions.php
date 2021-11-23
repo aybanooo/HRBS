@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '0e1a1d13ceb19b344b05e3fa9e457923eb968dd3',
+    'reference' => '028d50e8b3082ca7c0564b915cb6a1be297f9e9c',
     'name' => '__root__',
   ),
   'versions' => 
@@ -44,7 +44,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '0e1a1d13ceb19b344b05e3fa9e457923eb968dd3',
+      'reference' => '028d50e8b3082ca7c0564b915cb6a1be297f9e9c',
     ),
     'firebase/php-jwt' => 
     array (
@@ -135,6 +135,24 @@ private static $installed = array (
       array (
       ),
       'reference' => '996434e5492cb4c3edcb9168db6fbb1359ef965a',
+    ),
+    'paypal/paypal-checkout-sdk' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'ed6a55075448308b87a8b59dcb7fedf04a048cb1',
+    ),
+    'paypal/paypalhttp' => 
+    array (
+      'pretty_version' => '1.0.0',
+      'version' => '1.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '1ad9b846a046f09d6135cbf2cbaa7701bbc630a3',
     ),
     'phpseclib/phpseclib' => 
     array (
