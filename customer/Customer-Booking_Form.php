@@ -466,9 +466,9 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 								<?php
 								if (isset($_POST['adults'])) {
 									$adults = $_POST['adults'];
-									echo '<td><input id="noGuest" type="number" name="adults" placeholder="No. of Adults" value="' . $adults . '" min="0" value="0"></td>';
+									echo '<td><input id="noGuest" type="number" name="adults" placeholder="No. of Adults" value="' . $adults . '" min="0" value="1"></td>';
 								} else {
-									echo '<td><input id="noGuest" type="number" name="adults" placeholder="No. of Adults" required min="0" value="0"></td>';
+									echo '<td><input id="noGuest" type="number" name="adults" placeholder="No. of Adults" required min="0" value="1"></td>';
 								}
 								?>
 							</tr>
