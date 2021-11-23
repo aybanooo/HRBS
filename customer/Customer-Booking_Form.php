@@ -466,7 +466,7 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 								<?php
 								if (isset($_POST['adults'])) {
 									$adults = $_POST['adults'];
-									echo '<td><input id="noGuest" type="number" name="adults" placeholder="No. of Adults" value="' . $adults . '" min="0" value="0"></td>';
+									echo '<td><input id="noGuest" type="number" name="adults" placeholder="No. of Adults" value="' . $adults . '" min="0" required></td>';
 								} else {
 									echo '<td><input id="noGuest" type="number" name="adults" placeholder="No. of Adults" required min="0" required></td>';
 								}
@@ -477,7 +477,7 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 								<?php
 								if (isset($_POST['children'])) {
 									$children = $_POST['children'];
-									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" value="' . $children . '"  min="0" value="0"></td>';
+									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" value="' . $children . '"  min="0" required></td>';
 								} else {
 									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" required min="0" required></td>';
 								}
