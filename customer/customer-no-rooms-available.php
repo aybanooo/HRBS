@@ -1,3 +1,22 @@
+<?php
+include('db.php');
+#$maxIDQ = "SELECT MAX(customerID) AS 'maxID' FROM customer";
+#$maxIDRes = mysqli_query($conn, $maxIDQ);
+#$maxIDRow = mysqli_fetch_assoc($maxIDRes);
+#$customerEmail = $maxIDRow['maxID'];
+#(!isset($_POST['inp-email'])) && header("Location: /");
+##$customerEmail = $_POST['inp-email'];
+#$cID = intval(mysqli_real_escape_string($conn, $_POST['inp-cid']));
+
+
+// This variable ($bookingID) is required for the template
+
+$query = "SELECT companyName FROM companyinfo";
+$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+$followingdata = $result->fetch_array(MYSQLI_ASSOC);
+
+?>
+
 <!DOCTYPE HTML>
 <html lang="en">
 
