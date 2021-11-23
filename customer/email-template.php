@@ -247,9 +247,9 @@
 																						<td class="tg-zv4m"></td>
 																					</tr>
 																					</tbody>
-																					</table>
+																					</table><br>
 																			</div>
-																		<p</br>
+																		<p
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;Should you
 																				have any requests prior to your stay,
