@@ -2,6 +2,9 @@
 include('db.php');
 
 require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/directories.php");
+require_once __F_DB_HANDLER__;
+require_once __F_RSV_HANDLER__;
+require_once __F_VALIDATIONS__;
 
 $query = "SELECT companyName FROM companyinfo";
 $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
@@ -78,11 +81,35 @@ $customerID = mysqli_insert_id($conn);
 
 		mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));*/
 
+$str_checkIn = $_POST['from'];
+$str_checkOut = $_POST['to'];
+$rid =  $_POST['roomName']; //dicaprios suite
+$PWDorSENIOR_ID = "";
+
+if(isset($_POST['seniorcitizen']))
+	$PWDorSENIOR_ID = $_POST['discount'];
+$guest = [intval($_POST['adults']), intval($_POST['children'])];
+$voucher = '';
+// $voucher = '2dpjdcG';
+(validateDate($str_checkIn) && validateDate($str_checkOut)) || throw new Exception("Invalid checkin or checkout date");
+$date_checkIn = DateTime::createFromFormat('Y-m-d', $str_checkIn);
+$date_checkOut = DateTime::createFromFormat('Y-m-d', $str_checkOut);
+
+$bp = new bookingPayment($date_checkIn, $date_checkOut, $rid, $PWDorSENIOR_ID, $guest);
+
+
+$bp_details = $bp->getBookingDetails();
+// exit;
 ?>
+
 <!DOCTYPE HTML>
 <html lang="en">
 
 <head>
+	<script>
+		const xyzFORMcba = <?php print json_encode($_POST);?>;
+		const xyzBPcba = <?php print json_encode($bp_details);?>;
+	</script>
 	<?php
 	require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/directories.php");
 	include_once(__D_UI__ . "js/analytics.php");
@@ -355,11 +382,12 @@ $customerID = mysqli_insert_id($conn);
 						</tr>
 						<tr align="right">
 							<?php
-							$query = "SELECT * FROM roomtype WHERE `name`='$roomName'";
+							$query = "SELECT * FROM roomtype WHERE `roomTypeID`='$roomName'";
 							$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							$totalPersons = $adults + $child;
 							$seniorCitizen = isset($_POST['seniorcitizen']) ? $_POST['seniorcitizen'] : "";
+							$PoSid = $_POST['discount'];
 							#Fetch Vat tac and service charge !!! GETS GETS HAHAHA gawin muna variable
 							$queryTax = "SELECT * FROM `settings` WHERE `name` in ('tax', 'serviceCharge');";
 							$result = mysqli_query($conn, $queryTax) or die(mysqli_error($conn));
@@ -368,7 +396,7 @@ $customerID = mysqli_insert_id($conn);
 							$taxserviceCharge = $tempSettings[0]['value'];
 							$tax = $tempSettings[1]['value'];
 							unset($tempSettings);
-							if ($seniorCitizen == 1 || $seniorCitizen == 2) {
+							if ($seniorCitizen == 1 || $seniorCitizen == 2 && $PoSid != "") {
 								$totalRoomRate = $days * $followingdata['rate'];
 								$vat = $totalRoomRate * ($tax / 100);
 								$serviceCharge =  $totalRoomRate *  ($taxserviceCharge / 100);
@@ -462,15 +490,15 @@ $customerID = mysqli_insert_id($conn);
 
 							<tr align="right">
 								<td>Room Rate</td>
-								<td><?php echo number_format($totalRoomRate, 2,  '.', ','); ?></td>
+								<td id="totalroomprice"><?php echo number_format($totalRoomRate, 2,  '.', ','); ?></td>
 							</tr>
 							<tr align="right">
 								<td>VAT (12%)</td>
-								<td><?php echo number_format($vat, 2,  '.', ','); ?></td>
+								<td id="amount-vat"><?php echo number_format($vat, 2,  '.', ','); ?></td>
 							</tr>
 							<tr align="right">
 								<td>Service Charge</td>
-								<td><?php echo number_format($serviceCharge, 2,  '.', ','); ?></td>
+								<td id="amount-serviceCharge"><?php echo number_format($serviceCharge, 2,  '.', ','); ?></td>
 							</tr>
 							<tr align="right">
 								<td>Voucher Discount</td>
@@ -480,7 +508,7 @@ $customerID = mysqli_insert_id($conn);
 							</tr>
 							<tr align="right">
 								<td>Senior Citizen/PWD Discount</td>
-								<td><?php if ($seniorCitizen == 1 || $seniorCitizen == 2) {
+								<td id="amount-PoS"><?php if ($seniorCitizen == 1 || $seniorCitizen == 2 && $PoSid!="") {
 										echo number_format($totalDiscount, 2, '.', '');
 									} ?> </td>
 							</tr>
@@ -493,12 +521,10 @@ $customerID = mysqli_insert_id($conn);
 								<td>
 									<h1><b>Total</b></h1>
 								</td>
-							</tr>
-							<tr align="right">
-								<td colspan="2"><input class="form-control-plaintext" type="number" value="<?php if ($seniorCitizen == 1 || $seniorCitizen == 2) {
-																												echo number_format($totalPriceWithDiscount, 2, '.', '');
+								<td colspan="1"><input class="form-control-plaintext" type="text" value="<?php if ($seniorCitizen == 1 || $seniorCitizen == 2 && $PoSid != "") {
+																												echo number_format($totalPriceWithDiscount, 2, '.', ',');
 																											} else {
-																												echo number_format($totalPriceNoDiscount, 2, '.', '');
+																												echo number_format($totalPriceNoDiscount, 2, '.', ',');
 																											} ?>" id="total" readonly="readonly" lang="en-150" /></td>
 							</tr>
 							<tr align="right">
@@ -596,55 +622,149 @@ $customerID = mysqli_insert_id($conn);
 <script>
 	$(document).ready(function() {
 		$('#activate').on('click', function() {
-			var coupon = $('#coupon').val();
-			var price = $('#price').val();
-			if (coupon == "") {
+			universal_coupon = $('#coupon').val();
+			// var price = $('#price').val();
+			var price = xyzBPcba.amount.subtotal;
+			let roomTypeID =xyzBPcba.details.room.roomTypeID;
+
+			console.log(universal_coupon, price, roomTypeID);
+
+			if (universal_coupon == "") {
 				alert("Please enter a coupon code!");
 			} else {
 				$.post('voucher.php', {
-					coupon: coupon,
-					price: price
+					coupon: universal_coupon,
+					price: price,
+					rid: roomTypeID
 				}, function(data) {
+					console.log(data);
 					if (data == "error") {
 						alert("Invalid Coupon Code!");
-						$('#total').html(price);
-						$('#result').val('');
+						universal_coupon = "";
+						updateCalculations();
 					} else {
 						var json = JSON.parse(data);
-						$('#result').html(+json.value + " Off");
-						$('#total').val(Math.round((parseFloat(json.price)) * 100) / 100);
+						updateCalculations();
+						// $('#result').html(json.value + " Off");
+						// $('#totalroomprice').html(Math.round((parseFloat(json.price)) * 100) / 100);
 					}
 				});
 			}
 		});
 	});
 </script>
-<script src="https://www.paypal.com/sdk/js?client-id=AVFvFuUKXMeSAJRgomChw5y-GVxtgyRGm2jAOBo5eVtGfd3mXa28RUQ7Niq6ae1mHhzI5LxvyP4zKH_e&currency=PHP"></script>
+<!-- Old Paypal -->
+<!-- <script src="https://www.paypal.com/sdk/js?client-id=AVFvFuUKXMeSAJRgomChw5y-GVxtgyRGm2jAOBo5eVtGfd3mXa28RUQ7Niq6ae1mHhzI5LxvyP4zKH_e&currency=PHP"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+
+
+<!-- Paypal Updated -->
+<script src="https://www.paypal.com/sdk/js?client-id=AR25QqpnmdgR_MHMGfN6HUzgoqK_RJYA9bJuxdympMW_H725iypkN5EZk59K3tvf6PbB0xEbROQMWzHt&currency=PHP"></script>
 <script>
-	paypal.Buttons({
-		createOrder: function(data, actions) {
-			return actions.order.create({
-				purchase_units: [{
-					amount: {
-						value: document.getElementById('total').value
-					},
-				}]
-			});
-		},
-		// Finalize the transaction after payer approval
-		onApprove: function(data, actions) {
-			return actions.order.capture().then(function() {
-				window.location = "tracnsaction-completed.php?&orderID=" + data.orderID + "&customerID=" + '<?php print $customerID; ?>';
-				//window.location = "paypalSuccess.php?&customerID=" + data.customerID;
-			});
-		}
-	}).render('#paypal-button-container');
+    paypal.Buttons({
+        createOrder: function() {
+            ijkBPnml = null;
+            return fetch('create-paypal-transaction.php', {
+                method: 'post',
+                headers: {
+                'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    form: form,
+                    voucher: universal_voucher
+                })
+            }).then(function(res) {
+                return res.json();
+            }).then(function(data) {
+                console.log("===", data);
+                ijkBPnml = data.result.bp_data;
+                return data.result.id; // Use the key sent by your server's response, ex. 'id' or 'token'
+            });
+        },
+        onApprove: function(data) {
+            console.log(">>>>", data);
+            return fetch('capture-paypal-transaction.php', {
+                method: "post",
+                headers: {
+                'content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                orderID: data.orderID,
+                bp_data: ijkBPnml
+                })
+            }).then(function(res) {
+                console.log("res >>>", res);
+                return res.json();
+            }).then(function(details) {
+                console.log("details >>>", details);
+                //alert('Transaction funds captured from ' + details.payer_given_name);
+            })
+        },
+        onError: function (err) {
+            // For example, redirect to a specific error page
+            console.log("---    ", err);
+        }
+    }).render('#paypal-button-container');
+    //This function displays Smart Payment Buttons on your web page.
 </script>
+
+
+
+
+
 <script>
 	function enableBtn() {
 		document.getElementById("submit").disabled = false;
 	}
 </script>
 
+<!-- For updating amounts calculation -->
+<script>
+
+function formatFloat($value) {
+	let x = parseFloat($value)
+	let rounded = Math.round((x + Number.EPSILON) * 100) / 100;
+	let str_rounded = rounded.toString();
+	splited = str_rounded.split(".");
+	if(splited.length==2) {
+		ln = parseInt(splited[0]).toLocaleString();
+		console.log(">>", ln);
+		rn = splited[1].substr(0,2);
+		return (ln+"."+rn);
+	}
+	return (parseInt(splited[0]).toLocaleString()+".00");
+	
+}
+universal_coupon = "";
+function updateCalculations() {
+	let details = {
+		checkIn: xyzBPcba.details.checkIn,
+		checkOut: xyzBPcba.details.checkOut,
+		guest: xyzBPcba.details.guest,
+		rid: xyzBPcba.details.room.roomTypeID,
+		PoS_ID: xyzBPcba.details.PoS_ID,
+		voucher_code: universal_coupon
+	}
+	$.post("/public_assets/modules/php/database/reservationControls/getNewCalculation.php", {...details},
+		function (data, textStatus, jqXHR) {
+			console.log(data);
+			let totalroomprice = formatFloat(data.subtotal);
+			let vat = formatFloat(data.VAT);
+			let serviceCharge = formatFloat(data.ServiceCharge);
+			let voucher = data.voucher_discount==0 ? "" : data.voucher_discount+" Off";
+			let PoS = data.PoS_discount==0 ? "" : formatFloat(data.PoS_discount);
+			let total = formatFloat(data.total);
+			$("#totalroomprice").html(totalroomprice);
+			$("#amount-vat").html(vat);
+			$("#amount-serviceCharge").html(serviceCharge);
+			$("#result").html(voucher);
+			$("#amount-PoS").html(PoS);
+			$("#total").val(total);
+		},
+		"json"
+	);
+}
+
+</script>
 </html>

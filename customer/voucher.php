@@ -1,24 +1,23 @@
 <?php
+require_once(dirname(__FILE__,2)."/public_assets/modules/php/directories/directories.php");
+require_once __F_RSV_HANDLER__;
 include('db.php');
+
 	$coupon_code = $_POST['coupon'];
-	$price = $_POST['price'];
+	$price = intval($_POST['price']);
+	$roomTypeID = intval($_POST['rid']);
  
-	$query = mysqli_query($conn, "SELECT * FROM `promotion` WHERE `promoCode` = '$coupon_code' && `minSpend` <= '$price' && `maxSpend` >= '$price' && `expiry` != CURDATE()") or die(mysqli_error($conn));
-	$count = mysqli_num_rows($query);
-	$fetch = mysqli_fetch_array($query);
-	$array = array();
+	$valid = checkVoucherValidity($coupon_code, $price, $roomTypeID);
 
-
-	 	if($count > 0){
-			$discount = $fetch["value"]; 
-			$total =  $price - $discount;
-			$array["value"] = $fetch["value"];
-			$array["price"] = $price-$discount;
-			
-			echo json_encode($array);
-			
-		}else{
-			echo "error";
-		}
+	if($valid) {
+		$data = getVoucherDetails($coupon_code);
+		$discount = intval($data["value"]); 
+		$total =  $price - $discount;
+		$array["value"] = $data["value"];
+		$array["price"] = $price-$discount;
+		echo json_encode($array);
+		die;
+	}
+	echo "error";
 
 ?>
