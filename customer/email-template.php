@@ -192,12 +192,12 @@
 																				<?php print $bookingID ?? "Invalid booking id. Please contact us."; ?></span></p>
 																		<p
 																			style="margin: 0; font-size: 12px; mso-line-height-alt: 21px;">
-																			<span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;We look
+																			<span style="font-size:14px;">We look
 																				forward to welcoming you to our resort
 																				on <?php print $checkInDate; ?></span></p>
 																		<p
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
-																			<span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;Our
+																			<span style="font-size:14px;">Our
 																				professional and friendly staff are
 																				committed to ensuring
 																				your&nbsp;stay&nbsp;is both enjoyable
@@ -251,7 +251,7 @@
 																			</div>
 																		<p
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
-																			<span style="font-size:14px;">&nbsp;&nbsp;&nbsp;&nbsp;Should you
+																			<span style="font-size:14px;">Should you
 																				have any requests prior to your stay,
 																				please do not hesitate to contact us at
 																				thanoshotelreservation@ghrbs.site&nbsp;
