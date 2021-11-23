@@ -349,7 +349,12 @@ $customerID = mysqli_insert_id($conn);
 								<h3><b>Reservation Details</b></h3>
 							</td>
 						</tr>
-						<?php
+						<tr align="right">
+							<th>Room:</th>
+							<td id="roomName"><?php echo $roomName; ?></td>
+						</tr>
+						<tr align="right">
+							<?php
 							$query = "SELECT * FROM roomtype WHERE `name`='$roomName'";
 							$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
@@ -365,17 +370,17 @@ $customerID = mysqli_insert_id($conn);
 							unset($tempSettings);
 							if ($seniorCitizen == 1 || $seniorCitizen == 2) {
 								$totalRoomRate = $days * $followingdata['rate'];
-								$vat = $totalRoomRate * ($tax / 100); 
+								$vat = $totalRoomRate * ($tax / 100);
 								$serviceCharge =  $totalRoomRate *  ($taxserviceCharge / 100);
 								$totalPrice = $vat + $serviceCharge + $totalRoomRate;
 								//senior discount computation
-								$dividedRate =  $totalRoomRate / $totalPersons; 
-								$RateofVat =  $dividedRate * ($tax / 100); 
-								$rateMinusVat = $dividedRate - $RateofVat; 
-								$rateDiscount = $rateMinusVat * 
-								$rateDiscounted = $rateMinusVat - $rateDiscount; 
-								$totalDiscount = $dividedRate - $rateDiscounted; 
-								$totalPriceWithDiscount = $totalPrice - $totalDiscount; 
+								$dividedRate =  $totalRoomRate / $totalPersons;
+								$RateofVat =  $dividedRate * ($tax / 100);
+								$rateMinusVat = $dividedRate - $RateofVat;
+								$rateDiscount = $rateMinusVat * 0.2;
+								$rateDiscounted = $rateMinusVat - $rateDiscount;
+								$totalDiscount = $dividedRate - $rateDiscounted;
+								$totalPriceWithDiscount = $totalPrice - $totalDiscount;
 							} else {
 								$totalRoomRate = $days * $followingdata['rate'];
 								$vat = $totalRoomRate * ($tax / 100);
@@ -383,12 +388,6 @@ $customerID = mysqli_insert_id($conn);
 								$totalPriceNoDiscount = $vat + $serviceCharge + $totalRoomRate;
 							}
 							?>
-						<tr align="right">
-							<th>Room:</th>
-							<td id="roomName"><?php echo $followingdata['name']; ?></td>
-						</tr>
-						<tr align="right">
-
 							<th>Rate:</th>
 							<td><?php echo number_format($followingdata['rate'], 2,  '.', ','); ?></td>
 						</tr>
