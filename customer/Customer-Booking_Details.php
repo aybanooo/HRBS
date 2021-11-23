@@ -65,11 +65,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 		$customerID = mysqli_insert_id($conn);
 
-		$customerQuery1 = ("INSERT INTO reservation 
+		/*$customerQuery1 = ("INSERT INTO reservation 
 	( roomNo, customerID, numberOfNightstay, adults, children, checkInDate, checkOutDate, checkInTime, checkOutTime, dateCreated) 
 	VALUES ('0', $customerID, '$days', 'none', 'none' ,'$dateStartFinal', '$dateEndFinal', NULL, NULL, NOW()) LIMIT 1;");
 
-		mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));
+		mysqli_query($conn, $customerQuery1) or die(mysqli_error($conn));*/
 	}
 } else {
 	die("PLEASE FINISH THE CAPTCHA");
