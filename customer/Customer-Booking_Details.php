@@ -413,11 +413,11 @@ $customerID = mysqli_insert_id($conn);
 						</tr>
 						<tr align="right">
 							<th>No of Adults:</th>
-							<td><?php echo $followingdata['maxAdult']; ?></td>
+							<td><?php echo $adults; ?></td>
 						</tr>
 						<tr align="right">
 							<th>No of Childrens:</th>
-							<td><?php echo $followingdata['maxChildren']; ?></td>
+							<td><?php echo $child; ?></td>
 						</tr>
 						<tr align="right">
 							<td colspan="2">
