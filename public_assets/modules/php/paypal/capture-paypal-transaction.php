@@ -1,6 +1,6 @@
 <?php
 // require __DIR__ . '/vendor/autoload.php';
-require_once(dirname(__FILE__, 2)."/public_assets/modules/php/directories/directories.php");
+require_once(dirname(__FILE__, 2)."/directories/directories.php");
 require_once __F_DB_HANDLER__;
 require_once __F_RSV_HANDLER__;
 require_once __F_VALIDATIONS__;
@@ -74,13 +74,13 @@ $bp_data = json_decode(tonotwtf($wtf_bp, 5));
  *This driver function invokes the captureOrder function with
  *approved order ID to capture the order payment.
  */
-if(false)
+// if(false)
 try {
     if (!count(debug_backtrace())) {
-      // $reservationID = reserve_bp($bp_data);
+      $reservationID = reserve_bp($bp_data);
       $response = CaptureOrder::captureOrder($data->orderID);
       echo json_encode($response);
-      // updateToPaid($reservationID);
+      updateToPaid($reservationID);
     }
 } catch (Exception $e) {
 }

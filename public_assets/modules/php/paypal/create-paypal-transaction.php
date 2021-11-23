@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__, 2)."/public_assets/modules/php/directories/directories.php");
+require_once(dirname(__FILE__, 2)."/directories/directories.php");
 require_once __F_DB_HANDLER__;
 require_once __F_RSV_HANDLER__;
 require_once __F_VALIDATIONS__;
