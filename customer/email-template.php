@@ -225,6 +225,7 @@
 																		<p
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">Billing information:</span></p>
+																			<div float:right;>
 																			<table class="tg">
 																					<thead>
 																					<tr>
@@ -263,6 +264,7 @@
 																					</tr>
 																					</tbody>
 																					</table>
+																			</div>
 																		<p
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">&nbsp;</span>
