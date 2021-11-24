@@ -150,7 +150,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         </div>
     </nav>
     <?php
-    $query = "SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
+    $query = "SELECT socialFB, companyName, socialTwitter, socialInstagram, contact, email, footerRight
         FROM socialmedias, companyinfo";
     $result = mysqli_query($conn, $query) or die(mysqli_error($conn));
     $followingdata = $result->fetch_array(MYSQLI_ASSOC);

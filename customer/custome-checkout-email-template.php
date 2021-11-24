@@ -133,6 +133,12 @@
 							</tr>
 						</tbody>
 					</table>
+					<?php
+						$query = "SELECT email, companyName, contact
+							FROM companyinfo";
+						$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+						$followingdata = $result->fetch_array(MYSQLI_ASSOC);
+						?>
 					<table class="row row-3" align="center" width="100%" border="0" cellpadding="0" cellspacing="0"
 						role="presentation"
 						style="mso-table-lspace: 0pt; mso-table-rspace: 0pt; background-color: #283C4B;">
