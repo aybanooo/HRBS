@@ -377,6 +377,39 @@ if(!$bp_details['VALID_BOOKING']) {
 								$query = "SELECT * FROM roomtype WHERE `roomTypeID`='$roomIDName'";
 								$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 								$followingdata = $result->fetch_array(MYSQLI_ASSOC);
+<<<<<<< Updated upstream
+=======
+								$PoSid = $_POST['discount'];
+								$totalPersons = $adults + $child;
+								$seniorCitizen = isset($_POST['seniorcitizen']) ? $_POST['seniorcitizen'] : "";
+								#Fetch Vat tac and service charge !!! GETS GETS HAHAHA gawin muna variable
+								$queryTax = "SELECT * FROM `settings` WHERE `name` in ('tax', 'serviceCharge');";
+								$result = mysqli_query($conn, $queryTax) or die(mysqli_error($conn));
+								$tempSettings = mysqli_fetch_all($result, MYSQLI_ASSOC);
+								$followingdatatax = $result->fetch_array(MYSQLI_ASSOC);
+								$taxserviceCharge = $tempSettings[0]['value'];
+								$tax = $tempSettings[1]['value'];
+								unset($tempSettings);
+								if ($seniorCitizen == 1 || $seniorCitizen == 2 && $PoSid != "") {
+									$totalRoomRate = $days * $followingdata['rate'];
+									$vat = $totalRoomRate * ($tax / 100);
+									$serviceCharge =  $totalRoomRate *  ($taxserviceCharge / 100);
+									$totalPrice = $vat + $serviceCharge + $totalRoomRate;
+									//senior discount computation
+									$dividedRate =  $totalRoomRate / $totalPersons;
+									$RateofVat =  $dividedRate * ($tax / 100);
+									$rateMinusVat = $dividedRate - $RateofVat;
+									$rateDiscount = $rateMinusVat * 0.2;
+									$rateDiscounted = $rateMinusVat - $rateDiscount;
+									$totalDiscount = $dividedRate - $rateDiscounted;
+									$totalPriceWithDiscount = $totalPrice - $totalDiscount;
+								} else {
+									$totalRoomRate = $days * $followingdata['rate'];
+									$vat = $totalRoomRate * ($tax / 100);
+									$serviceCharge =  $totalRoomRate * ($taxserviceCharge / 100);
+									$totalPriceNoDiscount = $vat + $serviceCharge + $totalRoomRate;
+								}
+>>>>>>> Stashed changes
 							?>
 						<tr>
 							<td>
@@ -388,6 +421,7 @@ if(!$bp_details['VALID_BOOKING']) {
 							<td id="roomName"><?php echo $followingdata['name']; ?></td>
 						</tr>
 						<tr align="right">
+<<<<<<< Updated upstream
 							<?php
 							$totalPersons = $adults + $child;
 							$seniorCitizen = isset($_POST['seniorcitizen']) ? $_POST['seniorcitizen'] : "";
@@ -420,6 +454,8 @@ if(!$bp_details['VALID_BOOKING']) {
 								$totalPriceNoDiscount = $vat + $serviceCharge + $totalRoomRate;
 							}
 							?>
+=======
+>>>>>>> Stashed changes
 							<th>Rate:</th>
 							<td><?php echo number_format($followingdata['rate'], 2,  '.', ','); ?></td>
 						</tr>
