@@ -159,6 +159,8 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         <h1>Thank you for booking with us</h1>
         <br />
         <p>A copy of the Reservation and Receipt has been sent to your email. <br />If you have any concern. Dont hesitate to contact us at <b><?php echo $followingdata["contact"]; ?></b> or email us at <b><?php echo $followingdata["email"]; ?></b></p>
+        <h2><?php print base64_decode(urldecode($_GET['bkid'])); ?></h2>
+        <small class="text-muted">This is your booking ID. Please save it in case you didn't receive the email immediately</small>
     </div>
     </div>
     <div class="footer">

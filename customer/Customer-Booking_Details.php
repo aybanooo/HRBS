@@ -712,7 +712,8 @@ if(!$bp_details['VALID_BOOKING']) {
             }).then(function(details) {
                 console.log("details >>>", details);
 				if(details.result.status == "COMPLETED") {
-					window.location.href = "/customer/paypalSuccess.php";
+					// window.location.href = "/customer/paypalSuccess.php?bkid="+details.result.bkid;
+					window.location.href = "/customer/paypalSuccess.php?bkid="+encodeURI(btoa( details.result.bkid ));
 				} else {
 					Swal.fire({
 						title: 'Something went wrong while processing the reservation',

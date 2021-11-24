@@ -69,18 +69,22 @@ $wtf_bp = $data->bp_data;
 $bp_data = json_decode(tonotwtf($wtf_bp, 5));
 
 // echo "<pre>".json_encode(getBookableRooms("2021-11-28","2021-11-30", 38))."</pre>"
-
+ 
 
 /**
  *This driver function invokes the captureOrder function with
  *approved order ID to capture the order payment.
  */
 // if(false)
+
+ob_start();
 try {
     if (!count(debug_backtrace())) {
       $reservationID = reserve_bp($bp_data);
+      $bkid = $reservationID;
       $response = CaptureOrder::captureOrder($data->orderID);
-      echo json_encode($response);
+      $response->result  = (object)array_merge((array)$response->result,  ['bkid'=> $bkid]);
+      // echo json_encode($response);
       $orderID = $response->result->id;
       $result = $response->result;
       $status = $response->result->status;
@@ -96,6 +100,9 @@ try {
 } catch (Exception $e) {
 }
 
+$out = ob_get_contents();  
+ob_end_clean();
+echo json_encode($response);
 // updateReservationAmountTable($bp_data, 1);
 exit;
 ?>
