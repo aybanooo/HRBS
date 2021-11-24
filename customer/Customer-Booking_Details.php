@@ -377,6 +377,7 @@ if(!$bp_details['VALID_BOOKING']) {
 								$query = "SELECT * FROM roomtype WHERE `roomTypeID`='$roomName'";
 								$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 								$followingdata = $result->fetch_array(MYSQLI_ASSOC);
+								$PoSid = $_POST['discount'];
 							?>
 						<tr>
 							<td>
@@ -391,7 +392,7 @@ if(!$bp_details['VALID_BOOKING']) {
 							<?php
 							$totalPersons = $adults + $child;
 							$seniorCitizen = isset($_POST['seniorcitizen']) ? $_POST['seniorcitizen'] : "";
-							$PoSid = $_POST['discount'];
+							
 							#Fetch Vat tac and service charge !!! GETS GETS HAHAHA gawin muna variable
 							$queryTax = "SELECT * FROM `settings` WHERE `name` in ('tax', 'serviceCharge');";
 							$result = mysqli_query($conn, $queryTax) or die(mysqli_error($conn));
