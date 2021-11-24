@@ -54,7 +54,7 @@ $firstName = mysqli_real_escape_string($conn, $_POST['fname']);
 $lastName = mysqli_real_escape_string($conn, $_POST['lname']);
 $contact = mysqli_real_escape_string($conn, $_POST['cnumber']);
 $email = mysqli_real_escape_string($conn, $_POST['email']);
-$roomName = mysqli_real_escape_string($conn, $_POST['roomName']);
+$roomNamee = mysqli_real_escape_string($conn, $_POST['roomName']);
 $dateStart = mysqli_real_escape_string($conn, $_POST['from']);
 $dateEnd = mysqli_real_escape_string($conn, $_POST['to']);
 $adults =  mysqli_real_escape_string($conn, $_POST['adults']);
@@ -381,11 +381,11 @@ if(!$bp_details['VALID_BOOKING']) {
 						</tr>
 						<tr align="right">
 							<th>Room:</th>
-							<td id="roomName"><?php echo $roomName; ?></td>
+							<td id="roomName"><?php echo $roomNamee; ?></td>
 						</tr>
 						<tr align="right">
 							<?php
-							$query = "SELECT * FROM roomtype WHERE `roomTypeID`='$roomName'";
+							$query = "SELECT * FROM roomtype WHERE `roomTypeID`='$roomNamee'";
 							$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							$totalPersons = $adults + $child;
@@ -851,7 +851,6 @@ function checkAppliedVoucherAvailability() {
 		}
 	});
 }
-
 
 const runRoomAndVoucherAvailabilityUpdate = () => {
         var i = 0;
