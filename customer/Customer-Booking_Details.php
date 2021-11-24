@@ -54,7 +54,7 @@ $firstName = mysqli_real_escape_string($conn, $_POST['fname']);
 $lastName = mysqli_real_escape_string($conn, $_POST['lname']);
 $contact = mysqli_real_escape_string($conn, $_POST['cnumber']);
 $email = mysqli_real_escape_string($conn, $_POST['email']);
-$roomIDName = mysqli_real_escape_string($conn, $_POST['roomName']);
+$roomName = mysqli_real_escape_string($conn, $_POST['roomName']);
 $dateStart = mysqli_real_escape_string($conn, $_POST['from']);
 $dateEnd = mysqli_real_escape_string($conn, $_POST['to']);
 $adults =  mysqli_real_escape_string($conn, $_POST['adults']);
@@ -81,7 +81,7 @@ $str_checkOut = $_POST['to'];
 $rid =  $_POST['roomName']; //dicaprios suite
 $PWDorSENIOR_ID = "";
 
-if(isset($_POST['seniorcitizen']))
+if (isset($_POST['seniorcitizen']))
 	$PWDorSENIOR_ID = $_POST['discount'];
 $guest = [intval($_POST['adults']), intval($_POST['children'])];
 $voucher = '';
@@ -91,15 +91,15 @@ $date_checkIn = DateTime::createFromFormat('Y-m-d', $str_checkIn);
 $date_checkOut = DateTime::createFromFormat('Y-m-d', $str_checkOut);
 
 try {
-	if($rid!="")
+	if ($rid != "")
 		$bp = new bookingPayment($date_checkIn, $date_checkOut, $rid, $PWDorSENIOR_ID, $guest);
 	else
 		die("Incomplete form");
-} catch(\Exception $e) {
+} catch (\Exception $e) {
 	die("Please complete the form");
 }
 $bp_details = $bp->getBookingDetails();
-if(!$bp_details['VALID_BOOKING']) {
+if (!$bp_details['VALID_BOOKING']) {
 	// die("Invalid Booking");
 }
 // exit;
@@ -110,8 +110,8 @@ if(!$bp_details['VALID_BOOKING']) {
 
 <head>
 	<script>
-		const xyzFORMcba = <?php print json_encode($_POST);?>;
-		const xyzBPcba = <?php print json_encode($bp_details);?>;
+		const xyzFORMcba = <?php print json_encode($_POST); ?>;
+		const xyzBPcba = <?php print json_encode($bp_details); ?>;
 	</script>
 	<?php
 	require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/directories.php");
@@ -373,41 +373,41 @@ if(!$bp_details['VALID_BOOKING']) {
 								<hr />
 							</td>
 						</tr>
-							<?php
-								$query = "SELECT * FROM roomtype WHERE `roomTypeID`='$roomIDName'";
-								$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-								$followingdata = $result->fetch_array(MYSQLI_ASSOC);
-								$totalPersons = $adults + $child;
-								$seniorCitizen = isset($_POST['seniorcitizen']) ? $_POST['seniorcitizen'] : "";
-								$PoSid = $_POST['discount'];
-								#Fetch Vat tac and service charge !!! GETS GETS HAHAHA gawin muna variable
-								$queryTax = "SELECT * FROM `settings` WHERE `name` in ('tax', 'serviceCharge');";
-								$result = mysqli_query($conn, $queryTax) or die(mysqli_error($conn));
-								$tempSettings = mysqli_fetch_all($result, MYSQLI_ASSOC);
-								$followingdatatax = $result->fetch_array(MYSQLI_ASSOC);
-								$taxserviceCharge = $tempSettings[0]['value'];
-								$tax = $tempSettings[1]['value'];
-								unset($tempSettings);
-								if ($seniorCitizen == 1 || $seniorCitizen == 2 && $PoSid != "") {
-									$totalRoomRate = $days * $followingdata['rate'];
-									$vat = $totalRoomRate * ($tax / 100);
-									$serviceCharge =  $totalRoomRate *  ($taxserviceCharge / 100);
-									$totalPrice = $vat + $serviceCharge + $totalRoomRate;
-									//senior discount computation
-									$dividedRate =  $totalRoomRate / $totalPersons;
-									$RateofVat =  $dividedRate * ($tax / 100);
-									$rateMinusVat = $dividedRate - $RateofVat;
-									$rateDiscount = $rateMinusVat * 0.2;
-									$rateDiscounted = $rateMinusVat - $rateDiscount;
-									$totalDiscount = $dividedRate - $rateDiscounted;
-									$totalPriceWithDiscount = $totalPrice - $totalDiscount;
-								} else {
-									$totalRoomRate = $days * $followingdata['rate'];
-									$vat = $totalRoomRate * ($tax / 100);
-									$serviceCharge =  $totalRoomRate * ($taxserviceCharge / 100);
-									$totalPriceNoDiscount = $vat + $serviceCharge + $totalRoomRate;
-								}
-								?>
+						<?php
+						$query = "SELECT * FROM roomtype WHERE `roomTypeID`='$roomName'";
+						$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+						$followingdata = $result->fetch_array(MYSQLI_ASSOC);
+						$totalPersons = $adults + $child;
+						$seniorCitizen = isset($_POST['seniorcitizen']) ? $_POST['seniorcitizen'] : "";
+						$PoSid = $_POST['discount'];
+						#Fetch Vat tac and service charge !!! GETS GETS HAHAHA gawin muna variable
+						$queryTax = "SELECT * FROM `settings` WHERE `name` in ('tax', 'serviceCharge');";
+						$result = mysqli_query($conn, $queryTax) or die(mysqli_error($conn));
+						$tempSettings = mysqli_fetch_all($result, MYSQLI_ASSOC);
+						$followingdatatax = $result->fetch_array(MYSQLI_ASSOC);
+						$taxserviceCharge = $tempSettings[0]['value'];
+						$tax = $tempSettings[1]['value'];
+						unset($tempSettings);
+						if ($seniorCitizen == 1 || $seniorCitizen == 2 && $PoSid != "") {
+							$totalRoomRate = $days * $followingdata['rate'];
+							$vat = $totalRoomRate * ($tax / 100);
+							$serviceCharge =  $totalRoomRate *  ($taxserviceCharge / 100);
+							$totalPrice = $vat + $serviceCharge + $totalRoomRate;
+							//senior discount computation
+							$dividedRate =  $totalRoomRate / $totalPersons;
+							$RateofVat =  $dividedRate * ($tax / 100);
+							$rateMinusVat = $dividedRate - $RateofVat;
+							$rateDiscount = $rateMinusVat * 0.2;
+							$rateDiscounted = $rateMinusVat - $rateDiscount;
+							$totalDiscount = $dividedRate - $rateDiscounted;
+							$totalPriceWithDiscount = $totalPrice - $totalDiscount;
+						} else {
+							$totalRoomRate = $days * $followingdata['rate'];
+							$vat = $totalRoomRate * ($tax / 100);
+							$serviceCharge =  $totalRoomRate * ($taxserviceCharge / 100);
+							$totalPriceNoDiscount = $vat + $serviceCharge + $totalRoomRate;
+						}
+						?>
 						<tr>
 							<td>
 								<h3><b>Reservation Details</b></h3>
@@ -418,8 +418,6 @@ if(!$bp_details['VALID_BOOKING']) {
 							<td id="roomName"><?php echo $followingdata['name']; ?></td>
 						</tr>
 						<tr align="right">
-							<?php
-							
 							<th>Rate:</th>
 							<td><?php echo number_format($followingdata['rate'], 2,  '.', ','); ?></td>
 						</tr>
@@ -512,9 +510,9 @@ if(!$bp_details['VALID_BOOKING']) {
 							</tr>
 							<tr align="right">
 								<td>Senior Citizen/PWD Discount</td>
-								<td id="amount-PoS"><?php if ($seniorCitizen == 1 || $seniorCitizen == 2 && $PoSid!="") {
-										echo number_format($totalDiscount, 2, '.', '');
-									} ?> </td>
+								<td id="amount-PoS"><?php if ($seniorCitizen == 1 || $seniorCitizen == 2 && $PoSid != "") {
+														echo number_format($totalDiscount, 2, '.', '');
+													} ?> </td>
 							</tr>
 							<tr align="right">
 								<td colspan="2">
@@ -630,7 +628,7 @@ if(!$bp_details['VALID_BOOKING']) {
 			universal_coupon = $('#coupon').val();
 			// var price = $('#price').val();
 			var price = xyzBPcba.amount.subtotal;
-			let roomTypeID =xyzBPcba.details.room.roomTypeID;
+			let roomTypeID = xyzBPcba.details.room.roomTypeID;
 
 			console.log(universal_coupon, price, roomTypeID);
 
@@ -669,47 +667,47 @@ if(!$bp_details['VALID_BOOKING']) {
 <!-- Paypal Updated -->
 <script src="https://www.paypal.com/sdk/js?client-id=AR25QqpnmdgR_MHMGfN6HUzgoqK_RJYA9bJuxdympMW_H725iypkN5EZk59K3tvf6PbB0xEbROQMWzHt&currency=PHP"></script>
 <script>
-    PAYPAL = paypal.Buttons({
-        createOrder: function() {
+	PAYPAL = paypal.Buttons({
+		createOrder: function() {
 			checkAppliedVoucherAvailability();
 			checkRoomAvailability();
-            ijkBPnml = null;
-            return fetch('/public_assets/modules/php/paypal/create-paypal-transaction.php', {
-                method: 'post',
-                headers: {
-                'content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                    form: xyzFORMcba,
-                    voucher: universal_coupon
-                })
-            }).then(function(res) {
-                return res.json();
-            }).then(function(data) {
-                console.log("===", data);
-                ijkBPnml = data.result.bp_data;
-                return data.result.id; // Use the key sent by your server's response, ex. 'id' or 'token'
-            });
-        },
-        onApprove: function(data) {
-            console.log(">>>>", data);
-            return fetch('/public_assets/modules/php/paypal/capture-paypal-transaction.php', {
-                method: "post",
-                headers: {
-                'content-type': 'application/json'
-                },
-                body: JSON.stringify({
-                orderID: data.orderID,
-                bp_data: ijkBPnml
-                })
-            }).then(function(res) {
-                console.log("res >>>", res);
-                return res.json();
-            }).then(function(details) {
-                console.log("details >>>", details);
-				if(details.result.status == "COMPLETED") {
+			ijkBPnml = null;
+			return fetch('/public_assets/modules/php/paypal/create-paypal-transaction.php', {
+				method: 'post',
+				headers: {
+					'content-type': 'application/json'
+				},
+				body: JSON.stringify({
+					form: xyzFORMcba,
+					voucher: universal_coupon
+				})
+			}).then(function(res) {
+				return res.json();
+			}).then(function(data) {
+				console.log("===", data);
+				ijkBPnml = data.result.bp_data;
+				return data.result.id; // Use the key sent by your server's response, ex. 'id' or 'token'
+			});
+		},
+		onApprove: function(data) {
+			console.log(">>>>", data);
+			return fetch('/public_assets/modules/php/paypal/capture-paypal-transaction.php', {
+				method: "post",
+				headers: {
+					'content-type': 'application/json'
+				},
+				body: JSON.stringify({
+					orderID: data.orderID,
+					bp_data: ijkBPnml
+				})
+			}).then(function(res) {
+				console.log("res >>>", res);
+				return res.json();
+			}).then(function(details) {
+				console.log("details >>>", details);
+				if (details.result.status == "COMPLETED") {
 					// window.location.href = "/customer/paypalSuccess.php?bkid="+details.result.bkid;
-					window.location.href = "/customer/paypalSuccess.php?bkid="+encodeURI(btoa( details.result.bkid ));
+					window.location.href = "/customer/paypalSuccess.php?bkid=" + encodeURI(btoa(details.result.bkid));
 				} else {
 					Swal.fire({
 						title: 'Something went wrong while processing the reservation',
@@ -720,17 +718,17 @@ if(!$bp_details['VALID_BOOKING']) {
 						allowOutsideClick: false
 					});
 				}
-                //alert('Transaction funds captured from ' + details.payer_given_name);
-            })
-        },
-        onError: function (err) {
-            // For example, redirect to a specific error page
-            console.log("---    ", err);
+				//alert('Transaction funds captured from ' + details.payer_given_name);
+			})
+		},
+		onError: function(err) {
+			// For example, redirect to a specific error page
+			console.log("---    ", err);
 			// console.log("Paypal Error");
 
-        }
-    }).render('#paypal-button-container');
-    //This function displays Smart Payment Buttons on your web page.
+		}
+	}).render('#paypal-button-container');
+	//This function displays Smart Payment Buttons on your web page.
 </script>
 
 
@@ -745,133 +743,139 @@ if(!$bp_details['VALID_BOOKING']) {
 
 <!-- For updating amounts calculation -->
 <script>
-
-function formatFloat($value) {
-	let x = parseFloat($value)
-	let rounded = Math.round((x + Number.EPSILON) * 100) / 100;
-	let str_rounded = rounded.toString();
-	splited = str_rounded.split(".");
-	if(splited.length==2) {
-		ln = parseInt(splited[0]).toLocaleString();
-		console.log(">>", ln);
-		rn = splited[1].substr(0,2);
-		return (ln+"."+rn);
-	}
-	return (parseInt(splited[0]).toLocaleString()+".00");
-	
-}
-universal_coupon = "";
-function updateCalculations() {
-	let details = {
-		checkIn: xyzBPcba.details.checkIn,
-		checkOut: xyzBPcba.details.checkOut,
-		guest: xyzBPcba.details.guest,
-		rid: xyzBPcba.details.room.roomTypeID,
-		PoS_ID: xyzBPcba.details.PoS_ID,
-		voucher_code: universal_coupon
-	}
-	$.post("/public_assets/modules/php/database/reservationControls/getNewCalculation.php", {...details},
-		function (data, textStatus, jqXHR) {
-			console.log(data);
-			let totalroomprice = formatFloat(data.subtotal);
-			let vat = formatFloat(data.VAT);
-			let serviceCharge = formatFloat(data.ServiceCharge);
-			let voucher = data.voucher_discount==0 ? "" : data.voucher_discount+" Off";
-			let PoS = data.PoS_discount==0 ? "" : formatFloat(data.PoS_discount);
-			let total = formatFloat(data.total);
-			$("#totalroomprice").html(totalroomprice);
-			$("#amount-vat").html(vat);
-			$("#amount-serviceCharge").html(serviceCharge);
-			$("#result").html(voucher);
-			$("#amount-PoS").html(PoS);
-			$("#total").val(total);
-		},
-		"json"
-	);
-}
-stillUpdating_roomAvailability = false;
-function checkRoomAvailability() {
-	if(stillUpdating_roomAvailability) {
-		// console.log("still updating");
-		return;
-	};
-	if($(".paypal-checkout-sandbox").length==1) return;
-	let chkIn = xyzBPcba.details.checkIn;
-	let chkOut = xyzBPcba.details.checkOut;
-	let rid  = xyzBPcba.details.room.roomTypeID
-	stillUpdating_roomAvailability = true
-	$.get("/public_assets/modules/php/database/reservationControls/checkRoomAvailability.php", {
-		in: chkIn,
-		out: chkOut,
-		rid: rid
-	},
-		function (response, textStatus, jqXHR) {
-			// console.log(response);
-			stillUpdating_roomAvailability = false;
-			if(!response.isSuccessful) {
-				stillUpdating_roomAvailability = true;
-				clearInterval(intervalId);
-				Swal.fire({
-					title: 'The room you have selected is not available right now',
-					html: `<a class="mx-3 text-decoration-none" href="/">Return to home</a>
-					<a href="/customer/Customer-Booking_Form.php" class="swal2-confirm swal2-styled text-white text-decoration-none" aria-label="" style="display: inline-block;">Fill up new form</a>`,
-					icon: 'info',
-					showConfirmButton: false,
-					allowOutsideClick: false
-				});
-			}
-		},
-		"json"
-	);
-}
-
-stillUpdating_voucherAvailability = false;
-function checkAppliedVoucherAvailability() {
-	if(universal_coupon=="") return;
-	if($(".paypal-checkout-sandbox").length==1) return;
-	if(stillUpdating_voucherAvailability) {return;}
-	var price = xyzBPcba.amount.subtotal;
-	let roomTypeID =xyzBPcba.details.room.roomTypeID;
-	stillUpdating_voucherAvailability = true;
-	$.post('voucher.php', {
-		coupon: universal_coupon,
-		price: price,
-		rid: roomTypeID
-	}, function(data) {
-		stillUpdating_voucherAvailability = false;
-		// console.log(data);
-		if (data == "error") {
-			console.log("Invalid Coupon Code!");
-			universal_coupon = "";
-			updateCalculations();
-		} else {
-			// var json = JSON.parse(data);
-			// updateCalculations();
-			// $('#result').html(json.value + " Off");
-			// $('#totalroomprice').html(Math.round((parseFloat(json.price)) * 100) / 100);
+	function formatFloat($value) {
+		let x = parseFloat($value)
+		let rounded = Math.round((x + Number.EPSILON) * 100) / 100;
+		let str_rounded = rounded.toString();
+		splited = str_rounded.split(".");
+		if (splited.length == 2) {
+			ln = parseInt(splited[0]).toLocaleString();
+			console.log(">>", ln);
+			rn = splited[1].substr(0, 2);
+			return (ln + "." + rn);
 		}
-	});
-}
+		return (parseInt(splited[0]).toLocaleString() + ".00");
 
-const runRoomAndVoucherAvailabilityUpdate = () => {
-        var i = 0;
-        intervalId = setInterval(function () {
-            // if (i === 100) {
-            //     clearInterval(intervalId);
-            // }
-            checkRoomAvailability();
+	}
+	universal_coupon = "";
+
+	function updateCalculations() {
+		let details = {
+			checkIn: xyzBPcba.details.checkIn,
+			checkOut: xyzBPcba.details.checkOut,
+			guest: xyzBPcba.details.guest,
+			rid: xyzBPcba.details.room.roomTypeID,
+			PoS_ID: xyzBPcba.details.PoS_ID,
+			voucher_code: universal_coupon
+		}
+		$.post("/public_assets/modules/php/database/reservationControls/getNewCalculation.php", {
+				...details
+			},
+			function(data, textStatus, jqXHR) {
+				console.log(data);
+				let totalroomprice = formatFloat(data.subtotal);
+				let vat = formatFloat(data.VAT);
+				let serviceCharge = formatFloat(data.ServiceCharge);
+				let voucher = data.voucher_discount == 0 ? "" : data.voucher_discount + " Off";
+				let PoS = data.PoS_discount == 0 ? "" : formatFloat(data.PoS_discount);
+				let total = formatFloat(data.total);
+				$("#totalroomprice").html(totalroomprice);
+				$("#amount-vat").html(vat);
+				$("#amount-serviceCharge").html(serviceCharge);
+				$("#result").html(voucher);
+				$("#amount-PoS").html(PoS);
+				$("#total").val(total);
+			},
+			"json"
+		);
+	}
+	stillUpdating_roomAvailability = false;
+
+	function checkRoomAvailability() {
+		if (stillUpdating_roomAvailability) {
+			// console.log("still updating");
+			return;
+		};
+		if ($(".paypal-checkout-sandbox").length == 1) return;
+		let chkIn = xyzBPcba.details.checkIn;
+		let chkOut = xyzBPcba.details.checkOut;
+		let rid = xyzBPcba.details.room.roomTypeID
+		stillUpdating_roomAvailability = true
+		$.get("/public_assets/modules/php/database/reservationControls/checkRoomAvailability.php", {
+				in: chkIn,
+				out: chkOut,
+				rid: rid
+			},
+			function(response, textStatus, jqXHR) {
+				// console.log(response);
+				stillUpdating_roomAvailability = false;
+				if (!response.isSuccessful) {
+					stillUpdating_roomAvailability = true;
+					clearInterval(intervalId);
+					Swal.fire({
+						title: 'The room you have selected is not available right now',
+						html: `<a class="mx-3 text-decoration-none" href="/">Return to home</a>
+					<a href="/customer/Customer-Booking_Form.php" class="swal2-confirm swal2-styled text-white text-decoration-none" aria-label="" style="display: inline-block;">Fill up new form</a>`,
+						icon: 'info',
+						showConfirmButton: false,
+						allowOutsideClick: false
+					});
+				}
+			},
+			"json"
+		);
+	}
+
+	stillUpdating_voucherAvailability = false;
+
+	function checkAppliedVoucherAvailability() {
+		if (universal_coupon == "") return;
+		if ($(".paypal-checkout-sandbox").length == 1) return;
+		if (stillUpdating_voucherAvailability) {
+			return;
+		}
+		var price = xyzBPcba.amount.subtotal;
+		let roomTypeID = xyzBPcba.details.room.roomTypeID;
+		stillUpdating_voucherAvailability = true;
+		$.post('voucher.php', {
+			coupon: universal_coupon,
+			price: price,
+			rid: roomTypeID
+		}, function(data) {
+			stillUpdating_voucherAvailability = false;
+			// console.log(data);
+			if (data == "error") {
+				console.log("Invalid Coupon Code!");
+				universal_coupon = "";
+				updateCalculations();
+			} else {
+				// var json = JSON.parse(data);
+				// updateCalculations();
+				// $('#result').html(json.value + " Off");
+				// $('#totalroomprice').html(Math.round((parseFloat(json.price)) * 100) / 100);
+			}
+		});
+	}
+
+	const runRoomAndVoucherAvailabilityUpdate = () => {
+		var i = 0;
+		intervalId = setInterval(function() {
+			// if (i === 100) {
+			//     clearInterval(intervalId);
+			// }
+			checkRoomAvailability();
 			checkAppliedVoucherAvailability();
-            console.log(i);
-            i+=5;
-        }, 5000);
-    };
+			console.log(i);
+			i += 5;
+		}, 5000);
+	};
 
-    $(function () {
+	$(function() {
 		checkRoomAvailability();
 		checkAppliedVoucherAvailability();
-        runRoomAndVoucherAvailabilityUpdate();
+		runRoomAndVoucherAvailabilityUpdate();
 		console.log("Finish");
-    });
-
+	});
 </script>
+
 </html>
