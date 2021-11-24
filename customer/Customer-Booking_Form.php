@@ -430,7 +430,7 @@ if (isset($_GET['d']) && $_GET['d'] != "") {
 									$lastname = $_POST['lname'];
 									echo '<td><input id="lname" type="text" name="lname" placeholder="Last Name" value="' . $lastname . '" ></td>';
 								} else {
-									echo '<td><input id="lname" type="text" name="lname" placeholder="Last Name" required></td>';
+									echo '<td><input id="lname" type="text" name="lname" placeholder="Last Name" onkeyup="lettersOnly(this)" required></td>';
 								}
 								?>
 							</tr>
