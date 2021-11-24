@@ -23,8 +23,9 @@ if($validCheckinOutDate) {
 
 $roomsID = getBookableRoomsID($checkIn, $checkOut);
 #echo json_encode( getBookableRoomsID("2021-11-29", "2021-11-30") );
-$rooms = "No available rooms for that date";
-if(!empty($rooms))
+$rooms = "";
+
+if(!empty($roomsID))
 	$rooms = getRoomDetails($roomsID);
 
 
@@ -298,7 +299,7 @@ if($validCheckinOutDate) {
 		<?php
 			}
 			else
-				echo "<h2>No Rooms Available</h3>";
+				echo "<br><br><h2 class='text-center m-5 p-5'>No Rooms Available</h3><br><br>";
 		?>
 
 		</div>
