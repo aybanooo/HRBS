@@ -5,8 +5,8 @@ require_once __F_DB_HANDLER__;
 require_once __F_RSV_HANDLER__;
 require_once __F_VALIDATIONS__;
 require_once __F_FORMAT__;
-
-require __AUTOLOAD_PUBLIC__;
+require_once __AUTOLOAD_PUBLIC__;
+require_once(dirname(__FILE__,5)."/customer/sendMail.php");
 
 //1. Import the PayPal SDK client that was created in `Set up Server-Side SDK`.
 use Sample\PayPalClient;
@@ -88,10 +88,10 @@ try {
         updateToPaid($reservationID);
         updateReservationAmountTable($bp_data, $reservationID);
         createPaypalPaymentEntry($result, $reservationID);
+        sendMail($reservationID);
       } else {
 
       }
-      
     }
 } catch (Exception $e) {
 }

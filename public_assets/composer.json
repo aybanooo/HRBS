@@ -2,6 +2,7 @@
     "require": {
         "firebase/php-jwt": "^5.4",
         "google/apiclient": "^2.11",
-        "paypal/paypal-checkout-sdk": "1.0.1"
+        "paypal/paypal-checkout-sdk": "1.0.1",
+        "phpmailer/phpmailer": "^6.5"
     }
 }

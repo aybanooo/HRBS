@@ -32,7 +32,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '028d50e8b3082ca7c0564b915cb6a1be297f9e9c',
+    'reference' => '4ba2a423f63d413ca13271bd95b6d357bf2e79ab',
     'name' => '__root__',
   ),
   'versions' => 
@@ -44,7 +44,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '028d50e8b3082ca7c0564b915cb6a1be297f9e9c',
+      'reference' => '4ba2a423f63d413ca13271bd95b6d357bf2e79ab',
     ),
     'firebase/php-jwt' => 
     array (
@@ -153,6 +153,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '1ad9b846a046f09d6135cbf2cbaa7701bbc630a3',
+    ),
+    'phpmailer/phpmailer' => 
+    array (
+      'pretty_version' => 'v6.5.1',
+      'version' => '6.5.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'dd803df5ad7492e1b40637f7ebd258fee5ca7355',
     ),
     'phpseclib/phpseclib' => 
     array (
