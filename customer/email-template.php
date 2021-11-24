@@ -118,8 +118,7 @@
 																		style="font-size: 12px; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
 																		<p
 																			style="margin: 0; font-size: 18px; text-align: center;">
-																			<span style="font-size:24px;">Your booking
-																				confirmation!&nbsp;</span><br></p>
+																			<span style="font-size:24px;">Your Booking Confirmations:&nbsp;</span><br></p>
 																	</div>
 																</div>
 															</td>
@@ -158,16 +157,16 @@
 																		style="font-size: 12px; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 18px; color: #283C4B; line-height: 1.5;">
 																		<p
 																			style="margin: 0; font-size: 12px; mso-line-height-alt: 24px;">
-																			<span style="font-size:16px;"><strong><span
+																			<span style="font-size:16px;"><span
 																						style="font-size:16px;">Dear
-																						<?php print  $name;?></span></strong></span>
+																						<strong><?php print  $name;?></span></strong></span>
 																		</p>
 																		<p
 																			style="margin: 0; font-size: 12px; mso-line-height-alt: 24px;">
-																			<span style="font-size:16px;"><strong><span
+																			<span style="font-size:16px;"><span
 																						style="font-size:16px;">Thank
 																						you for choosing to stay with
-																						GHRBS.</span></strong></span>
+																						GHRBS.</span></span>
 																		</p>
 																	</div>
 																</div>
@@ -189,10 +188,7 @@
 																		<p
 																			style="margin: 0; font-size: 12px; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">Booking ID:
-																				<?php print $bookingID ?? "Invalid booking id. Please contact us."; ?></span></p><p
-																				style="margin: 0; font-size: 12px; mso-line-height-alt: 21px;">
-																				<span style="font-size:14px;">	Transaction ID:
-																					<?php print $paypalOrderID; ?></span></p>
+																				<?php print $bookingID ?? "Invalid booking id. Please contact us."; ?></span></p>
 																		<p
 																			style="margin: 0; font-size: 12px; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">We look
@@ -209,34 +205,6 @@
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">&nbsp;</span>
 																		</p>
-																		<p style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
-																			<span style="font-size:14px;">Reservation Information</span></p>
-																		<div align:right;="">
-																			<table class="tg">
-																					
-																					<tbody>
-																					
-																					<tr>
-																						<td class="tg-zv4m">Check-in Date</td>
-																						<td class="tg-zv4m"><?php print $checkInDate; ?></td>
-																					</tr>
-																					<tr>
-																						<td class="tg-zv4m">Check-Out Date</td>
-																						<td class="tg-zv4m"><?php print $checkoutDate; ?></td>
-																					</tr>
-																					<tr>
-																						<td class="tg-zv4m">Guest:</td>
-																						<td class="tg-zv4m"><?php print $guest?></td>
-																					</tr>
-																					
-																					
-																					<tr>
-																						<td class="tg-zv4m"></td>
-																						<td class="tg-zv4m"></td>
-																					</tr>
-																					</tbody>
-																					</table><br>
-																			</div>
 																		<p
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">Billing information:</span></p>
@@ -251,27 +219,27 @@
 																					<tbody>
 																					<tr>
 																						<td class="tg-zv4m">Room rate: </td>
-																						<td class="tg-zv4m"><?php print $roomRate; ?></td>
+																						<td class="tg-zv4m"></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m">VAT (12%): </td>
-																						<td class="tg-zv4m"><?php print $vat; ?></td>
+																						<td class="tg-zv4m"><!--insert VAT here--></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m">Service Charge:</td>
-																						<td class="tg-zv4m"><?php print $serviceCharge; ?></td>
+																						<td class="tg-zv4m"><!--insert Service charge here--></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m">Voucher Discount: </td>
-																						<td class="tg-zv4m"><?php print $voucher_value; ?></td>
+																						<td class="tg-zv4m"><!--insert voucher here--></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m">Senior Citizen/PWD Discount: </td>
-																						<td class="tg-zv4m"><?php print $PoS_value; ?></td>
+																						<td class="tg-zv4m"><!--insert Senior/PWD discount here--></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m"><b>Total:</b></td>
-																						<td class="tg-zv4m"><b><?php print $total." ".$currency; ?></b></td>
+																						<td class="tg-zv4m"><b><!--insert total here--></b></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m"></td>
@@ -633,6 +601,7 @@
 																	cellpadding="0" cellspacing="0" role="presentation"
 																	align="right"
 																	style="mso-table-lspace: 0pt; mso-table-rspace: 0pt;">
+																	
 																	<tr>
 																		<td style="padding:0 0 0 20px;"><a
 																				href="https://www.facebook.com/milantiyanih"
