@@ -373,7 +373,11 @@ if(!$bp_details['VALID_BOOKING']) {
 								<hr />
 							</td>
 						</tr>
-
+							<?php
+								$query = "SELECT * FROM roomtype WHERE `roomTypeID`='$roomIDName'";
+								$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
+								$followingdata = $result->fetch_array(MYSQLI_ASSOC);
+							?>
 						<tr>
 							<td>
 								<h3><b>Reservation Details</b></h3>
@@ -381,13 +385,10 @@ if(!$bp_details['VALID_BOOKING']) {
 						</tr>
 						<tr align="right">
 							<th>Room:</th>
-							<td id="roomName"><?php echo $roomIDName; ?></td>
+							<td id="roomName"><?php echo $followingdata['name']; ?></td>
 						</tr>
 						<tr align="right">
 							<?php
-							$query = "SELECT * FROM roomtype WHERE `roomTypeID`='$roomIDName'";
-							$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
-							$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							$totalPersons = $adults + $child;
 							$seniorCitizen = isset($_POST['seniorcitizen']) ? $_POST['seniorcitizen'] : "";
 							$PoSid = $_POST['discount'];
