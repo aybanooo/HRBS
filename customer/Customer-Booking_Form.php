@@ -643,7 +643,7 @@ if (isset($_GET['d']) && $_GET['d'] != "") {
 <script>
 	function lettersOnly(input) {
 		var regex =  (/^[A-Za-z]+$/);
-		input.value = input.value.replace(regex, "");
+		//input.value = input.value.replace(regex, "");
 	}
 </script>
 <!-- For updating select node -->
