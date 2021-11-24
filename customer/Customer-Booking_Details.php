@@ -673,8 +673,10 @@ if(!$bp_details['VALID_BOOKING']) {
 <!-- Paypal Updated -->
 <script src="https://www.paypal.com/sdk/js?client-id=AR25QqpnmdgR_MHMGfN6HUzgoqK_RJYA9bJuxdympMW_H725iypkN5EZk59K3tvf6PbB0xEbROQMWzHt&currency=PHP"></script>
 <script>
-    paypal.Buttons({
+    PAYPAL = paypal.Buttons({
         createOrder: function() {
+			checkAppliedVoucherAvailability();
+			checkRoomAvailability();
             ijkBPnml = null;
             return fetch('/public_assets/modules/php/paypal/create-paypal-transaction.php', {
                 method: 'post',
@@ -709,22 +711,26 @@ if(!$bp_details['VALID_BOOKING']) {
                 return res.json();
             }).then(function(details) {
                 console.log("details >>>", details);
-				
+				if(details.result.status == "COMPLETED") {
+					window.location.href = "/customer/paypalSuccess.php";
+				} else {
+					Swal.fire({
+						title: 'Something went wrong while processing the reservation',
+						html: `<span class="d-block">The room you have selected may not be available right now or the voucher is not available</span><br><a class="mx-3 text-decoration-none" href="/">Return to home</a>
+						<a href="/customer/Customer-Booking_Form.php" class="swal2-confirm swal2-styled text-white text-decoration-none" aria-label="" style="display: inline-block;">Fill up new form</a>`,
+						icon: 'info',
+						showConfirmButton: false,
+						allowOutsideClick: false
+					});
+				}
                 //alert('Transaction funds captured from ' + details.payer_given_name);
             })
         },
         onError: function (err) {
             // For example, redirect to a specific error page
-            // console.log("---    ", err);
-			console.log("Paypal Error");
-			Swal.fire({
-					title: 'Something went wrong while processing the reservation',
-					html: `<span class="d-block">The room you have selected may not be available right now or the voucher is not available</span><br><a class="mx-3 text-decoration-none" href="/">Return to home</a>
-					<a href="/customer/Customer-Booking_Form.php" class="swal2-confirm swal2-styled text-white text-decoration-none" aria-label="" style="display: inline-block;">Fill up new form</a>`,
-					icon: 'info',
-					showConfirmButton: false,
-					allowOutsideClick: false
-			});
+            console.log("---    ", err);
+			// console.log("Paypal Error");
+
         }
     }).render('#paypal-button-container');
     //This function displays Smart Payment Buttons on your web page.
@@ -786,13 +792,13 @@ function updateCalculations() {
 		"json"
 	);
 }
-
 stillUpdating_roomAvailability = false;
 function checkRoomAvailability() {
 	if(stillUpdating_roomAvailability) {
 		// console.log("still updating");
 		return;
 	};
+	if($(".paypal-checkout-sandbox").length==1) return;
 	let chkIn = xyzBPcba.details.checkIn;
 	let chkOut = xyzBPcba.details.checkOut;
 	let rid  = xyzBPcba.details.room.roomTypeID
@@ -803,7 +809,7 @@ function checkRoomAvailability() {
 		rid: rid
 	},
 		function (response, textStatus, jqXHR) {
-			console.log(response);
+			// console.log(response);
 			stillUpdating_roomAvailability = false;
 			if(!response.isSuccessful) {
 				stillUpdating_roomAvailability = true;
@@ -825,6 +831,7 @@ function checkRoomAvailability() {
 stillUpdating_voucherAvailability = false;
 function checkAppliedVoucherAvailability() {
 	if(universal_coupon=="") return;
+	if($(".paypal-checkout-sandbox").length==1) return;
 	if(stillUpdating_voucherAvailability) {return;}
 	var price = xyzBPcba.amount.subtotal;
 	let roomTypeID =xyzBPcba.details.room.roomTypeID;
@@ -835,7 +842,7 @@ function checkAppliedVoucherAvailability() {
 		rid: roomTypeID
 	}, function(data) {
 		stillUpdating_voucherAvailability = false;
-		console.log(data);
+		// console.log(data);
 		if (data == "error") {
 			console.log("Invalid Coupon Code!");
 			universal_coupon = "";
