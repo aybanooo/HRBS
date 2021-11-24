@@ -212,7 +212,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             <div class="mx-auto text-center">
                 <h1 class="mx-auto my-0 text-uppercase"><?php echo $followingdata["companyName"]; ?></h1>
                 <h2 class="text-white-50 mx-auto mt-2 mb-5"><?php echo $followingdata['companyDesc']; ?></h2>
-                <a class="btn btn-primary js-scroll-trigger" href="#check-available-rooms">Check Available Dates</a>
+                <a class="btn btn-primary js-scroll-trigger" href="#check-available-rooms">Check Available Rooms</a>
             </div>
         </div>
     </header>
@@ -221,7 +221,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 mx-auto">
-                    <h2 class="text-white mb-4">Check Available Dates</h2>
+                    <h2 class="text-white mb-4">Check Available Rooms</h2>
                     <form id="form-checkAvailableRooms" class="timefeature">
                         <div class="timebox">
                             <div class="form-group">
