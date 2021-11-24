@@ -639,17 +639,12 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 		}
 	}
 </script>
-<<<<<<< HEAD
 <script>
 	function lettersOnly(input) {
 		var regex = /[^a-z\s]/gi;
 		input.value = input.value.replace(regex, "");
 	}
 </script>
-=======
-
-
->>>>>>> parent of 11e01460 (try letters only validation)
 <!-- For updating select node -->
 <script>
 	selectNodeIsUpdating = false;
