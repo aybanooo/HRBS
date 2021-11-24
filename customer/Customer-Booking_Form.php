@@ -417,11 +417,7 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 								<?php
 								if (isset($_POST['fname'])) {
 									$firstname = $_POST['fname'];
-<<<<<<< HEAD
 									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" value="' . $firstname . '"></td>';
-=======
-									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" value="' . $firstname . '" ></td>';
->>>>>>> parent of 11e01460 (try letters only validation)
 								} else {
 									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name"  onkeyup="lettersOnly(this)"  required></td>';
 								}
