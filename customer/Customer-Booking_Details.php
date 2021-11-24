@@ -104,6 +104,9 @@ try {
 	die("Please complete the form");
 }
 $bp_details = $bp->getBookingDetails();
+if(!$bp_details['VALID_BOOKING']) {
+	// die("Invalid Booking");
+}
 // exit;
 ?>
 
@@ -663,6 +666,8 @@ $bp_details = $bp->getBookingDetails();
 <!-- <script src="https://www.paypal.com/sdk/js?client-id=AVFvFuUKXMeSAJRgomChw5y-GVxtgyRGm2jAOBo5eVtGfd3mXa28RUQ7Niq6ae1mHhzI5LxvyP4zKH_e&currency=PHP"></script> -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
+<!-- Sweetalert2 -->
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 <!-- Paypal Updated -->
@@ -710,7 +715,16 @@ $bp_details = $bp->getBookingDetails();
         },
         onError: function (err) {
             // For example, redirect to a specific error page
-            console.log("---    ", err);
+            // console.log("---    ", err);
+			console.log("Paypal Error");
+			Swal.fire({
+					title: 'Something went wrong while processing the reservation',
+					html: `<span class="d-block">The room you have selected may not be available right now or the voucher is not available</span><br><a class="mx-3 text-decoration-none" href="/">Return to home</a>
+					<a href="/customer/Customer-Booking_Form.php" class="swal2-confirm swal2-styled text-white text-decoration-none" aria-label="" style="display: inline-block;">Fill up new form</a>`,
+					icon: 'info',
+					showConfirmButton: false,
+					allowOutsideClick: false
+			});
         }
     }).render('#paypal-button-container');
     //This function displays Smart Payment Buttons on your web page.
@@ -772,6 +786,89 @@ function updateCalculations() {
 		"json"
 	);
 }
+
+stillUpdating_roomAvailability = false;
+function checkRoomAvailability() {
+	if(stillUpdating_roomAvailability) {
+		// console.log("still updating");
+		return;
+	};
+	let chkIn = xyzBPcba.details.checkIn;
+	let chkOut = xyzBPcba.details.checkOut;
+	let rid  = xyzBPcba.details.room.roomTypeID
+	stillUpdating_roomAvailability = true
+	$.get("/public_assets/modules/php/database/reservationControls/checkRoomAvailability.php", {
+		in: chkIn,
+		out: chkOut,
+		rid: rid
+	},
+		function (response, textStatus, jqXHR) {
+			console.log(response);
+			stillUpdating_roomAvailability = false;
+			if(!response.isSuccessful) {
+				stillUpdating_roomAvailability = true;
+				clearInterval(intervalId);
+				Swal.fire({
+					title: 'The room you have selected is not available right now',
+					html: `<a class="mx-3 text-decoration-none" href="/">Return to home</a>
+					<a href="/customer/Customer-Booking_Form.php" class="swal2-confirm swal2-styled text-white text-decoration-none" aria-label="" style="display: inline-block;">Fill up new form</a>`,
+					icon: 'info',
+					showConfirmButton: false,
+					allowOutsideClick: false
+				});
+			}
+		},
+		"json"
+	);
+}
+
+stillUpdating_voucherAvailability = false;
+function checkAppliedVoucherAvailability() {
+	if(universal_coupon=="") return;
+	if(stillUpdating_voucherAvailability) {return;}
+	var price = xyzBPcba.amount.subtotal;
+	let roomTypeID =xyzBPcba.details.room.roomTypeID;
+	stillUpdating_voucherAvailability = true;
+	$.post('voucher.php', {
+		coupon: universal_coupon,
+		price: price,
+		rid: roomTypeID
+	}, function(data) {
+		stillUpdating_voucherAvailability = false;
+		console.log(data);
+		if (data == "error") {
+			console.log("Invalid Coupon Code!");
+			universal_coupon = "";
+			updateCalculations();
+		} else {
+			// var json = JSON.parse(data);
+			// updateCalculations();
+			// $('#result').html(json.value + " Off");
+			// $('#totalroomprice').html(Math.round((parseFloat(json.price)) * 100) / 100);
+		}
+	});
+}
+
+
+const runRoomAndVoucherAvailabilityUpdate = () => {
+        var i = 0;
+        intervalId = setInterval(function () {
+            // if (i === 100) {
+            //     clearInterval(intervalId);
+            // }
+            checkRoomAvailability();
+			checkAppliedVoucherAvailability();
+            console.log(i);
+            i+=5;
+        }, 5000);
+    };
+
+    $(function () {
+		checkRoomAvailability();
+		checkAppliedVoucherAvailability();
+        runRoomAndVoucherAvailabilityUpdate();
+		console.log("Finish");
+    });
 
 </script>
 </html>
