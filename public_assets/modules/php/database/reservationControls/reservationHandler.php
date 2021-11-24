@@ -72,6 +72,8 @@ function reserve_bp(array|object &$bp_data) {
     $voucher = $bp_details->details->voucher->code;
     $PoS_ID = $bp_details->details->PoS_ID;
 
+    $roomName = $bp_details->details->room->name;
+
     // guest
     $adult = $bp_details->details->guest->adult;
     $child = $bp_details->details->guest->child;
@@ -92,18 +94,26 @@ function reserve_bp(array|object &$bp_data) {
     // echo "<pre>".json_encode($mappedRoomNo).'</pre>';
     $id = addCustomerToDB($bp_data);
     $assignedRoomNo = $mappedRoomNo[0];
+
+    $tempConn = createTempDBConnection();
+
+    prepareForSQL($tempConn, $roomName);
+
     $sql = "INSERT INTO `reservation`(
         `roomNo`, `customerID`, `numberOfNightstay`, 
         `adults`, `children`, `dateCreated`, `checkInDate`, 
-        `checkOutDate`, `checkInTime`, `checkOutTime`, `reservationStatus`, `voucher_code`, `PoS_ID`) 
+        `checkOutDate`, `checkInTime`, `checkOutTime`, `reservationStatus`, `voucher_code`, `PoS_ID`, `roomname`, `origRoomRate`) 
         VALUES (
             {$mappedRoomNo[0]}, $id,
             '$nights', $adult,
             $child, NOW(),
             '$checkIn','$checkOut',
-            null, null, 0, '$voucher', '$PoS_ID');";
-    $tempConn = createTempDBConnection();
-    if(!mysqli_query($tempConn, $sql)) throw new Exception("Something went wrong while creating reservation");
+            null, null, 0, '$voucher', '$PoS_ID', '$roomName', $initialRoomRate);";
+
+    if(!mysqli_query($tempConn, $sql)){
+        mysqli_query($tempConn, "DELETE FROM `customer` WHERE `customerID`=$id LIMIT;");
+        throw new Exception("Something went wrong while creating reservation ".getConnError($tempConn));
+    }
     $reservationID = mysqli_insert_id($tempConn);
     mysqli_close($tempConn);
     return $reservationID;
@@ -119,6 +129,11 @@ function addCustomerToDB(array|object &$bp_data) {
     $lname = $bp_truForm->lname; prepareForSQL($tempConn, $lname);
     $cnumber = $bp_truForm->cnumber; prepareForSQL($tempConn, $cnumber);
     $email = $bp_truForm->email; prepareForSQL($tempConn, $email);
+
+    prepareForSQL($tempConn, $fname);
+    prepareForSQL($tempConn, $lname);
+    prepareForSQL($tempConn, $cnumber);
+    prepareForSQL($tempConn, $email);
 
     $sql = "INSERT INTO `customer`(`fname`, `lname`, `contact`, `email`, `verified`, `verification`) 
             VALUES (
