@@ -123,7 +123,7 @@ $date_checkOut = DateTime::createFromFormat('Y-m-d', $str_checkOut);
 $bp = new bookingPayment($date_checkIn, $date_checkOut, $rid, $PWDorSENIOR_ID, [$adult, $child], $voucher);
 
 $bp_details = $bp->getBookingDetails();
-if($bp->VALID_BOOKING==FALSE) {
+if($bp_details['VALID_BOOKING']==FALSE) {
   http_response_code('400');
   die(json_encode("Invalid booking"));
 }
