@@ -502,7 +502,7 @@ if (isset($_GET['d']) && $_GET['d'] != "") {
 								<td>
 									<div id="seniorDiv">
 										<div class="form-group">
-											<input id="discount" type="number" placeholder="ID Number" autocomplete="off">
+											<input id="discount" type="text" placeholder="ID Number" autocomplete="off">
 										</div>
 									</div>
 								</td>
