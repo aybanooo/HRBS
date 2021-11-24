@@ -189,7 +189,10 @@
 																		<p
 																			style="margin: 0; font-size: 12px; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">Booking ID:
-																				<?php print $bookingID ?? "Invalid booking id. Please contact us."; ?></span></p>
+																				<?php print $bookingID ?? "Invalid booking id. Please contact us."; ?></span></p><p
+																				style="margin: 0; font-size: 12px; mso-line-height-alt: 21px;">
+																				<span style="font-size:14px;">	Transaction ID:
+																					<?php print $paypalOrderID; ?></span></p>
 																		<p
 																			style="margin: 0; font-size: 12px; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">We look
@@ -206,6 +209,34 @@
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">&nbsp;</span>
 																		</p>
+																		<p style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
+																			<span style="font-size:14px;">Reservation Information</span></p>
+																		<div align:right;="">
+																			<table class="tg">
+																					
+																					<tbody>
+																					
+																					<tr>
+																						<td class="tg-zv4m">Check-in Date</td>
+																						<td class="tg-zv4m"><?php print $checkInDate; ?></td>
+																					</tr>
+																					<tr>
+																						<td class="tg-zv4m">Check-Out Date</td>
+																						<td class="tg-zv4m"><?php print $checkoutDate; ?></td>
+																					</tr>
+																					<tr>
+																						<td class="tg-zv4m">Guest:</td>
+																						<td class="tg-zv4m"><?php print $guest?></td>
+																					</tr>
+																					
+																					
+																					<tr>
+																						<td class="tg-zv4m"></td>
+																						<td class="tg-zv4m"></td>
+																					</tr>
+																					</tbody>
+																					</table><br>
+																			</div>
 																		<p
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">Billing information:</span></p>
@@ -220,27 +251,27 @@
 																					<tbody>
 																					<tr>
 																						<td class="tg-zv4m">Room rate: </td>
-																						<td class="tg-zv4m"></td>
+																						<td class="tg-zv4m"><?php print $roomRate; ?></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m">VAT (12%): </td>
-																						<td class="tg-zv4m"><!--insert VAT here--></td>
+																						<td class="tg-zv4m"><?php print $vat; ?></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m">Service Charge:</td>
-																						<td class="tg-zv4m"><!--insert Service charge here--></td>
+																						<td class="tg-zv4m"><?php print $serviceCharge; ?></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m">Voucher Discount: </td>
-																						<td class="tg-zv4m"><!--insert voucher here--></td>
+																						<td class="tg-zv4m"><?php print $voucher_value; ?></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m">Senior Citizen/PWD Discount: </td>
-																						<td class="tg-zv4m"><!--insert Senior/PWD discount here--></td>
+																						<td class="tg-zv4m"><?php print $PoS_value; ?></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m"><b>Total:</b></td>
-																						<td class="tg-zv4m"><b><!--insert total here--></b></td>
+																						<td class="tg-zv4m"><b><?php print $total." ".$currency; ?></b></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m"></td>
