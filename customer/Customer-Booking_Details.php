@@ -54,7 +54,7 @@ $firstName = mysqli_real_escape_string($conn, $_POST['fname']);
 $lastName = mysqli_real_escape_string($conn, $_POST['lname']);
 $contact = mysqli_real_escape_string($conn, $_POST['cnumber']);
 $email = mysqli_real_escape_string($conn, $_POST['email']);
-$roomIDName = mysqli_real_escape_string($conn, $_POST['roomName']);
+$roomName = mysqli_real_escape_string($conn, $_POST['roomName']);
 $dateStart = mysqli_real_escape_string($conn, $_POST['from']);
 $dateEnd = mysqli_real_escape_string($conn, $_POST['to']);
 $adults =  mysqli_real_escape_string($conn, $_POST['adults']);
@@ -374,7 +374,7 @@ if(!$bp_details['VALID_BOOKING']) {
 							</td>
 						</tr>
 							<?php
-								$query = "SELECT * FROM roomtype WHERE `roomTypeID`='$roomIDName'";
+								$query = "SELECT * FROM roomtype WHERE `roomTypeID`='$roomName'";
 								$result = mysqli_query($conn, $query) or die(mysqli_error($conn));
 								$followingdata = $result->fetch_array(MYSQLI_ASSOC);
 							?>
