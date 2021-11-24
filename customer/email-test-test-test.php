@@ -11,11 +11,7 @@ $apiKey = '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
     use PHPMailer\PHPMailer\PHPMailer;
     require 'vendor/autoload.php';
     $mail = new PHPMailer;
-    $mail->isSMTP();
-    $mail->SMTPDebug = 2;
-    $mail->Host = 'smtp.sendgrid.net';
-    $mail->Port = 587;
-    $mail->SMTPAuth = true;
+    $m
     $mail->Username = 'apikey';
     $mail->Password = $apiKey;
     $mail->setFrom('thanoshotelreservation@ghrbs.site', 'Thanos');
