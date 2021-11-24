@@ -18,9 +18,9 @@ function getReservationDetails(int|string $reservationID) {
     return $data;    
 }
 
-function sendMail(int|string $reservationID) {
+function sendMail(int|string $reservationID, $debug = false) {
     $apiKey = parse_ini_file(__CONF_PRIVATE__)['PHPMAILER_API_KEY'];
-    $rsvDetails = getReservationDetails(1);
+    $rsvDetails = getReservationDetails($reservationID);
     // echo "<pre>".json_encode($rsvDetails)."</pre>";exit;
     // This variable ($bookingID) is required for the template
     $name = $rsvDetails['fname']." ".$rsvDetails['lname'];
@@ -53,7 +53,7 @@ function sendMail(int|string $reservationID) {
     // exit;
     $mail = new PHPMailer;
     $mail->isSMTP();
-    $mail->SMTPDebug = 0;
+    $mail->SMTPDebug = $debug;
     $mail->Host = 'smtp.sendgrid.net';
     $mail->Port = 587;
     $mail->SMTPAuth = true;
@@ -69,9 +69,9 @@ function sendMail(int|string $reservationID) {
     GHRBS team";
     //$mail->addAttachment('test.txt');
     if (!$mail->send()) {
-        // echo 'Mailer Error: ' . $mail->ErrorInfo;
+        echo 'Mailer Error: ' . $mail->ErrorInfo;
     } else {
-        // echo 'The email message was sent.';
+        echo 'The email message was sent.';
     }
 }
 
