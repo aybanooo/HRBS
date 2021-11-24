@@ -123,6 +123,10 @@ $date_checkOut = DateTime::createFromFormat('Y-m-d', $str_checkOut);
 $bp = new bookingPayment($date_checkIn, $date_checkOut, $rid, $PWDorSENIOR_ID, [$adult, $child], $voucher);
 
 $bp_details = $bp->getBookingDetails();
+if($bp->VALID_BOOKING==FALSE) {
+  http_response_code('400');
+  die(json_encode("Invalid booking"));
+}
 $bp_data["bp_details"] = $bp_details;
 $wtd_bp = towtf(json_encode($bp_data), 5);
 // $unwtd_bp = json_decode(tonotwtf($wtd_bp, 5));
@@ -142,7 +146,7 @@ if (!count(debug_backtrace()))
 exit;
 ?>
 
-<pre><
+<pre>
   <?php
     echo json_encode($response);
     exit;
