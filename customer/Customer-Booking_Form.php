@@ -417,9 +417,9 @@ if (isset($_GET['d']) && $_GET['d'] != "") {
 								<?php
 								if (isset($_POST['fname'])) {
 									$firstname = $_POST['fname'];
-									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" value="' . $firstname . '" onkeyup="lettersOnly(this)" ></td>';
+									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" value="' . $firstname . '"  ></td>';
 								} else {
-									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" required></td>';
+									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" onkeyup="lettersOnly(this)" required></td>';
 								}
 								?>
 							</tr>
