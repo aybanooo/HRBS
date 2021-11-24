@@ -8,9 +8,9 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
 $date = ["", ""];
 
-if (isset($_GET['d']) && $_GET['d'] != "") {
+if(isset($_GET['d']) && $_GET['d'] != "") {
 	$tempDate = decodeCheckinoutDate($_GET['d']);
-	if ($tempDate)
+	if($tempDate)
 		$date = $tempDate;
 }
 
@@ -89,7 +89,7 @@ if (isset($_GET['d']) && $_GET['d'] != "") {
 		}
 
 		table input[type=text],
-		input[type=email],
+		input[type=email], 
 		input[type=number],
 		input[type=tel] {
 			width: 100%;
@@ -417,7 +417,11 @@ if (isset($_GET['d']) && $_GET['d'] != "") {
 								<?php
 								if (isset($_POST['fname'])) {
 									$firstname = $_POST['fname'];
+<<<<<<< HEAD
 									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" value="' . $firstname . '"></td>';
+=======
+									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name" value="' . $firstname . '" ></td>';
+>>>>>>> parent of 11e01460 (try letters only validation)
 								} else {
 									echo '<td><input id="fname" type="text" name="fname" placeholder="First Name"  onkeyup="lettersOnly(this)"  required></td>';
 								}
@@ -466,9 +470,9 @@ if (isset($_GET['d']) && $_GET['d'] != "") {
 								<?php
 								if (isset($_POST['adults'])) {
 									$adults = $_POST['adults'];
-									echo '<td><input id="noGuest" type="number" name="adults" placeholder="No. of Adults" value="' . $adults . '" min="0" required></td>';
+									echo '<td><input id="noGuest" type="number" name="adults" placeholder="No. of Adults" value="' . $adults . '" min="0" value="1"></td>';
 								} else {
-									echo '<td><input id="noGuest" type="number" name="adults" placeholder="No. of Adults" required min="0" required></td>';
+									echo '<td><input id="noGuest" type="number" name="adults" placeholder="No. of Adults" required min="0" value="1"></td>';
 								}
 								?>
 							</tr>
@@ -477,9 +481,9 @@ if (isset($_GET['d']) && $_GET['d'] != "") {
 								<?php
 								if (isset($_POST['children'])) {
 									$children = $_POST['children'];
-									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" value="' . $children . '"  min="0" required></td>';
+									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" value="' . $children . '"  min="0" value="0"></td>';
 								} else {
-									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" required min="0" required></td>';
+									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" required min="0" value="0"></td>';
 								}
 								?>
 							</tr>
@@ -523,7 +527,6 @@ if (isset($_GET['d']) && $_GET['d'] != "") {
 				</div>
 			</div>
 		</div>
-
 	</section>
 	<?php
 	$query = "SELECT socialFB, socialTwitter, socialInstagram, contact, email, footerRight
@@ -607,7 +610,7 @@ if (isset($_GET['d']) && $_GET['d'] != "") {
 				console.log("changed");
 			}
 		});
-		<?php if ($date[1] != "") { ?>
+		<?php if($date[1]!= "") { ?>
 			$dt1.datepicker('option', 'maxDate', moment('<?php print $date[1]; ?>').subtract(1, 'days').format('YYYY-MM-DD'));
 			$dt2.datepicker('option', 'minDate', moment('<?php print $date[0]; ?>').add(1, 'days').format('YYYY-MM-DD'));
 		<?php } ?>
@@ -640,70 +643,72 @@ if (isset($_GET['d']) && $_GET['d'] != "") {
 		}
 	}
 </script>
+<<<<<<< HEAD
 <script>
 	function lettersOnly(input) {
 		var regex = /[^a-z\s]/gi;
 		input.value = input.value.replace(regex, "");
 	}
 </script>
+=======
+
+
+>>>>>>> parent of 11e01460 (try letters only validation)
 <!-- For updating select node -->
 <script>
 	selectNodeIsUpdating = false;
-
-	function refreshSelectNode() {
-		if (selectNodeIsUpdating) {
+        function refreshSelectNode() {
+		if(selectNodeIsUpdating) {
 			// console.log("still updating");
 			return;
 		};
 		// console.log("pasok");
-		let date = [$("#from").val(), $("#to").val()];
-		if (!moment(date[0], 'YYYY-MM-DD', true).isValid() || !moment(date[0], 'YYYY-MM-DD', true).isValid()) {
-			$("#nameRoom").html(`<select id="nameRoom" name="roomName" name="pickRoom" onchange="selectRate()"></select>`);
-			return;
-		}
-		let reg = new RegExp('^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$', 'g');
-		if (!reg.test(date[0]) && !reg.test(date[0])) return;
-		let filteredDate = [
-			moment(date[0], 'YYYY-MM-DD', true).format('YYYY-MM-DD'),
-			moment(date[1], 'YYYY-MM-DD', true).format('YYYY-MM-DD')
-		];
-		let uriDate = encodeURIComponent(btoa(JSON.stringify(filteredDate)));
-		// console.log(filteredDate);
+        let date = [$("#from").val(), $("#to").val()];
+        if(!moment(date[0], 'YYYY-MM-DD', true).isValid() || !moment(date[0], 'YYYY-MM-DD', true).isValid()) {
+            $("#nameRoom").html(`<select id="nameRoom" name="roomName" name="pickRoom" onchange="selectRate()"></select>`);
+            return;
+        }
+        let reg = new RegExp('^\\d{4}\\-(0[1-9]|1[012])\\-(0[1-9]|[12][0-9]|3[01])$', 'g');
+        if(!reg.test(date[0]) && !reg.test(date[0])) return;
+        let filteredDate = [
+            moment(date[0], 'YYYY-MM-DD', true).format('YYYY-MM-DD'), 
+            moment(date[1], 'YYYY-MM-DD', true).format('YYYY-MM-DD')
+        ];
+        let uriDate = encodeURIComponent(btoa(JSON.stringify(filteredDate)));
+        // console.log(filteredDate);
 		selectNodeIsUpdating = true;
-		$.get("/public_assets/modules/php/database/reservationControls/getAvailableRoomsAsSelect.php", {
-				d: uriDate
-			},
-			function(data, textStatus, jqXHR) {
+        $.get("/public_assets/modules/php/database/reservationControls/getAvailableRoomsAsSelect.php", {d: uriDate},
+            function (data, textStatus, jqXHR) {
 				selectNodeIsUpdating = false;
-				// console.log("done");
-				let target = $("#nameRoom").get(0);
-				if (!$(data).get(0).isEqualNode(target)) {
-					console.log("New room list");
-					$("#nameRoom").html($(data).html());
+                // console.log("done");
+                let target = $("#nameRoom").get(0);
+                if(!$(data).get(0).isEqualNode(target)) {
+                    console.log("New room list");
+                    $("#nameRoom").html($(data).html());
 					selectRate();
-				}
-			},
-			"html"
-		);
-	}
+                }
+            },
+            "html"
+        );
+    }
 
-	const runSelectUpdateInterval = () => {
-		var i = 0;
-		var intervalId = setInterval(function() {
-			// if (i === 100) {
-			//     clearInterval(intervalId);
-			// }
-			refreshSelectNode();
-			console.log(i);
-			i += 5;
-		}, 5000);
-	};
+    const runSelectUpdateInterval = () => {
+        var i = 0;
+        var intervalId = setInterval(function () {
+            // if (i === 100) {
+            //     clearInterval(intervalId);
+            // }
+            refreshSelectNode();
+            console.log(i);
+            i+=5;
+        }, 5000);
+    };
 
-	$(function() {
+    $(function () {
 		refreshSelectNode();
-		runSelectUpdateInterval();
+        runSelectUpdateInterval();
 		console.log("Finish");
-	});
+    });
 </script>
 
 </html>
