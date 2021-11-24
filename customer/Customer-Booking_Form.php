@@ -642,7 +642,7 @@ if (isset($_GET['d']) && $_GET['d'] != "") {
 </script>
 <script>
 	function lettersOnly(input) {
-		var regex =  (/^[A-Za-z]+$/);
+		var regex =  /^[A-Za-z]+$/;
 		//input.value = input.value.replace(regex, "");
 	}
 </script>
