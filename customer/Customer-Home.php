@@ -197,7 +197,8 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             height: 500px;
             width: 100%;
         }
-        iframe{
+
+        iframe {
             width: 100%;
             height: 500px;
         }
@@ -319,7 +320,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
     <section class="map-section bg-light" id="map">
         <div class="container">
             <div class="row">
-                <div class="mapouter">
+                <div class="col-md-10 col-lg-8 mx-auto text-center">
                     <div class="gmap_canvas">
                         <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=Luneta&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.embedgooglemap.net"></a>
                     </div>
