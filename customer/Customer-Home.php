@@ -11,11 +11,11 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <?php
-    require_once(dirname(__FILE__, 2) . "/public_assets/modules/php/directories/directories.php");
-    include_once(__D_UI__ . "js/analytics.php");
-    ?>
+<head>	
+    <?php 
+		require_once(dirname(__FILE__, 2)."/public_assets/modules/php/directories/directories.php");
+		include_once(__D_UI__."js/analytics.php"); 
+	?>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
@@ -29,6 +29,11 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 
 
     <style type="text/css">
+        map {
+            height: 500px;
+            width: 100%;
+        }
+
         .footer {
             background-color: black;
             color: rgba(255, 255, 255, .8);
@@ -38,9 +43,8 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             width: 100%;
             text-align: center;
         }
-
-        h6 {
-            color: white;
+        h6{
+            color:white;
         }
 
         .template-demo>.btn {
@@ -104,18 +108,16 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             color: #4c4c4c;
             white-space: pre;
         }
-
-        input#from,
-        input#to {
-            width: 100%;
-            font-size: 1.25rem;
-            outline-color: #999;
-            border: #999;
-            background-color: #E5E8E8;
-            border-radius: 3px;
-            text-align: center;
-            margin: 0 auto;
-            display: block;
+        input#from, input#to{
+        width: 100%;
+			font-size: 1.25rem;
+			outline-color: #999;
+			border: #999;
+			background-color: #E5E8E8;
+			border-radius: 3px;
+			text-align: center;
+			margin: 0 auto;
+			display: block;
         }
 
         .btndate {
@@ -174,34 +176,15 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             transition: 0.3s;
             transform: scale(1.005);
         }
-
         div#ui-datepicker-div {
-            color: #000000;
-        }
+			color: #000000;
+		}
 
-        a.ui-state-default {
-            color: #000000;
-            background-color: #ffffff;
-        }
-
-        .gmap_canvas {
-            overflow: hidden;
-            background: none !important;
-            height: 500px;
-            width: 100%;
-        }
-
-        .mapouter {
-            position: relative;
-            text-align: right;
-            height: 500px;
-            width: 100%;
-        }
-
-        iframe {
-            width: 100%;
-            height: 500px;
-        }
+		a.ui-state-default {
+			color: #000000;
+			background-color: #ffffff;
+			;
+		}
     </style>
 </head>
 
@@ -271,7 +254,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                 <div class="container">
                     <!-- Featured Project Row-->
                     <div class="row align-items-center no-gutters mb-4 mb-lg-5">
-                        <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="/public_assets/rooms/<?php echo $row["roomTypeID"] . "/" . $row["roomTypeID"] . "-cover.jpg"; ?>" alt="" /></div>
+                        <div class="col-xl-8 col-lg-7"><img class="img-fluid mb-3 mb-lg-0" src="/public_assets/rooms/<?php echo $row["roomTypeID"]."/".$row["roomTypeID"]."-cover.jpg"; ?>" alt="" /></div>
                         <div class="col-xl-4 col-lg-5">
                             <div class="featured-text text-center text-lg-left">
                                 <h4><?php echo $row["name"]; ?></h4>
@@ -292,7 +275,7 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
                 if (mysqli_num_rows($result) > 0) {
                     while ($row = mysqli_fetch_assoc($result)) {
                 ?>
-                        <div class="col-lg-6"><img class="img-fluid" src="/public_assets/amenities/<?php echo $row["amenityID"]; ?>/image.jpeg" alt="<?php echo $row["amenityName"] . " image"; ?>" /></div>
+                        <div class="col-lg-6"><img class="img-fluid" src="/public_assets/amenities/<?php echo $row["amenityID"]; ?>/image.jpeg" alt="<?php echo $row["amenityName"]." image"; ?>"/></div>
                         <div class="col-lg-6">
                             <div class="bg-black text-center h-100 project">
                                 <div class="d-flex h-100">
@@ -321,9 +304,8 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
         <div class="container">
             <div class="row">
                 <div class="col-md-10 col-lg-8 mx-auto text-center">
-                    <div class="gmap_canvas">
-                        <iframe id="gmap_canvas" src="https://maps.google.com/maps?q=Luneta&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://www.embedgooglemap.net"></a>
-                    </div>
+                    <div id="map"></div>
+                    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIwzALxUPNbatRBj3Xi1Uhp0fFzwWNBkE&callback=initMap&libraries=&v=weekly" async></script>
                 </div>
             </div>
         </div>
@@ -391,23 +373,23 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             },
         },
         errorElement: 'span',
-        errorPlacement: function(error, element) {
+        errorPlacement: function (error, element) {
             error.addClass('invalid-feedback');
             element.closest('.form-group').append(error);
         },
-        highlight: function(element, errorClass, validClass) {
+        highlight: function (element, errorClass, validClass) {
             $(element).addClass('is-invalid');
         },
-        unhighlight: function(element, errorClass, validClass) {
+        unhighlight: function (element, errorClass, validClass) {
             $(element).removeClass('is-invalid');
         },
-        submitHandler: function(form, e) {
+        submitHandler: function (form, e) {
             // alert("submited");
             let h = window.location.host;
-            let data = JSON.stringify([$("#from").val(), $("#to").val()]);
+            let data = JSON.stringify([$("#from").val(),$("#to").val()]);
             let encodedData = encodeURIComponent(btoa(data));
             let url = `/available/${encodedData}`;
-            window.location.href = url;
+            window.location.href = url ;
         }
     });
     $.validator.addMethod(
