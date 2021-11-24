@@ -70,11 +70,6 @@ $date2 = date_create($dateEndFinal);
 $diff = date_diff($date1, $date2);
 $days = $diff->format("%a");
 
-$customerQuery = "INSERT INTO customer (fname, lname, contact, email, verified, verification) VALUES ('$firstName', '$lastName', '$contact', '$email', 'None', 'None') LIMIT 1;";
-mysqli_query($conn, $customerQuery) or die(mysqli_error($conn));
-
-$customerID = mysqli_insert_id($conn);
-
 /*$customerQuery1 = ("INSERT INTO reservation 
 	( roomNo, customerID, numberOfNightstay, adults, children, checkInDate, checkOutDate, checkInTime, checkOutTime, dateCreated) 
 	VALUES ('0', $customerID, '$days', 'none', 'none' ,'$dateStartFinal', '$dateEndFinal', NULL, NULL, NOW()) LIMIT 1;");
