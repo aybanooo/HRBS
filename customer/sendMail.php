@@ -51,8 +51,8 @@ function sendMail(int|string $reservationID, $debug = false) {
     include "email-template.php";
     $template = ob_get_contents();  
     ob_end_clean();
-    echo $template;
-    exit;
+    // echo $template;
+    // exit;
     $mail = new PHPMailer;
     $mail->isSMTP();
     $mail->SMTPDebug = $debug;
