@@ -285,6 +285,17 @@
                   <th>Children</th>
                   <th>Contact</th>
                   <th>Email</th>
+                  <th>TrxID</th> <!-- Hidden column starting here -->
+                  <th>Currency</th>
+                  <th>Payed Amount</th>
+                  <th>Room Rate</th>
+                  <th>Vat rate</th>
+                  <th>Vat Amount</th>
+                  <th>Service Charge Rate</th>
+                  <th>Service Charge Amount</th>
+                  <th>Voucher Discount Amount</th>
+                  <th>PWD/Senior Discount</th>
+                  <th>Total</th>
                 </tr>
               </thead>
               <tbody>
@@ -868,7 +879,7 @@ table_Reservation = $('#table-reservation').DataTable( {
                 class: "btn btn-default dropdown-toggle"
             },
             buttons: [
-                {
+                /*{
                     extend: "copyHtml5",
                     text: "Copy",
                     exportOptions: {
@@ -880,13 +891,13 @@ table_Reservation = $('#table-reservation').DataTable( {
                     exportOptions: {
                         columns: [":not(:last-child)"]
                     }
-                }, {
+                },*/ {
                     extend: "excelHtml5",
                     text: "Excel",
                     exportOptions: {
                         columns: [":not(:last-child)"]
                     }
-                }, {
+                }/*, {
                     extend: "csvHtml5",
                     text: "CSV",
                     exportOptions: {
@@ -897,8 +908,21 @@ table_Reservation = $('#table-reservation').DataTable( {
                     text: "PDF",
                     exportOptions: {
                         columns: [":not(:last-child)"]
+                    },
+                    orientation: 'landscape',
+                    pageSize: 'LEGAL',
+                    customize : function(doc)
+                    {
+                        // Column width
+                        doc.content.forEach(function(item)
+                        {
+                            if (item.table)
+                            {
+                                item.table.widths = [75, '*', '*', '*', '*', '*']
+                            }
+                        });
                     }
-                }
+                }*/
             ]
         }
   ],
@@ -1007,7 +1031,7 @@ table_Reservation = $('#table-reservation').DataTable( {
     {
       targets: [15,16,17,18,19,20,21,22,23,24,25],
       searchable: true,
-      visible: false
+      // visible: false
     }
   ],
   order: [[2, 'desc']]
