@@ -329,9 +329,10 @@
                 </div>
                 <div class="col-6 mb-3">
                   <small class="d-block text-muted mb-0">Room #</small>
-                  <h5 id="rsvtn-panel-room-num" class="ml-2">
+                  <h5 id="rsvtn-panel-room-num" class="ml-2 mb-0">
                     n/a
                   </h5>
+                  <small id="rsvtn-panel-roomname" class="d-block text-muted mb-0 ml-2">N/a</small>
                 </div>
               </div>
               <div class="row">
@@ -395,6 +396,67 @@
               </div>
             </div>
             <div class="col-12 col-lg-6">
+              <div class="row">
+                <div class="col">
+                  <div class="card card collapsed-card shadow-none">
+                    <div class="card-header cursor-pointer border-bottom" data-card-widget="collapse">
+                      <h4 class="card-title">Payment</h4>
+                      <div class="card-tools">
+                        <i class="fas fa-chevron-down"></i>
+                      </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body background-darker">
+                      <div class="row">
+                        <div class="col text-right">Transaction ID:</div>
+                        <div class="col" id="rsvtn-panel-payment-xID"></div>
+                        <div class="col d-none d-xl-block"></div>
+                      </div>
+                      <div class="row">
+                        <div class="col text-right">Currency:</div>
+                        <div class="col" id="rsvtn-panel-payment-currency"></div>
+                        <div class="col d-none d-xl-block"></div>
+                      </div>
+                      <div class="row mb-3">
+                        <div class="col text-right">Payed Amount:</div>
+                        <div class="col" id="rsvtn-panel-payment-payedAmount"></div>
+                        <div class="col d-none d-xl-block"></div>
+                      </div>
+                      <div class="row">
+                        <div class="col text-right"><span class="fas fa-question-circle fa-xs mx-1" data-toggle='tooltip' title='This rate is (original&nbsp;rate&nbsp;-&nbsp;voucher)'></span>Room Rate:</div>
+                        <div class="col" id="rsvtn-panel-payment-roomrate"></div>
+                        <div class="col d-none d-xl-block"></div>
+                      </div>
+                      <div class="row">
+                        <div class="col text-right">VAT (	<span id="rsvtn-panel-payment-vat-rate"></span>&#x25;):</div>
+                        <div class="col" id="rsvtn-panel-payment-vat"></div>
+                        <div class="col d-none d-xl-block"></div>
+                      </div>
+                      <div class="row">
+                        <div class="col text-right">Service Charge (	<span id="rsvtn-panel-payment-serviceCharge-rate"></span>&#x25;):</div>
+                        <div class="col" id="rsvtn-panel-payment-serviceCharge"></div>
+                        <div class="col d-none d-xl-block"></div>
+                      </div>
+                      <div class="row">
+                        <div class="col text-right">Voucher Discount:</div>
+                        <div class="col" id="rsvtn-panel-payment-voucherValue"></div>
+                        <div class="col d-none d-xl-block"></div>
+                      </div>
+                      <div class="row">
+                        <div class="col text-right">Senior/PWD Discount:</div>
+                        <div class="col" id="rsvtn-panel-payment-PoS"></div>
+                        <div class="col d-none d-xl-block"></div>
+                      </div>
+                      <div class="row">
+                        <div class="col text-right">Total:</div>
+                        <div class="col" id="rsvtn-panel-payment-total"></div>
+                        <div class="col d-none d-xl-block"></div>
+                      </div>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                </div>
+              </div>
               <div class="row">
                 <div class="col">
                   <div class="card card collapsed-card shadow-none">
@@ -904,11 +966,49 @@ table_Reservation = $('#table-reservation').DataTable( {
     }, {
       data: 'email',
       className: 'none'
+    }, { // hide -------------------------------------------------
+      data: 'orderID',
+      className: 'none'
+    }, {
+      data: 'currency',
+      className: 'none'
+    }, {
+      data: 'payedValue',
+      className: 'none'
+    }, {
+      data: 'roomRate',
+      className: 'none'
+    }, {
+      data: 'vat_rate',
+      className: 'none'
+    }, {
+      data: 'vat_value',
+      className: 'none'
+    }, {
+      data: 'serviceCharge_rate',
+      className: 'none'
+    }, {
+      data: 'serviceCharge_value',
+      className: 'none'
+    }, {
+      data: 'voucher_value',
+      className: 'none'
+    }, {
+      data: 'PoS_value',
+      className: 'none'
+    }, {
+      data: 'total',
+      className: 'none'
     }
   ],
   "columnDefs": [
     {orderable: false, targets: 0},
-    {"className": "align-middle", "targets": "_all"}
+    {"className": "align-middle", "targets": "_all"},
+    {
+      targets: [15,16,17,18,19,20,21,22,23,24,25],
+      searchable: true,
+      visible: false
+    }
   ],
   order: [[2, 'desc']]
 });
@@ -1009,10 +1109,26 @@ function updateRsvtnModal(data, rowIndex) {
     $('#input-datetime-checkIn').data('datetimepicker').date(moment.utc(data.checkInTime).local());
   else
     resetCheckInOutPicker();
-  if(data.checkOutTime!="" && data.checkInTime!=null)
+  if(data.checkOutTime!="" && data.checkOutTime!=null) {
     $('#input-datetime-checkOut').data('datetimepicker').date(moment.utc(data.checkOutTime).local());
+    
+  }
   else
     resetCheckInOutPicker();
+
+    $("#rsvtn-panel-roomname").html(data.roomname);
+
+    $("#rsvtn-panel-payment-xID").html(data.orderID);
+    $("#rsvtn-panel-payment-currency").html(data.currency);
+    $("#rsvtn-panel-payment-payedAmount").html(data.payedValue);
+    $("#rsvtn-panel-payment-roomrate").html(data.roomRate);
+    $("#rsvtn-panel-payment-vat-rate").html(parseFloat(data.vat_rate) * 100);
+    $("#rsvtn-panel-payment-vat").html(data.vat_value);
+    $("#rsvtn-panel-payment-serviceCharge-rate").html(parseFloat(data.serviceCharge_rate) * 100);
+    $("#rsvtn-panel-payment-serviceCharge").html(data.serviceCharge_value);
+    $("#rsvtn-panel-payment-voucherValue").html(data.voucher_value);
+    $("#rsvtn-panel-payment-PoS").html(data.PoS_value);
+    $("#rsvtn-panel-payment-total").html(data.total);
 }
 
 $("#table-reservation").on('click', 'tbody td:not(:first-child, .child)', function() {
