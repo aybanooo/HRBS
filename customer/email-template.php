@@ -217,6 +217,10 @@
 																					<tbody>
 																					
 																					<tr>
+																						<td class="tg-zv4m">Room Type</td>
+																						<td class="tg-zv4m"><?php print $roomname; ?></td>
+																					</tr>
+																					<tr>
 																						<td class="tg-zv4m">Check-in Date</td>
 																						<td class="tg-zv4m"><?php print $checkInDate; ?></td>
 																					</tr>
