@@ -6,7 +6,10 @@ require_once __F_VALIDATIONS__;
 
 checkAdminSideAccess();
 
-$sql = 'SELECT A.*, CONCAT(B.`fname`, " ", B.`lname`) AS Name, B.`contact`, B.`email`, B.`verified`, B.`verification` FROM `reservation` A LEFT JOIN `customer` B ON A.`customerID`=B.`customerID`;';
+$sql = 'SELECT A.*, CONCAT(B.`fname`, " ", B.`lname`) AS Name, B.`contact`, B.`email`, B.`verified`, B.`verification`, RSVA.*, P.*  FROM `reservation` A 
+LEFT JOIN `customer` B ON A.`customerID`=B.`customerID` 
+LEFT JOIN `reservation_amount` RSVA ON A.`reservationID`=RSVA.`reservationID`
+LEFT JOIN `paypalpayment` P ON A.`reservationID`=P.`reservationID`;';
 
 $tempConn = createTempDBConnection();
 
