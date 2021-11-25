@@ -35,6 +35,8 @@ function sendMail(int|string $reservationID, $debug = false) {
     
 
     $customerEmail = $rsvDetails['email'];
+    $roomname = $rsvDetails['roomname'];
+
     $roomRate = $rsvDetails['roomRate'];
     $vat = $rsvDetails['vat_value'];
     $serviceCharge = $rsvDetails['serviceCharge_value'];
@@ -49,8 +51,8 @@ function sendMail(int|string $reservationID, $debug = false) {
     include "email-template.php";
     $template = ob_get_contents();  
     ob_end_clean();
-    // echo $template;
-    // exit;
+    echo $template;
+    exit;
     $mail = new PHPMailer;
     $mail->isSMTP();
     $mail->SMTPDebug = $debug;
@@ -69,9 +71,13 @@ function sendMail(int|string $reservationID, $debug = false) {
     GHRBS team";
     //$mail->addAttachment('test.txt');
     if (!$mail->send()) {
-        echo 'Mailer Error: ' . $mail->ErrorInfo;
+        if($debug)
+            echo 'Mailer Error: ' . $mail->ErrorInfo;
+        return false;
     } else {
-        echo 'The email message was sent.';
+        if($debug)
+            echo 'The email message was sent.';
+        return true;
     }
 }
 
