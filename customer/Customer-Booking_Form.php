@@ -407,6 +407,12 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 									</select>
 								</td>
 							</tr>
+							<tr>
+								<th class="float-right">Number of available room</th>
+								<td id="roomsCount" class="text-right">
+									
+								</td>
+							</tr>
 							<tr align="right" class="roomEntryRate">
 								<th><label>Price:</label></th>
 								<td id="ans"></td>
@@ -475,9 +481,9 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 								<?php
 								if (isset($_POST['adults'])) {
 									$adults = $_POST['adults'];
-									echo '<td><input id="noGuest" type="number" name="adults" placeholder="No. of Adults" value="' . $adults . '" min="0" value="1" max=""></td>';
+									echo '<td><input id="noGuestAdult" type="number" name="adults" placeholder="No. of Adults" value="' . $adults . '" min="1" value="1" max=""></td>';
 								} else {
-									echo '<td><input id="noGuest" type="number" name="adults" placeholder="No. of Adults" required min="0" value="1" max=""></td>';
+									echo '<td><input id="noGuestAdult" type="number" name="adults" placeholder="No. of Adults" required min="1" value="1" max=""></td>';
 								}
 								?>
 							</tr>
@@ -486,9 +492,9 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 								<?php
 								if (isset($_POST['children'])) {
 									$children = $_POST['children'];
-									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" value="' . $children . '"  min="0" value="0" max="">></td>';
+									echo '<td><input id="noGuestChild" type="number" name="children" placeholder="No. of Childrens" value="' . $children . '"  min="0" value="0" max="">></td>';
 								} else {
-									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" required min="0" value="0" max=""></td>';
+									echo '<td><input id="noGuestChild" type="number" name="children" placeholder="No. of Childrens" required min="0" value="0" max=""></td>';
 								}
 								?>
 							</tr>
@@ -577,6 +583,17 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 <script src="/public_assets/modules/libraries/daterangepicker/daterangepicker.js"></script>
 <script>
 	function selectRate() {
+
+		let selectNode = $("#nameRoom option:selected");
+		let maxAdult = selectNode.attr('data-maxAdult');
+		let maxChild = selectNode.attr('data-maxChild');
+		let count = selectNode.attr('data-count');
+		console.log(">>", maxAdult, maxChild);
+		$("#noGuestAdult").val(1);
+		$("#noGuestChild").val(0	);
+		$("#noGuestAdult").attr('max', maxAdult);
+		$("#noGuestChild").attr('max', maxChild);
+		$("#roomsCount").text(count);
 		var roomID = document.getElementById("nameRoom").value;
 		$.ajax({
 			url: "showETC.php",
@@ -638,15 +655,15 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 </Script>
 
 <script>
-	var number = document.getElementById("noGuest");
+	// var number = document.getElementById("noGuest");
 
-	number.onkeydown = function(e) {
-		if (!((e.keyCode > 95 && e.keyCode < 106) ||
-				(e.keyCode > 47 && e.keyCode < 58) ||
-				e.keyCode == 8)) {
-			return false;
-		}
-	}
+	// number.onkeydown = function(e) {
+	// 	if (!((e.keyCode > 95 && e.keyCode < 106) ||
+	// 			(e.keyCode > 47 && e.keyCode < 58) ||
+	// 			e.keyCode == 8)) {
+	// 		return false;
+	// 	}
+	// }
 </script>
 <script>
 	function lettersOnly(input) {

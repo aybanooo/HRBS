@@ -12,8 +12,15 @@ $date = decodeCheckinoutDate($_GET['d']);
 if(!$date) die;
 
 $roomIDs = getBookableRoomsID($date[0], $date[1]);
-if(!empty($roomIDs))
-$rooms = getRoomDetails($roomIDs);
+if(!empty($roomIDs)) {
+    $rooms = getRoomDetails($roomIDs);
+    $availRoomsCount = getRoomTypeAvailRoomsCount($date[0], $date[1]);
+    foreach($availRoomsCount as $value) {
+        $test[$value['roomTypeID']] = $value['roomsAvail'];
+        $i = array_search($value['roomTypeID'], array_column($rooms, 'roomTypeID'));
+        $rooms[$i]['roomsAvail'] = $value['roomsAvail'];
+    }
+}
 ?>
 
 <select id="nameRoom" name="roomName" name="pickRoom" onchange="selectRate()">
@@ -21,7 +28,7 @@ $rooms = getRoomDetails($roomIDs);
 
 if(!empty($roomIDs))
 foreach($rooms as $room) { ?>
-    <option value="<?php print $room['roomTypeID'];?>"><?php print $room['name'];?></option>
+    <option data-maxAdult="<?php print $room['maxAdult']; ?>" data-maxChild="<?php print $room['maxChildren']; ?>" data-count="<?php print $room['roomsAvail']; ?>" value="<?php print $room['roomTypeID'];?>"><?php print $room['name'];?></option>
 <?php }
 else
     echo '<option value="">No rooms available</option>';
