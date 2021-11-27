@@ -322,6 +322,7 @@
                   <th>Check-Out Date</th>
                   <th>Check-In Time</th>
                   <th>Check-Out Time</th>
+                  <th>Early Check-Out Date</th>
                   <th># of stay (per night)</th>
                   <th>Adults</th>
                   <th>Children</th>
@@ -547,6 +548,22 @@
                                 data-toggle="datetimepicker">
                                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                               </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class='col-12'>
+                          <div class="form-group">
+                            <small class="d-block text-muted mb-0">Early Check-Out Date</small>
+                            <div class="input-group date" id="input-date-earlyCheckOut" data-target-input="nearest">
+                              <input placeholder="Click the calendar button" type="text"
+                                class="form-control datetimepicker-input" data-target="#input-date-earlyCheckOut" />
+                              <div class="input-group-append" data-target="#input-date-earlyCheckOut"
+                                data-toggle="datetimepicker">
+                                <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                              </div>
+                            </div>
+                            <div id="label-EarlyCheckout">
+                              
                             </div>
                           </div>
                         </div>
@@ -1110,6 +1127,15 @@ $(function () {
       useCurrent: false
   });
 
+  $('#input-date-earlyCheckOut').datetimepicker({
+      icons: { time: 'far fa-clock' },
+      sideBySide: true,
+      ignoreReadonly: true,
+      useCurrent: false,
+      format: 'L'
+  });
+
+  $('#input-date-earlyCheckOut input').attr('readonly', 'readonly');
   $('#input-datetime-checkOut input').attr('readonly', 'readonly');
 
   $("#input-datetime-checkIn").on("change.datetimepicker", function (e) {
@@ -1139,7 +1165,7 @@ $(function () {
     //console.log(d);
     let checkInHaveVal = $('#input-datetime-checkIn').data('datetimepicker').date() != null;
     if(checkInHaveVal) {
-      console.log(">>", moment.utc(d.checkInTime).toString());
+      console.log(">>", moment(d.checkInTime).toString());
       if(moment().isSameOrAfter( $('#input-datetime-checkIn').data('datetimepicker').date() ))
         $('#input-datetime-checkOut').data('datetimepicker').date(moment());
       else
@@ -1153,8 +1179,8 @@ $(function () {
     let i = $("#rsvtn-panel-id").attr('data-index');
     let d = table_Reservation.rows().data()[i];
     if(date==null) return;
-    if(date.isSame(moment.utc(d.checkInTime))) return;
-    $.post("customFiles/php/database/reservationControls/setCheckInTime.php", {"date-checkIn": moment.utc(date).format('YYYY-MM-DD HH:mm'), rsvid: d.reservationID},
+    if(date.isSame(moment(d.checkInTime))) return;
+    $.post("customFiles/php/database/reservationControls/setCheckInTime.php", {"date-checkIn": moment(date).format('YYYY-MM-DD HH:mm'), rsvid: d.reservationID},
       function (response, textStatus, jqXHR) {
         //console.log(response);        
         Toast.fire({
@@ -1163,7 +1189,7 @@ $(function () {
         });
         if(response.isSuccessful) {
           let target = table_Reservation.row("#"+d.reservationID);
-          target.data().checkInTime = moment.utc(date).format('YYYY-MM-DD HH:mm').toString();
+          target.data().checkInTime = moment(date).format('YYYY-MM-DD HH:mm').toString();
           target.invalidate();
           console.log(date.format("MMM D YYYY h:mm a").toString());        
           $("#rsvtn-panel-check-in-time").html(date.format("h:mm a[<small class='d-block text-muted mb-0'>]MMM D YYYY [</small>]").toString());
@@ -1177,8 +1203,8 @@ $(function () {
     let i = $("#rsvtn-panel-id").attr('data-index');
     let d = table_Reservation.rows().data()[i];
     if(date==null) return;
-    if(date.isSame(moment.utc(d.checkOutTime))) return;
-    $.post("customFiles/php/database/reservationControls/setCheckOutTime.php", {"date-checkOut": moment.utc(date).format('YYYY-MM-DD HH:mm'), rsvid: d.reservationID},
+    if(date.isSame(moment(d.checkOutTime))) return;
+    $.post("customFiles/php/database/reservationControls/setCheckOutTime.php", {"date-checkOut": moment(date).format('YYYY-MM-DD HH:mm'), rsvid: d.reservationID},
       function (response, textStatus, jqXHR) {
         //console.log(response);        
         Toast.fire({
@@ -1187,7 +1213,7 @@ $(function () {
         });
         if(response.isSuccessful) {
           let target = table_Reservation.row("#"+d.reservationID);
-          target.data().checkOutTime = moment.utc(date).format('YYYY-MM-DD HH:mm').toString();
+          target.data().checkOutTime = moment(date).format('YYYY-MM-DD HH:mm').toString();
           target.invalidate();
           $("#rsvtn-panel-check-out-time").html(date.format("h:mm a[<small class='d-block text-muted mb-0'>]MMM D YYYY [</small>]").toString());
         }
@@ -1196,6 +1222,36 @@ $(function () {
     );
   });
 
+  $('#input-date-earlyCheckOut').on("show.datetimepicker", ({date, oldDate}) => { 
+    console.log("show");
+    let i = $("#rsvtn-panel-id").attr('data-index');
+    let d = table_Reservation.rows().data()[i];
+    let rsvid = d.reservationID;
+    console.log(rsvid);
+    if( moment(d.checkOutDate).diff(moment(d.checkInDate), 'days') <= 1) {
+      console.log("Invalid");
+      $('#input-date-earlyCheckOut').datetimepicker('hide');
+      return
+    }
+    console.log(moment().isBefore(d.checkInDate));
+    if(moment().isBefore(d.checkInDate)) {
+      $('#input-date-earlyCheckOut').data('datetimepicker').date(moment(d.checkInDate).add(1, 'days'));
+    }
+    $('#input-date-earlyCheckOut').datetimepicker('minDate', moment(d.checkInDate).add(1, 'days'));
+    $('#input-date-earlyCheckOut').datetimepicker('maxDate', moment(d.checkOutDate).subtract(1, 'days'));
+  });
+
+  $('#input-date-earlyCheckOut').on("hide.datetimepicker", ({date, oldDate}) => { 
+    let i = $("#rsvtn-panel-id").attr('data-index');
+    let d = table_Reservation.rows().data()[i];
+    let rsvid = d.reservationID;
+    if( moment(d.checkOutDate).diff(moment(d.checkInDate), 'days') <= 1) {
+      console.log("Cannot update");
+      return;
+    }
+    let formatedDate = date.format('YYYY-MM-DD');
+    initiateEarlyCheckout(formatedDate , rsvid);
+  });
 
   /* ChartJS
     * -------
@@ -1466,15 +1522,17 @@ table_Reservation = $('#table-reservation').DataTable( {
     }, {
       data: 'checkInTime',
       render:(data, type, row, meta) => {
-        let valid = moment.utc(data).isValid();
-        return valid ? moment.utc(data).local().format('YYYY-MM-DD HH:mm') : "";
+        let valid = moment(data).isValid();
+        return valid ? moment(data).format('YYYY-MM-DD HH:mm') : "";
       }
     }, {
       data: 'checkOutTime',
       render:(data, type, row, meta) => {
-        let valid = moment.utc(data).isValid();
-        return valid ? moment.utc(data).local().format('YYYY-MM-DD HH:mm') : "";
+        let valid = moment(data).isValid();
+        return valid ? moment(data).format('YYYY-MM-DD HH:mm') : "";
       }
+    }, {
+      data: 'earlyCheckout',
     }, {
       data: 'numberOfNightstay',
       className: 'none'
@@ -1619,26 +1677,28 @@ function updateRsvtnModal(data, rowIndex) {
   $("#rsvtn-panel-check-in-date").html(moment(data.checkInDate).format("MMMM Do YYYY [<small class='d-block text-muted mb-0'>]dddd[</small>]").toString());
   $("#rsvtn-panel-check-out-date").html(moment(data.checkOutDate).format("MMMM Do YYYY [<small class='d-block text-muted mb-0'>]dddd[</small>]").toString());
 
-  if(moment.utc(data.checkInTime).isValid())
-    $("#rsvtn-panel-check-in-time").html(moment.utc(data.checkInTime).local().format("h:mm a[<small class='d-block text-muted mb-0'>]MMM D YYYY [</small>]").toString());
+  if(moment(data.checkInTime).isValid())
+    $("#rsvtn-panel-check-in-time").html(moment(data.checkInTime).format("h:mm a[<small class='d-block text-muted mb-0'>]MMM D YYYY [</small>]").toString());
   else
     $("#rsvtn-panel-check-in-time").html("N/a");
 
-  if(moment.utc(data.checkOutTime).isValid())
-    $("#rsvtn-panel-check-out-time").html(moment.utc(data.checkOutTime).local().format("h:mm a[<small class='d-block text-muted mb-0'>]MMM D YYYY [</small>]").toString());
+  if(moment(data.checkOutTime).isValid())
+    $("#rsvtn-panel-check-out-time").html(moment(data.checkOutTime).format("h:mm a[<small class='d-block text-muted mb-0'>]MMM D YYYY [</small>]").toString());
   else
     $("#rsvtn-panel-check-out-time").html("N/a");
-  console.log(data);
-  if(data.checkInTime!="" && data.checkInTime!=null)
-    $('#input-datetime-checkIn').data('datetimepicker').date(moment.utc(data.checkInTime).local());
+  // console.log(">>", data.checkInTime);
+  if(data.checkInTime!="" && data.checkInTime!=null) {
+    $('#input-datetime-checkIn').data('datetimepicker').date(moment(data.checkInTime));
+    console.log("pasok", moment(data.checkInTime).format('YYYY-MM-DD'));
+  }
   else
-    resetCheckInOutPicker();
+    resetCheckInOutPicker(1);
   if(data.checkOutTime!="" && data.checkOutTime!=null) {
-    $('#input-datetime-checkOut').data('datetimepicker').date(moment.utc(data.checkOutTime).local());
+    $('#input-datetime-checkOut').data('datetimepicker').date(moment(data.checkOutTime));
     
   }
   else
-    resetCheckInOutPicker();
+    resetCheckInOutPicker(2);
 
     $("#rsvtn-panel-roomname").html(data.roomname);
 
@@ -1653,6 +1713,24 @@ function updateRsvtnModal(data, rowIndex) {
     $("#rsvtn-panel-payment-voucherValue").html(data.voucher_value);
     $("#rsvtn-panel-payment-PoS").html(data.PoS_value);
     $("#rsvtn-panel-payment-total").html(data.total);
+
+    if( moment(data.checkOutDate).diff(moment(data.checkInDate), 'days') <= 1) {
+      $('#input-date-earlyCheckOut').attr('disabled');
+      $('#input-date-earlyCheckOut').addClass('d-none');
+      $("#label-EarlyCheckout").text('Cannot have an early reservation due to having only 1 night stay');
+    } else {
+      if(data.earlyCheckout!="" && data.earlyCheckout!=null) {
+        $('#input-date-earlyCheckOut').attr('disabled');
+        $('#input-date-earlyCheckOut').addClass('d-none');
+        $("#label-EarlyCheckout").text(moment(data.earlyCheckout).format('dddd, MMMM D YYYY'));
+      } else {
+        $("#label-EarlyCheckout").text('');
+        $('#input-date-earlyCheckOut').attr('disabled', false);
+        $('#input-date-earlyCheckOut').removeClass('d-none');
+      }
+    }
+
+
 }
 
 $("#table-reservation").on('click', 'tbody td:not(:first-child, .child)', function() {
@@ -1800,6 +1878,48 @@ function setCancelled() {
     }
   });
 };
+
+function initiateEarlyCheckout(date, rsvid) {
+  Swal.fire({
+    icon: 'warning',
+    title: 'This action is not reversible',
+    text: 'Are you sure you want to do this?',
+    inputAttributes: {
+      autocapitalize: 'off'
+    },
+    showCancelButton: true,
+    confirmButtonText: 'Yes',
+    showLoaderOnConfirm: true,
+    preConfirm: (login) => {
+      console.log(">", login)
+      return $.post("/admin/customFiles/php/database/reservationControls/setEarlyCheckOut.php", {
+        "date-checkOut": date,
+        rsvid: rsvid
+      },
+        function (data, textStatus, jqXHR) {
+          return
+        },
+        "json"
+    ).promise();
+    },
+    allowOutsideClick: () => !Swal.isLoading()
+  }).then((result) => {
+    if (result.isConfirmed) {
+      console.log(result.value);
+      Swal.fire({
+        icon: result.value.status,
+        title: result.value.message
+      })
+      if(result.value.isSuccessful) {
+        $('#input-date-earlyCheckOut').attr('disabled');
+        $('#input-date-earlyCheckOut').addClass('d-none');
+        $("#label-EarlyCheckout").text(moment(date).format('dddd, MMMM D YYYY'));
+      }
+    }
+    $('#input-date-earlyCheckOut').data('datetimepicker').date(null);
+    table_Reservation.ajax.reload();
+  });
+  }
 
 </script>
 
