@@ -622,7 +622,7 @@
                     <div class="col-12 col-lg-6">
                       <div class="form-group">
                         <label>Check-in and Check-out Date</label>
-                        <input type="text" class="form-control" name="form-walk_in-bookingRange" id="form-walk_in-bookingRange" aria-describedby="helpId" placeholder="">
+                        <input type="text" class="form-control" name="form-walk_in-bookingRange" id="form-walk_in-bookingRange" aria-describedby="helpId" placeholder="" autocomplete="off">
                         <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
                       </div>
                     </div>
@@ -739,7 +739,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <label for="form-walk_in-submit" tabindex="0" class="btn btn-primary">Submit</label>
+            <label id="form-walk_in-label-submit" for="form-walk_in-submit" tabindex="0" class="btn btn-primary">Submit</label>
           </div>
         </div>
       </div>
@@ -994,7 +994,14 @@ $("#form-walk_in").validate({
       regex: '^[\\w|\\d]+(-[\\w|\\d]+)*$'
     },
     "form-walk_in-input-xID": {
-      required: true
+      required: true,
+      remote: {
+        url: "/admin/customFiles/php/database/reservationControls/checkTransactionID.php",
+        type: "post",
+        data: {
+          xid: () => $("#form-walk_in-input-xID").val()
+        }
+      }
     }
   },
   messages: {
@@ -1024,6 +1031,7 @@ $("#form-walk_in").validate({
     let child = $("#form-walk_in-input-guest-child").val();
     let PoS = $("#form-walk_in-input-PoS").val();
     let rid = $("#form-walk_in-select-roomtype option:selected").attr('data-rid');
+    toggleButtonDisabled("#form-walk_in-label-submit", "#modal-walk_in", '');
     $.post("/public_assets/modules/php/database/reservationControls/createNewWalkin.php", {
         fname:  fname,
         lname:  fname,
@@ -1037,17 +1045,25 @@ $("#form-walk_in").validate({
         voucher_code: "",
         xID: xID
     },
-      function (data, textStatus, jqXHR) {
-          console.log(data);
+      function (response, textStatus, jqXHR) {
+          toggleButtonDisabled("#form-walk_in-label-submit", "#modal-walk_in", '');
+          console.log(response);
+          Toast.fire({
+            icon: response.status,
+            title: response.message
+          });
+          if(response.isSuccessful) {
+            $("#form-walk_in").trigger('reset');
+          }
       },
-      // "json"
+      "json"
     );
     console.log("Submited");
   },
   error: function(XMLHttpRequest, textStatus, errorThrown) {
         Toast.fire({
             icon: 'error',
-            title: 'Failed to get calculation'
+            title: 'Something went wrong while processing the reservation'
         });
         console.log(errorThrown);
   }
@@ -1329,20 +1345,21 @@ table_Reservation = $('#table-reservation').DataTable( {
   rowId: 'reservationID',
   dom: "<'row mb-2' <'col'B>><'row'<'col'l><'col'f>>rtip",
   buttons: [
-    
     {
         text: 'New Walk-In Reservation',
         attr: {
           class: "btn btn-primary",
           "data-toggle": "modal",
-          // "data-target": "#modal-walk_in"
+          "data-target": "#modal-walk_in"
         },
         action: function ( e, dt, node, config ) {
-          Swal.fire(
-            'This feature is still in progress',
-            'Nakakapagpasok na ng reservation. Aayusin na lang yung notif kapag successful or failed yung booking :D',
-            'information'
-          );
+
+          // Swal.fire(
+          //   'This feature is still in progress',
+          //   'Nakakapagpasok na ng reservation. Aayusin na lang yung notif kapag successful or failed yung booking :D',
+          //   'information'
+          // );
+
         }
     }, {
         text: 'Refresh',

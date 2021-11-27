@@ -22,6 +22,16 @@ $voucher = $_POST['voucher_code'];
 $xID = $_POST['xID'];
 
 
+
+$connForXID = createTempDBConnection();
+prepareForSQL($connForXID, $xID);
+$XID_exist = mysqli_fetch_all(mysqli_query($connForXID, "SELECT COUNT(*) FROM `paypalpayment` WHERE `orderID` like '$xID' LIMIT 1;"))[0][0];
+mysqli_close($connForXID);
+if($XID_exist) {
+    die($output->setFailed("Transaction ID already exists"));
+}
+
+
 (validateDate($str_checkIn) && validateDate($str_checkOut)) || throw new Exception("Invalid checkin or checkout date");
 $date_checkIn = DateTime::createFromFormat('Y-m-d', $str_checkIn);
 $date_checkOut = DateTime::createFromFormat('Y-m-d', $str_checkOut);
@@ -30,7 +40,7 @@ $bp = new bookingPayment($date_checkIn, $date_checkOut, $rid, $PWDorSENIOR_ID, [
 
 $test = $bp->getBookingDetails();
 if(!$test['VALID_BOOKING']) {
-    die("Invalid booking");
+    die($output->setFailed('Invalid Booking'));
 }
 
 $total = $test['amount']['total'];
@@ -56,7 +66,6 @@ updateToPaid($reservationID);
 updateReservationAmountTable($bp_data, $reservationID);
 
 $quickConn = createTempDBConnection();
-prepareForSQL($quickConn, $xID);
 
 $sql = "INSERT INTO `paypalpayment`(
     `reservationID`, `orderID`, 
@@ -65,11 +74,9 @@ $sql = "INSERT INTO `paypalpayment`(
         $reservationID,'$xID',
         $total, 'PHP');";
 if(!mysqli_query($quickConn, $sql)) {
-    die("Cannot create payment info");
+    die($output->setFailed('Cannot create payment info'));
 }
 // sendMail($reservationID);
 
-echo "done";
-
-
+echo $output->setSuccessful('Reservation has been made');
 ?>
