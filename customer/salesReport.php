@@ -33,12 +33,12 @@ $sheet->setCellValue('F1', 'Revenue');
 $rowCount = 2;
 foreach ($data as $data1)
 {
-    $sheet->setCellValue('A'. $rowCount, $data1['$reservationID']);
-    $sheet->setCellValue('B'. $rowCount, $data1['$customerID']);
-    $sheet->setCellValue('C'. $rowCount, $data1['numberOfNightstay']);
-    $sheet->setCellValue('D'. $rowCount, $data1['payedValue']);
-    $sheet->setCellValue('E'. $rowCount, $data1['origRoomRate']);
-    $sheet->setCellValue('F'. $rowCount, $data1['payedvalue'] * $data1['numberOfNightstay']);
+    $sheet->setCellValue('A'. $rowCount, $data1["reservationID"]);
+    $sheet->setCellValue('B'. $rowCount, $data1["customerID"]);
+    $sheet->setCellValue('C'. $rowCount, $data1["numberOfNightstay"]);
+    $sheet->setCellValue('D'. $rowCount, $data1["payedValue"]);
+    $sheet->setCellValue('E'. $rowCount, $data1["origRoomRate"]);
+    $sheet->setCellValue('F'. $rowCount, $data1["payedValue"] * $data1['numberOfNightstay']);
     $rowCount++;
 }
 
