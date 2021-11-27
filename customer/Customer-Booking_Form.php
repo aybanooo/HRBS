@@ -588,7 +588,7 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 		let maxAdult = selectNode.attr('data-maxAdult');
 		let maxChild = selectNode.attr('data-maxChild');
 		let count = selectNode.attr('data-count');
-		console.log(">>", maxAdult, maxChild);
+		// console.log(">>", maxAdult, maxChild);
 		$("#noGuestAdult").val(1);
 		$("#noGuestChild").val(0	);
 		$("#noGuestAdult").attr('max', maxAdult);
@@ -716,7 +716,7 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
             //     clearInterval(intervalId);
             // }
             refreshSelectNode();
-            console.log(i);
+            // console.log(i);
             i+=5;
         }, 5000);
     };
