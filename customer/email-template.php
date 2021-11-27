@@ -275,7 +275,7 @@
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m"><b>Total:</b></td>
-																						<td class="tg-zv4m"><b><?php print $total." ".$currency; ?></b></td>
+																						<td class="tg-zv4m"><b><?php print number_format($total, 2)." ".$currency; ?></b></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m"></td>
