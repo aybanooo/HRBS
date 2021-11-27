@@ -684,6 +684,14 @@ if (!$bp_details['VALID_BOOKING']) {
 		onError: function(err) {
 			// For example, redirect to a specific error page
 			console.log("---    ", err);
+			Swal.fire({
+				title: 'Something went wrong while processing the reservation',
+				html: `<span class="d-block">The room you have selected may not be available right now or the voucher is not available</span><br><a class="mx-3 text-decoration-none" href="/">Return to home</a>
+				<a href="/customer/Customer-Booking_Form.php" class="swal2-confirm swal2-styled text-white text-decoration-none" aria-label="" style="display: inline-block;">Fill up new form</a>`,
+				icon: 'info',
+				showConfirmButton: false,
+				allowOutsideClick: false
+			});
 			// console.log("Paypal Error");
 
 		}
