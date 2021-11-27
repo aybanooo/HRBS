@@ -158,16 +158,16 @@
 																		style="font-size: 12px; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 18px; color: #283C4B; line-height: 1.5;">
 																		<p
 																			style="margin: 0; font-size: 12px; mso-line-height-alt: 24px;">
-																			<span style="font-size:16px;"><strong><span
-																						style="font-size:16px;">Dear
+																			<span style="font-size:16px;"><span
+																						style="font-size:16px;"><strong>Dear
 																						<?php print  $name;?></span></strong></span>
 																		</p>
 																		<p
 																			style="margin: 0; font-size: 12px; mso-line-height-alt: 24px;">
-																			<span style="font-size:16px;"><strong><span
+																			<span style="font-size:16px;"><span
 																						style="font-size:16px;">Thank
 																						you for choosing to stay with
-																						GHRBS.</span></strong></span>
+																						GHRBS.</span></span>
 																		</p>
 																	</div>
 																</div>
@@ -210,7 +210,7 @@
 																			<span style="font-size:14px;">&nbsp;</span>
 																		</p>
 																		<p style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
-																			<span style="font-size:14px;">Reservation Information</span></p>
+																			<span style="font-size:14px;"><strong>Reservation Information</strong></span></p>
 																		<div align:right;="">
 																			<table class="tg">
 																					
