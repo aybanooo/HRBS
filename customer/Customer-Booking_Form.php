@@ -502,7 +502,7 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 								<td>
 									<div id="seniorDiv">
 										<div class="form-group">
-											<input id="discount" name="discount" type="text" placeholder="ID Number" autocomplete="off">
+											<input id="discount" name="discount" type="text" placeholder="ID Number" autocomplete="off" pattern="^[\w|\d]+(-[\w|\d]+)*$" tle="Must contain letters/numbers/-(dash)">
 										</div>
 									</div>
 								</td>
