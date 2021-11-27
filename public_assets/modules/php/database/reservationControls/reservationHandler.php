@@ -162,10 +162,10 @@ function getRoomTypeAvailRoomsCount(string $checkInDate, string $checkOutDate) {
     $roomtypeCondition = "";
     $sql = "SELECT `roomTypeID`, COUNT(*) as roomsAvail FROM `room` RM  INNER JOIN `roomstatus` RS ON RM.`roomStatusID`=RS.`roomStatusID` WHERE RM.`roomNo` NOT IN (SELECT `roomNo` FROM `reservation` WHERE 
     (`checkInDate` > '$checkInDate' AND `checkInDate` < '$checkOutDate') OR
-    (`checkOutDate` > '$checkInDate' AND `checkOutDate` < '$checkOutDate') OR
-    ('$checkInDate' > `checkInDate` AND '$checkInDate' < `checkOutDate`) OR
-    ('$checkOutDate' > `checkInDate` AND '$checkOutDate' < `checkOutDate`) OR
-    ('$checkInDate' = `checkInDate` AND '$checkOutDate' = `checkOutDate`) && `reservationStatus` IN (0,1)
+    (IFNULL(`earlyCheckout`, `checkOutDate`) > '$checkInDate' AND IFNULL(`earlyCheckout`, `checkOutDate`) < '$checkOutDate') OR
+    ('$checkInDate' > `checkInDate` AND '$checkInDate' < IFNULL(`earlyCheckout`, `checkOutDate`)) OR
+    ('$checkOutDate' > `checkInDate` AND '$checkOutDate' < IFNULL(`earlyCheckout`, `checkOutDate`)) OR
+    ('$checkInDate' = `checkInDate` AND '$checkOutDate' = IFNULL(`earlyCheckout`, `checkOutDate`)) && `reservationStatus` IN (0,1)
     )  && RS.`bookable`=1 $roomtypeCondition GROUP BY `roomTypeID`;";
     $tempConn = createTempDBConnection();
     $result = doQuery_fetchAll($tempConn, $sql, MYSQLI_ASSOC);
@@ -200,10 +200,10 @@ function getBookableRooms(string $checkInDate, string $checkOutDate, int $roomTy
 
     $sql = "SELECT * FROM `room` RM  INNER JOIN `roomstatus` RS ON RM.`roomStatusID`=RS.`roomStatusID` WHERE RM.`roomNo` NOT IN (SELECT `roomNo` FROM `reservation` WHERE 
     (`checkInDate` > '$checkInDate' AND `checkInDate` < '$checkOutDate') OR
-    (`checkOutDate` > '$checkInDate' AND `checkOutDate` < '$checkOutDate') OR
-    ('$checkInDate' > `checkInDate` AND '$checkInDate' < `checkOutDate`) OR
-    ('$checkOutDate' > `checkInDate` AND '$checkOutDate' < `checkOutDate`) OR
-    ('$checkInDate' = `checkInDate` AND '$checkOutDate' = `checkOutDate`) && `reservationStatus` IN (0,1)
+    (IFNULL(`earlyCheckout`, `checkOutDate`) > '$checkInDate' AND IFNULL(`earlyCheckout`, `checkOutDate`) < '$checkOutDate') OR
+    ('$checkInDate' > `checkInDate` AND '$checkInDate' < IFNULL(`earlyCheckout`, `checkOutDate`)) OR
+    ('$checkOutDate' > `checkInDate` AND '$checkOutDate' < IFNULL(`earlyCheckout`, `checkOutDate`)) OR
+    ('$checkInDate' = `checkInDate` AND '$checkOutDate' = IFNULL(`earlyCheckout`, `checkOutDate`)) && `reservationStatus` IN (0,1)
     )  && RS.`bookable`=1 $roomtypeCondition;";
     $tempConn = createTempDBConnection();
     $result = doQuery_fetchAll($tempConn, $sql, MYSQLI_ASSOC);
