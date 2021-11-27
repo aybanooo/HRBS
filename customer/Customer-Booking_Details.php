@@ -45,7 +45,6 @@ if (isset($_POST['seniorcitizen']))
 	$PWDorSENIOR_ID = $_POST['discount'];
 $guest = [intval($_POST['adults']), intval($_POST['children'])];
 $voucher = '';
-// $voucher = '2dpjdcG';
 (validateDate($str_checkIn) && validateDate($str_checkOut)) || throw new Exception("Invalid checkin or checkout date");
 $date_checkIn = DateTime::createFromFormat('Y-m-d', $str_checkIn);
 $date_checkOut = DateTime::createFromFormat('Y-m-d', $str_checkOut);
