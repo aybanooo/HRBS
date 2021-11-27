@@ -33,9 +33,13 @@ $writer->save('php://output');
 */
 
 ?>
-
+<!-- Pang debug -->
 <pre>
     <?php 
         echo json_encode($data);
     ?>
 </pre>
+
+<script>
+    console.log(<?php print json_encode($data); ?>);
+</script>
