@@ -472,7 +472,7 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 								</td>
 							</tr>
 							<?php 
-								$queryGuest = "SELECT maxAdult, maxChildren FROM roomtype WHERE `roomTypeID`='$roomName'";
+								$queryGuest = "SELECT maxAdult, maxChildren FROM roomtype WHERE `roomTypeID`='roomName'";
 								$result = mysqli_query($conn, $queryGuest) or die(mysqli_error($conn));
 								$maxGuest = $result->fetch_array(MYSQLI_ASSOC);
 							?>
