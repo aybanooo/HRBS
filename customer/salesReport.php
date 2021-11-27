@@ -17,28 +17,21 @@ $spreadsheet->getDefaultStyle()
 ->setSize(12);
 
 $spreadsheet->getActiveSheet()
+->getColumnDimension('A')
 ->getColumnDimension('B')
+->getColumnDimension('C')
+->getColumnDimension('D')
 ->setAutoSize(true);
 
-$spreadsheet->getActiveSheet()
-->getColumnDimension('B')
-->setAutoSize(true);
 
 $spreadsheet->getActiveSheet()
-->setCellValue('A1', "value")
-->setCellValue('B1',)
-->setCellValue('C1',)
+->setCellValue('A1', "Revenue")
+->setCellValue('C1',Date::PHPToExcel(datetimenow, value));
 
-
-$spreadsheet->getActiveSheet()
-->setCellValue('A1', "value")
-->setCellValue('B1',)
-->setCellValue('C1',Date::PHPToExcel(datetimenow value));
-
-$spreadsheet->getActiveSheet()
-->getStyle('')
-->getNumberFormat()
-->setFormatCode(FORMAT_DATE_YYYYMMDD2)
+#spreadsheet->getActiveSheet()
+#->getStyle('')
+#->getNumberFormat()
+#->setFormatCode(FORMAT_DATE_YYYYMMDD2);
 
 
 $writer = new Xlsx($spreadsheet);
