@@ -1335,10 +1335,14 @@ table_Reservation = $('#table-reservation').DataTable( {
         attr: {
           class: "btn btn-primary",
           "data-toggle": "modal",
-          "data-target": "#modal-walk_in"
+          // "data-target": "#modal-walk_in"
         },
         action: function ( e, dt, node, config ) {
-
+          Swal.fire(
+            'This feature is still in progress',
+            'Nakakapagpasok na ng reservation. Aayusin na lang yung notif kapag successful or failed yung booking :D',
+            'information'
+          );
         }
     }, {
         text: 'Refresh',
