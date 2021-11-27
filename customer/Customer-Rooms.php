@@ -187,21 +187,23 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
 					$tfedID = towtf($row['roomTypeID'], 3);
 					$id = $row['roomTypeID'];
             ?>
+				
 				<div class="boxinfo1" style="height: 300px; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(<?php print "'/public_assets/rooms/$id/$id-cover.jpg'"; ?>) left center / cover no-repeat;">
 					<div class="roomright w-100 h-100">
 						<div class="container h-100" id="titleContainer">
 							<div class="row">
-								<div class="col-sm-8">
-									<h1><b><?php echo $row["name"]; ?></b></h1>
+								<div class="col-sm-12">
+								<a href='/rooms/<?php echo $tfedID; ?>'><h1><b><?php echo $row["name"]; ?></b></h1></a>
 								</div>
-								<div class="col-sm-4">
-									<a href='/rooms/<?php echo $tfedID; ?>'><button type="button" class="btn btn-primary" >Book a Room</button></a>
+								<div class="col-sm-4 d-none">
+									
 								</div>
 							</div>	
 								<p style="overflow-y: scroll; height: 175px;"><?php echo $row["desc"]; ?></p>
 						</div>
 					</div>
 				</div>
+				
             <?php
                     }
                 }
