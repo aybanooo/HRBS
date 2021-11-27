@@ -238,14 +238,14 @@ if($validCheckinOutDate) {
                             <div class="container-fluid ce-noblank ce-noenter">
                                 <div class="row">
                                     <div class="col-lg-4 mx-auto">
-                                        <a class="roomBack" href="/rooms">
-                                            < Back to Rooms</a>
+                                        <a class="roomBack" href="javascript: void(0)" onclick="history.back()">
+                                            < Back to <?php print isset($appendToBookNow) ? "available" : ""; ?> rooms</a>
                                     </div>
                                     <div class="col-lg-4 mx-auto">
                                         <h3 id="name" class="p-3"><?php print $full_room_data['basicInfo']['name']; ?></h3>
                                     </div>
                                     <div class="col-lg-4 mx-auto">
-                                        <a href="/#check-available-rooms<?php print $appendToBookNow ?? ""; ?>"><button type="button" class="btn btn-success">Book Now</button></a>
+                                        <a href="<?php print isset($appendToBookNow) ? "/Customer-Booking_Form.php".$appendToBookNow : "/#check-available-rooms"; ?>"><button type="button" class="btn btn-success">Book Now</button></a>
                                     </div>
                                 </div>
                             </div>
