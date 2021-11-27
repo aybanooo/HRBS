@@ -21,19 +21,42 @@ $sql = "SELECT * from `reservation` RSV
 
 $data = mysqli_fetch_all(mysqli_query($conn, $sql));
 
-//Uncomment nyo 'to para gumana yung pagprocess ng excel file
-/*
 $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
-$sheet->setCellValue('A1', 'Hello World !');
+$sheet->setCellValue('A1', 'Reservation ID');
+$sheet->setCellValue('B1', 'Booking ID');
+$sheet->setCellValue('C1', 'Customer ID');
+$sheet->setCellValue('D1', 'numberOfNightstay');
+$sheet->setCellValue('E1', 'origRoomRate');
+$sheet->setCellValue('F1', 'Revenue');
+
+$rowCount = 2;
+foreach ($data as $data)
+{
+    $sheet = $spreadsheet->getActiveSheet();
+    $sheet->setCellValue('A'. $rowCount, $data['reservationID']);
+    $sheet->setCellValue('B'. $rowCount, $data['customerID']);
+    $sheet->setCellValue('C'. $rowCount, $data['numberOfNightstay']);
+    $sheet->setCellValue('D'. $rowCount, $data['payedValue']);
+    $sheet->setCellValue('E'. $rowCount, $data['origRoomRate']);
+    $sheet->setCellValue('F'. $rowCount, $data['payedvalue'] * $data1['numberOfNightstay']);
+    $rowCount++;
+}
+
+
+//Uncomment nyo 'to para gumana yung pagprocess ng excel file
+
+
+
+
 
 $writer = new Xlsx($spreadsheet);
-
-// Mahalaga 'to para sa pagdodownload ng file
+//Mahalaga 'to para sa pagdodownload ng file
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header('Content-Disposition: attachment; filename="'. urlencode('data.xlsx').'"');
 $writer->save('php://output');
-*/
+//
+
 
 ?>
 <!-- Pang debug -->
