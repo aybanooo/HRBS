@@ -317,16 +317,15 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 			background-color: #ffffff;
 			;
 		}
-		input::-webkit-outer-spin-button,
+		/*input::-webkit-outer-spin-button,
 		input::-webkit-inner-spin-button {
 			-webkit-appearance: none;
 			margin: 0;
 		}
 
-		/* Firefox */
 		input[type=number] {
 			-moz-appearance: textfield;
-		}
+		}*/
 	</style>
 
 	<title>Booking Details</title>
@@ -494,7 +493,7 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 									$children = $_POST['children'];
 									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" value="' . $children . '"  min="0" value="0" max="<?php echo $maxGuest["maxChildren"]">></td>';
 								} else {
-									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" required min="0" value="0" max="<?php echo $maxGuest["maxChildren"]">></td>';
+									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" required min="0" value="0" max="<?php echo $maxGuest["maxChildren"]"></td>';
 								}
 								?>
 							</tr>
