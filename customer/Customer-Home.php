@@ -33,7 +33,6 @@ $followingdata = $result->fetch_array(MYSQLI_ASSOC);
             height: 500px;
             width: 100%;
         }
-
         .footer {
             background-color: black;
             color: rgba(255, 255, 255, .8);
