@@ -470,19 +470,14 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 									<h4><b>No. of Guest</b></h4>
 								</td>
 							</tr>
-							<?php 
-								$queryGuest = "SELECT maxAdult, maxChildren FROM roomtype WHERE `roomTypeID`='roomName'";
-								$result = mysqli_query($conn, $queryGuest) or die(mysqli_error($conn));
-								$maxGuest = $result->fetch_array(MYSQLI_ASSOC);
-							?>
 							<tr align="right">
 								<th><label for="adults">Adults:</label></th>
 								<?php
 								if (isset($_POST['adults'])) {
 									$adults = $_POST['adults'];
-									echo '<td><input id="noGuest" type="number" name="adults" placeholder="No. of Adults" value="' . $adults . '" min="0" value="1" max="<?php echo $maxGuest['maxAdult']"></td>';
+									echo '<td><input id="noGuest" type="number" name="adults" placeholder="No. of Adults" value="' . $adults . '" min="0" value="1" max=""></td>';
 								} else {
-									echo '<td><input id="noGuest" type="number" name="adults" placeholder="No. of Adults" required min="0" value="1" max="<?php echo $maxGuest['maxAdult']"></td>';
+									echo '<td><input id="noGuest" type="number" name="adults" placeholder="No. of Adults" required min="0" value="1" max=""></td>';
 								}
 								?>
 							</tr>
@@ -491,9 +486,9 @@ if(isset($_GET['d']) && $_GET['d'] != "") {
 								<?php
 								if (isset($_POST['children'])) {
 									$children = $_POST['children'];
-									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" value="' . $children . '"  min="0" value="0" max="<?php echo $maxGuest['maxChildren']">></td>';
+									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" value="' . $children . '"  min="0" value="0" max="">></td>';
 								} else {
-									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" required min="0" value="0" max="<?php echo $maxGuest['maxChildren']"></td>';
+									echo '<td><input id="noGuest" type="number" name="children" placeholder="No. of Childrens" required min="0" value="0" max=""></td>';
 								}
 								?>
 							</tr>
