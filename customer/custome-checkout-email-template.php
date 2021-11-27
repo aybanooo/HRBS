@@ -118,8 +118,7 @@
 																		style="font-size: 12px; font-family: Arial, Helvetica Neue, Helvetica, sans-serif; mso-line-height-alt: 14.399999999999999px; color: #FFFFFF; line-height: 1.2;">
 																		<p
 																			style="margin: 0; font-size: 18px; text-align: center;">
-																			<span style="font-size:24px;">Your booking
-																				confirmation!&nbsp;</span><br></p>
+																			<span style="font-size:24px;">We hope you had a wonderful time during your stay!&nbsp;</span><br></p>
 																	</div>
 																</div>
 															</td>
@@ -214,15 +213,11 @@
 																					<?php print $paypalOrderID; ?></span></p>
 																		<p
 																			style="margin: 0; font-size: 12px; mso-line-height-alt: 21px;">
-																			<span style="font-size:14px;">If you wish to write a review on how well we've done, please click the link below
-																				</span></p>
+																			<span style="font-size:14px;">If you wish to write a review on how well we've done, please click the link below and enter your booking ID (<?php print $paypalOrderID; ?>)
+		</br>https://ghrbs.site/customer/reviews.php</span></p>
 																		<p
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
-																			<span style="font-size:14px;">Our
-																				professional and friendly staff are
-																				committed to ensuring
-																				your&nbsp;stay&nbsp;is both enjoyable
-																				and comfortable.</span></p>
+																			<span style="font-size:14px;">We look forward into seeing you again! Thank you..</span></p>
 																		<p
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
 																			<span style="font-size:14px;">&nbsp;</span>
@@ -298,18 +293,7 @@
 																					</tbody>
 																					</table><br>
 																			</div>
-																		<p
-																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
-																			<span style="font-size:14px;">Should you
-																				have any requests prior to your stay,
-																				please do not hesitate to contact us at
-																				thanoshotelreservation@ghrbs.site&nbsp;
-																				and we will endeavor to assist you
-																				whenever possible.</span></p>
-																		<p
-																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
-																			<span style="font-size:14px;">&nbsp;</span>
-																		</p>
+																		
 																		
 																		<p
 																			style="margin: 0; font-size: 12px; text-align: left; mso-line-height-alt: 21px;">
