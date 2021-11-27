@@ -14,7 +14,10 @@ $dbname = 'u362912910_hrbs';
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-$sql = "SELECT * FROM `reservation`;";
+$sql = "SELECT * from `reservation` RSV 
+            INNER JOIN `customer` C ON RSV.`customerID`=C.`customerID` 
+            INNER JOIN `reservation_amount` RSVA ON RSV.`reservationID`=RSVA.`reservationID`
+            INNER JOIN `paypalpayment` P ON RSV.`reservationID`=P.`reservationID`;";
 
 $data = mysqli_fetch_all(mysqli_query($conn, $sql));
 
