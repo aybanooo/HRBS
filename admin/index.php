@@ -43,6 +43,8 @@
   <link rel="stylesheet" href="plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
   <!-- Tempus Dominus -->
   <link rel="stylesheet" href="plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.css">
+  <!-- Daterange Picker -->
+  <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- Special Style-->
   <link rel="stylesheet" href="customFiles/specialStyle.css">
   <link rel="stylesheet" href="customFiles/overrideStyle.css">
@@ -95,6 +97,46 @@
       opacity: 20%;
     }
 
+    body.dark-mode :is(.daterangepicker, .daterangepicker .calendar-table, .daterangepicker .drp-buttons) {
+      border-color: #454d55;
+    }
+
+    body.dark-mode .daterangepicker td:hover {
+      background-color: rgba(0, 0, 0, 0.25);
+    }
+
+    body.dark-mode .daterangepicker *:not(.start-date, .in-range, .end-date, .btn)  {
+      background-color: #454d55;
+    }
+
+    body.dark-mode .daterangepicker .end-date {
+      background-color: #357ebd !important;
+    }
+
+    body.dark-mode .daterangepicker .in-range {
+      background-color: rgba(0, 0, 0, 0.25);
+    }
+
+    body.dark-mode .daterangepicker .available {
+      color: white;
+    }
+
+    body.dark-mode .daterangepicker .off.ends {
+      color: gray;
+    }
+
+    body.dark-mode .daterangepicker .table-condensed thead > :is(tr:nth-child(2), .available), body.dark-mode .month {
+      color: white;
+    }
+
+    body.dark-mode .daterangepicker .calendar-table .next span, body.dark-mode .daterangepicker .calendar-table .prev span {
+      border-color: white;
+    }
+
+    body.dark-mode .daterangepicker :is(.off, .ends) {
+      background-color: transparent !important;
+    }
+    
   </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed light-mode">
@@ -561,6 +603,147 @@
     </div>
   </div>
   <!-- Reservation view modal END-->
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modal-walk_in" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+      <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add A New Walk-In Reservation</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+          <div class="modal-body">
+            <form class="container-fluid" id="form-walk_in">
+              <div class="row">
+                <div class="col mr-2">
+                  <div class="row">
+                    <div class="col-12 col-lg-6">
+                      <div class="form-group">
+                        <label>Check-in and Check-out Date</label>
+                        <input type="text" class="form-control" name="form-walk_in-bookingRange" id="form-walk_in-bookingRange" aria-describedby="helpId" placeholder="">
+                        <!-- <small id="helpId" class="form-text text-muted">Help text</small> -->
+                      </div>
+                    </div>
+                    <div class="col-12 col-lg-6">
+                      <div class="form-group">
+                          <label class="d-flex justify-content-between" for=""><span>Room Type</span><small class="align-self-end">PHP <span id="form-walk_in-label-roomrate"></span></small></label>
+                          <select class="form-control" id="form-walk_in-select-roomtype" name="form-walk_in-select-roomtype" onchange="showRate()">
+                            <option>No rooms available</option>
+                          </select>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <label>Guest Info</label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-md-6">
+                      <div class="form-group">
+                        <input id="form-walk_in-input-first_name" name="form-walk_in-input-first_name" type="text" class="form-control" placeholder="First name">
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="form-group">
+                      <input id="form-walk_in-input-last_name" name="form-walk_in-input-last_name" type="text" class="form-control" placeholder="Last name">
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="form-group">
+                      <input id="form-walk_in-input-contactNum" name="form-walk_in-input-contactNum" type="text" class="form-control" placeholder="(09)** *** ****">
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="form-group">
+                      <input id="form-walk_in-input-email" name="form-walk_in-input-email" type="email" class="form-control" placeholder="Email Address">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <label>Guest Count <small class="text-muted">Max Adult: <span id="form-walk_in-label-guest-adult"></span> Max Child: <span id="form-walk_in-label-guest-child"></span></small></label>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-md-6">
+                      <div class="form-group">
+                      <input id="form-walk_in-input-guest-adult" name="form-walk_in-input-guest-adult" type="number" min="1" class="form-control" placeholder="# of Adult/s">
+                      </div>
+                    </div>
+                    <div class="col-12 col-md-6">
+                      <div class="form-group">
+                      <input id="form-walk_in-input-guest-child" name="form-walk_in-input-guest-child" type="number" min="0" class="form-control" placeholder="# of Child/s">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <div class="form-group">
+                        <label>PWD/Senior ID (Optional)</label>
+                        <input type="text"
+                          class="form-control" name="form-walk_in-input-PoS" id="form-walk_in-input-PoS" aria-describedby="helpId" placeholder="PWD/Senior ID number">
+                        <small id="helpId" class="form-text text-muted">You can leave this empty if not needed</small>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col ml-2">
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="form-group">
+                        <label for="">Tansaction ID</label>
+                        <input type="text"
+                          class="form-control" name="form-walk_in-input-xID" id="form-walk_in-input-xID" placeholder="Transcation ID">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="container background-darker p-3">
+                    <div class="row">
+                      <div class="col text-right"><span class="fas fa-question-circle fa-xs mx-1 d-none" data-toggle="tooltip" title="This rate is (original&nbsp;rate&nbsp;-&nbsp;voucher)"></span>Room Rate:</div>
+                      <div class="col" id="form-walk_in-payment-roomrate">0</div>
+                      <div class="col d-none d-xl-block"></div>
+                    </div>
+                    <div class="row">
+                      <div class="col text-right">VAT (	<span id="form-walk_in-payment-vat-rate">0</span>%):</div>
+                      <div class="col" id="form-walk_in-payment-vat">0</div>
+                      <div class="col d-none d-xl-block"></div>
+                    </div>
+                    <div class="row">
+                      <div class="col text-right">Service Charge (<span id="form-walk_in-payment-serviceCharge-rate">0</span>%):</div>
+                      <div class="col" id="form-walk_in-payment-serviceCharge">0</div>
+                      <div class="col d-none d-xl-block"></div>
+                    </div>
+                    <div class="row d-none">
+                      <div class="col text-right">Voucher Discount:</div>
+                      <div class="col" id="form-walk_in-payment-voucherValue">0</div>
+                      <div class="col d-none d-xl-block"></div>
+                    </div>
+                    <div class="row mb-2">
+                      <div class="col text-right">Senior/PWD Discount:</div>
+                      <div class="col" id="form-walk_in-payment-PoS">0</div>
+                      <div class="col d-none d-xl-block"></div>
+                    </div>
+                    <div class="row pt-2 border-top">
+                      <h5 class="col text-right">Total:</h5>
+                      <h5 class="col" id="form-walk_in-payment-total">0</h5>
+                      <div class="col d-none d-xl-block"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <input type="submit" id="form-walk_in-submit" class="hidden" />
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <label for="form-walk_in-submit" tabindex="0" class="btn btn-primary">Submit</label>
+          </div>
+        </div>
+      </div>
+    </div>
 
   <!-- Main Footer -->
   <?php include(__F_MAIN_FOOTER__); ?>
@@ -604,15 +787,300 @@
 <script src="plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+<!-- Jquery Validation  -->
+<script src="plugins/jquery-validation/jquery.validate.js"></script>
+<!-- Daterange picker -->
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
 <!-- Special Script-->
 <script src="customFiles/initialize Toastr.js"></script>
 <script src="customFiles/reservation_incidentals.js"></script>
 <script src="customFiles/buttonDisabler.js"></script>
 <script src="customFiles/customScript.js"></script>
 
+
+<!-- Walkin Reservation -->
 <script>
+
+$('#modal-walk_in').on('shown.bs.modal', function (e) {
+  console.log('shown');
+  runSelectUpdateInterval();
+});
+
 $(function () {
 
+   $('#form-walk_in-bookingRange').daterangepicker({
+    minDate: moment(),
+    autoApply: true,
+    startDate: moment(),
+    endDate: moment().add(1, 'days')
+  });
+  dp_walkIn = $('#form-walk_in-bookingRange').data('daterangepicker');
+  $('#form-walk_in-bookingRange').on('apply.daterangepicker', function(ev, picker) {
+    if(picker.startDate.format('YYYY-MM-DD') == picker.endDate.format('YYYY-MM-DD')) {
+      Swal.fire('You cannot select the same date for check-in and check-out');
+      let x=picker.endDate.add(1, 'days').format('YYYY-MM-DD');
+      picker.setEndDate(moment(x));
+    }
+  });
+      
+  $("#form-walk_in-input-guest-adult").change(()=> {
+    calculatePayment();
+  });
+  $("#form-walk_in-input-guest-child").change(()=> {
+    calculatePayment();
+  });
+  $("#form-walk_in-input-PoS").change(()=> {
+    calculatePayment();
+  });
+
+});
+
+$('#form-walk_in-bookingRange').on('apply.daterangepicker', function(ev, picker) {
+  //do something, like clearing an input
+  console.log("date changed");
+  refreshSelectNode();
+});
+
+$("#form-walk_in-select-roomtype").change(()=>showRate());
+
+selectNodeIsUpdating = false;
+function refreshSelectNode() {
+  if(selectNodeIsUpdating) {
+    // console.log("still updating");
+    return;
+  };
+  // console.log("pasok");
+  let chkIn = dp_walkIn.startDate.format('YYYY-MM-DD');
+  let chkOut = dp_walkIn.endDate.format('YYYY-MM-DD');
+  let date = [chkIn, chkOut];
+  let uriDate = encodeURIComponent(btoa(JSON.stringify(date)));
+  // console.log(uriDate);
+  selectNodeIsUpdating = true;
+  $.get("/public_assets/modules/php/database/reservationControls/getAvailableRoomsAsSelect_FA.php", {d: uriDate},
+      function (data, textStatus, jqXHR) {
+          selectNodeIsUpdating = false;
+          // console.log("done");
+          let target = $("#form-walk_in-select-roomtype");
+          let fetchedSelect = $(data);
+          // console.log(data);
+          if(!fetchedSelect[0].isEqualNode(target[0])) {
+            // console.log("New");
+            target.html(fetchedSelect.html());
+            showRate();
+          }
+      },
+      "html"
+  );
+}
+
+const calculatePayment = () => {
+  let requiredInputs = [
+    '#form-walk_in-select-roomtype',
+    '#form-walk_in-input-guest-adult',
+    '#form-walk_in-input-guest-child',
+    '#form-walk_in-input-PoS'
+  ];
+  let valid = requiredInputs.every( (e) => {
+    return $(e).valid();
+  } );
+  if(!valid) return;
+  let chkIn = dp_walkIn.startDate.format('YYYY-MM-DD');
+  let chkOut = dp_walkIn.endDate.format('YYYY-MM-DD');
+  let adult = $("#form-walk_in-input-guest-adult").val();
+  let child = $("#form-walk_in-input-guest-child").val();
+  let PoS = $("#form-walk_in-input-PoS").val();
+  let rid;
+  try {
+    rid = atob($("#form-walk_in-select-roomtype option:selected").attr('data-rid'));
+  } catch(e) {
+    return;
+  }
+  console.log("proceed to post", rid);
+  $.post("/public_assets/modules/php/database/reservationControls/getNewCalculation_All.php", {
+    checkIn: chkIn,
+    checkOut: chkOut,
+    guest: {"adult": adult, "child": child},
+    rid: rid,
+    PoS_ID: PoS,
+    voucher_code: ""
+  },
+    function (data, textStatus, jqXHR) {
+      console.log(data);
+
+      $("#form-walk_in-payment-vat-rate").text(parseFloat(data.details.tax) * 100);
+      $("#form-walk_in-payment-serviceCharge-rate").text(parseFloat(data.details.serviceCharge) * 100);
+
+      $("#form-walk_in-payment-roomrate").text(data.amount.subtotal);
+      $("#form-walk_in-payment-vat").text(data.amount.VAT);
+      $("#form-walk_in-payment-serviceCharge").text(data.amount.ServiceCharge);
+      $("#form-walk_in-payment-PoS").text(data.amount.PoS_discount);
+      $("#form-walk_in-payment-total").text(data.amount.total);
+    },
+    "json"
+  );
+}
+
+
+const runSelectUpdateInterval = () => {
+  refreshSelectNode();
+  var i = 0;
+  var intervalId = setInterval(function () {
+      // if (i === 100) {
+      //     clearInterval(intervalId);
+      // }
+      if (!(($("#modal-walk_in").data('bs.modal') || {})._isShown)) {
+        console.log("Modal is close");
+        clearInterval(intervalId);
+        return;
+      }
+      refreshSelectNode();
+      console.log(i);
+      i+=5;
+  }, 5000);
+};
+
+const showRate = () => {
+  // console.log("show the rate");
+  let target = $("#form-walk_in-select-roomtype option:selected");
+  let rate = target.attr('data-rate');
+  let maxAdult = target.attr('data-maxAdult') ?? "0";;
+  let maxChildren = target.attr('data-maxChildren') ?? "0";
+  // console.log('---', maxAdult, maxChildren);
+  if(typeof target.attr('data-rid') != 'undefined') {
+    $("#form-walk_in-select-roomtype").valid();
+  }
+  $("#form-walk_in-label-roomrate").text(rate);
+  $('#form-walk_in-input-guest-adult').rules('add', {max: maxAdult});
+  $('#form-walk_in-input-guest-child').rules('add', {max: maxChildren});
+  $("#form-walk_in-label-guest-adult").html(maxAdult);
+  $("#form-walk_in-label-guest-child").html(maxChildren);
+
+  calculatePayment();
+};
+
+$("#form-walk_in").validate({
+  rules: {
+    "form-walk_in-bookingRange": {
+      required: true
+    },
+    "form-walk_in-input-first_name": {
+      required: true,
+      regex: '^([A-z]\\s{0,1})+$'
+    },
+    "form-walk_in-select-roomtype": {
+      isRoom: true
+    },
+    "form-walk_in-input-last_name": {
+      required: true,
+      regex: '^([A-z](\\s|\\.){0,1})+$'
+    },
+    "form-walk_in-input-contactNum": {
+      required: true,
+      regex: '(09)\\d{9}'
+    },
+    "form-walk_in-input-email": {
+      required: true,
+      email: true
+    },
+    "form-walk_in-input-guest-adult": {
+      required: true,
+      min: 1
+    },
+    "form-walk_in-input-guest-child": {
+      required: true,
+      min: 0
+    },
+    "form-walk_in-input-PoS": {
+      regex: '^[\\w|\\d]+(-[\\w|\\d]+)*$'
+    },
+    "form-walk_in-input-xID": {
+      required: true
+    }
+  },
+  messages: {
+  },
+  errorElement: 'span',
+  errorPlacement: function (error, element) {
+    if($(element).attr('id')=='form-walk_in-select-roomtype') return;
+    error.addClass('invalid-feedback');
+    element.closest('.form-group').append(error);
+  },
+  highlight: function (element, errorClass, validClass) {
+    $(element).addClass('is-invalid');
+  },
+  unhighlight: function (element, errorClass, validClass) {
+    $(element).removeClass('is-invalid');
+  },
+  submitHandler: function (form, e) {
+
+    let xID = $("#form-walk_in-input-xID").val();
+    let fname = $("#form-walk_in-input-first_name").val();
+    let lname = $("#form-walk_in-input-last_name").val();
+    let contact = $("#form-walk_in-input-contactNum").val();
+    let email = $("#form-walk_in-input-email").val();
+    let chkIn = dp_walkIn.startDate.format('YYYY-MM-DD');
+    let chkOut = dp_walkIn.endDate.format('YYYY-MM-DD');
+    let adult = $("#form-walk_in-input-guest-adult").val();
+    let child = $("#form-walk_in-input-guest-child").val();
+    let PoS = $("#form-walk_in-input-PoS").val();
+    let rid = $("#form-walk_in-select-roomtype option:selected").attr('data-rid');
+    $.post("/public_assets/modules/php/database/reservationControls/createNewWalkin.php", {
+        fname:  fname,
+        lname:  fname,
+        contact:  contact,
+        email:  email,
+        checkIn: chkIn,
+        checkOut: chkOut,
+        guest: {"adult": adult, "child": child},
+        rid: rid,
+        PoS_ID: PoS,
+        voucher_code: "",
+        xID: xID
+    },
+      function (data, textStatus, jqXHR) {
+          console.log(data);
+      },
+      // "json"
+    );
+    console.log("Submited");
+  },
+  error: function(XMLHttpRequest, textStatus, errorThrown) {
+        Toast.fire({
+            icon: 'error',
+            title: 'Failed to get calculation'
+        });
+        console.log(errorThrown);
+  }
+});
+
+$.validator.addMethod(
+  "isRoom",
+  function(value, element, param) {
+    // console.log( element );
+    let z = $(element).find('option:selected').attr('data-rid');
+    if(typeof z === 'undefined') return false;
+    return true;
+  },
+  "No available rooms"
+);
+
+$.validator.addMethod(
+  "regex",
+  function(value, element, regexp) {
+    var re = new RegExp(regexp);
+    return this.optional(element) || re.test(value);
+  },
+  "Please check your input."
+);
+
+
+</script>
+
+<script>
+
+
+$(function () {
+  
   $('#input-datetime-checkIn').datetimepicker({
       sideBySide: true,
       ignoreReadonly: true,
@@ -861,7 +1329,18 @@ table_Reservation = $('#table-reservation').DataTable( {
   rowId: 'reservationID',
   dom: "<'row mb-2' <'col'B>><'row'<'col'l><'col'f>>rtip",
   buttons: [
+    
     {
+        text: 'New Walk-In Reservation',
+        attr: {
+          class: "btn btn-primary",
+          "data-toggle": "modal",
+          "data-target": "#modal-walk_in"
+        },
+        action: function ( e, dt, node, config ) {
+
+        }
+    }, {
         text: 'Refresh',
         action: function ( e, dt, node, config ) {
           toggleButtonDisabled("#btn-rsv-refresh", "#table-reservation_wrapper", "");
@@ -895,7 +1374,7 @@ table_Reservation = $('#table-reservation').DataTable( {
                     extend: "excelHtml5",
                     text: "Excel",
                     exportOptions: {
-                        columns: [":not(:last-child)"]
+                        columns: [":not(:first-child)"]
                     }
                 }/*, {
                     extend: "csvHtml5",
