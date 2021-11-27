@@ -245,7 +245,7 @@ if($validCheckinOutDate) {
                                         <h3 id="name" class="p-3"><?php print $full_room_data['basicInfo']['name']; ?></h3>
                                     </div>
                                     <div class="col-lg-4 mx-auto">
-                                        <a href="<?php print isset($appendToBookNow) ? "/Customer-Booking_Form.php".$appendToBookNow : "/#check-available-rooms"; ?>"><button type="button" class="btn btn-success">Book Now</button></a>
+                                        <a href="<?php print isset($appendToBookNow) ? "/Customer-Booking_Form.php".$appendToBookNow : "/#check-available-rooms"; ?>"><button type="button" class="btn btn-success"><?php print isset($appendToBookNow) ? "Book Now":"Check Availability"; ?></button></a>
                                     </div>
                                 </div>
                             </div>
