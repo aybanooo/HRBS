@@ -255,23 +255,23 @@
 																					<tbody>
 																					<tr>
 																						<td class="tg-zv4m">Room rate: </td>
-																						<td class="tg-zv4m"><?php print $roomRate; ?></td>
+																						<td class="tg-zv4m"><?php print number_format($roomRate, 2); ?></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m">VAT (12%): </td>
-																						<td class="tg-zv4m"><?php print $vat; ?></td>
+																						<td class="tg-zv4m"><?php print number_format($vat, 2); ?></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m">Service Charge:</td>
-																						<td class="tg-zv4m"><?php print $serviceCharge; ?></td>
+																						<td class="tg-zv4m"><?php print number_format($serviceCharge, 2); ?></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m">Voucher Discount: </td>
-																						<td class="tg-zv4m"><?php print $voucher_value; ?></td>
+																						<td class="tg-zv4m"><?php print number_format($voucher_value, 2); ?></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m">Senior Citizen/PWD Discount: </td>
-																						<td class="tg-zv4m"><?php print $PoS_value; ?></td>
+																						<td class="tg-zv4m"><?php print number_format($PoS_value, 2); ?></td>
 																					</tr>
 																					<tr>
 																						<td class="tg-zv4m"><b>Total:</b></td>
