@@ -148,6 +148,31 @@ function addCustomerToDB(array|object &$bp_data) {
     return $id;
 }
 
+function getRoomTypeAvailRoomsCount(string $checkInDate, string $checkOutDate) {
+    $origInDate = $checkInDate;
+    $origOutDate = $checkOutDate;
+    try {
+        $checkInDate = DateTime::createFromFormat('Y-m-d', $checkInDate)->format('Y-m-d');
+        $checkOutDate = DateTime::createFromFormat('Y-m-d', $checkOutDate)->format('Y-m-d');
+    } catch(Exception $e) {
+        throw new Exception("Invalid Date format. Should be YYYY-m-d e.g 2000-12-23");
+    }
+    ($origInDate!=$checkInDate || $origOutDate!=$checkOutDate) && die("Invalid Date");
+    ($checkOutDate <= $checkInDate) && throw new Exception("Check-out date must be greter than or equal to check-in date");
+    $roomtypeCondition = "";
+    $sql = "SELECT `roomTypeID`, COUNT(*) as roomsAvail FROM `room` RM  INNER JOIN `roomstatus` RS ON RM.`roomStatusID`=RS.`roomStatusID` WHERE RM.`roomNo` NOT IN (SELECT `roomNo` FROM `reservation` WHERE 
+    (`checkInDate` > '$checkInDate' AND `checkInDate` < '$checkOutDate') OR
+    (`checkOutDate` > '$checkInDate' AND `checkOutDate` < '$checkOutDate') OR
+    ('$checkInDate' > `checkInDate` AND '$checkInDate' < `checkOutDate`) OR
+    ('$checkOutDate' > `checkInDate` AND '$checkOutDate' < `checkOutDate`) OR
+    ('$checkInDate' = `checkInDate` AND '$checkOutDate' = `checkOutDate`) && `reservationStatus` IN (0,1)
+    )  && RS.`bookable`=1 $roomtypeCondition GROUP BY `roomTypeID`;";
+    $tempConn = createTempDBConnection();
+    $result = doQuery_fetchAll($tempConn, $sql, MYSQLI_ASSOC);
+    mysqli_close($tempConn);
+    return $result;
+}
+
 function getBookableRooms(string $checkInDate, string $checkOutDate, int $roomTypeID = null) {
     $origInDate = $checkInDate;
     $origOutDate = $checkOutDate;
@@ -173,7 +198,7 @@ function getBookableRooms(string $checkInDate, string $checkOutDate, int $roomTy
 //      iy > ax and iy < ay     check if iy is inside a
 //      ax = ix and ay = iy
 
-     $sql = "SELECT * FROM `room` RM  INNER JOIN `roomstatus` RS ON RM.`roomStatusID`=RS.`roomStatusID` WHERE RM.`roomNo` NOT IN (SELECT `roomNo` FROM `reservation` WHERE 
+    $sql = "SELECT * FROM `room` RM  INNER JOIN `roomstatus` RS ON RM.`roomStatusID`=RS.`roomStatusID` WHERE RM.`roomNo` NOT IN (SELECT `roomNo` FROM `reservation` WHERE 
     (`checkInDate` > '$checkInDate' AND `checkInDate` < '$checkOutDate') OR
     (`checkOutDate` > '$checkInDate' AND `checkOutDate` < '$checkOutDate') OR
     ('$checkInDate' > `checkInDate` AND '$checkInDate' < `checkOutDate`) OR
