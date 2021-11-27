@@ -1,6 +1,5 @@
 <?php
-
-require 'vendor/autoload.php';
+require_once(dirname(__FILE__,2).'/public_assets/vendor/autoload.php');
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -8,33 +7,32 @@ use PhpOffice\PhpSpreadsheet\Shared\Date;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
+$servername = 'sql572.main-hosting.eu';
+$username = 'u362912910_thanos';
+$password = '+O90jwO1!1q';
+$dbname = 'u362912910_hrbs';
+
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+$sql = "SELECT * FROM `reservation`;";
+
+$data = mysqli_fetch_all(mysqli_query($conn, $sql));
+
+/*
 $spreadsheet = new Spreadsheet();
 $sheet = $spreadsheet->getActiveSheet();
-
-$spreadsheet->getDefaultStyle()
-->getFont()
-->setName('Arial')
-->setSize(12);
-
-$spreadsheet->getActiveSheet()
-->getColumnDimension('A')
-->getColumnDimension('B')
-->getColumnDimension('C')
-->getColumnDimension('D')
-->setAutoSize(true);
-
-
-$spreadsheet->getActiveSheet()
-->setCellValue('A1', "Revenue")
-->setCellValue('C1',Date::PHPToExcel(datetimenow, value));
-
-#spreadsheet->getActiveSheet()
-#->getStyle('')
-#->getNumberFormat()
-#->setFormatCode(FORMAT_DATE_YYYYMMDD2);
-
+$sheet->setCellValue('A1', 'Hello World !');
 
 $writer = new Xlsx($spreadsheet);
-$writer->save('hello world.xlsx');
+header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+header('Content-Disposition: attachment; filename="'. urlencode('data.xlsx').'"');
+$writer->save('php://output');
+*/
 
 ?>
+
+<pre>
+    <?php 
+        echo json_encode($data);
+    ?>
+</pre>
