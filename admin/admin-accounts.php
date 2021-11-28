@@ -212,7 +212,7 @@ setupUserSession();
                       <input type="text" name="lname" class="form-control" id="inputLname" placeholder="Last Name">
                   </div>
                   <div class="form-group">
-                      <input type="text" name="contact" class="form-control" id="inputContact" placeholder="Enter contact #">
+                      <input type="tel" name="contact" class="form-control" id="inputContact" placeholder="Contact # e.g 09123456789">
                   </div>
                   <div class="form-group mb-0">
                     <select class="form-control" name="select-roles">
@@ -757,13 +757,16 @@ $('#newAccForm').validate({
         remote: "customFiles/php/database/userControls/checkEmpIdExistence.php"
       },
       contact: {
-        required: true
+        required: true,
+        regex: '^(09)\\d{9}$'
       },
       fname : {
-        required: true
+        required: true,
+        regex: '^([A-z]\\s{0,1})+$'
       },
       lname : {
-        required: true
+        required: true,
+      regex: '^([A-z](\\s|\\.){0,1})+$'
       },
       password: {
         required: true,
@@ -782,12 +785,15 @@ $('#newAccForm').validate({
       },
       contact: {
         required: "Please enter a contact #",
+        regex: "Must start with 09 and followed by 9 digits"
       },
       fname: {
-        required: "This field cannot be empty."
+        required: "This field cannot be empty.",
+        regex: "Allowed characters are only A-z"
       },
       lname: {
-        required: "This field cannot be empty."
+        required: "This field cannot be empty.",
+        regex: "Allowed characters are only A-z and . (period)"
       },
       password: {
         required: "Please provide a password",
@@ -815,6 +821,15 @@ $('#newAccForm').validate({
       createAccount(form);
     }
   });
+
+  $.validator.addMethod(
+  "regex",
+  function(value, element, regexp) {
+    var re = new RegExp(regexp);
+    return this.optional(element) || re.test(value);
+  },
+  "Please check your input."
+);
 
   function generateAccountTableEntries() {
     $.ajax({

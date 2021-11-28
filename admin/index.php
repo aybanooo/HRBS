@@ -996,7 +996,7 @@ $("#form-walk_in").validate({
     },
     "form-walk_in-input-contactNum": {
       required: true,
-      regex: '(09)\\d{9}'
+      regex: '^(09)\\d{9}$'
     },
     "form-walk_in-input-email": {
       required: true,
@@ -1025,6 +1025,12 @@ $("#form-walk_in").validate({
     }
   },
   messages: {
+    "form-walk_in-input-first_name": {
+      regex: "Allowed characters are only A-z"
+    },
+    "form-walk_in-input-last_name": {
+      regex: "Allowed characters are only A-z and . (period)"
+    }
   },
   errorElement: 'span',
   errorPlacement: function (error, element) {
