@@ -1246,8 +1246,14 @@ $(function () {
     if(moment().isBefore(d.checkInDate)) {
       $('#input-date-earlyCheckOut').data('datetimepicker').date(moment(d.checkInDate).add(1, 'days'));
     }
-    $('#input-date-earlyCheckOut').datetimepicker('minDate', moment(d.checkInDate).add(1, 'days'));
-    $('#input-date-earlyCheckOut').datetimepicker('maxDate', moment(d.checkOutDate).subtract(1, 'days'));
+    $('#input-date-earlyCheckOut').datetimepicker('minDate', false);
+    $('#input-date-earlyCheckOut').datetimepicker('maxDate', false);
+    try {
+      $('#input-date-earlyCheckOut').datetimepicker('minDate', moment(d.checkInDate).add(1, 'days'));
+      $('#input-date-earlyCheckOut').datetimepicker('maxDate', moment(d.checkOutDate).subtract(1, 'days'));
+    } catch(e) {
+      console.log("error in early checkout");
+    }
   });
 
   $('#input-date-earlyCheckOut').on("hide.datetimepicker", ({date, oldDate}) => { 
@@ -1258,6 +1264,8 @@ $(function () {
       console.log("Cannot update");
       return;
     }
+    // console.log(typeof date);
+    if(date==null) return;
     let formatedDate = date.format('YYYY-MM-DD');
     initiateEarlyCheckout(formatedDate , rsvid);
   });
