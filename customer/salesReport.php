@@ -44,7 +44,7 @@ if (mysqli_num_rows($data) > 0) {
         $rowCount++;
     }
 
-    $sheet -> setCellValue('F' . ($rowCount =+ 1),$revenue);
+    $sheet -> setCellValue('F' . $rowCount =+ 1,$revenue);
     
         
 
