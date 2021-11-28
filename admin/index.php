@@ -1246,8 +1246,14 @@ $(function () {
     if(moment().isBefore(d.checkInDate)) {
       $('#input-date-earlyCheckOut').data('datetimepicker').date(moment(d.checkInDate).add(1, 'days'));
     }
-    $('#input-date-earlyCheckOut').datetimepicker('minDate', moment(d.checkInDate).add(1, 'days'));
-    $('#input-date-earlyCheckOut').datetimepicker('maxDate', moment(d.checkOutDate).subtract(1, 'days'));
+    $('#input-date-earlyCheckOut').datetimepicker('minDate', null);
+    $('#input-date-earlyCheckOut').datetimepicker('maxDate', null);
+    try {
+      $('#input-date-earlyCheckOut').datetimepicker('minDate', moment(d.checkInDate).add(1, 'days'));
+      $('#input-date-earlyCheckOut').datetimepicker('maxDate', moment(d.checkOutDate).subtract(1, 'days'));
+    } catch(e) {
+      console.log("error in early checkout");
+    }
   });
 
   $('#input-date-earlyCheckOut').on("hide.datetimepicker", ({date, oldDate}) => { 
