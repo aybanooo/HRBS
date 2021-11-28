@@ -597,10 +597,13 @@
                   </div>
                 </div>
               </div>
-              <div class="row">
+              <div class="row" id="reservationModal-buttons">
                 <div class="col">
                   <button type="button" class="btn btn-outline-danger float-right" onclick="setCancelled()">
                     Cancel Reservation
+                  </button>
+                  <button type="button" class="btn btn-outline-info float-left" onclick="resendEmail(this)">
+                    Resend Email
                   </button>
                 </div>
               </div>
@@ -1919,6 +1922,26 @@ function initiateEarlyCheckout(date, rsvid) {
     $('#input-date-earlyCheckOut').data('datetimepicker').date(null);
     table_Reservation.ajax.reload();
   });
+  }
+
+  const resendEmail = (e) => {
+    toggleButtonDisabled(e, "#reservationModal-buttons", "Sending...")
+    let i = $("#rsvtn-panel-id").attr('data-index');
+    let d = table_Reservation.rows().data()[i];
+    let rsvid = d.reservationID;
+    // console.log(rsvid);
+    // return;
+    $.post("/admin/customFiles/php/database/reservationControls/resendEmail.php", {rsvid: rsvid},
+      function (response, textStatus, jqXHR) {
+      toggleButtonDisabled(e, "#reservationModal-buttons", "Sending...")
+      // console.log(response);
+      Toast.fire({
+        icon: response.status,
+        title: response.message
+      });
+      },
+      "json"
+    );
   }
 
 </script>
