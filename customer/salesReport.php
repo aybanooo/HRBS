@@ -30,6 +30,8 @@ if (mysqli_num_rows($data) > 0) {
     $sheet->setCellValue('D1', 'numberOfNightstay');
     $sheet->setCellValue('E1', 'origRoomRate');
     $sheet->setCellValue('F1', 'Revenue');
+
+    $revenue = $data1["payedValue"] * $data1['numberOfNightstay'];
     
     $rowCount = 2;
     foreach ($data as $data1) {
@@ -41,6 +43,11 @@ if (mysqli_num_rows($data) > 0) {
         $sheet->setCellValue('F' . $rowCount, $data1["payedValue"] * $data1['numberOfNightstay']);
         $rowCount++;
     }
+
+    $sheet -> setCellValue('F' . ($rowCount =+ 1),$revenue);
+    
+        
+
     $writer = new Xlsx($spreadsheet);
     //Mahalaga 'to para sa pagdodownload ng file
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
