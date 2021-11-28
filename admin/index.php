@@ -1264,6 +1264,8 @@ $(function () {
       console.log("Cannot update");
       return;
     }
+    // console.log(typeof date);
+    if(date==null) return;
     let formatedDate = date.format('YYYY-MM-DD');
     initiateEarlyCheckout(formatedDate , rsvid);
   });
