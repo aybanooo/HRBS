@@ -12,15 +12,22 @@ $date = decodeCheckinoutDate($_GET['d']);
 if(!$date) die;
 
 $roomIDs = getBookableRoomsID($date[0], $date[1]);
-if(!empty($roomIDs))
-$rooms = getRoomDetails($roomIDs);
+if(!empty($roomIDs)) {
+    $rooms = getRoomDetails($roomIDs);
+    $availRoomsCount = getRoomTypeAvailRoomsCount($date[0], $date[1]);
+    foreach($availRoomsCount as $value) {
+        $test[$value['roomTypeID']] = $value['roomsAvail'];
+        $i = array_search($value['roomTypeID'], array_column($rooms, 'roomTypeID'));
+        $rooms[$i]['roomsAvail'] = $value['roomsAvail'];
+    }
+}
 ?>
-<select class="form-control" id="form-walk_in-select-roomtype" name="form-walk_in-select-roomtype" onchange="showRate()" aria-describedby="form-walk_in-select-roomtype-error" aria-invalid="false">
+<select class="form-control" id="form-walk_in-select-roomtype" name="form-walk_in-select-roomtype" onchange="showRate()" aria-invalid="false">
 <?php 
 
 if(!empty($roomIDs))
 foreach($rooms as $room) { ?>
-    <option data-maxChildren="<?php print $room['maxChildren'];?>" data-maxAdult="<?php print $room['maxAdult'];?>" data-rid="<?php print base64_encode($room['roomTypeID']);?>" data-rate="<?php print $room['rate'];?>"><?php print $room['name'];?></option>
+    <option data-roomsAvail="<?php print $room['roomsAvail']; ?>" data-maxChildren="<?php print $room['maxChildren'];?>" data-maxAdult="<?php print $room['maxAdult'];?>" data-rid="<?php print base64_encode($room['roomTypeID']);?>" data-rate="<?php print $room['rate'];?>"><?php print $room['name'];?></option>
 <?php }
 else
     echo '<option>No rooms available</option>';

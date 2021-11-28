@@ -652,6 +652,7 @@
                           <select class="form-control" id="form-walk_in-select-roomtype" name="form-walk_in-select-roomtype" onchange="showRate()">
                             <option>No rooms available</option>
                           </select>
+                          <small><span id="form-walk_in-label-availRooms">0</span> Available Room/s</small>
                         </div>
                     </div>
                   </div>
@@ -954,7 +955,7 @@ const runSelectUpdateInterval = () => {
         return;
       }
       refreshSelectNode();
-      console.log(i);
+      // console.log(i);
       i+=5;
   }, 5000);
 };
@@ -965,6 +966,7 @@ const showRate = () => {
   let rate = target.attr('data-rate');
   let maxAdult = target.attr('data-maxAdult') ?? "0";;
   let maxChildren = target.attr('data-maxChildren') ?? "0";
+  let availRooms = target.attr('data-roomsavail') ?? "0";
   // console.log('---', maxAdult, maxChildren);
   if(typeof target.attr('data-rid') != 'undefined') {
     $("#form-walk_in-select-roomtype").valid();
@@ -974,7 +976,7 @@ const showRate = () => {
   $('#form-walk_in-input-guest-child').rules('add', {max: maxChildren});
   $("#form-walk_in-label-guest-adult").html(maxAdult);
   $("#form-walk_in-label-guest-child").html(maxChildren);
-
+  $("#form-walk_in-label-availRooms").text(availRooms);
   calculatePayment();
 };
 
