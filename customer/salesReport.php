@@ -43,12 +43,7 @@ if (mysqli_num_rows($data) > 0) {
         $sheet->setCellValue('F' . $rowCount, $totalRevenue);
         $rowCount++;
     }
-
-    $sheet -> setCellValue('F' . $rowCount =+ 1,$revenue);
-    
-        
-
-    $writer = new Xlsx($spreadsheet);
+     $writer = new Xlsx($spreadsheet);
     //Mahalaga 'to para sa pagdodownload ng file
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
     header('Content-Disposition: attachment; filename="' . urlencode('data.xlsx') . '"');
