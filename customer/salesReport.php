@@ -20,7 +20,7 @@ $sql = "SELECT * from `reservation` RSV
             INNER JOIN `paypalpayment` P ON RSV.`reservationID`= P.`reservationID`;";
 
 $data = mysqli_query($conn, $sql);
-
+$totalRevenue = $data1["payedValue"] * $data1['numberOfNightstay'];
 if (mysqli_num_rows($data) > 0) {
     $spreadsheet = new Spreadsheet();
     $sheet = $spreadsheet->getActiveSheet();
@@ -38,7 +38,7 @@ if (mysqli_num_rows($data) > 0) {
         $sheet->setCellValue('C' . $rowCount, $data1["numberOfNightstay"]);
         $sheet->setCellValue('D' . $rowCount, $data1["payedValue"]);
         $sheet->setCellValue('E' . $rowCount, $data1["origRoomRate"]);
-        $sheet->setCellValue('F' . $rowCount, $data1["payedValue"] * $data1['numberOfNightstay']);
+        $sheet->setCellValue('F' . $rowCount, $totalRevenue);
         $rowCount++;
     }
     $writer = new Xlsx($spreadsheet);
