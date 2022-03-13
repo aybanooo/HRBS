@@ -723,7 +723,9 @@ function saveData(el) {
         delete savedLogo;
         delete savedPageCover;
       }
-      
+    },
+    always: function (response) {
+      console.log(response);
     }
   });
 }
