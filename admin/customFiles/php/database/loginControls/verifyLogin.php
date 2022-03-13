@@ -50,14 +50,14 @@ if($empId=='admin') {
         'expires' => (time() + (1800)),
         'path' => '/admin/',
         'domain' => $_SERVER['HTTP_HOST'],
-        'secure' => true,
-        'httponly' => true,
+        'secure' => false,
+        'httponly' => false,
         'samesite' => 'Strict',
     ]);
     
     session_start();
     setupUserSession($userInfo);
-    $output->output['data'] = "https://{$ini['CLIENT_DOMAIN_NAME']}/admin/";
+    $output->output['data'] = "http://{$ini['CLIENT_DOMAIN_NAME']}/admin/";
     echo $output->setSuccessful();
     die();
 }
