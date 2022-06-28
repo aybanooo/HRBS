@@ -71,7 +71,7 @@ $ini = parse_ini_file(__CONF_SYSTEM__);
 
 if (session_status() === PHP_SESSION_ACTIVE) {
     # not yet done
-    header("Location: https://{$ini['CLIENT_DOMAIN_NAME']}/admin/");
+    header("Location: http://{$ini['CLIENT_DOMAIN_NAME']}/admin/");
 }
 
 // This single if checks if the empId input user and then creates a login token for user
@@ -126,7 +126,7 @@ if(password_verify($pass, FETCHED_PASS)) {
     
     session_start();
     setupUserSession($userInfo);
-    $output->output['data'] = "https://{$ini['CLIENT_DOMAIN_NAME']}/admin/";
+    $output->output['data'] = "http://{$ini['CLIENT_DOMAIN_NAME']}/admin/";
     echo $output->setSuccessful();
 } else {
     //give error
