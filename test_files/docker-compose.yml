@@ -5,8 +5,6 @@ services:
     build:
       context:  ./HRBS
       dockerfile: Dockerfile
-      args:
-        uid: ${UID}
     container_name: php82
     depends_on:
       - db
