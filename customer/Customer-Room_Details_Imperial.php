@@ -49,15 +49,15 @@ if(isset($_GET['r']) && isset($_GET['d'])) {
     <title><?php echo $followingdata['companyName']; ?>| Room Details</title>
 
     <link href="https://fonts.googleapis.com/css?family=CenturyGothic" rel="stylesheet" />
-    <link href="css (1)/styles (1).css" rel="stylesheet" />
+    <link href="/css (1)/styles (1).css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="css (1)/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/css (1)/fontawesome-free/css/all.min.css">
     <!-- Ion Icons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="css (1)/adminlte/adminlte.min.css">
+    <link rel="stylesheet" href="/css (1)/adminlte/adminlte.min.css">
     <!-- Special Style-->
-    <link rel="stylesheet" href="css (1)/specialSyle.css">
+    <link rel="stylesheet" href="/css (1)/specialSyle.css">
     <link rel="icon" type="image/x-icon" href="" />
 
     <style type="text/css">
