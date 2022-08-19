@@ -13,6 +13,7 @@
       - [Example](#example)
 - [Xampp Setup](#xampp-setup)
   - [Required extension to be enabled in php.ini](#required-extension-to-be-enabled-in-phpini)
+- [Docker Setup](#docker-setup)
 
 # Setup
 
@@ -124,3 +125,8 @@ Follow the commit convention defined by your team
 ## Required extension to be enabled in php.ini
 
     - gd    #This makes changing logo and page cover works. Need 'to para magresize mga image.
+
+# Docker Setup
+
+    - The docker-compose.yml is lockated in the test files
+    - `sudo docker compose up --build`
