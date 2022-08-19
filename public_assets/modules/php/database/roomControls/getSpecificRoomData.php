@@ -131,7 +131,7 @@ $emptyData = [
     "desc" => "",
     "maxAdult"=> "0",
     "maxChildren"=> "0",
-    "rate"=> "0",
+    "rate"=> "",
     "genInfo"=> [],
     "sections" => []
 ];
