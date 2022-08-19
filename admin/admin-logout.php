@@ -4,7 +4,7 @@ require_once("customFiles/php/directories/directories.php");
 
 $ini = parse_ini_file(__CONF_SYSTEM__);
 
-echo "what";
+// echo "what";
 
 setcookie(
     "authkn", 
