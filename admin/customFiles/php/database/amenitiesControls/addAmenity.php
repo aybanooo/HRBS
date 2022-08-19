@@ -16,7 +16,7 @@ checkPermission(__V_P_AMENITIES_MANAGE__, true);
 $amenityName = prepareForSQL($conn, $_POST['inp-amenityName']);
 $description = prepareForSQL($conn, $_POST['inp-textArea-description']);
 
-if(mysqli_query($conn, "INSERT INTO `amenities`(`amenityName`, `amenityDesc`) VALUES ('$amenityName','$description') LIMIT 1;")) {
+if(mysqli_query($conn, "INSERT INTO `amenities`(`amenityName`, `amenityDesc`) VALUES ('$amenityName','$description');")) {
     
 } else {
     echo $output->setFailed("Something went wrong while processing your request.", getConnError($conn));
