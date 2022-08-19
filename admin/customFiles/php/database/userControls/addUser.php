@@ -4,6 +4,7 @@ require_once(__initDB__);
 require_once(__F_FORMAT__);
 require_once __F_PERMISSION_HANDLER__;
 require_once __F_VALIDATIONS__;
+require_once __F_DB_HANDLER__;
 checkAdminSideAccess();
 
 checkPermission(__V_P_ACCOUNT_CREATE__, true);
@@ -32,15 +33,15 @@ VALUES ($empID) LIMIT 1;";
 
 //insert new role data to accesspermission table
 if (mysqli_query($conn, $sql)) {
-  if (mysqli_query($conn, "INSERT INTO `empaccountdetails`(`empID`) VALUES ($empID) LIMIT 1;"))
+  if (mysqli_query($conn, "INSERT INTO `empaccountdetails`(`empID`) VALUES ($empID);"))
     echo $output->setSuccessful("Account have been successfuly created.");
   else {
     mysqli_query($conn, "DELETE FROM `empaccountdetails` WHERE `empID`=$empID LIMIT 1;");
-    echo $output->setFailed("Failed to add user.");
+    echo $output->setFailed("Failed to add userssss.", getConnError($conn));
   }
 } else {
   //echo "<script>console.log(\"Error in sql: " . $sql . "<br>" . $conn->error."\");</script>";
-  echo $output->setFailed("Failed to add user.");
+  echo $output->setFailed("Failed to add user.", getConnError($conn));
 }
 //header('Location: /Thesis/Proto/scratch.php');
 ?>
