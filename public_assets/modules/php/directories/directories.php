@@ -48,8 +48,9 @@ define('__CONF_GAPI_CRDS__', __PRVT_F_ROOT__."thesis-331607-94c600763d0c.json");
 //----- Autoload -----
 define('__AUTOLOAD_PUBLIC__', __D_PUBLIC_ASSETS__.'vendor/autoload.php'); 
 
-define('__F_BASE_CUSTOMER__', "<base href='".$_SERVER['REQUEST_SCHEME']."://".$_SERVER['HTTP_HOST']."/customer/'>");
+$protocol = isset($_SERVER['HTTP_X_FORWARDED_PROTO']) ? $_SERVER['HTTP_X_FORWARDED_PROTO'] : "http";
 
+define('__F_BASE_CUSTOMER__', "<base href='".$protocol."://".$_SERVER['HTTP_HOST']."/customer/'>");
 date_default_timezone_set('Asia/Manila');
 
 return;
