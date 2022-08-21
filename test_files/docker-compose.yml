@@ -11,6 +11,7 @@ services:
     volumes:
       - ./HRBS:/var/www/html/
       - ./private:/var/www/private/
+      - ./uploads.ini:/usr/local/etc/php/conf.d/uploads.ini
     ports:
       - '80:80'
   db:
