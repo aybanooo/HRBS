@@ -1,6 +1,14 @@
-version: 'latest'
+version: '3.5'
 
 services:
+  git:
+    image: git/alpine:latest
+    container_name: HRBS_git
+    build: .
+    command: -C /build clone https://github.com/aybanooo/HRBS.git
+    volumes:
+      - ../HRBS:/build/HRBS
+
   web:
     build: .
     # build:
